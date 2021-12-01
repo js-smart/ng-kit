@@ -1,0 +1,53 @@
+<div [formGroup]="inputFormGroup">
+  <mat-form-field appearance="fill" class="{{ classes }}">
+    <mat-label>{{ label }}</mat-label>
+    <input
+      #inputAutoComplete
+      #trigger="matAutocompleteTrigger"
+      [matAutocomplete]="auto"
+      [placeholder]="placeHolder"
+      [required]="required"
+      formControlName="autocomplete"
+      matInput
+      type="text"
+    />
+
+    <div matSuffix style="display: flex">
+      <button
+        (click)="clearInput($event)"
+        *ngIf="
+          inputFormGroup.get('autocomplete')?.value !== null &&
+          inputFormGroup.get('autocomplete')?.value !== ''
+        "
+        aria-label="Clear"
+        mat-icon-button
+        type="button"
+      >
+        <mat-icon>clear</mat-icon>
+      </button>
+
+      <button
+        (click)="openOrClosePanel($event, trigger)"
+        aria-label="Clear"
+        mat-icon-button
+        type="button"
+      >
+        <mat-icon>{{ arrowIconSubject.getValue() }}</mat-icon>
+      </button>
+    </div>
+
+    <mat-autocomplete
+      #auto="matAutocomplete"
+      (closed)="arrowIconSubject.next('arrow_drop_down')"
+      (opened)="arrowIconSubject.next('arrow_drop_up')"
+      (optionSelected)="arrowIconSubject.next('arrow_drop_down')"
+    >
+      <mat-option
+        *ngFor="let option of filteredOptions | async"
+        [value]="option"
+      >
+        {{ option }}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+</div>

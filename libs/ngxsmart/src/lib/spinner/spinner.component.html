@@ -1,0 +1,14 @@
+<!-- Angular Material Spinner -->
+<mat-spinner
+  *ngIf="!bootstrapSpinner"
+  [color]="color"
+  [diameter]="diameter"
+  [strokeWidth]="strokeWidth"
+  class="mx-auto"
+>
+</mat-spinner>
+
+<!-- Bootstrap Spinner -->
+<div *ngIf="bootstrapSpinner" class="d-flex justify-content-center">
+  <div class="spinner-border bs-spinner" role="status"></div>
+</div>
