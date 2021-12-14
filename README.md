@@ -1,98 +1,264 @@
-# Ngxsmart
+# NGX Smart utilities
+Most commonly used Angular utility libraries
+### Installation
+Install the library
+```shell
+$ npm install @ngxsmart/ngxsmart
+```
+and use it as shown below in each section
 
-This project was generated using [Nx](https://nx.dev).
+### Technologies
+1. Angular 13+
+2. Bootstrap 5+ (if applicable)
 
-<p style="text-align: center;"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="450"></p>
+## Auto Complete
+Reusable Auto Complete that extends Mat Auto Complete component
+### Demo
+https://stackblitz.com/edit/ngxsmart-autocomplete-demo
+### Usage
 
-🔎 **Smart, Extensible Build Framework**
+The library has 3 autocomplete components
 
-## Quick Start & Documentation
+1. autocomplete
+2. object-autocomplete
+3. string-autocomplete
 
-[Nx Documentation](https://nx.dev/angular)
+To use the Auto Complete components, add the following code to the HTML page
 
-[10-minute video showing all Nx features](https://nx.dev/getting-started/intro)
+**app.component.html**
 
-[Interactive Tutorial](https://nx.dev/tutorial/01-create-application)
+```typescript
+<!-- Generic Auto Complete -->
 
-## Adding capabilities to your workspace
+<form [formGroup] = "inputFormGroup" >
+<autocomplete [data] = "cities" [inputFormGroup] = "inputFormGroup" [required] = "true"
+bindLabel = "location"
+bindValue = "id"
+label = "City"
+placeHolder = "Select City" > </autocomplete>
+  < /form>
 
-Nx supports many plugins which add capabilities for developing different types of applications and different tools.
 
-These capabilities include generating applications, libraries, etc as well as the devtools to test, and build projects as well.
+```
 
-Below are our core plugins:
+**app.component.ts**
 
-- [Angular](https://angular.io)
-  - `ng add @nrwl/angular`
-- [React](https://reactjs.org)
-  - `ng add @nrwl/react`
-- Web (no framework frontends)
-  - `ng add @nrwl/web`
-- [Nest](https://nestjs.com)
-  - `ng add @nrwl/nest`
-- [Express](https://expressjs.com)
-  - `ng add @nrwl/express`
-- [Node](https://nodejs.org)
-  - `ng add @nrwl/node`
+Then define form group instances and object array (cities) and names (for string array)
 
-There are also many [community plugins](https://nx.dev/community) you could add.
+```typescript
+// Define objects  
+cities = [{id: 1001, location: 'New York'}, {id: 1002, location: 'Boston'}, {id: 1001, location: 'Washington DC'}];
 
-## Generate an application
+// Define Form Groups 
+inputFormGroup = this.fb.group({
+  autocomplete: ['']
+})
 
-Run `ng g @nrwl/angular:app my-app` to generate an application.
+```
 
-> You can use any of the plugins above to generate applications as well.
+For  `object-autocomplete` and `string-autocomplete` usage see
+the [examples](projects/autocomplete-demo/src/app/app.component.html)
 
-When using Nx, you can create multiple applications and libraries in the same workspace.
+### Auto Complete API
 
-## Generate a library
+#### List of selectors that can be used to select the component(s)
 
-Run `ng g @nrwl/angular:lib my-lib` to generate a library.
+|  AutoComplete Selector      | 
+| ----------- | 
+| autocomplete, lib-autocomplete | 
 
-> You can also use any of the plugins above to generate libraries as well.
+| Object AutoComplete Selector      | 
+| ----------- | 
+| object-autocomplete, lib-object-autocomplete | 
 
-Libraries are shareable across libraries and applications. They can be imported from `@ngxsmart/mylib`.
+| String AutoComplete Selector      | 
+| ----------- | 
+| string-autocomplete, lib-string-autocomplete | 
 
-## Development server
+#### Properties
 
-Run `ng serve my-app` for a dev server. Navigate to http://localhost:4200/. The app will automatically reload if you change any of the source files.
+| Property      | Description | Type | Default Value |
+| ----------- | ----------- |----------- |----------- |
+| inputFormGroup      |  Input Form Group     |FormGroup||
+| label      | Label of the AutoComplete|string||
+| placeHolder      |  PlaceHolder of the AutoComplete|string||
+| appearance      |  Appearance of the AutoComplete, defaults to `fill`     |string|fill|
+| classes      |  List of CSS classes that need to applied to autocomplete|string||
+| bindLabel      |  Applies only to Generic AutoComplete and Object AutoComplete. Attribute of the Object whose value would be shown when searching for data |string|id|
+| bindValue      |  Applies only to Generic AutoComplete and Object AutoComplete. Attribute of the Object whose value would be used for search. Defaults to `ID`     |string|id|
+| required      |  Is AutoComplete      |boolean|false|
+| data      |  List of Objects or String values that need to be bind and searched for     |any[] or string[]|false|
 
-## Code scaffolding
 
-Run `ng g component my-component --project=my-app` to generate a new component.
 
-## Build
 
-Run `ng build my-app` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
-## Running unit tests
+## Alert
+Reusable alert component created with Bootstrap 5+ and Angular 11+
+### Auto Complete API
+#### List of selectors that can be used to select the component
 
-Run `ng test my-app` to execute the unit tests via [Jest](https://jestjs.io).
+| Selector      | 
+| ----------- | 
+| alert,lib-alert | 
 
-Run `nx affected:test` to execute the unit tests affected by a change.
 
-## Running end-to-end tests
+#### Properties
 
-Run `ng e2e my-app` to execute the end-to-end tests via [Cypress](https://www.cypress.io).
+| Property      | Description | Type | Default Value |
+| ----------- | ----------- |----------- |----------- |
+| dismissible      |  If set, displays an inline "Close" button      |boolean|false|
+| dismissOnTimeout      | If set, dismisses the alert after Dismiss Timeout|boolean|true|
+| dismissTimeout      |  Number in milliseconds, after which alert will be closed|string or number|5000|
+| isOpen      |  Is alert visible      |boolean|false|
+| type      |  Alert type. Provides one of four bootstrap supported contextual classes: success, info, warning and danger|string|info|
 
-Run `nx affected:e2e` to execute the end-to-end tests affected by a change.
+## Spinner
+Reusable Spinner component created with Bootstrap 5.x and Angular 12.x
+### API
+#### List of selectors that can be used to select the component
 
-## Understand your workspace
+| Selector      | 
+| ----------- | 
+| spinner,lib-spinner | 
 
-Run `nx dep-graph` to see a diagram of the dependencies of your projects.
 
-## Further help
+#### Properties
 
-Visit the [Nx Documentation](https://nx.dev/angular) to learn more.
+| Property      | Description | Type | Default Value |
+| ----------- | ----------- |----------- |----------- |
+| bootstrapSpinner      |  Use Boostrap Spinner. Default `true` |boolean|false|
+| diameter      |  Diameter of the Angular Material spinner|boolean|true|
+| color      |  Color of the Angular Material spinner|string or `ThemePalette`|5000|
+| strokeWidth      |   Stroke Width of the Angular Material spinner|boolean|false|
 
-## ☁ Nx Cloud
+## Print
+Angular (2++) directive that prints HTML section
+### Usage
+Import the main module `NgxPrintModule` :
 
-### Distributed Computation Caching & Distributed Task Execution
+   ```js
+import {NgxPrintModule} from '@ngxsmart/print';
 
-<p style="text-align: center;"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-cloud-card.png"></p>
+@NgModule({
+  ...
+    imports:
+[NgxPrintModule, ...],
+...
+})
 
-Nx Cloud pairs with Nx in order to enable you to build and test code more rapidly, by up to 10 times. Even teams that are new to Nx can connect to Nx Cloud and start saving time instantly.
+export class YourAppModule {
+}
+```
 
-Teams using Nx gain the advantage of building full-stack applications with their preferred framework alongside Nx’s advanced code generation and project dependency graph, plus a unified experience for both frontend and backend developers.
+**3-** Then plug n' play with it:
 
-Visit [Nx Cloud](https://nx.app/) to learn more.
+- Assuming you want to print the following HTML section:
+
+```html
+
+<div>
+  <!--Your html stuff that you want to print-->
+</div>
+<button>print</button> <!--Your relevant print button-->
+
+```
+
+- Now, what you have to do is tagging your *wanted-to-print* section by an `id` attribute, then link that `id` to a
+  directive parameter in your button :
+
+```html
+ <!--
+   1)- Add an ID here
+ -->
+<div id="print-section">
+  <!--Your html stuff that you want to print-->
+</div>
+
+<!--
+  2)- Add the directive name in your button (ngxPrint),
+  3)- Affect your ID to printSectionId
+-->
+<button printSectionId="print-section" ngxPrint>print</button>
+
+```
+
+### Optional properties
+
+- You want a customized title for your printing window ? you have the choice by adding a new attribute to your print
+  button `printTitle`:
+
+```html
+
+<div id="print-section">
+
+  <!-- ... -->
+
+</div>
+
+<button
+  printTitle="MyTitle"
+  printSectionId="print-section"
+  ngxPrint>print
+</button>
+
+```
+
+- Also, would you like to customize the printing window style sheet (CSS) ? Hence you can do so by adding infinite
+  styles to another attribute called `printStyle`:
+
+```html
+
+<div id="print-section">
+
+  <!-- ... -->
+
+</div>
+
+<button
+  [printStyle]="{h1 : {'color': 'red'}, h2 : {'border': 'solid 1px'}}"
+  printSectionId="print-section"
+  ngxPrint>print
+</button>
+
+```
+
+Here some simple styles were added to every `h1` & `h2` tags within the `div` where `print-section` is tagged to
+its `id` attribute.
+
+- If you would like to use your existing CSS with media print you can add the `useExistingCss` attribute:
+
+```html
+
+<div id="print-section">
+
+  <!-- ... -->
+
+</div>
+
+<button
+  [useExistingCss]="true"
+  printSectionId="print-section"
+  ngxPrint>print
+</button>
+
+```
+
+- If you want to customize the printing window style sheet (CSS) by importing the css provided in assets/css
+  use `styleSheetFile`:
+
+```html
+
+<div id="print-section">
+
+  <!-- ... -->
+
+</div>
+
+<button
+  styleSheetFile="assets/css/custom1.css,assets/css/custom2.css"
+  printSectionId="print-section"
+  ngxPrint>print
+</button>
+
+```
