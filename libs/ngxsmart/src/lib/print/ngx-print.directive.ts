@@ -1,6 +1,6 @@
-import { Directive, HostListener, Input } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
-import { MatPaginator } from '@angular/material/paginator';
+import {Directive, HostListener, Input} from '@angular/core';
+import {MatTableDataSource} from '@angular/material/table';
+import {MatPaginator} from '@angular/material/paginator';
 
 /**
  * Reusable Angular directory that prints given contents of HTML element
@@ -113,9 +113,7 @@ export class NgxPrintDirective {
     for (const key in values) {
       if (values.hasOwnProperty(key)) {
         // @ts-ignore
-        this.printStyleArray.push(
-          (key + JSON.stringify(values[key])).replace(/['"]+/g, '')
-        );
+        this.printStyleArray.push((key + JSON.stringify(values[key])).replace(/['"]+/g, ''));
       }
     }
     this.returnStyleValues();

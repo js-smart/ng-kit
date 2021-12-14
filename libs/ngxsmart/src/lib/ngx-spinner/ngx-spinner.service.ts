@@ -28,9 +28,10 @@ export class NgxSpinnerService {
    * @memberof NgxSpinnerService
    **/
   getSpinner(name: string): Observable<NgxSpinner> {
+    // @ts-ignore
     return this.spinnerObservable
       .asObservable()
-      .pipe(filter((x: NgxSpinner) => x && x.name === name));
+      .pipe(filter(x => x?.name === name));
   }
 
   /**
@@ -42,6 +43,7 @@ export class NgxSpinnerService {
     return new Promise((resolve, _reject) => {
       setTimeout(() => {
         if (spinner && Object.keys(spinner).length) {
+          // @ts-ignore
           spinner['name'] = name;
           this.spinnerObservable.next(
             new NgxSpinner({ ...spinner, show: true })
