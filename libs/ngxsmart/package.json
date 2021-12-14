@@ -1,6 +1,27 @@
 {
   "name": "@ngxsmart/ngxsmart",
-  "version": "0.0.1",
+  "version": "13.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ngxsmart/ngxsmart.git"
+  },
+  "author": {
+    "name": "Pavan Kumar Jadda",
+    "email": "contactdeveloperpj@gmail.com"
+  },
+  "keywords": [
+    "angular",
+    "bootstrap",
+    "spinner",
+    "alert",
+    "print",
+    "autocomplete",
+    "ivy"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ngxsmart/ngxsmart.git/issues"
+  },
   "peerDependencies": {
     "@angular/common": "^13.0.0",
     "@angular/core": "^13.0.0"
