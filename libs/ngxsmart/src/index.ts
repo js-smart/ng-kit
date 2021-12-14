@@ -2,6 +2,7 @@ export * from './lib/alert.module';
 export * from './lib/alert/alert.component';
 export * from './lib/spinner.module';
 export * from './lib/spinner/spinner.component';
+export * from './lib/ngx-spinner/ngx-spinner.service';
 export * from './lib/ngx-spinner/ngx-spinner.component';
 export * from './lib/autocomplete.module';
 export * from './lib/autocomplete/autocomplete.component';
