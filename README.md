@@ -3,7 +3,7 @@ Most commonly used Angular utility libraries
 
 <p align="center">
 
-![build](https://github.com/ngxsmart/ngxsmart/workflows/cicd/badge.svg?branch=main)
+[![CI](https://github.com/ngxsmart/ngxsmart/actions/workflows/cicd.yml/badge.svg)](https://github.com/ngxsmart/ngxsmart/actions/workflows/cicd.yml)
 <a href="https://www.npmjs.com/@ngxsmart/ngxsmart">
 <img src="https://img.shields.io/npm/v/@ngxsmart/ngxsmart" alt="Ngx Cookie Service on npm" />
 </a>
