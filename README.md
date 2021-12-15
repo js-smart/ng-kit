@@ -1,5 +1,14 @@
 # NGX Smart utilities
 Most commonly used Angular utility libraries
+
+<p align="center">
+
+![build](https://github.com/ngxsmart/ngxsmart/workflows/cicd/badge.svg?branch=main)
+<a href="https://www.npmjs.com/@ngxsmart/ngxsmart">
+<img src="https://img.shields.io/npm/v/@ngxsmart/ngxsmart" alt="Ngx Cookie Service on npm" />
+</a>
+</p>
+
 ### Installation
 Install the library
 ```shell
