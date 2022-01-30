@@ -12,25 +12,8 @@ import { TypeOfPipe } from './pipes/type-of.pipe';
 import { AutocompleteComponent } from './autocomplete/autocomplete.component';
 
 @NgModule({
-  declarations: [
-    ObjectAutocompleteComponent,
-    StringAutocompleteComponent,
-    TypeOfPipe,
-    AutocompleteComponent,
-  ],
-  imports: [
-    MatFormFieldModule,
-    ReactiveFormsModule,
-    MatAutocompleteModule,
-    MatInputModule,
-    MatButtonModule,
-    MatIconModule,
-    CommonModule,
-  ],
-  exports: [
-    ObjectAutocompleteComponent,
-    StringAutocompleteComponent,
-    AutocompleteComponent,
-  ],
+	declarations: [ObjectAutocompleteComponent, StringAutocompleteComponent, TypeOfPipe, AutocompleteComponent],
+	imports: [MatFormFieldModule, ReactiveFormsModule, MatAutocompleteModule, MatInputModule, MatButtonModule, MatIconModule, CommonModule],
+	exports: [ObjectAutocompleteComponent, StringAutocompleteComponent, AutocompleteComponent],
 })
 export class AutocompleteModule {}

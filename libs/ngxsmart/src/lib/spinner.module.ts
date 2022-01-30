@@ -6,8 +6,8 @@ import { NgxSpinnerComponent } from './ngx-spinner/ngx-spinner.component';
 import { SafeHtmlPipe } from './ngx-spinner/safe-html.pipe';
 
 @NgModule({
-  declarations: [SpinnerComponent, NgxSpinnerComponent, SafeHtmlPipe],
-  imports: [MatProgressSpinnerModule, CommonModule],
-  exports: [SpinnerComponent, NgxSpinnerComponent],
+	declarations: [SpinnerComponent, NgxSpinnerComponent, SafeHtmlPipe],
+	imports: [MatProgressSpinnerModule, CommonModule],
+	exports: [SpinnerComponent, NgxSpinnerComponent],
 })
 export class SpinnerModule {}
