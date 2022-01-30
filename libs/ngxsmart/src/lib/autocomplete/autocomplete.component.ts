@@ -1,8 +1,19 @@
-import { AfterContentChecked, ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { FormGroup } from '@angular/forms';
-import { map, startWith } from 'rxjs/operators';
-import { MatAutocompleteTrigger } from '@angular/material/autocomplete';
+import {
+	AfterContentChecked,
+	ChangeDetectorRef,
+	Component,
+	ElementRef,
+	EventEmitter,
+	Input,
+	OnInit,
+	Output,
+	ViewChild
+} from "@angular/core";
+import { BehaviorSubject, Observable } from "rxjs";
+import { FormGroup } from "@angular/forms";
+import { map, startWith } from "rxjs/operators";
+import { MatAutocompleteTrigger } from "@angular/material/autocomplete";
+import { MatOptionSelectionChange } from "@angular/material/core";
 
 /**
  * Reusable Auto Complete component that extends MatAutoComplete to show Clear icon and Arrow buttons
@@ -11,9 +22,9 @@ import { MatAutocompleteTrigger } from '@angular/material/autocomplete';
  * @since 12.0.0
  */
 @Component({
-	selector: 'autocomplete, lib-autocomplete',
-	templateUrl: './autocomplete.component.html',
-	styleUrls: ['./autocomplete.component.scss'],
+	selector: "autocomplete, lib-autocomplete",
+	templateUrl: "./autocomplete.component.html",
+	styleUrls: ["./autocomplete.component.scss"]
 })
 export class AutocompleteComponent implements OnInit, AfterContentChecked {
 	/**
@@ -44,17 +55,22 @@ export class AutocompleteComponent implements OnInit, AfterContentChecked {
 	/**
 	 * List of CSS classes that need to applied to autocomplete
 	 */
-	@Input() classes = '';
+	@Input() classes = "";
 
 	/**
 	 * Attribute of the Object whose value would be shown when searching for data. Defaults to `ID`
 	 */
-	@Input() bindLabel = '';
+	@Input() bindLabel = "";
 
 	/**
 	 * Attribute of the Object whose value would be used for search
 	 */
-	@Input() bindValue = 'id';
+	@Input() bindValue = "id";
+
+	/**
+	 * Function that maps an option's control value to its display value in the trigger.
+	 */
+	@Input() displayWith: ((value: any) => string) | null;
 
 	/**
 	 * Specifies if the autocomplete is required. Default is not required.
@@ -67,9 +83,17 @@ export class AutocompleteComponent implements OnInit, AfterContentChecked {
 	@Input() data: any[] | undefined;
 
 	/**
+	 * Emit selected value on selection changes
+	 *
+	 * @author Pavan Kumar Jadda
+	 * @since 13.0.3
+	 */
+	@Output() onSelectionChange = new EventEmitter<any>();
+
+	/**
 	 * BehaviorSubject that shows the current active arrow icon
 	 */
-	arrowIconSubject = new BehaviorSubject('arrow_drop_down');
+	arrowIconSubject = new BehaviorSubject("arrow_drop_down");
 
 	/**
 	 * Filtered options when user
@@ -152,5 +176,16 @@ export class AutocompleteComponent implements OnInit, AfterContentChecked {
 	 */
 	trackByFn(index: number, item: any) {
 		return item[this.bindLabel]?.bindValue;
+	}
+
+	/**
+	 * Emit selected value
+	 * @param $event - Event emitted by autocomplete
+	 *
+	 * @author Pavan Kumar Jadda
+	 * @since 13.0.3
+	 */
+	emitSelectedValue($event: MatOptionSelectionChange) {
+		this.onSelectionChange.emit($event.source.value);
 	}
 }
