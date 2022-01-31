@@ -1,5 +1,6 @@
 import {
 	AfterContentChecked,
+	ChangeDetectionStrategy,
 	ChangeDetectorRef,
 	Component,
 	ElementRef,
@@ -24,7 +25,8 @@ import { MatOptionSelectionChange } from "@angular/material/core";
 @Component({
 	selector: "autocomplete, lib-autocomplete",
 	templateUrl: "./autocomplete.component.html",
-	styleUrls: ["./autocomplete.component.scss"]
+	styleUrls: ["./autocomplete.component.scss"],
+	changeDetection: ChangeDetectionStrategy.Default
 })
 export class AutocompleteComponent implements OnInit, AfterContentChecked {
 	/**
@@ -43,7 +45,7 @@ export class AutocompleteComponent implements OnInit, AfterContentChecked {
 	@Input() label = '';
 
 	/**
-	 * Place Holder of the AutoComplete
+	 * Placeholder of the AutoComplete
 	 */
 	@Input() placeHolder = '';
 
@@ -109,13 +111,13 @@ export class AutocompleteComponent implements OnInit, AfterContentChecked {
 	 * @since 12.0.0
 	 */
 	ngOnInit() {
-		this.filteredOptions = this.inputFormGroup?.get('autocomplete')?.valueChanges.pipe(
-			startWith(''),
-			map((value) => (typeof value === 'string' ? value : value !== null ? value[this.bindLabel] : '')),
+		this.filteredOptions = this.inputFormGroup?.get("autocomplete")?.valueChanges.pipe(
+			startWith(""),
+			map((value) => (typeof value === "string" ? value : value !== null ? value[this.bindLabel] : "")),
 			map(
 				(propertyName) =>
 					this.data?.filter((option) => {
-						return typeof option === 'string'
+						return typeof option === "string"
 							? option?.toLowerCase().indexOf(propertyName.toLowerCase()) === 0
 							: option[this.bindLabel]?.toLowerCase().indexOf(propertyName.toLowerCase()) === 0;
 					}) ?? this.data?.slice()
@@ -186,6 +188,7 @@ export class AutocompleteComponent implements OnInit, AfterContentChecked {
 	 * @since 13.0.3
 	 */
 	emitSelectedValue($event: MatOptionSelectionChange) {
+		console.log("$event.source.value:", $event.source.value);
 		this.onSelectionChange.emit($event.source.value);
 	}
 }
