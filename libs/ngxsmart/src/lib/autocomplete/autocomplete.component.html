@@ -31,8 +31,11 @@
 			(closed)="arrowIconSubject.next('arrow_drop_down')"
 			(opened)="arrowIconSubject.next('arrow_drop_up')"
 			(optionSelected)="arrowIconSubject.next('arrow_drop_down')"
-			[displayWith]="displayFn.bind(this)">
-			<mat-option *ngFor="let option of filteredOptions | async; trackBy: trackByFn" [value]="option">
+			[displayWith]="displayWith">
+			<mat-option
+				(onSelectionChange)="emitSelectedValue($event)"
+				*ngFor="let option of filteredOptions | async; trackBy: trackByFn"
+				[value]="option">
 				<ng-container *ngIf="(option | typeOf) === 'string'">{{ option }}</ng-container>
 				<ng-container *ngIf="(option | typeOf) === 'object'">{{ option[bindLabel] }}</ng-container>
 			</mat-option>
