@@ -1,11 +1,17 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from "@angular/core";
 
+/**
+ * Boostrap Alert component that can be used to alert messages to the user
+ *
+ * @author Pavan Kumar Jadda
+ * @since 12.0.0
+ */
 @Component({
-	selector: 'lib-alert, alert',
-	templateUrl: './alert.component.html',
-	styleUrls: ['./alert.component.scss'],
+	selector: "lib-alert, alert",
+	templateUrl: "./alert.component.html",
+	styleUrls: ["./alert.component.scss"]
 })
-export class AlertComponent implements OnInit {
+export class AlertComponent implements OnInit, OnChanges {
 	/**
 	 * Type of the BootStrap Alert. Following values are supported. See BootStrap docs for more information
 	 * <pre>
@@ -41,8 +47,15 @@ export class AlertComponent implements OnInit {
 	 */
 	@Input() dismissTimeout = 5000;
 
-	constructor() {}
+	constructor() {
+	}
 
+	/**
+	 * Initialize the component and settings
+	 *
+	 * @author Pavan Kumar Jadda
+	 * @since 12.0.0
+	 */
 	ngOnInit(): void {
 		this.openAlert();
 
@@ -54,7 +67,20 @@ export class AlertComponent implements OnInit {
 	}
 
 	/**
+	 * Watch for changes in inputs
+	 *
+	 * @author Pavan Kumar Jadda
+	 * @since 12.0.0
+	 */
+	ngOnChanges(): void {
+		// Watch for changes in inputs
+	}
+
+	/**
 	 * Closes BootStrap Alert if not open
+	 *
+	 * @author Pavan Kumar Jadda
+	 * @since 12.0.0
 	 */
 	closeAlert(): void {
 		if (!this.isOpen) {
@@ -65,6 +91,9 @@ export class AlertComponent implements OnInit {
 
 	/**
 	 * Opens Bootstrap Alert
+	 *
+	 * @author Pavan Kumar Jadda
+	 * @since 12.0.0
 	 */
 	private openAlert(): void {
 		this.isOpen = true;
