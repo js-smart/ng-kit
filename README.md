@@ -25,13 +25,9 @@ and use it as shown below in each section
     ```shell
     //registry.npmjs.org/:_authToken=<your npm token>
     ```
-3. Then navigate to `dist` directory
+3. Then navigate to `dist` directory anf publish the library to NPM. If prompted, enter the 2fa auth code from the Authenticator app.
     ```shell
-    cd dist/libs/ngxsmart
-    ```
-3. Publish the library using the following command. If prompted, enter the 2fa auth code from the Authenticator app.
-    ```shell
-    npm publish --access public
+    cd dist/libs/ngxsmart && npm publish --access public
     ```
 
 
