@@ -45,27 +45,25 @@ Reusable Auto Complete that extends Mat Auto Complete component
 https://stackblitz.com/edit/ngxsmart-autocomplete-demo
 ### Usage
 
-The library has 3 autocomplete components
-
-1. autocomplete
-2. object-autocomplete
-3. string-autocomplete
-
-To use the Auto Complete components, add the following code to the HTML page
+The library has one `autocomplete` component. To use the Auto Complete component, add the following code to the HTML page
 
 **app.component.html**
 
 ```typescript
-<!-- Generic Auto Complete -->
+<!-- Auto Complete with Objects -->
 
-<form [formGroup] = "inputFormGroup" >
-<autocomplete [data] = "cities" [inputFormGroup] = "inputFormGroup" [required] = "true"
-bindLabel = "location"
-bindValue = "id"
-label = "City"
-placeHolder = "Select City" > </autocomplete>
-  < /form>
-
+<form [formGroup]="genericFormGroup">
+    <autocomplete
+      [data]="cities"
+      [inputFormGroup]="genericFormGroup"
+      [required]="true"
+      [displayWith]="displayFn"
+      bindLabel="location"
+      bindValue="id"
+      label="City"
+      placeHolder="Select City">
+    </autocomplete>
+</form>
 
 ```
 
@@ -82,10 +80,27 @@ inputFormGroup = this.fb.group({
   autocomplete: ['']
 })
 
+//Display function
+displayFn(object: any): string {
+		if (typeof object === "string") return object;
+		return object && object["location"] ? object["location"] : "";
+	}
 ```
 
-For  `object-autocomplete` and `string-autocomplete` usage see
-the [examples](projects/autocomplete-demo/src/app/app.component.html)
+If you are using strings rather than objects, do not provide `bindLabel`, `bindValue` and `displayWith` inputs. See below sample
+```
+<!-- Auto Complete with Strings -->
+<form [formGroup]="inputFormGroup">
+  <autocomplete
+    [data]="names"
+    [inputFormGroup]="inputFormGroup"
+    [required]="true"
+    label="City"
+    placeHolder="Select City">
+  </autocomplete>
+</form>
+```
+
 
 ### Auto Complete API
 
@@ -95,13 +110,6 @@ the [examples](projects/autocomplete-demo/src/app/app.component.html)
 | ----------- | 
 | autocomplete, lib-autocomplete | 
 
-| Object AutoComplete Selector      | 
-| ----------- | 
-| object-autocomplete, lib-object-autocomplete | 
-
-| String AutoComplete Selector      | 
-| ----------- | 
-| string-autocomplete, lib-string-autocomplete | 
 
 #### Properties
 
@@ -112,13 +120,11 @@ the [examples](projects/autocomplete-demo/src/app/app.component.html)
 | placeHolder      |  PlaceHolder of the AutoComplete|string||
 | appearance      |  Appearance of the AutoComplete, defaults to `fill`     |string|fill|
 | classes      |  List of CSS classes that need to applied to autocomplete|string||
-| bindLabel      |  Applies only to Generic AutoComplete and Object AutoComplete. Attribute of the Object whose value would be shown when searching for data |string|id|
-| bindValue      |  Applies only to Generic AutoComplete and Object AutoComplete. Attribute of the Object whose value would be used for search. Defaults to `ID`     |string|id|
-| required      |  Is AutoComplete      |boolean|false|
+| bindLabel      |  Applies only to AutoComplete with Objects. Attribute of the Object whose value would be shown when searching for data |string|id|
+| bindValue      |  Applies only to AutoComplete with Objects. Attribute of the Object whose value would be used for search. Defaults to `ID`     |string|id|
+| displayWith      |  Applies only to AutoComplete with Objects. A function used to show display value in Input      |boolean|false|
+| required      |  Provide `true` if AutoComplete is required, otherwise provide `false`    |boolean|false|
 | data      |  List of Objects or String values that need to be bind and searched for     |any[] or string[]|false|
-
-
-
 
 
 ## Alert
