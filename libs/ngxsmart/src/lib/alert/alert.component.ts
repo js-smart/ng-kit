@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit } from "@angular/core";
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from "@angular/core";
 
 /**
  * Boostrap Alert component that can be used to alert messages to the user
@@ -11,7 +11,7 @@ import { Component, Input, OnChanges, OnInit } from "@angular/core";
 	templateUrl: "./alert.component.html",
 	styleUrls: ["./alert.component.scss"]
 })
-export class AlertComponent implements OnInit, OnChanges {
+export class AlertComponent implements OnInit {
 	/**
 	 * Type of the BootStrap Alert. Following values are supported. See BootStrap docs for more information
 	 * <pre>
@@ -47,7 +47,7 @@ export class AlertComponent implements OnInit, OnChanges {
 	 */
 	@Input() dismissTimeout = 5000;
 
-	constructor() {
+	constructor(private cdr: ChangeDetectorRef) {
 	}
 
 	/**
@@ -62,18 +62,9 @@ export class AlertComponent implements OnInit, OnChanges {
 		if (this.dismissOnTimeout) {
 			setTimeout(() => {
 				this.closeAlert();
+				this.cdr.markForCheck();
 			}, this.dismissTimeout);
 		}
-	}
-
-	/**
-	 * Watch for changes in inputs
-	 *
-	 * @author Pavan Kumar Jadda
-	 * @since 12.0.0
-	 */
-	ngOnChanges(): void {
-		// Watch for changes in inputs
 	}
 
 	/**
