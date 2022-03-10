@@ -188,7 +188,6 @@ export class AutocompleteComponent implements OnInit, AfterContentChecked {
 	 * @since 13.0.3
 	 */
 	emitSelectedValue($event: MatOptionSelectionChange) {
-		console.log("$event.source.value:", $event.source.value);
 		this.onSelectionChange.emit($event.source.value);
 	}
 }
