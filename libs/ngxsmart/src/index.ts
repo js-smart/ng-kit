@@ -14,6 +14,7 @@ export * from './lib/print.module';
 export * from './lib/print/ngx-print.directive';
 
 // Export buttons
+export * from './lib/buttons/delete-button/delete-button.component';
 export * from './lib/buttons/edit-button/edit-button.component';
 export * from './lib/buttons/save-primary-button/save-primary-button.component';
 export * from './lib/buttons/search-button/search-button.component';
