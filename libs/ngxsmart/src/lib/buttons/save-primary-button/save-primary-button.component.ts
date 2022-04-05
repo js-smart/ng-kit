@@ -11,7 +11,11 @@ import { MatButtonModule } from "@angular/material/button";
 			<mat-icon *ngIf="!loading">{{ icon }}</mat-icon>
 			{{ loading ? loadingLabel : label }}
 		</button>`,
-	styles: [],
+	styles: [`
+		.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
+			background-color: #153d77 !important;
+		}
+	`]
 })
 export class SavePrimaryButtonComponent {
 	/**

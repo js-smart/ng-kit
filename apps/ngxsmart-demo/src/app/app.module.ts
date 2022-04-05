@@ -9,6 +9,7 @@ import { RouterModule } from '@angular/router';
 import { AlertDemoComponent } from './alert-demo/alert-demo.component';
 import { EditSvgIconDemoComponent } from "./edit-svg-icon-demo/edit-svg-icon-demo.component";
 import { HttpClientModule } from "@angular/common/http";
+import { ButtonsDemoComponent } from "./buttons-demo/buttons-demo.component";
 
 @NgModule({
 	declarations: [AppComponent, AutocompleteDemoComponent, AlertDemoComponent],
@@ -23,6 +24,7 @@ import { HttpClientModule } from "@angular/common/http";
 			{ path: 'autocomplete-demo', component: AutocompleteDemoComponent },
 			{ path: 'alert-demo', component: AlertDemoComponent },
 			{ path: 'edit-svg-icon-demo', component: EditSvgIconDemoComponent },
+			{ path: 'buttons-demo', component: ButtonsDemoComponent },
 		]),
 	],
 	providers: [],
