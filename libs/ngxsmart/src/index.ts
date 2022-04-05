@@ -8,6 +8,8 @@ export * from './lib/autocomplete.module';
 export * from './lib/autocomplete/autocomplete.component';
 export * from './lib/object-autocomplete/object-autocomplete.component';
 export * from './lib/string-autocomplete/string-autocomplete.component';
+
+// Export directives
 export * from './lib/print.module';
 export * from './lib/print/ngx-print.directive';
 
@@ -17,3 +19,6 @@ export * from './lib/buttons/save-primary-button/save-primary-button.component';
 export * from './lib/buttons/search-button/search-button.component';
 export * from './lib/buttons/success-button/success-button.component';
 export * from './lib/buttons/view-button/view-button.component';
+
+// Export dialogs
+export * from './lib/confirm-dialog/confirm-dialog.component';
