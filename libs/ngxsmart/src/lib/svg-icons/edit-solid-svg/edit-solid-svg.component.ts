@@ -9,7 +9,7 @@ const EDIT_ICON = `
 `;
 
 @Component({
-	selector: "app-edit-solid-svg",
+	selector: "edit-solid-svg",
 	template: `
 		<mat-icon aria-hidden="false" aria-label="Edit" svgIcon="edit-solid"></mat-icon> `,
 	styles: [
