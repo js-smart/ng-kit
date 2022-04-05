@@ -9,31 +9,28 @@ const EDIT_ICON = `
 `;
 
 @Component({
-	selector: "edit-solid-svg",
-	template: `
-		<mat-icon aria-hidden="false" aria-label="Edit" svgIcon="edit-solid"></mat-icon> `,
+	selector: 'edit-solid-svg',
+	template: ` <mat-icon aria-hidden="false" aria-label="Edit" svgIcon="edit-solid"></mat-icon> `,
 	styles: [
 		`
 			.mat-icon {
 				vertical-align: super;
 				padding-left: 5px;
 			}
-		`
-	]
+		`,
+	],
 })
 export class EditSolidSvgComponent implements OnInit {
 	constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
-		iconRegistry.addSvgIconLiteral("edit-solid", sanitizer.bypassSecurityTrustHtml(EDIT_ICON));
+		iconRegistry.addSvgIconLiteral('edit-solid', sanitizer.bypassSecurityTrustHtml(EDIT_ICON));
 	}
 
-	ngOnInit(): void {
-	}
+	ngOnInit(): void {}
 }
 
 @NgModule({
 	declarations: [EditSolidSvgComponent],
 	imports: [MatIconModule],
-	exports: [EditSolidSvgComponent]
+	exports: [EditSolidSvgComponent],
 })
-export class EditSolidSvgComponentModule {
-}
+export class EditSolidSvgComponentModule {}

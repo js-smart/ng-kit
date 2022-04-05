@@ -1,15 +1,15 @@
-import { Component, Input, NgModule, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
+import { Component, Input, NgModule, OnInit } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { MatIconModule } from "@angular/material/icon";
+import { MatButtonModule } from "@angular/material/button";
 
 @Component({
-	selector: 'app-delete-button',
+	selector: 'delete-button',
 	template: `
 		<button class="btn btn-danger {{ loading ? 'disabled' : '' }}" mat-raised-button type="{{ type }}">
 			<span *ngIf="loading" aria-hidden="true" class="spinner-border spinner-border-sm" role="status"></span>
 			<mat-icon *ngIf="!loading">delete</mat-icon>
-			{{ loading ? deleteMessage : nonDeleteMessage }}
+			{{ loading ? loadingLabel : label }}
 		</button>
 	`,
 })
@@ -31,12 +31,12 @@ export class DeleteButtonComponent implements OnInit {
 	/**
 	 * If set, shows when Delete in Progress
 	 */
-	@Input() deleteMessage = 'Deleting...';
+	@Input() loadingLabel = 'Deleting...';
 
 	/**
 	 * If set, shows when Delete is not in progress
 	 */
-	@Input() nonDeleteMessage = 'Delete';
+	@Input() label = 'Delete';
 
 	constructor() {}
 

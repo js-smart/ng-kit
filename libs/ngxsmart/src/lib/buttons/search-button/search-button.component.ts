@@ -1,15 +1,15 @@
-import { Component, Input, NgModule, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
+import { Component, Input, NgModule, OnInit } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { MatIconModule } from "@angular/material/icon";
+import { MatButtonModule } from "@angular/material/button";
 
 @Component({
-	selector: 'app-search-button',
+	selector: 'search-button',
 	template: `
 		<button class="btn btn-primary {{ loading ? 'disabled' : '' }}" mat-raised-button type="{{ type }}">
 			<span *ngIf="loading" aria-hidden="true" class="spinner-border spinner-border-sm" role="status"></span>
 			<mat-icon *ngIf="!loading">search</mat-icon>
-			{{ loading ? searchMessage : nonSearchMessage }}
+			{{ loading ? loadingLabel : label }}
 		</button>
 	`,
 })
@@ -31,12 +31,12 @@ export class SearchButtonComponent implements OnInit {
 	/**
 	 * If set, shows when search in progress
 	 */
-	@Input() searchMessage = 'Searching...';
+	@Input() loadingLabel = 'Searching...';
 
 	/**
 	 * If set, shows when search is not in progress
 	 */
-	@Input() nonSearchMessage = 'Search';
+	@Input() label = 'Search';
 
 	constructor() {}
 
