@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from "@angular/core";
+import { ChangeDetectorRef, Component, Input, OnInit } from "@angular/core";
 
 /**
  * Boostrap Alert component that can be used to alert messages to the user
@@ -7,9 +7,9 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } 
  * @since 12.0.0
  */
 @Component({
-	selector: "lib-alert, alert",
-	templateUrl: "./alert.component.html",
-	styleUrls: ["./alert.component.scss"]
+	selector: 'lib-alert, alert',
+	templateUrl: './alert.component.html',
+	styleUrls: ['./alert.component.scss'],
 })
 export class AlertComponent implements OnInit {
 	/**
@@ -47,8 +47,7 @@ export class AlertComponent implements OnInit {
 	 */
 	@Input() dismissTimeout = 5000;
 
-	constructor(private cdr: ChangeDetectorRef) {
-	}
+	constructor(private cdr: ChangeDetectorRef) {}
 
 	/**
 	 * Initialize the component and settings

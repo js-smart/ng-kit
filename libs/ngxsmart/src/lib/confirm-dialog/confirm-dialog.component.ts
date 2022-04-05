@@ -1,7 +1,7 @@
-import { Component, Inject, NgModule, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
-import { MatButtonModule } from '@angular/material/button';
-import { MatDividerModule } from '@angular/material/divider';
+import { Component, Inject, NgModule, OnInit } from "@angular/core";
+import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from "@angular/material/dialog";
+import { MatButtonModule } from "@angular/material/button";
+import { MatDividerModule } from "@angular/material/divider";
 
 @Component({
 	selector: 'app-confirm-dialog',
@@ -20,16 +20,13 @@ import { MatDividerModule } from '@angular/material/divider';
 			<button (click)="onConfirm()" color="primary" mat-raised-button>Yes</button>
 		</div>
 	`,
-	styles:[]
+	styles: [],
 })
 export class ConfirmDialogComponent implements OnInit {
 	title: string;
 	message: string;
 
-	constructor(
-		@Inject(MAT_DIALOG_DATA) public data: ConfirmDialogData,
-		public dialogRef: MatDialogRef<ConfirmDialogComponent>
-	) {
+	constructor(@Inject(MAT_DIALOG_DATA) public data: ConfirmDialogData, public dialogRef: MatDialogRef<ConfirmDialogComponent>) {
 		// Update view with given values
 		this.title = data.title;
 		this.message = data.message;

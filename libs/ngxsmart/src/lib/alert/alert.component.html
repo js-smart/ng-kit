@@ -2,8 +2,13 @@
 	<div class="col-xs-12 col-sm-12 col-md-auto mx-auto">
 		<div class="alert alert-{{ type }} alert-dismissible alert_div" role="alert">
 			<ng-content></ng-content>
-			<button (click)="closeAlert()" *ngIf="dismissible" aria-label="Close" class="btn-close" data-bs-dismiss="alert"
-							type="button"></button>
+			<button
+				(click)="closeAlert()"
+				*ngIf="dismissible"
+				aria-label="Close"
+				class="btn-close"
+				data-bs-dismiss="alert"
+				type="button"></button>
 		</div>
 	</div>
 </div>

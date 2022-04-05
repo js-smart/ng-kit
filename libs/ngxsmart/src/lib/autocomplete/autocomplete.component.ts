@@ -1,14 +1,14 @@
 import {
-	AfterContentChecked,
-	ChangeDetectionStrategy,
-	ChangeDetectorRef,
-	Component,
-	ElementRef,
-	EventEmitter,
-	Input,
-	OnInit,
-	Output,
-	ViewChild
+  AfterContentChecked,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewChild
 } from "@angular/core";
 import { BehaviorSubject, Observable } from "rxjs";
 import { FormGroup } from "@angular/forms";
@@ -23,10 +23,10 @@ import { MatOptionSelectionChange } from "@angular/material/core";
  * @since 12.0.0
  */
 @Component({
-	selector: "autocomplete, lib-autocomplete",
-	templateUrl: "./autocomplete.component.html",
-	styleUrls: ["./autocomplete.component.scss"],
-	changeDetection: ChangeDetectionStrategy.Default
+	selector: 'autocomplete, lib-autocomplete',
+	templateUrl: './autocomplete.component.html',
+	styleUrls: ['./autocomplete.component.scss'],
+	changeDetection: ChangeDetectionStrategy.Default,
 })
 export class AutocompleteComponent implements OnInit, AfterContentChecked {
 	/**
@@ -57,17 +57,17 @@ export class AutocompleteComponent implements OnInit, AfterContentChecked {
 	/**
 	 * List of CSS classes that need to applied to autocomplete
 	 */
-	@Input() classes = "";
+	@Input() classes = '';
 
 	/**
 	 * Attribute of the Object whose value would be shown when searching for data. Defaults to `ID`
 	 */
-	@Input() bindLabel = "";
+	@Input() bindLabel = '';
 
 	/**
 	 * Attribute of the Object whose value would be used for search
 	 */
-	@Input() bindValue = "id";
+	@Input() bindValue = 'id';
 
 	/**
 	 * Function that maps an option's control value to its display value in the trigger.
@@ -95,7 +95,7 @@ export class AutocompleteComponent implements OnInit, AfterContentChecked {
 	/**
 	 * BehaviorSubject that shows the current active arrow icon
 	 */
-	arrowIconSubject = new BehaviorSubject("arrow_drop_down");
+	arrowIconSubject = new BehaviorSubject('arrow_drop_down');
 
 	/**
 	 * Filtered options when user
@@ -111,13 +111,13 @@ export class AutocompleteComponent implements OnInit, AfterContentChecked {
 	 * @since 12.0.0
 	 */
 	ngOnInit() {
-		this.filteredOptions = this.inputFormGroup?.get("autocomplete")?.valueChanges.pipe(
-			startWith(""),
-			map((value) => (typeof value === "string" ? value : value !== null ? value[this.bindLabel] : "")),
+		this.filteredOptions = this.inputFormGroup?.get('autocomplete')?.valueChanges.pipe(
+			startWith(''),
+			map((value) => (typeof value === 'string' ? value : value !== null ? value[this.bindLabel] : '')),
 			map(
 				(propertyName) =>
 					this.data?.filter((option) => {
-						return typeof option === "string"
+						return typeof option === 'string'
 							? option?.toLowerCase().indexOf(propertyName.toLowerCase()) === 0
 							: option[this.bindLabel]?.toLowerCase().indexOf(propertyName.toLowerCase()) === 0;
 					}) ?? this.data?.slice()

@@ -1,15 +1,16 @@
-import { Component, OnInit, NgModule, Input } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
+import { Component, Input, NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { MatIconModule } from "@angular/material/icon";
+import { MatButtonModule } from "@angular/material/button";
 
 @Component({
-	selector: 'mib-air-save-primary-button',
-	template: ` <button class="btn btn-primary {{ loading ? 'disabled' : '' }}" mat-raised-button type="{{ type }}">
-		<span *ngIf="loading" aria-hidden="true" class="spinner-border spinner-border-sm" role="status"></span>
-		<mat-icon *ngIf="!loading">{{ icon }}</mat-icon>
-		{{ loading ? loadingMessage : message }}
-	</button>`,
+	selector: 'save-primary-button',
+	template: `
+		<button class="btn btn-primary {{ loading ? 'disabled' : '' }}" mat-raised-button type="{{ type }}">
+			<span *ngIf="loading" aria-hidden="true" class="spinner-border spinner-border-sm" role="status"></span>
+			<mat-icon *ngIf="!loading">{{ icon }}</mat-icon>
+			{{ loading ? loadingLabel : label }}
+		</button>`,
 	styles: [],
 })
 export class SavePrimaryButtonComponent {
@@ -30,12 +31,12 @@ export class SavePrimaryButtonComponent {
 	/**
 	 * If set, shows when search in progress
 	 */
-	@Input() loadingMessage = 'Saving...';
+	@Input() loadingLabel = 'Saving...';
 
 	/**
 	 * If set, shows when search is not in progress
 	 */
-	@Input() message = 'Save';
+	@Input() label = 'Save';
 
 	/**
 	 * If set, shows material icon
