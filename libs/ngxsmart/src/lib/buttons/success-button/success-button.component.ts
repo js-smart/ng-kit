@@ -8,7 +8,7 @@ import { MatButtonModule } from "@angular/material/button";
 	template: `
 		<button class="btn btn-success {{ loading || disabled ? 'disabled' : '' }}" mat-raised-button type="{{ type }}">
 			<span *ngIf="loading" aria-hidden="true" class="spinner-border spinner-border-sm" role="status"></span>
-			<mat-icon *ngIf="!loading">save</mat-icon>
+			<mat-icon *ngIf="!loading">{{icon}}</mat-icon>
 			{{ loading ? loadingLabel : label }}
 		</button>
 	`,
@@ -42,6 +42,11 @@ export class SuccessButtonComponent implements OnInit {
 	 * If set, shows when search is not in progress
 	 */
 	@Input() label = 'Update';
+
+	/**
+	 * If set, shows the icon. Otherwise, shows save icon
+	 */
+	@Input() icon = 'save';
 
 	constructor() {}
 
