@@ -7,6 +7,8 @@ import { AlertModule, AutocompleteModule } from "@ngxsmart/ngxsmart";
 import { AutocompleteDemoComponent } from './autocomplete-demo/autocomplete-demo.component';
 import { RouterModule } from '@angular/router';
 import { AlertDemoComponent } from './alert-demo/alert-demo.component';
+import { EditSvgIconDemoComponent } from "./edit-svg-icon-demo/edit-svg-icon-demo.component";
+import { HttpClientModule } from "@angular/common/http";
 
 @NgModule({
 	declarations: [AppComponent, AutocompleteDemoComponent, AlertDemoComponent],
@@ -16,9 +18,11 @@ import { AlertDemoComponent } from './alert-demo/alert-demo.component';
 		ReactiveFormsModule,
 		AutocompleteModule,
 		AlertModule,
+		HttpClientModule,
 		RouterModule.forRoot([
 			{ path: 'autocomplete-demo', component: AutocompleteDemoComponent },
 			{ path: 'alert-demo', component: AlertDemoComponent },
+			{ path: 'edit-svg-icon-demo', component: EditSvgIconDemoComponent },
 		]),
 	],
 	providers: [],
