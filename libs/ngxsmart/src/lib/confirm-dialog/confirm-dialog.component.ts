@@ -5,8 +5,22 @@ import { MatDividerModule } from '@angular/material/divider';
 
 @Component({
 	selector: 'app-confirm-dialog',
-	templateUrl: './confirm-dialog.component.html',
-	styleUrls: ['./confirm-dialog.component.scss'],
+	template: `
+		<div class="mat-dialog-title" style="text-align: center">
+			<h4>{{ title }}</h4>
+		</div>
+
+		<mat-divider></mat-divider>
+		<div mat-dialog-content style="margin: 20px">
+			<p>{{ message }}</p>
+		</div>
+
+		<div align="end" class="modal-footer" mat-dialog-actions>
+			<button (click)="onDismiss()" mat-raised-button>No</button>
+			<button (click)="onConfirm()" color="primary" mat-raised-button>Yes</button>
+		</div>
+	`,
+	styles:[]
 })
 export class ConfirmDialogComponent implements OnInit {
 	title: string;
