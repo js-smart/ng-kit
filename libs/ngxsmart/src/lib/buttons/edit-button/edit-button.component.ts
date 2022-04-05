@@ -4,14 +4,21 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 
 @Component({
-	selector: 'mib-air-edit-button',
+	selector: 'edit-button',
 	template: `
 		<button class="primary-button" mat-raised-button type="{{ type }}">
 			<mat-icon>{{ icon }}</mat-icon>
 			{{ message }}
 		</button>
 	`,
-	styles: [],
+	styles: [
+		`
+			.primary-button {
+				color: white;
+				background-color: #193791;
+			}
+		`
+	]
 })
 export class EditButtonComponent {
 	/**
