@@ -1,17 +1,25 @@
-import { Component, OnInit, NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { SavePrimaryButtonComponentModule } from "@ngxsmart/ngxsmart";
+import { Component, NgModule, OnInit } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import {
+	ExcelExportButtonComponentModule,
+	PdfExportButtonComponentModule,
+	PrimaryButtonComponentModule,
+	SavePrimaryButtonComponentModule
+} from "@ngxsmart/ngxsmart";
 
 @Component({
-	selector: 'ngxsmart-buttons-demo',
-	templateUrl: './buttons-demo.component.html',
-	styles: [],
+	selector: "ngxsmart-buttons-demo",
+	templateUrl: "./buttons-demo.component.html",
+	styles: []
 })
 export class ButtonsDemoComponent implements OnInit {
-	loading=false;
-	constructor() {}
+	loading = false;
 
-	ngOnInit(): void {}
+	constructor() {
+	}
+
+	ngOnInit(): void {
+	}
 
 	setLoading() {
 		this.loading = true;
@@ -22,8 +30,9 @@ export class ButtonsDemoComponent implements OnInit {
 }
 
 @NgModule({
-	imports: [CommonModule,SavePrimaryButtonComponentModule],
+	imports: [CommonModule, SavePrimaryButtonComponentModule, PrimaryButtonComponentModule, PdfExportButtonComponentModule, ExcelExportButtonComponentModule],
 	declarations: [ButtonsDemoComponent],
-	exports: [ButtonsDemoComponent],
+	exports: [ButtonsDemoComponent]
 })
-export class ButtonsDemoComponentModule {}
+export class ButtonsDemoComponentModule {
+}
