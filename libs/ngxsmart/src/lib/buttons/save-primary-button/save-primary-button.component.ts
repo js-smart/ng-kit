@@ -13,7 +13,7 @@ import { MatButtonModule } from "@angular/material/button";
 		</button>`,
 	styles: [`
 		.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
-			background-color: #153d77 !important;
+			background-color: #193791 !important;
 		}
 	`]
 })
