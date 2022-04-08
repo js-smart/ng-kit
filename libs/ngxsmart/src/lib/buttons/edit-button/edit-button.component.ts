@@ -1,12 +1,12 @@
-import { Component, Input, NgModule } from "@angular/core";
-import { CommonModule } from "@angular/common";
-import { MatIconModule } from "@angular/material/icon";
-import { MatButtonModule } from "@angular/material/button";
+import { Component, Input, NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
 	selector: 'edit-button',
 	template: `
-		<button class="primary-button" mat-raised-button type="{{ type }}">
+		<button class="primary-button" mat-raised-button type="{{ type }}" data-cy="edit-button">
 			<mat-icon>{{ icon }}</mat-icon>
 			{{ label }}
 		</button>

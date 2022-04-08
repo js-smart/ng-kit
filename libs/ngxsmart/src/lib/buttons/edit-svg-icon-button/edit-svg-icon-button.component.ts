@@ -1,12 +1,12 @@
-import { Component, Input, NgModule } from "@angular/core";
-import { CommonModule } from "@angular/common";
-import { MatButtonModule } from "@angular/material/button";
-import { EditSolidSvgComponentModule } from "../../svg-icons/edit-solid-svg/edit-solid-svg.component";
+import { Component, Input, NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
+import { EditSolidSvgComponentModule } from '../../svg-icons/edit-solid-svg/edit-solid-svg.component';
 
 @Component({
 	selector: 'edit-svg-icon-button',
 	template: `
-		<button class="primary-button" mat-raised-button type="{{ type }}">
+		<button class="primary-button" mat-raised-button type="{{ type }}" data-cy="edit-svg-icon-button">
 			<edit-solid-svg></edit-solid-svg>
 			{{ label }}
 		</button>

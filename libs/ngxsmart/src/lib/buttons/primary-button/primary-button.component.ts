@@ -1,23 +1,31 @@
-import { Component, Input, NgModule } from "@angular/core";
-import { CommonModule } from "@angular/common";
-import { MatButtonModule } from "@angular/material/button";
-import { MatIconModule } from "@angular/material/icon";
+import { Component, Input, NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
-	selector: "primary-button",
-	template:
+	selector: 'primary-button',
+	template: `
+		<button
+			class="btn btn-primary {{ loading || disabled ? 'disabled' : '' }}"
+			mat-raised-button
+			type="{{ type }}"
+			data-cy="primary-button">
+			<span *ngIf="loading" aria-hidden="true" class="spinner-border spinner-border-sm" role="status"></span>
+			<mat-icon *ngIf="!loading && showIcon">{{ icon }}</mat-icon>
+			{{ loading ? loadingLabel : label }}
+		</button>
+	`,
+	styles: [
 		`
-			<button class="btn btn-primary {{ loading || disabled ? 'disabled' : '' }}" mat-raised-button type="{{ type }}">
-				<span *ngIf="loading" aria-hidden="true" class="spinner-border spinner-border-sm" role="status"></span>
-				<mat-icon *ngIf="!loading && showIcon">{{ icon }}</mat-icon>
-				{{ loading ? loadingLabel : label }}
-			</button>
+			.btn-primary,
+			.btn-primary:hover,
+			.btn-primary:active,
+			.btn-primary:visited {
+				background-color: #193791 !important;
+			}
 		`,
-	styles: [`
-		.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
-			background-color: #193791 !important;
-		}
-	`]
+	],
 })
 export class PrimaryButtonComponent {
 	/**
@@ -37,22 +45,22 @@ export class PrimaryButtonComponent {
 	 *   2. submit
 	 * </pre>
 	 */
-	@Input() type = "button";
+	@Input() type = 'button';
 
 	/**
 	 * If set, shows when search in progress
 	 */
-	@Input() loadingLabel = "Saving...";
+	@Input() loadingLabel = 'Saving...';
 
 	/**
 	 * If set, shows when search is not in progress
 	 */
-	@Input() label = "Save";
+	@Input() label = 'Save';
 
 	/**
 	 * If set, shows material icon
 	 */
-	@Input() icon = "save";
+	@Input() icon = 'save';
 
 	/**
 	 * If set, shows material icon otherwise hides the icons
@@ -63,7 +71,6 @@ export class PrimaryButtonComponent {
 @NgModule({
 	imports: [CommonModule, MatButtonModule, MatIconModule],
 	declarations: [PrimaryButtonComponent],
-	exports: [PrimaryButtonComponent]
+	exports: [PrimaryButtonComponent],
 })
-export class PrimaryButtonComponentModule {
-}
+export class PrimaryButtonComponentModule {}
