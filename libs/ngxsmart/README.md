@@ -11,29 +11,32 @@ Most commonly used Angular utility libraries
 
 ### Installation
 Install the library
-```shell
-$ npm install @ngxsmart/ngxsmart
-```
+  ```shell
+   npm install @ngxsmart/ngxsmart
+  ```
 and use it as shown below in each section
 
 ### Publish library to NPM
 1. Build the library
-```shell
-$ nx build ngxsmart
-```
+  ```shell
+   nx build ngxsmart
+  ```
 2. If the NPM token is not configured, open `~/.npmrc` and add the following line:
-```shell
-//registry.npmjs.org/:_authToken=<your npm token>
-```
+  ```shell
+  //registry.npmjs.org/:_authToken=<your npm token>
+  ```
 3. Then navigate to `dist` directory
-```shell
-$ cd dist/libs/ngxsmart
-```
+  ```shell
+   cd dist/libs/ngxsmart
+  ```
 3. Publish the library using the following command. If prompted, enter the 2fa auth code from the Authenticator app.
-```shell
-$ npm publish --access public
-```
-
+  ```shell
+   npm publish --access public
+  ```
+4. Or use single command
+  ```shell
+   npm run build ngxsmart && cd dist/libs/ngxsmart && npm publish --access public
+  ```
 
 ### Technologies
 1. Angular 13+

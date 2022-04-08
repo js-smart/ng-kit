@@ -1,12 +1,12 @@
-import { Component, Input, NgModule, OnInit } from "@angular/core";
-import { CommonModule } from "@angular/common";
-import { MatIconModule } from "@angular/material/icon";
-import { MatButtonModule } from "@angular/material/button";
+import { Component, Input, NgModule, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
 	selector: 'delete-button',
 	template: `
-		<button class="btn btn-danger {{ loading ? 'disabled' : '' }}" mat-raised-button type="{{ type }}">
+		<button class="btn btn-danger {{ loading ? 'disabled' : '' }}" mat-raised-button type="{{ type }}" data-cy="delete-button">
 			<span *ngIf="loading" aria-hidden="true" class="spinner-border spinner-border-sm" role="status"></span>
 			<mat-icon *ngIf="!loading">delete</mat-icon>
 			{{ loading ? loadingLabel : label }}

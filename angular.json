@@ -1,4 +1,7 @@
 {
+  "cli": {
+    "analytics": "8683d6db-4725-4b23-ace5-b53c713de610"
+  },
 	"version": 1,
 	"projects": {
 		"ngxsmart": {

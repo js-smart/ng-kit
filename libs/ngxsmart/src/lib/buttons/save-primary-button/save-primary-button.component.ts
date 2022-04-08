@@ -1,21 +1,29 @@
-import { Component, Input, NgModule } from "@angular/core";
-import { CommonModule } from "@angular/common";
-import { MatIconModule } from "@angular/material/icon";
-import { MatButtonModule } from "@angular/material/button";
+import { Component, Input, NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
 	selector: 'save-primary-button',
-	template: `
-		<button class="btn btn-primary {{ loading ? 'disabled' : '' }}" mat-raised-button type="{{ type }}">
-			<span *ngIf="loading" aria-hidden="true" class="spinner-border spinner-border-sm" role="status"></span>
-			<mat-icon *ngIf="!loading">{{ icon }}</mat-icon>
-			{{ loading ? loadingLabel : label }}
-		</button>`,
-	styles: [`
-		.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
-			background-color: #193791 !important;
-		}
-	`]
+	template: ` <button
+		class="btn btn-primary {{ loading ? 'disabled' : '' }}"
+		mat-raised-button
+		type="{{ type }}"
+		data-cy="save-primary-button">
+		<span *ngIf="loading" aria-hidden="true" class="spinner-border spinner-border-sm" role="status"></span>
+		<mat-icon *ngIf="!loading">{{ icon }}</mat-icon>
+		{{ loading ? loadingLabel : label }}
+	</button>`,
+	styles: [
+		`
+			.btn-primary,
+			.btn-primary:hover,
+			.btn-primary:active,
+			.btn-primary:visited {
+				background-color: #193791 !important;
+			}
+		`,
+	],
 })
 export class SavePrimaryButtonComponent {
 	/**
