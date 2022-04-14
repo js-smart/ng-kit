@@ -6,9 +6,11 @@ import { MatButtonModule } from '@angular/material/button';
 @Component({
 	selector: 'view-button',
 	template: `
-		<button class="primary-button" mat-raised-button type="{{ type }}"  data-cy="view-button">
-			<mat-icon>{{ icon }}</mat-icon>
-			{{ label }}
+		<button
+			color="primary"
+			mat-button>
+			<mat-icon>{{icon}}</mat-icon>
+			{{label}}
 		</button>
 	`,
 	styles: [],
