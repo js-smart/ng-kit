@@ -11,14 +11,7 @@ import { MatButtonModule } from '@angular/material/button';
 			{{ label }}
 		</button>
 	`,
-	styles: [
-		`
-			.primary-button {
-				color: white;
-				background-color: #193791;
-			}
-		`,
-	],
+	styles: [],
 })
 export class EditButtonComponent {
 	/**
