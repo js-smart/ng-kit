@@ -11,14 +11,7 @@ import { EditSolidSvgComponentModule } from '../../svg-icons/edit-solid-svg/edit
 			{{ label }}
 		</button>
 	`,
-	styles: [
-		`
-			.primary-button {
-				color: white;
-				background-color: #193791;
-			}
-		`,
-	],
+	styles: [],
 })
 export class EditSvgIconButtonComponent {
 	/**
