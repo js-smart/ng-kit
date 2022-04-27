@@ -1,17 +1,18 @@
-import { Component, NgModule, OnInit } from '@angular/core';
+import { Component, NgModule, OnInit, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
 	EditBsButtonComponentModule,
 	ExcelExportButtonComponentModule,
 	PdfExportButtonComponentModule,
 	PrimaryButtonComponentModule,
-	SavePrimaryButtonComponentModule
-} from "@ngxsmart/ngxsmart";
+	SavePrimaryButtonComponentModule,
+	ViewPrimaryButtonComponentModule,
+} from '@ngxsmart/ngxsmart';
 
 @Component({
 	selector: 'ngxsmart-buttons-demo',
 	templateUrl: './buttons-demo.component.html',
-	styles: [],
+	styles: [``],
 })
 export class ButtonsDemoComponent implements OnInit {
 	loading = false;
@@ -24,7 +25,7 @@ export class ButtonsDemoComponent implements OnInit {
 		this.loading = true;
 		setTimeout(() => {
 			this.loading = false;
-		}, 3000);
+		}, 100000);
 	}
 }
 
@@ -35,7 +36,8 @@ export class ButtonsDemoComponent implements OnInit {
 		PrimaryButtonComponentModule,
 		PdfExportButtonComponentModule,
 		ExcelExportButtonComponentModule,
-		EditBsButtonComponentModule
+		EditBsButtonComponentModule,
+		ViewPrimaryButtonComponentModule,
 	],
 	declarations: [ButtonsDemoComponent],
 	exports: [ButtonsDemoComponent],

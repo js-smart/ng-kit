@@ -1,7 +1,12 @@
 <div class="m-5">
+	<primary-button (click)="setLoading()" [loading]="loading" label="Primary Button"></primary-button>
+	<hr />
+	<save-primary-button (click)="setLoading()" [loading]="loading" label="Save Primary Button"></save-primary-button>
+	<hr />
 
-  <primary-button label="Generate Report"></primary-button>
-  <pdf-export-button></pdf-export-button>
-  <excel-export-button></excel-export-button>
-  <edit-bs-button></edit-bs-button>
+	<view-primary-button></view-primary-button>
+
+	<pdf-export-button></pdf-export-button>
+	<excel-export-button></excel-export-button>
+	<edit-bs-button></edit-bs-button>
 </div>
