@@ -1,4 +1,4 @@
-import { Component, Input, NgModule } from '@angular/core';
+import { Component, Input, NgModule, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -7,7 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 	selector: 'primary-button',
 	template: `
 		<button
-			class="btn btn-primary {{ loading || disabled ? 'disabled' : '' }}"
+			class="btn btn-primary primary-button {{ loading || disabled ? 'disabled' : '' }}"
 			mat-raised-button
 			type="{{ type }}"
 			data-cy="primary-button">
@@ -16,16 +16,8 @@ import { MatIconModule } from '@angular/material/icon';
 			{{ loading ? loadingLabel : label }}
 		</button>
 	`,
-	styles: [
-		`
-			.btn-primary,
-			.btn-primary:hover,
-			.btn-primary:active,
-			.btn-primary:visited {
-				background-color: #193791 !important;
-			}
-		`,
-	],
+	styles: [],
+	encapsulation: ViewEncapsulation.None,
 })
 export class PrimaryButtonComponent {
 	/**

@@ -6,7 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 @Component({
 	selector: 'save-primary-button',
 	template: ` <button
-		class="btn btn-primary {{ loading ? 'disabled' : '' }}"
+		class="btn btn-primary primary-button {{ loading ? 'disabled' : '' }}"
 		mat-raised-button
 		type="{{ type }}"
 		data-cy="save-primary-button">
@@ -14,16 +14,7 @@ import { MatButtonModule } from '@angular/material/button';
 		<mat-icon *ngIf="!loading">{{ icon }}</mat-icon>
 		{{ loading ? loadingLabel : label }}
 	</button>`,
-	styles: [
-		`
-			.btn-primary,
-			.btn-primary:hover,
-			.btn-primary:active,
-			.btn-primary:visited {
-				background-color: #193791 !important;
-			}
-		`,
-	],
+	styles: [],
 })
 export class SavePrimaryButtonComponent {
 	/**
