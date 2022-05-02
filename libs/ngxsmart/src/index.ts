@@ -31,9 +31,9 @@ export * from './lib/buttons/excel-export-button/excel-export-button.component';
 
 // Export dialogs
 export * from './lib/confirm-dialog/confirm-dialog.component';
-
 export * from './lib/buttons/edit-bs-button/edit-bs-button.component';
-
 export * from './lib/buttons/bs-link-button/bs-link-button.component';
-
 export * from './lib/buttons/view-primary-button/view-primary-button.component';
+
+// Export svg icons
+export * from './lib/svg-icons/edit-solid-svg/edit-solid-svg.component';
