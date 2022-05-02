@@ -8,7 +8,7 @@ import { MatButtonModule } from '@angular/material/button';
 	template: `
 		<button class="btn btn-danger {{ loading ? 'disabled' : '' }}" mat-raised-button type="{{ type }}" data-cy="delete-button">
 			<span *ngIf="loading" aria-hidden="true" class="spinner-border spinner-border-sm" role="status"></span>
-			<mat-icon *ngIf="!loading">delete</mat-icon>
+			<mat-icon *ngIf="!loading">{{ icon }}</mat-icon>
 			{{ loading ? loadingLabel : label }}
 		</button>
 	`,
@@ -37,6 +37,11 @@ export class DeleteButtonComponent implements OnInit {
 	 * If set, shows when Delete is not in progress
 	 */
 	@Input() label = 'Delete';
+
+	/**
+	 * If set, shows the icon. Otherwise, shows delete icon
+	 */
+	@Input() icon = 'delete';
 
 	constructor() {}
 
