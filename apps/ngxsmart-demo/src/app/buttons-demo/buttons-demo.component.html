@@ -1,12 +1,17 @@
 <div class="m-5">
-	<primary-button (click)="setLoading()" [loading]="loading" label="Primary Button"></primary-button>
+	<primary-button (click)="setLoading()" [loading]="loading" class="m-3" label="Primary Button"></primary-button>
+	<save-primary-button (click)="setLoading()" [loading]="loading" class="m-3" label="Save Primary Button"></save-primary-button>
+	<view-primary-button class="m-3"></view-primary-button>
+	<view-button></view-button>
 	<hr />
-	<save-primary-button (click)="setLoading()" [loading]="loading" label="Save Primary Button"></save-primary-button>
+	<edit-button label="Edit Button" class="m-3"></edit-button>
+	<edit-svg-icon-button label="Edit Svg Icon Button" class="m-3"></edit-svg-icon-button>
+	<edit-bs-button label="Edit Bootstrap Button" class="m-3"></edit-bs-button>
+	<bs-link-button label="Bootstrap Link Button" class="m-3"></bs-link-button>
+
 	<hr />
-
-	<view-primary-button></view-primary-button>
-
-	<pdf-export-button></pdf-export-button>
-	<excel-export-button></excel-export-button>
-	<edit-bs-button></edit-bs-button>
+	<manage-button class="m-3"></manage-button>
+	<search-button class="m-3"></search-button>
+	<pdf-export-button class="m-3"></pdf-export-button>
+	<excel-export-button class="m-3"></excel-export-button>
 </div>
