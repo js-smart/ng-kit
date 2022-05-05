@@ -25,7 +25,7 @@ export class ButtonsDemoComponent implements OnInit {
 		this.loading = true;
 		setTimeout(() => {
 			this.loading = false;
-		}, 100000);
+		}, 3000);
 	}
 }
 

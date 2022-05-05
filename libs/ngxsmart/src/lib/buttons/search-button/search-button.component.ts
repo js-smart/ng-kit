@@ -6,7 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 @Component({
 	selector: 'search-button',
 	template: `
-		<button class="btn btn-primary {{ loading ? 'disabled' : '' }}" mat-raised-button type="{{ type }}"  data-cy="search-button">
+		<button class="btn btn-primary {{ loading || disabled ? 'disabled' : '' }}" mat-raised-button type="{{ type }}" data-cy="search-button">
 			<span *ngIf="loading" aria-hidden="true" class="spinner-border spinner-border-sm" role="status"></span>
 			<mat-icon *ngIf="!loading">search</mat-icon>
 			{{ loading ? loadingLabel : label }}
@@ -18,6 +18,11 @@ export class SearchButtonComponent implements OnInit {
 	 *  Is search in progress and loading the data
 	 */
 	@Input() loading: boolean | undefined = false;
+
+	/**
+	 *  Is button disabled, default is false
+	 */
+	@Input() disabled = false;
 
 	/**
 	 * Type of the button. Following values are supported. See BootStrap docs for more information
