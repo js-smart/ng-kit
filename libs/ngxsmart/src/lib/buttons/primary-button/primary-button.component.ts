@@ -7,11 +7,10 @@ import { MatIconModule } from '@angular/material/icon';
 	selector: 'primary-button',
 	template: `
 		<button
-			class="btn btn-primary primary-button"
+			class="btn btn-primary primary-button {{ loading || disabled ? 'disabled' : '' }}"
 			mat-raised-button
 			type="{{ type }}"
-			data-cy="primary-button"
-			[disabled]="disabled || loading">
+			data-cy="primary-button">
 			<span *ngIf="loading" aria-hidden="true" class="spinner-border spinner-border-sm" role="status"></span>
 			<mat-icon *ngIf="!loading && showIcon">{{ icon }}</mat-icon>
 			{{ loading ? loadingLabel : label }}

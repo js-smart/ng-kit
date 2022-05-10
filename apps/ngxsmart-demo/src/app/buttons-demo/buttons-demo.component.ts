@@ -27,7 +27,7 @@ export class ButtonsDemoComponent {
 		this.loading = true;
 		setTimeout(() => {
 			this.loading = false;
-		}, 200000);
+		}, 3000);
 	}
 }
 
