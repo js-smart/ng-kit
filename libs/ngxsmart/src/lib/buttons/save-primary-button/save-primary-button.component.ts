@@ -6,10 +6,11 @@ import { MatButtonModule } from '@angular/material/button';
 @Component({
 	selector: 'save-primary-button',
 	template: ` <button
-		class="btn btn-primary primary-button {{ loading ? 'disabled' : '' }}"
+		class="btn btn-primary primary-button"
 		mat-raised-button
 		type="{{ type }}"
-		data-cy="save-primary-button">
+		data-cy="save-primary-button"
+		[disabled]="loading">
 		<span *ngIf="loading" aria-hidden="true" class="spinner-border spinner-border-sm" role="status"></span>
 		<mat-icon *ngIf="!loading">{{ icon }}</mat-icon>
 		{{ loading ? loadingLabel : label }}
