@@ -1,12 +1,18 @@
-import { Component, Input, NgModule, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 
 @Component({
 	selector: 'success-button',
+	standalone: true,
+	imports: [CommonModule, MatButtonModule, MatIconModule],
 	template: `
-		<button class="btn btn-success {{ loading || disabled ? 'disabled' : '' }}" mat-raised-button type="{{ type }}" data-cy="success-button">
+		<button
+			class="btn btn-success {{ loading || disabled ? 'disabled' : '' }}"
+			mat-raised-button
+			type="{{ type }}"
+			data-cy="success-button">
 			<span *ngIf="loading" aria-hidden="true" class="spinner-border spinner-border-sm" role="status"></span>
 			<mat-icon *ngIf="!loading">{{ icon }}</mat-icon>
 			{{ loading ? loadingLabel : label }}
@@ -52,10 +58,3 @@ export class SuccessButtonComponent implements OnInit {
 
 	ngOnInit(): void {}
 }
-
-@NgModule({
-	declarations: [SuccessButtonComponent],
-	imports: [CommonModule, MatIconModule, MatButtonModule],
-	exports: [SuccessButtonComponent],
-})
-export class SuccessButtonComponentModule {}

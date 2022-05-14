@@ -1,10 +1,12 @@
-import { Component, Input, NgModule } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
 	selector: 'manage-button',
+	standalone: true,
+	imports: [CommonModule, MatButtonModule, MatIconModule],
 	template: `
 		<button class="mr-3 btn btn-secondary" mat-raised-button data-cy="manage-button">
 			<mat-icon>{{ icon }}</mat-icon>
@@ -24,10 +26,3 @@ export class ManageButtonComponent {
 	 */
 	@Input() icon = 'settings';
 }
-
-@NgModule({
-	imports: [CommonModule, MatButtonModule, MatIconModule],
-	declarations: [ManageButtonComponent],
-	exports: [ManageButtonComponent],
-})
-export class ManageButtonComponentModule {}

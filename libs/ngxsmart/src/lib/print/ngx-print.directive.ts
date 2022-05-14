@@ -11,6 +11,7 @@ import { MatPaginator } from '@angular/material/paginator';
 @Directive({
 	// eslint-disable-next-line @angular-eslint/directive-selector
 	selector: 'button[ngxPrint], button[print]',
+	standalone: true,
 })
 export class NgxPrintDirective {
 	/**

@@ -1,22 +1,39 @@
-import { Component, NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
 import {
-	BsLinkButtonComponentModule,
-	EditBsButtonComponentModule,
-	EditButtonComponentModule,
-	EditSvgIconButtonComponentModule,
-	ExcelExportButtonComponentModule,
-	ManageButtonComponentModule,
-	PdfExportButtonComponentModule,
-	PrimaryButtonComponentModule,
-	SavePrimaryButtonComponentModule,
-	SearchButtonComponentModule,
-	ViewButtonComponentModule,
-	ViewPrimaryButtonComponentModule,
+	BsLinkButtonComponent,
+	EditBsButtonComponent,
+	EditButtonComponent,
+	EditSvgIconButtonComponent,
+	ExcelExportButtonComponent,
+	ManageButtonComponent,
+	PdfExportButtonComponent,
+	PrimaryButtonComponent,
+	SavePrimaryButtonComponent,
+	SearchButtonComponent,
+	ViewButtonComponent,
+	ViewPrimaryButtonComponent,
 } from '@ngxsmart/ngxsmart';
+import { CommonModule } from '@angular/common';
 
 @Component({
 	selector: 'ngxsmart-buttons-demo',
+	standalone: true,
+	imports: [
+		CommonModule,
+		SavePrimaryButtonComponent,
+		PrimaryButtonComponent,
+		PdfExportButtonComponent,
+		ExcelExportButtonComponent,
+		EditBsButtonComponent,
+		ViewButtonComponent,
+		ViewPrimaryButtonComponent,
+		EditButtonComponent,
+		EditSvgIconButtonComponent,
+		EditBsButtonComponent,
+		BsLinkButtonComponent,
+		ManageButtonComponent,
+		SearchButtonComponent,
+	],
 	templateUrl: './buttons-demo.component.html',
 	styles: [``],
 })
@@ -30,25 +47,3 @@ export class ButtonsDemoComponent {
 		}, 3000);
 	}
 }
-
-@NgModule({
-	imports: [
-		CommonModule,
-		SavePrimaryButtonComponentModule,
-		PrimaryButtonComponentModule,
-		PdfExportButtonComponentModule,
-		ExcelExportButtonComponentModule,
-		EditBsButtonComponentModule,
-		ViewButtonComponentModule,
-		ViewPrimaryButtonComponentModule,
-		EditButtonComponentModule,
-		EditSvgIconButtonComponentModule,
-		EditBsButtonComponentModule,
-		BsLinkButtonComponentModule,
-		ManageButtonComponentModule,
-		SearchButtonComponentModule,
-	],
-	declarations: [ButtonsDemoComponent],
-	exports: [ButtonsDemoComponent],
-})
-export class ButtonsDemoComponentModule {}

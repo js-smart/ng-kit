@@ -1,8 +1,10 @@
-import { Component, NgModule } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 
 @Component({
 	selector: 'pdf-export-button',
+	standalone: true,
+	imports: [MatButtonModule],
 	template: ` <button class="pdf-export-button" mat-raised-button type="button" data-cy="pdf-export-button">PDF</button> `,
 	styles: [
 		`
@@ -17,10 +19,3 @@ import { MatButtonModule } from '@angular/material/button';
 	],
 })
 export class PdfExportButtonComponent {}
-
-@NgModule({
-	imports: [MatButtonModule],
-	declarations: [PdfExportButtonComponent],
-	exports: [PdfExportButtonComponent],
-})
-export class PdfExportButtonComponentModule {}

@@ -1,4 +1,5 @@
-import { ChangeDetectorRef, Component, Input, OnInit } from "@angular/core";
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 /**
  * Boostrap Alert component that can be used to alert messages to the user
@@ -8,6 +9,8 @@ import { ChangeDetectorRef, Component, Input, OnInit } from "@angular/core";
  */
 @Component({
 	selector: 'lib-alert, alert',
+	standalone: true,
+	imports: [CommonModule],
 	templateUrl: './alert.component.html',
 	styleUrls: ['./alert.component.scss'],
 })
