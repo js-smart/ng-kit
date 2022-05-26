@@ -6,7 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 @Component({
 	selector: 'search-button',
 	template: `
-		<button class="btn btn-primary" mat-raised-button type="{{ type }}" data-cy="search-button" [disabled]="disabled || loading">
+		<button class="btn btn-primary {{ loading || disabled ? 'disabled' : '' }}" mat-raised-button type="{{ type }}" data-cy="search-button">
 			<span *ngIf="loading" aria-hidden="true" class="spinner-border spinner-border-sm" role="status"></span>
 			<mat-icon *ngIf="!loading">search</mat-icon>
 			{{ loading ? loadingLabel : label }}

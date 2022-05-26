@@ -6,7 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 @Component({
 	selector: 'success-button',
 	template: `
-		<button class="btn btn-success" mat-raised-button type="{{ type }}" data-cy="success-button" [disabled]="disabled || loading">
+		<button class="btn btn-success {{ loading || disabled ? 'disabled' : '' }}" mat-raised-button type="{{ type }}" data-cy="success-button">
 			<span *ngIf="loading" aria-hidden="true" class="spinner-border spinner-border-sm" role="status"></span>
 			<mat-icon *ngIf="!loading">{{ icon }}</mat-icon>
 			{{ loading ? loadingLabel : label }}
