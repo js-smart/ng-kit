@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Input, OnInit } from "@angular/core";
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 
 /**
  * Boostrap Alert component that can be used to alert messages to the user
