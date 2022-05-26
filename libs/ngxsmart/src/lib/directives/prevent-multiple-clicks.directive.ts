@@ -27,7 +27,6 @@ export class PreventMultipleClicksDirective implements OnInit, OnDestroy {
 		event.preventDefault();
 		event.stopPropagation();
 		this.clicks.next(event);
-		console.log('Clicked');
 	}
 
 	ngOnInit() {
