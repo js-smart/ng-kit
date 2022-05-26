@@ -1,6 +1,6 @@
 {
 	"name": "@ngxsmart/ngxsmart",
-	"version": "14.0.0-rc.1",
+	"version": "14.0.0-rc.2",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/ngxsmart/ngxsmart.git"
@@ -23,8 +23,8 @@
 		"url": "https://github.com/ngxsmart/ngxsmart.git/issues"
 	},
 	"peerDependencies": {
-		"@angular/common": "^14.0.0-rc.0",
-		"@angular/core": "^14.0.0-rc.0"
+		"@angular/common": "^14.0.0-rc.2",
+		"@angular/core": "^14.0.0-rc.2"
 	},
 	"dependencies": {
 		"tslib": "^2.3.0"
