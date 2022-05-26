@@ -1,20 +1,20 @@
 import {
-  AfterContentChecked,
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  ElementRef,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output,
-  ViewChild
-} from "@angular/core";
-import { BehaviorSubject, Observable } from "rxjs";
-import { FormGroup } from "@angular/forms";
-import { map, startWith } from "rxjs/operators";
-import { MatAutocompleteTrigger } from "@angular/material/autocomplete";
-import { MatOptionSelectionChange } from "@angular/material/core";
+	AfterContentChecked,
+	ChangeDetectionStrategy,
+	ChangeDetectorRef,
+	Component,
+	ElementRef,
+	EventEmitter,
+	Input,
+	OnInit,
+	Output,
+	ViewChild,
+} from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { FormGroup } from '@angular/forms';
+import { map, startWith } from 'rxjs/operators';
+import { MatAutocompleteTrigger } from '@angular/material/autocomplete';
+import { MatOptionSelectionChange } from '@angular/material/core';
 
 /**
  * Reusable Auto Complete component that extends MatAutoComplete to show Clear icon and Arrow buttons

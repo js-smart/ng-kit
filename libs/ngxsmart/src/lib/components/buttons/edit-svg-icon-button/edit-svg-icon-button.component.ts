@@ -1,7 +1,7 @@
 import { Component, Input, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
-import { EditSolidSvgComponentModule } from '../../svg-icons/edit-solid-svg/edit-solid-svg.component';
+import { EditSolidSvgComponentModule } from '../../../svg-icons/edit-solid-svg/edit-solid-svg.component';
 
 @Component({
 	selector: 'edit-svg-icon-button',
