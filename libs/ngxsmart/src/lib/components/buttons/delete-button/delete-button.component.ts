@@ -1,10 +1,12 @@
-import { Component, Input, NgModule, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 
 @Component({
 	selector: 'delete-button',
+	standalone: true,
+	imports: [CommonModule, MatButtonModule, MatIconModule],
 	template: `
 		<button class="btn btn-danger {{ loading ? 'disabled' : '' }}" mat-raised-button type="{{ type }}" data-cy="delete-button">
 			<span *ngIf="loading" aria-hidden="true" class="spinner-border spinner-border-sm" role="status"></span>
@@ -47,10 +49,3 @@ export class DeleteButtonComponent implements OnInit {
 
 	ngOnInit(): void {}
 }
-
-@NgModule({
-	declarations: [DeleteButtonComponent],
-	imports: [CommonModule, MatIconModule, MatButtonModule],
-	exports: [DeleteButtonComponent],
-})
-export class DeleteButtonComponentModule {}

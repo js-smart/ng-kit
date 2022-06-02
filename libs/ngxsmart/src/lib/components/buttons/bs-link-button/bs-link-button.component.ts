@@ -1,10 +1,12 @@
-import { Component, Input, NgModule } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 
 @Component({
 	selector: 'bs-link-button',
+	standalone: true,
+	imports: [CommonModule, MatButtonModule, MatIconModule],
 	template: `
 		<a class="btn btn-link" mat-button>
 			<mat-icon>{{ icon }}</mat-icon>
@@ -24,10 +26,3 @@ export class BsLinkButtonComponent {
 	 */
 	@Input() label = 'Edit';
 }
-
-@NgModule({
-	imports: [CommonModule, MatIconModule, MatButtonModule],
-	declarations: [BsLinkButtonComponent],
-	exports: [BsLinkButtonComponent],
-})
-export class BsLinkButtonComponentModule {}

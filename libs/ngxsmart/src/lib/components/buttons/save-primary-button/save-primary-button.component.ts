@@ -1,10 +1,12 @@
-import { Component, Input, NgModule } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 
 @Component({
 	selector: 'save-primary-button',
+	standalone: true,
+	imports: [CommonModule, MatButtonModule, MatIconModule],
 	template: ` <button
 		class="btn btn-primary primary-button {{ loading ? 'disabled' : '' }}"
 		mat-raised-button
@@ -46,10 +48,3 @@ export class SavePrimaryButtonComponent {
 	 */
 	@Input() icon = 'save';
 }
-
-@NgModule({
-	imports: [CommonModule, MatIconModule, MatButtonModule],
-	declarations: [SavePrimaryButtonComponent],
-	exports: [SavePrimaryButtonComponent],
-})
-export class SavePrimaryButtonComponentModule {}

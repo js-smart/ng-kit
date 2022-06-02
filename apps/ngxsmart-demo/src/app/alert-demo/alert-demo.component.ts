@@ -1,18 +1,18 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit } from '@angular/core';
+import { AlertComponent } from '@ngxsmart/ngxsmart';
 
 @Component({
-  selector: "ngxsmart-alert-demo",
-  templateUrl: "./alert-demo.component.html",
-  styleUrls: ["./alert-demo.component.scss"]
+	selector: 'ngxsmart-alert-demo',
+	standalone: true,
+	imports: [AlertComponent],
+	templateUrl: './alert-demo.component.html',
+	styleUrls: ['./alert-demo.component.scss'],
 })
 export class AlertDemoComponent implements OnInit {
-  dismissOnTimeout = true;
-  dismissible = true;
+	dismissOnTimeout = true;
+	dismissible = true;
 
-  constructor() {
-  }
+	constructor() {}
 
-  ngOnInit(): void {
-  }
-
+	ngOnInit(): void {}
 }

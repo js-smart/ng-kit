@@ -1,10 +1,12 @@
-import { Component, Input, NgModule, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 
 @Component({
 	selector: 'search-button',
+	standalone: true,
+	imports: [CommonModule, MatButtonModule, MatIconModule],
 	template: `
 		<button class="btn btn-primary {{ loading || disabled ? 'disabled' : '' }}" mat-raised-button type="{{ type }}" data-cy="search-button">
 			<span *ngIf="loading" aria-hidden="true" class="spinner-border spinner-border-sm" role="status"></span>
@@ -47,10 +49,3 @@ export class SearchButtonComponent implements OnInit {
 
 	ngOnInit(): void {}
 }
-
-@NgModule({
-	declarations: [SearchButtonComponent],
-	imports: [CommonModule, MatIconModule, MatButtonModule],
-	exports: [SearchButtonComponent],
-})
-export class SearchButtonComponentModule {}

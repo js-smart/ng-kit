@@ -1,18 +1,14 @@
-export * from './lib/alert.module';
 export * from './lib/components/alert/alert.component';
-export * from './lib/spinner.module';
-export * from './lib/components/spinner/spinner.component';
-export * from './lib/ngx-spinner/ngx-spinner.service';
-export * from './lib/ngx-spinner/ngx-spinner.component';
-export * from './lib/autocomplete.module';
+export * from './lib/spinner/spinner.component';
+export * from './lib/components/ngx-spinner/ngx-spinner.service';
+export * from './lib/components/ngx-spinner/ngx-spinner.component';
 export * from './lib/components/autocomplete/autocomplete.component';
 export * from './lib/components/object-autocomplete/object-autocomplete.component';
 export * from './lib/components/string-autocomplete/string-autocomplete.component';
 
 // Export directives
-export * from './lib/print.module';
 export * from './lib/directives/ngx-print.directive';
-export * from './lib/directives/prevents-multiple-clicks.directive';
+export * from './lib/directives/prevent-multiple-clicks.directive';
 
 // Export buttons
 export * from './lib/components/buttons/bs-link-button/bs-link-button.component';
@@ -38,5 +34,3 @@ export * from './lib/components/buttons/view-primary-button/view-primary-button.
 
 // Export svg icons
 export * from './lib/svg-icons/edit-solid-svg/edit-solid-svg.component';
-
-export * from './lib/directives/prevents-multiple-clicks.directive';

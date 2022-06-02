@@ -1,10 +1,12 @@
-import { Component, Input, NgModule, ViewEncapsulation } from '@angular/core';
+import { Component, Input, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
 	selector: 'primary-button',
+	standalone: true,
+	imports: [CommonModule, MatButtonModule, MatIconModule],
 	template: `
 		<button
 			class="btn btn-primary primary-button {{ loading || disabled ? 'disabled' : '' }}"
@@ -59,10 +61,3 @@ export class PrimaryButtonComponent {
 	 */
 	@Input() showIcon = false;
 }
-
-@NgModule({
-	imports: [CommonModule, MatButtonModule, MatIconModule],
-	declarations: [PrimaryButtonComponent],
-	exports: [PrimaryButtonComponent],
-})
-export class PrimaryButtonComponentModule {}

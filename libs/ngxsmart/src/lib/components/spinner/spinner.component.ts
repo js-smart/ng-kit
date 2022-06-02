@@ -1,8 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
+import { CommonModule } from '@angular/common';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
 	selector: 'spinner,lib-spinner',
+	standalone: true,
+	imports: [CommonModule, MatProgressSpinnerModule],
 	templateUrl: './spinner.component.html',
 	styleUrls: ['./spinner.component.scss'],
 })

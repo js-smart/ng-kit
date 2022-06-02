@@ -1,15 +1,15 @@
-import { Component, OnInit, NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { PreventsMultipleClicksDirectiveModule, ViewButtonComponentModule } from '@ngxsmart/ngxsmart';
+import { Component, OnInit } from '@angular/core';
+import { PreventMultipleClicksDirective, ViewButtonComponent } from '@ngxsmart/ngxsmart';
 
 @Component({
 	selector: 'ngxsmart-directives-demo',
+	imports: [ViewButtonComponent, PreventMultipleClicksDirective],
 	template: `
 		<div class="m-5">
-			<view-button class="m-3" label="Throttle Button" (throttleClick)="click()" [throttleTime]="5000" preventMultipleClicks></view-button>
+			<view-button class="m-3" label="Throttle Button" (throttleClick)="click()" preventMultipleClicks></view-button>
 		</div>
 	`,
-	styles: [],
+	standalone: true,
 })
 export class DirectivesDemoComponent implements OnInit {
 	constructor() {}
@@ -20,10 +20,3 @@ export class DirectivesDemoComponent implements OnInit {
 		console.log('Clicked');
 	}
 }
-
-@NgModule({
-	imports: [CommonModule, ViewButtonComponentModule, PreventsMultipleClicksDirectiveModule],
-	declarations: [DirectivesDemoComponent],
-	exports: [DirectivesDemoComponent],
-})
-export class DirectivesDemoComponentModule {}

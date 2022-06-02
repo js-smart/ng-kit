@@ -1,9 +1,11 @@
-import { Component, NgModule } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 
 @Component({
 	selector: 'excel-export-button',
+	standalone: true,
+	imports: [CommonModule, MatButtonModule],
 	template: ` <button class="excel-export-button" mat-raised-button type="button" data-cy="excel-export-button">Excel</button> `,
 	styles: [
 		`
@@ -19,10 +21,3 @@ import { MatButtonModule } from '@angular/material/button';
 	],
 })
 export class ExcelExportButtonComponent {}
-
-@NgModule({
-	imports: [CommonModule, MatButtonModule],
-	declarations: [ExcelExportButtonComponent],
-	exports: [ExcelExportButtonComponent],
-})
-export class ExcelExportButtonComponentModule {}

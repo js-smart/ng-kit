@@ -15,9 +15,13 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { DEFAULTS, LOADERS, NgxSpinner, PRIMARY_SPINNER, Size } from './ngx-spinner.enum';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { CommonModule } from '@angular/common';
+import { SafeHtmlPipe } from './safe-html.pipe';
 
 @Component({
 	selector: 'ngx-spinner',
+	standalone: true,
+	imports: [CommonModule, SafeHtmlPipe],
 	templateUrl: 'ngx-spinner.component.html',
 	styleUrls: ['ngx-spinner.component.css'],
 	changeDetection: ChangeDetectionStrategy.OnPush,

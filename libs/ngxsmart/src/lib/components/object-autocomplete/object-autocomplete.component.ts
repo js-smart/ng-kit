@@ -1,8 +1,13 @@
 import { AfterContentChecked, ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { map, startWith } from 'rxjs/operators';
-import { MatAutocompleteTrigger } from '@angular/material/autocomplete';
+import { MatAutocompleteModule, MatAutocompleteTrigger } from '@angular/material/autocomplete';
+import { CommonModule } from '@angular/common';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 /**
  * Reusable Auto Complete component that extends MatAutoComplete to show Clear icon and Arrow buttons
@@ -12,6 +17,8 @@ import { MatAutocompleteTrigger } from '@angular/material/autocomplete';
  */
 @Component({
 	selector: 'lib-object-autocomplete,object-autocomplete',
+	standalone: true,
+	imports: [CommonModule, ReactiveFormsModule, MatFormFieldModule, MatAutocompleteModule, MatInputModule, MatButtonModule, MatIconModule],
 	templateUrl: './object-autocomplete.component.html',
 	styleUrls: ['./object-autocomplete.component.scss'],
 })
