@@ -15,7 +15,7 @@ jobs:
       - name: Install Angular CLI
         run: npm install -g @angular/cli @angular/core
       - name: Install NPM Dependencies
-        run: npm ci
+        run: npm ci --force
       - name: Build project
         run: ng build --project=ngxsmart
       - name: Publish to NPM
