@@ -16,8 +16,9 @@ const EDIT_ICON = `
 	styles: [
 		`
 			.mat-icon {
-				vertical-align: super;
+				vertical-align: baseline;
 				padding-left: 5px;
+				height: 28px;
 			}
 		`,
 	],
