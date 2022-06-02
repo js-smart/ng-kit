@@ -16,6 +16,7 @@ const EDIT_ICON = `
 			.mat-icon {
 				vertical-align: super;
 				padding-left: 5px;
+				min-height: 28px;
 			}
 		`,
 	],
