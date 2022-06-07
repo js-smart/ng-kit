@@ -1,5 +1,5 @@
 # NGX Smart utilities
-Most commonly used Angular utility libraries
+Reusable Angular components built with Angular Material and Bootstrap 5.x, Utility classes/functions for Date, Form and String operations 
 
 <p align="center">
 
