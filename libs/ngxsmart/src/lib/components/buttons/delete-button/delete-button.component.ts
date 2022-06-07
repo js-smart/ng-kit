@@ -1,10 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
+import { Component, Input, OnInit } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { MatIconModule } from "@angular/material/icon";
+import { MatButtonModule } from "@angular/material/button";
 
 @Component({
-	selector: 'delete-button',
+	selector: "delete-button",
 	standalone: true,
 	imports: [CommonModule, MatButtonModule, MatIconModule],
 	template: `
@@ -45,7 +45,6 @@ export class DeleteButtonComponent implements OnInit {
 	 */
 	@Input() icon = 'delete';
 
-	constructor() {}
 
 	ngOnInit(): void {}
 }

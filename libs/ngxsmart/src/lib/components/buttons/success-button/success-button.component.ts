@@ -1,10 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
+import { Component, Input, OnInit } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { MatIconModule } from "@angular/material/icon";
+import { MatButtonModule } from "@angular/material/button";
 
 @Component({
-	selector: 'success-button',
+	selector: "success-button",
 	standalone: true,
 	imports: [CommonModule, MatButtonModule, MatIconModule],
 	template: `
@@ -54,7 +54,6 @@ export class SuccessButtonComponent implements OnInit {
 	 */
 	@Input() icon = 'save';
 
-	constructor() {}
 
 	ngOnInit(): void {}
 }
