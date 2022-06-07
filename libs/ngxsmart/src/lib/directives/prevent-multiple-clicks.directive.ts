@@ -1,9 +1,9 @@
-import { Directive, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { Subject, Subscription, throttleTime } from 'rxjs';
+import { Directive, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output } from "@angular/core";
+import { Subject, Subscription, throttleTime } from "rxjs";
 
 @Directive({
-	selector: '[preventMultipleClicks]',
-	standalone: true,
+	selector: "[preventMultipleClicks]",
+	standalone: true
 })
 export class PreventMultipleClicksDirective implements OnInit, OnDestroy {
 	@Input() throttleTime = 2000;
@@ -11,8 +11,6 @@ export class PreventMultipleClicksDirective implements OnInit, OnDestroy {
 
 	private clicks = new Subject();
 	private subscription: Subscription | undefined;
-
-	constructor() {}
 
 	/**
 	 * Intercepts click event and stops default navigation. After first click set {@link throttleTime} to 2000 to prevent duplicate clicks
