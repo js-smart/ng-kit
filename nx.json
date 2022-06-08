@@ -4,7 +4,6 @@
 		"defaultBase": "main"
 	},
 	"cli": {
-		"defaultCollection": "@nrwl/angular",
 		"packageManager": "npm"
 	},
 	"implicitDependencies": {
@@ -16,9 +15,10 @@
 	},
 	"tasksRunnerOptions": {
 		"default": {
-			"runner": "@nrwl/workspace/tasks-runners/default",
+			"runner": "@nrwl/nx-cloud",
 			"options": {
-				"cacheableOperations": ["build", "lint", "test", "e2e"]
+				"cacheableOperations": ["build", "lint", "test", "e2e"],
+				"accessToken": "Yzg3Y2UyZGQtZDJkZC00MjdhLTk2NDQtOGI0NTVhYjAwMjA3fHJlYWQtd3JpdGU="
 			}
 		}
 	},
@@ -46,5 +46,6 @@
 			"style": "scss"
 		}
 	},
-	"defaultProject": "ngxsmart-demo"
+	"defaultProject": "ngxsmart-demo",
+	"$schema": "./node_modules/nx/schemas/nx-schema.json"
 }

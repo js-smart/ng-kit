@@ -2,6 +2,7 @@
 	"version": 1,
 	"projects": {
 		"ngxsmart": {
+			"$schema": "../../node_modules/nx/schemas/project-schema.json",
 			"projectType": "library",
 			"root": "libs/ngxsmart",
 			"sourceRoot": "libs/ngxsmart/src",
@@ -41,6 +42,7 @@
 			"tags": []
 		},
 		"ngxsmart-demo": {
+			"$schema": "../../node_modules/nx/schemas/project-schema.json",
 			"projectType": "application",
 			"root": "apps/ngxsmart-demo",
 			"sourceRoot": "apps/ngxsmart-demo/src",
@@ -129,6 +131,7 @@
 			"tags": []
 		},
 		"ngxsmart-demo-e2e": {
+			"$schema": "../../node_modules/nx/schemas/project-schema.json",
 			"root": "apps/ngxsmart-demo-e2e",
 			"sourceRoot": "apps/ngxsmart-demo-e2e/src",
 			"projectType": "application",
