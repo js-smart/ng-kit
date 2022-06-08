@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { PreventMultipleClicksDirective, ViewButtonComponent } from '@ngxsmart/ngxsmart';
 
 @Component({
@@ -11,11 +11,7 @@ import { PreventMultipleClicksDirective, ViewButtonComponent } from '@ngxsmart/n
 	`,
 	standalone: true,
 })
-export class DirectivesDemoComponent implements OnInit {
-	constructor() {}
-
-	ngOnInit(): void {}
-
+export class DirectivesDemoComponent {
 	click() {
 		console.log('Clicked');
 	}

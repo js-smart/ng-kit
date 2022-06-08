@@ -8,19 +8,19 @@ import {
 	Input,
 	OnInit,
 	Output,
-	ViewChild
-} from "@angular/core";
-import { BehaviorSubject, Observable } from "rxjs";
-import { FormGroup, ReactiveFormsModule } from "@angular/forms";
-import { map, startWith } from "rxjs/operators";
-import { MatAutocompleteModule, MatAutocompleteTrigger } from "@angular/material/autocomplete";
-import { MatOptionSelectionChange } from "@angular/material/core";
-import { CommonModule } from "@angular/common";
-import { MatFormFieldModule } from "@angular/material/form-field";
-import { MatInputModule } from "@angular/material/input";
-import { MatButtonModule } from "@angular/material/button";
-import { MatIconModule } from "@angular/material/icon";
-import { TypeOfPipe } from "../../pipes/type-of.pipe";
+	ViewChild,
+} from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { map, startWith } from 'rxjs/operators';
+import { MatAutocompleteModule, MatAutocompleteTrigger } from '@angular/material/autocomplete';
+import { MatOptionSelectionChange } from '@angular/material/core';
+import { CommonModule } from '@angular/common';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { TypeOfPipe } from '../../pipes/type-of.pipe';
 
 /**
  * Reusable Auto Complete component that extends MatAutoComplete to show Clear icon and Arrow buttons
@@ -29,7 +29,7 @@ import { TypeOfPipe } from "../../pipes/type-of.pipe";
  * @since 12.0.0
  */
 @Component({
-	selector: "autocomplete, lib-autocomplete",
+	selector: 'autocomplete, lib-autocomplete',
 	standalone: true,
 	imports: [
 		CommonModule,

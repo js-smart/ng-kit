@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { AutocompleteComponent } from '@ngxsmart/ngxsmart';
 
@@ -46,7 +46,7 @@ import { AutocompleteComponent } from '@ngxsmart/ngxsmart';
 	`,
 	styles: [],
 })
-export class AutocompleteDemoComponent implements OnInit {
+export class AutocompleteDemoComponent {
 	cities: City[] = [
 		{ id: 1001, location: 'New York' },
 		{ id: 1002, location: 'Boston' },
@@ -63,8 +63,6 @@ export class AutocompleteDemoComponent implements OnInit {
 	});
 
 	constructor(private fb: FormBuilder) {}
-
-	ngOnInit(): void {}
 
 	displayFn(object: any): string {
 		if (typeof object === 'string') return object;

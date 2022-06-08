@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AlertComponent } from '@ngxsmart/ngxsmart';
 
 @Component({
@@ -8,11 +8,7 @@ import { AlertComponent } from '@ngxsmart/ngxsmart';
 	templateUrl: './alert-demo.component.html',
 	styleUrls: ['./alert-demo.component.scss'],
 })
-export class AlertDemoComponent implements OnInit {
+export class AlertDemoComponent {
 	dismissOnTimeout = true;
 	dismissible = true;
-
-	constructor() {}
-
-	ngOnInit(): void {}
 }
