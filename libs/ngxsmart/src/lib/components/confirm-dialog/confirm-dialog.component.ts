@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
@@ -24,7 +24,7 @@ import { MatDividerModule } from '@angular/material/divider';
 	`,
 	styles: [],
 })
-export class ConfirmDialogComponent implements OnInit {
+export class ConfirmDialogComponent {
 	title: string;
 	message: string;
 
@@ -33,8 +33,6 @@ export class ConfirmDialogComponent implements OnInit {
 		this.title = data.title;
 		this.message = data.message;
 	}
-
-	ngOnInit(): void {}
 
 	onDismiss() {
 		// Close the dialog, return true

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 
@@ -23,10 +23,8 @@ const EDIT_ICON = `
 		`,
 	],
 })
-export class EditSolidSvgComponent implements OnInit {
+export class EditSolidSvgComponent {
 	constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
 		iconRegistry.addSvgIconLiteral('edit-solid', sanitizer.bypassSecurityTrustHtml(EDIT_ICON));
 	}
-
-	ngOnInit(): void {}
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { EditSvgIconButtonComponent } from '@ngxsmart/ngxsmart';
 
 @Component({
@@ -8,8 +8,4 @@ import { EditSvgIconButtonComponent } from '@ngxsmart/ngxsmart';
 	template: ` <edit-svg-icon-button class="m-5"></edit-svg-icon-button> `,
 	styles: [],
 })
-export class EditSvgIconDemoComponent implements OnInit {
-	constructor() {}
-
-	ngOnInit(): void {}
-}
+export class EditSvgIconDemoComponent {}
