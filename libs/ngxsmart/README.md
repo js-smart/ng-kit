@@ -37,6 +37,14 @@ and use it as shown below in each section
   ```shell
    npm run build ngxsmart && cd dist/libs/ngxsmart && npm publish --access public
   ```
+## Supported Versions
+
+Standalone components are supported in version 14.x.x or later. For Angular versions 13.x.x or below use 13.x.x version of the library.
+
+| Angular Version    | Supported Version |
+|--------------------|-------------------|
+| >=14.x.x           | 14.x.x            |
+| 13.x.x and <14.x.x | 13.x.x            |
 
 ### Technologies
 1. Angular 13+
