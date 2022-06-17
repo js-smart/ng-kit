@@ -18,7 +18,6 @@
 					"error",
 					{
 						"type": "element",
-						"prefix": "ngxsmart",
 						"style": "kebab-case"
 					}
 				]
