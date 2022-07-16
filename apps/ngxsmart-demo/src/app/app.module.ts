@@ -10,6 +10,7 @@ import { EditSvgIconDemoComponent } from './edit-svg-icon-demo/edit-svg-icon-dem
 import { HttpClientModule } from '@angular/common/http';
 import { ButtonsDemoComponent } from './buttons-demo/buttons-demo.component';
 import { DirectivesDemoComponent } from './directives-demo/directives-demo.component';
+import { SnackBarDemoComponent } from './snack-bar-demo/snack-bar-demo.component';
 
 @NgModule({
 	declarations: [AppComponent],
@@ -24,6 +25,7 @@ import { DirectivesDemoComponent } from './directives-demo/directives-demo.compo
 			{ path: 'edit-svg-icon-demo', component: EditSvgIconDemoComponent },
 			{ path: 'buttons-demo', component: ButtonsDemoComponent },
 			{ path: 'directives-demo', component: DirectivesDemoComponent },
+			{ path: 'snack-bar-demo', component: SnackBarDemoComponent },
 		]),
 	],
 	providers: [],

@@ -1,10 +1,10 @@
-import { Injectable } from "@angular/core";
-import { BehaviorSubject, Observable } from "rxjs";
-import { filter } from "rxjs/operators";
-import { NgxSpinner, PRIMARY_SPINNER, Spinner } from "./ngx-spinner.enum";
+import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { filter } from 'rxjs/operators';
+import { NgxSpinner, PRIMARY_SPINNER, Spinner } from './ngx-spinner.enum';
 
 @Injectable({
-	providedIn: "root"
+	providedIn: 'root',
 })
 export class NgxSpinnerService {
 	/**
@@ -19,7 +19,6 @@ export class NgxSpinnerService {
 	 * Creates an instance of NgxSpinnerService.
 	 * @memberof NgxSpinnerService
 	 */
-
 
 	/**
 	 * Get subscription of desired spinner
