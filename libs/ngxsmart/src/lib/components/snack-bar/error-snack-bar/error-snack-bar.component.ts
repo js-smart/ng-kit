@@ -17,7 +17,7 @@ import { MAT_SNACK_BAR_DATA, MatSnackBarRef } from '@angular/material/snack-bar'
 			</button>
 		</div>
 	`,
-	styleUrls: ['../../../../assets/app-mat-snack-bar.scss'],
+  styleUrls: ['../../../../assets/app-mat-snack-bar.scss'],
 })
 export class ErrorSnackBarComponent {
 	constructor(
