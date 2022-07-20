@@ -1,9 +1,9 @@
-import { Directive, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output } from "@angular/core";
-import { Subject, Subscription, throttleTime } from "rxjs";
+import { Directive, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Subject, Subscription, throttleTime } from 'rxjs';
 
 @Directive({
-	selector: "[preventMultipleClicks]",
-	standalone: true
+	selector: '[preventMultipleClicks]',
+	standalone: true,
 })
 export class PreventMultipleClicksDirective implements OnInit, OnDestroy {
 	@Input() throttleTime = 2000;

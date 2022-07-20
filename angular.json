@@ -1,163 +1,189 @@
 {
-	"version": 1,
-	"projects": {
-		"ngxsmart": {
-			"$schema": "../../node_modules/nx/schemas/project-schema.json",
-			"projectType": "library",
-			"root": "libs/ngxsmart",
-			"sourceRoot": "libs/ngxsmart/src",
-			"prefix": "ngxsmart",
-			"architect": {
-				"build": {
-					"builder": "@nrwl/angular:package",
-					"outputs": ["dist/libs/ngxsmart"],
-					"options": {
-						"project": "libs/ngxsmart/ng-package.json"
-					},
-					"configurations": {
-						"production": {
-							"tsConfig": "libs/ngxsmart/tsconfig.lib.prod.json"
-						},
-						"development": {
-							"tsConfig": "libs/ngxsmart/tsconfig.lib.json"
-						}
-					},
-					"defaultConfiguration": "production"
-				},
-				"test": {
-					"builder": "@nrwl/jest:jest",
-					"outputs": ["coverage/libs/ngxsmart"],
-					"options": {
-						"jestConfig": "libs/ngxsmart/jest.config.js",
-						"passWithNoTests": true
-					}
-				},
-				"lint": {
-					"builder": "@nrwl/linter:eslint",
-					"options": {
-						"lintFilePatterns": ["libs/ngxsmart/src/**/*.ts", "libs/ngxsmart/src/**/*.html"]
-					}
-				}
-			},
-			"tags": []
-		},
-		"ngxsmart-demo": {
-			"$schema": "../../node_modules/nx/schemas/project-schema.json",
-			"projectType": "application",
-			"root": "apps/ngxsmart-demo",
-			"sourceRoot": "apps/ngxsmart-demo/src",
-			"prefix": "ngxsmart",
-			"architect": {
-				"build": {
-					"builder": "@angular-devkit/build-angular:browser",
-					"outputs": ["{options.outputPath}"],
-					"options": {
-						"outputPath": "dist/apps/ngxsmart-demo",
-						"index": "apps/ngxsmart-demo/src/index.html",
-						"main": "apps/ngxsmart-demo/src/main.ts",
-						"polyfills": "apps/ngxsmart-demo/src/polyfills.ts",
-						"tsConfig": "apps/ngxsmart-demo/tsconfig.app.json",
-						"inlineStyleLanguage": "scss",
-						"assets": ["apps/ngxsmart-demo/src/favicon.ico", "apps/ngxsmart-demo/src/assets"],
-						"styles": ["./node_modules/@angular/material/prebuilt-themes/indigo-pink.css", "apps/ngxsmart-demo/src/styles.scss"],
-						"scripts": []
-					},
-					"configurations": {
-						"production": {
-							"budgets": [
-								{
-									"type": "initial",
-									"maximumWarning": "500kb",
-									"maximumError": "1mb"
-								},
-								{
-									"type": "anyComponentStyle",
-									"maximumWarning": "2kb",
-									"maximumError": "4kb"
-								}
-							],
-							"fileReplacements": [
-								{
-									"replace": "apps/ngxsmart-demo/src/environments/environment.ts",
-									"with": "apps/ngxsmart-demo/src/environments/environment.prod.ts"
-								}
-							],
-							"outputHashing": "all"
-						},
-						"development": {
-							"buildOptimizer": false,
-							"optimization": false,
-							"vendorChunk": true,
-							"extractLicenses": false,
-							"sourceMap": true,
-							"namedChunks": true
-						}
-					},
-					"defaultConfiguration": "production"
-				},
-				"serve": {
-					"builder": "@angular-devkit/build-angular:dev-server",
-					"configurations": {
-						"production": {
-							"browserTarget": "ngxsmart-demo:build:production"
-						},
-						"development": {
-							"browserTarget": "ngxsmart-demo:build:development"
-						}
-					},
-					"defaultConfiguration": "development"
-				},
-				"extract-i18n": {
-					"builder": "@angular-devkit/build-angular:extract-i18n",
-					"options": {
-						"browserTarget": "ngxsmart-demo:build"
-					}
-				},
-				"lint": {
-					"builder": "@nrwl/linter:eslint",
-					"options": {
-						"lintFilePatterns": ["apps/ngxsmart-demo/src/**/*.ts", "apps/ngxsmart-demo/src/**/*.html"]
-					}
-				},
-				"test": {
-					"builder": "@nrwl/jest:jest",
-					"outputs": ["coverage/apps/ngxsmart-demo"],
-					"options": {
-						"jestConfig": "apps/ngxsmart-demo/jest.config.js",
-						"passWithNoTests": true
-					}
-				}
-			},
-			"tags": []
-		},
-		"ngxsmart-demo-e2e": {
-			"$schema": "../../node_modules/nx/schemas/project-schema.json",
-			"root": "apps/ngxsmart-demo-e2e",
-			"sourceRoot": "apps/ngxsmart-demo-e2e/src",
-			"projectType": "application",
-			"architect": {
-				"e2e": {
-					"builder": "@nrwl/cypress:cypress",
-					"options": {
-						"cypressConfig": "apps/ngxsmart-demo-e2e/cypress.json",
-						"devServerTarget": "ngxsmart-demo:serve:development"
-					},
-					"configurations": {
-						"production": {
-							"devServerTarget": "ngxsmart-demo:serve:production"
-						}
-					}
-				},
-				"lint": {
-					"builder": "@nrwl/linter:eslint",
-					"outputs": ["{options.outputFile}"],
-					"options": {
-						"lintFilePatterns": ["apps/ngxsmart-demo-e2e/**/*.{js,ts}"]
-					}
-				}
-			},
-			"tags": [],
-			"implicitDependencies": ["ngxsmart-demo"]
-		}
-	}
+  "version": 1,
+  "projects": {
+    "ngxsmart": {
+      "$schema": "../../node_modules/nx/schemas/project-schema.json",
+      "projectType": "library",
+      "root": "libs/ngxsmart",
+      "sourceRoot": "libs/ngxsmart/src",
+      "prefix": "ngxsmart",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:package",
+          "outputs": [
+            "dist/libs/ngxsmart"
+          ],
+          "options": {
+            "project": "libs/ngxsmart/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/ngxsmart/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "libs/ngxsmart/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/ngxsmart"
+          ],
+          "options": {
+            "jestConfig": "libs/ngxsmart/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/ngxsmart/src/**/*.ts",
+              "libs/ngxsmart/src/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
+    "ngxsmart-demo": {
+      "$schema": "../../node_modules/nx/schemas/project-schema.json",
+      "projectType": "application",
+      "root": "apps/ngxsmart-demo",
+      "sourceRoot": "apps/ngxsmart-demo/src",
+      "prefix": "ngxsmart",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "outputs": [
+            "{options.outputPath}"
+          ],
+          "options": {
+            "outputPath": "dist/apps/ngxsmart-demo",
+            "index": "apps/ngxsmart-demo/src/index.html",
+            "main": "apps/ngxsmart-demo/src/main.ts",
+            "polyfills": "apps/ngxsmart-demo/src/polyfills.ts",
+            "tsConfig": "apps/ngxsmart-demo/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "apps/ngxsmart-demo/src/favicon.ico",
+              "apps/ngxsmart-demo/src/assets"
+            ],
+            "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "apps/ngxsmart-demo/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "apps/ngxsmart-demo/src/environments/environment.ts",
+                  "with": "apps/ngxsmart-demo/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "ngxsmart-demo:build:production"
+            },
+            "development": {
+              "browserTarget": "ngxsmart-demo:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "ngxsmart-demo:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/ngxsmart-demo/src/**/*.ts",
+              "apps/ngxsmart-demo/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/apps/ngxsmart-demo"
+          ],
+          "options": {
+            "jestConfig": "apps/ngxsmart-demo/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
+    "ngxsmart-demo-e2e": {
+      "$schema": "../../node_modules/nx/schemas/project-schema.json",
+      "root": "apps/ngxsmart-demo-e2e",
+      "sourceRoot": "apps/ngxsmart-demo-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/ngxsmart-demo-e2e/cypress.json",
+            "devServerTarget": "ngxsmart-demo:serve:development"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "ngxsmart-demo:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "outputs": [
+            "{options.outputFile}"
+          ],
+          "options": {
+            "lintFilePatterns": [
+              "apps/ngxsmart-demo-e2e/**/*.{js,ts}"
+            ]
+          }
+        }
+      },
+      "tags": [],
+      "implicitDependencies": [
+        "ngxsmart-demo"
+      ]
+    }
+  }
 }
