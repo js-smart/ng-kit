@@ -8,14 +8,12 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-node@v1
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
         with:
           node-version: 16
-      - name: Install Angular CLI
-        run: npm install -g @angular/cli @angular/core
       - name: Install NPM Dependencies
-        run: npm ci --force
+        run: pnpm install --frozen-lockfile
       - name: Build project
         run: ng build --project=ngxsmart
       - name: Publish to NPM
