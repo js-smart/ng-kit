@@ -2,26 +2,29 @@ name: Build Project
 
 on:
   push:
-    branches: [main, development]
+    branches: [ main, development ]
   pull_request:
-    branches: [main]
+    branches: [ main ]
 
 jobs:
   build:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: ['ubuntu-latest']
-        node: ['18']
+        os: [ 'ubuntu-latest' ]
+        node: [ '18' ]
     steps:
       - uses: actions/checkout@v2
+      - uses: pnpm/action-setup@v2.2.2
+        with:
+          version: 7
       - name: Use Node.js ${{ matrix.node }}
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node }}
       - name: Install dependencies
-        run: npm ci --force
+        run: pnpm install --frozen-lockfile
       - name: Build
-        run: npm run build --configuration=production
+        run: pnpm run build --configuration=production
         env:
           CI: true
