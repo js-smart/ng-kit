@@ -4,15 +4,15 @@ Reusable Angular components built with Angular Material and Bootstrap 5.x, Utili
 <p align="center">
 
 [![CI](https://github.com/ngxsmart/ngxsmart/actions/workflows/cicd.yml/badge.svg)](https://github.com/ngxsmart/ngxsmart/actions/workflows/cicd.yml)
-<a href="https://www.npmjs.com/@ngxsmart/ngxsmart">
-<img src="https://img.shields.io/npm/v/@ngxsmart/ngxsmart" alt="Ngx Cookie Service on npm" />
+<a href="https://www.npmjs.com/@js-smart/ngxsmart">
+<img src="https://img.shields.io/npm/v/@js-smart/ngxsmart" alt="Ngx Cookie Service on npm" />
 </a>
 </p>
 
 ### Installation
 Install the library
 ```shell
-npm install @ngxsmart/ngxsmart
+npm install @js-smart/ngxsmart
 ```
 and use it as shown below in each section
 
@@ -168,7 +168,7 @@ Angular (2++) directive that prints HTML section
 Import the main module `NgxPrintModule` :
 
    ```js
-import {NgxPrintModule} from '@ngxsmart/print';
+import {NgxPrintModule} from '@js-smart/print';
 
 @NgModule({
   ...
