@@ -1,34 +1,34 @@
 {
-	"name": "@js-smart/ngxsmart",
-	"version": "14.2.1",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/ngxsmart/ngxsmart.git"
-	},
-	"author": {
-		"name": "Pavan Kumar Jadda",
-		"email": "contactdeveloperpj@gmail.com"
-	},
-	"keywords": [
-		"angular",
-		"bootstrap",
-		"spinner",
-		"alert",
-		"print",
-		"autocomplete",
-		"ivy"
-	],
-	"license": "MIT",
-	"bugs": {
-		"url": "https://github.com/ngxsmart/ngxsmart.git/issues"
-	},
-	"peerDependencies": {
-		"@angular/common": "^14.0.0",
-		"@angular/core": "^14.0.0",
-		"@angular/material": "^14.0.0",
-		"bootstrap": "5.2.0"
-	},
-	"dependencies": {
-		"tslib": "^2.3.0"
-	}
+  "name": "@js-smart/ngxsmart",
+  "version": "14.2.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ngxsmart/ngxsmart.git"
+  },
+  "author": {
+    "name": "Pavan Kumar Jadda",
+    "email": "contactdeveloperpj@gmail.com"
+  },
+  "keywords": [
+    "angular",
+    "bootstrap",
+    "spinner",
+    "alert",
+    "print",
+    "autocomplete",
+    "ivy"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ngxsmart/ngxsmart.git/issues"
+  },
+  "peerDependencies": {
+    "@angular/common": "^14.0.0",
+    "@angular/core": "^14.0.0",
+    "@angular/material": "^14.0.0",
+    "bootstrap": "^5.0.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  }
 }
