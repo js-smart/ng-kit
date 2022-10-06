@@ -9,10 +9,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - uses: pnpm/action-setup@v2.2.2
+        with:
+          version: 7
       - uses: actions/setup-node@v2
         with:
-          node-version: 16
-      - name: Install NPM Dependencies
+          node-version: 18
+      - name: Install PNPM Dependencies
         run: pnpm install --frozen-lockfile
       - name: Build project
         run: ng build --project=ngxsmart
