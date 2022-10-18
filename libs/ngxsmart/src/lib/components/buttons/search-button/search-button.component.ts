@@ -8,8 +8,11 @@ import { MatButtonModule } from "@angular/material/button";
 	standalone: true,
 	imports: [CommonModule, MatButtonModule, MatIconModule],
 	template: `
-		<button class="btn btn-primary {{ loading || disabled ? 'disabled' : '' }}" mat-raised-button type="{{ type }}"
-						data-cy="search-button">
+		<button
+			class="btn btn-primary primary-button {{ loading || disabled ? 'disabled' : '' }}"
+			mat-raised-button
+			type="{{ type }}"
+			data-cy="primary-button">
 			<span *ngIf="loading" aria-hidden="true" class="spinner-border spinner-border-sm" role="status"></span>
 			<mat-icon *ngIf="!loading">search</mat-icon>
 			{{ loading ? loadingLabel : label }}
