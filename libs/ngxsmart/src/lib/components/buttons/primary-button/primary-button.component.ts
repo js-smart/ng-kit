@@ -1,10 +1,10 @@
-import { Component, Input, ViewEncapsulation } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
+import { Component, Input } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { MatButtonModule } from "@angular/material/button";
+import { MatIconModule } from "@angular/material/icon";
 
 @Component({
-	selector: 'primary-button',
+	selector: "primary-button",
 	standalone: true,
 	imports: [CommonModule, MatButtonModule, MatIconModule],
 	template: `
@@ -18,8 +18,7 @@ import { MatIconModule } from '@angular/material/icon';
 			{{ loading ? loadingLabel : label }}
 		</button>
 	`,
-	styles: [],
-	encapsulation: ViewEncapsulation.None,
+	styleUrls: ["../../../../assets/app-buttons.css"]
 })
 export class PrimaryButtonComponent {
 	/**

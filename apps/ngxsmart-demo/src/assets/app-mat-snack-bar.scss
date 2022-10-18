@@ -1,8 +1,8 @@
-@import "app-variables.scss";
 
 .success-snackbar {
   color: white;
-  background-color: $success-color;
+  background-color: var(--success-color);
+
   .mat-simple-snackbar-action {
     color: white;
   }
@@ -11,8 +11,9 @@
 .error-snackbar {
   max-width: max-content !important;
   color: white;
-  background-color: $delete-color;
+  background-color: var(--delete-color);
   border-color: #f5c6cb;
+
   .mat-simple-snackbar-action {
     color: white;
   }

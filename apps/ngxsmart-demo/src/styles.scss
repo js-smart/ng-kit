@@ -3,7 +3,8 @@
 @import '@angular/material/prebuilt-themes/indigo-pink.css';
 @import 'bootstrap/dist/css/bootstrap.css';
 @import "assets/app-variables";
-@import "assets/app-mat-snack-bar";
+//@import "assets/app-buttons";
+//@import "assets/app-mat-snack-bar";
 
 html,
 body {
@@ -13,14 +14,6 @@ body {
 body {
   margin: 0;
   font-family: Roboto, 'Helvetica Neue', sans-serif;
-}
-
-.primary-button,
-.primary-button:hover,
-.primary-button:active,
-.primary-button:visited {
-  color: white;
-  background-color: #193791 !important;
 }
 
 .center_div {
@@ -73,5 +66,5 @@ strong {
 
 //Primary color text
 .primary-color-text {
-  color: $primary-color;
+  color: var(--primary-color);
 }

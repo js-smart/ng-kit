@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
+import { Component, Input } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { MatIconModule } from "@angular/material/icon";
+import { MatButtonModule } from "@angular/material/button";
 
 @Component({
-	selector: 'success-button',
+	selector: "success-button",
 	standalone: true,
 	imports: [CommonModule, MatButtonModule, MatIconModule],
 	template: `
@@ -18,6 +18,7 @@ import { MatButtonModule } from '@angular/material/button';
 			{{ loading ? loadingLabel : label }}
 		</button>
 	`,
+	styleUrls: ["../../../../assets/app-buttons.css"]
 })
 export class SuccessButtonComponent {
 	/**
