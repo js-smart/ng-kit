@@ -10,12 +10,10 @@ import { MatButtonModule } from '@angular/material/button';
 	providers: [MatSnackBarService],
 	template: `
 		<div class="center_div">
-			<button mat-raised-button color="primary" (click)="mdc.success('Update Success', { duration: 200000 })">
-				Show Success Snack Bar
+			<button mat-raised-button color="primary" (click)="mdc.success('Update Success')">Show Success Snack Bar</button>
+			<button style="margin-left: 30px" mat-raised-button color="warn" (click)="mdc.error('Failed to update the record')">
+				Show Error Snack Bar
 			</button>
-			<br />
-			<br />
-			<button mat-raised-button color="warn" (click)="mdc.error('Failed to update the record')">Show Error Snack Bar</button>
 		</div>
 	`,
 })
