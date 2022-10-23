@@ -27,9 +27,9 @@ and use it as shown below in each section
     ```
 3. Then navigate to `dist` directory anf publish the library to NPM. If prompted, enter the 2fa auth code from the Authenticator app.
     ```shell
-    cd dist/libs/ngxsmart && npm publish --access public
+    cd dist/libs/ngxsmart && npm publish --tag latest
     ```
-
+    For beta releases use tag `--tag beta`
 
 ### Technologies
 1. Angular 13+
