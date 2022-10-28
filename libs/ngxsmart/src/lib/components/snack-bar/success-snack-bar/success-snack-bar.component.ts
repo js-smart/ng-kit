@@ -9,11 +9,11 @@ import { MatButtonModule } from '@angular/material/button';
 	standalone: true,
 	imports: [CommonModule, MatIconModule, MatButtonModule],
 	template: `
-		<div class="custom-flex-center">
+		<div class="custom-flex-center success-snackbar">
 			<mat-icon>check_circle</mat-icon>
 			<label>{{ data.message }}</label>
-			<button style="font-size: 18px; margin-left: auto" (click)="close()" mat-button>
-				{{ data.action ?? 'Close' }}
+			<button style="margin-left: auto" (click)="close()" mat-icon-button>
+        <mat-icon>close</mat-icon>
 			</button>
 		</div>
 	`,

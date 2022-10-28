@@ -9,12 +9,12 @@ import { MAT_SNACK_BAR_DATA, MatSnackBarRef } from '@angular/material/snack-bar'
 	standalone: true,
 	imports: [CommonModule, MatIconModule, MatButtonModule],
 	template: `
-		<div class="custom-flex-center">
+		<div class="custom-flex-center error-snackbar">
 			<mat-icon>error</mat-icon>
 			<label>{{ data.message }}</label>
-			<button style="font-size: 18px; margin-left: auto" (click)="close()" mat-button>
-				{{ data.action ?? 'Close' }}
-			</button>
+      <button style="margin-left: auto" (click)="close()" mat-icon-button>
+        <mat-icon>close</mat-icon>
+      </button>
 		</div>
 	`,
 	styleUrls: ['../../../../assets/app-mat-snack-bar.scss'],

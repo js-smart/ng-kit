@@ -9,19 +9,19 @@
 }
 
 .error-snackbar {
-  max-width: max-content !important;
   color: white;
   background-color: var(--delete-color);
   border-color: #f5c6cb;
 
   .mat-simple-snackbar-action {
-    color: white;
+    color: white !important;
   }
 }
 
 .light-success-snackbar {
   color: #155724;
   background-color: #d4edda;
+
   .mat-simple-snackbar-action {
     color: darkgreen;
   }
@@ -31,6 +31,7 @@
   color: #721c24;
   background-color: #f8d7da;
   border-color: #f5c6cb;
+
   .mat-simple-snackbar-action {
     color: darkred;
   }
