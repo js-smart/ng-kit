@@ -1,6 +1,6 @@
 {
   "name": "@js-smart/ngxsmart",
-  "version": "15.0.0-rc.1",
+  "version": "15.0.0-rc.2",
   "private": false,
   "repository": {
     "type": "git",
@@ -24,9 +24,9 @@
     "url": "https://github.com/ngxsmart/ngxsmart.git/issues"
   },
   "peerDependencies": {
-    "@angular/common": "^15.0.0-next.5",
-    "@angular/core": "^15.0.0-next.5",
-    "@angular/material": "^15.0.0-next.4",
+    "@angular/common": "^15.0.0-rc.1",
+    "@angular/core": "^15.0.0-rc.1",
+    "@angular/material": "^15.0.0-rc.1",
     "bootstrap": "^5.2.2"
   },
   "dependencies": {
