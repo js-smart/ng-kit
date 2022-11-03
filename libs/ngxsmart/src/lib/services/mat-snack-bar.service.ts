@@ -1,4 +1,4 @@
-import { Injectable, ViewChild, ViewContainerRef } from "@angular/core";
+import { Injectable } from '@angular/core';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import { ErrorSnackBarComponent } from '../components/snack-bar/error-snack-bar/error-snack-bar.component';
 import { SuccessSnackBarComponent } from '../components/snack-bar/success-snack-bar/success-snack-bar.component';

@@ -17,7 +17,7 @@ import { MatButtonModule } from '@angular/material/button';
 			</button>
 		</div>
 	`,
-	styleUrls: ['../../../../assets/app-mat-snack-bar.scss'],
+	styleUrls: ['../../../../assets/app-mat-snack-bar.css']
 })
 export class SuccessSnackBarComponent {
 	constructor(

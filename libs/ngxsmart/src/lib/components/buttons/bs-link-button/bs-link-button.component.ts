@@ -8,7 +8,7 @@ import { MatButtonModule } from "@angular/material/button";
 	standalone: true,
 	imports: [CommonModule, MatButtonModule, MatIconModule],
 	template: `
-		<a class="btn btn-link" mat-button>
+		<a class="btn btn-link" mat-button >
 			<mat-icon>{{ icon }}</mat-icon>
 			{{ label }}
 		</a>
