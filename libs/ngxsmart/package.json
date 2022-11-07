@@ -1,10 +1,10 @@
 {
   "name": "@js-smart/ngxsmart",
-  "version": "15.0.0-rc.2",
+  "version": "15.0.0-rc.3",
   "private": false,
   "repository": {
     "type": "git",
-    "url": "https://github.com/ngxsmart/ngxsmart.git"
+    "url": "https://github.com/js-smart/ngxsmart.git"
   },
   "author": {
     "name": "Pavan Kumar Jadda",
@@ -21,11 +21,11 @@
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ngxsmart/ngxsmart.git/issues"
+    "url": "https://github.com/js-smart/ngxsmart.git/issues"
   },
   "peerDependencies": {
-    "@angular/common": "^15.0.0-rc.1",
-    "@angular/core": "^15.0.0-rc.1",
+    "@angular/common": "^15.0.0-rc.2",
+    "@angular/core": "^15.0.0-rc.2",
     "@angular/material": "^15.0.0-rc.1",
     "bootstrap": "^5.2.2"
   },
