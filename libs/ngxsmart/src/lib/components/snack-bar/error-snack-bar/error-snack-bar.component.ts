@@ -1,8 +1,8 @@
 import { Component, Inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MAT_SNACK_BAR_DATA, MatSnackBarRef } from '@angular/material/snack-bar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { MAT_SNACK_BAR_DATA, MatSnackBarRef } from '@angular/material/snack-bar';
 
 @Component({
 	selector: 'app-error-snack-bar',
@@ -12,9 +12,9 @@ import { MAT_SNACK_BAR_DATA, MatSnackBarRef } from '@angular/material/snack-bar'
 		<div class="custom-flex-center error-snackbar">
 			<mat-icon>error</mat-icon>
 			<label>{{ data.message }}</label>
-      <button style="margin-left: auto" (click)="close()" mat-icon-button>
-        <mat-icon>close</mat-icon>
-      </button>
+			<button style="margin-left: auto" (click)="close()" mat-icon-button>
+				<mat-icon>close</mat-icon>
+			</button>
 		</div>
 	`,
 	styleUrls: ['../../../../assets/app-mat-snack-bar.css'],
