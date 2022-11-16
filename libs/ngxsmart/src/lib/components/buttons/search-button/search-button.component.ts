@@ -1,19 +1,24 @@
-import { Component, Input } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
+import { Component, Input } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { MatIconModule } from "@angular/material/icon";
+import { MatButtonModule } from "@angular/material/button";
 
 @Component({
-	selector: 'search-button',
+	selector: "search-button",
 	standalone: true,
 	imports: [CommonModule, MatButtonModule, MatIconModule],
 	template: `
-		<button class="btn btn-primary {{ loading || disabled ? 'disabled' : '' }}" mat-raised-button type="{{ type }}" data-cy="search-button">
+		<button
+			class="btn btn-primary primary-button {{ loading || disabled ? 'disabled' : '' }}"
+			mat-raised-button
+			type="{{ type }}"
+			data-cy="primary-button">
 			<span *ngIf="loading" aria-hidden="true" class="spinner-border spinner-border-sm" role="status"></span>
 			<mat-icon *ngIf="!loading">search</mat-icon>
 			{{ loading ? loadingLabel : label }}
 		</button>
 	`,
+	styleUrls: ["../../../../assets/app-buttons.css"]
 })
 export class SearchButtonComponent {
 	/**

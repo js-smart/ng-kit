@@ -1,22 +1,23 @@
-import { Component, Input } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
+import { Component, Input } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { MatIconModule } from "@angular/material/icon";
+import { MatButtonModule } from "@angular/material/button";
 
 @Component({
-	selector: 'save-primary-button',
+	selector: "save-primary-button",
 	standalone: true,
 	imports: [CommonModule, MatButtonModule, MatIconModule],
-	template: ` <button
-		class="btn btn-primary primary-button {{ loading ? 'disabled' : '' }}"
-		mat-raised-button
-		type="{{ type }}"
-		data-cy="save-primary-button">
+	template: `
+		<button
+			class="btn btn-primary primary-button {{ loading ? 'disabled' : '' }}"
+			mat-raised-button
+			type="{{ type }}"
+			data-cy="save-primary-button">
 		<span *ngIf="loading" aria-hidden="true" class="spinner-border spinner-border-sm" role="status"></span>
 		<mat-icon *ngIf="!loading">{{ icon }}</mat-icon>
 		{{ loading ? loadingLabel : label }}
 	</button>`,
-	styles: [],
+	styleUrls: ["../../../../assets/app-buttons.css"]
 })
 export class SavePrimaryButtonComponent {
 	/**

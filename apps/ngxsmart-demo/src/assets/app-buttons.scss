@@ -1,0 +1,35 @@
+@import 'app-variables.scss';
+
+.primary-button,
+.primary-button:hover,
+.primary-button:active,
+.primary-button:visited {
+  color: white !important;
+  background-color: var(--primary-color) !important;
+}
+
+.secondary-button,
+.secondary-button:hover,
+.secondary-button:active,
+.secondary-button:visited {
+  color: white !important;
+  background-color: var(--secondary-color) !important;
+}
+
+/* Adds CSS for Success Button class */
+.success-button,
+.success-button:hover,
+.success-button:active,
+.success-button:visited {
+  color: white !important;
+  background-color: var(--success-color) !important;
+}
+
+/* Adds CSS for Delete Button class */
+.delete-button,
+.delete-button:hover,
+.delete-button:active,
+.success-button:visited {
+  color: white !important;
+  background-color: var(--delete-color) !important;
+}

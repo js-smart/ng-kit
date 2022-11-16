@@ -10,7 +10,7 @@
 			"architect": {
 				"build": {
 					"builder": "@nrwl/angular:package",
-					"outputs": ["dist/libs/ngxsmart"],
+					"outputs": ["{workspaceRoot}/dist/libs/ngxsmart"],
 					"options": {
 						"project": "libs/ngxsmart/ng-package.json"
 					},
@@ -26,7 +26,7 @@
 				},
 				"test": {
 					"builder": "@nrwl/jest:jest",
-					"outputs": ["coverage/libs/ngxsmart"],
+					"outputs": ["{workspaceRoot}/coverage/libs/ngxsmart"],
 					"options": {
 						"jestConfig": "libs/ngxsmart/jest.config.ts",
 						"passWithNoTests": true
@@ -121,7 +121,7 @@
 				},
 				"test": {
 					"builder": "@nrwl/jest:jest",
-					"outputs": ["coverage/apps/ngxsmart-demo"],
+					"outputs": ["{workspaceRoot}/coverage/apps/ngxsmart-demo"],
 					"options": {
 						"jestConfig": "apps/ngxsmart-demo/jest.config.ts",
 						"passWithNoTests": true

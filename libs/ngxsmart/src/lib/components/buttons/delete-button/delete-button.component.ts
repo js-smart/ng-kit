@@ -8,12 +8,13 @@ import { MatButtonModule } from '@angular/material/button';
 	standalone: true,
 	imports: [CommonModule, MatButtonModule, MatIconModule],
 	template: `
-		<button class="btn btn-danger {{ loading ? 'disabled' : '' }}" mat-raised-button type="{{ type }}" data-cy="delete-button">
+		<button class="btn delete-button {{ loading ? 'disabled' : '' }}" mat-raised-button type="{{ type }}" data-cy="delete-button">
 			<span *ngIf="loading" aria-hidden="true" class="spinner-border spinner-border-sm" role="status"></span>
 			<mat-icon *ngIf="!loading">{{ icon }}</mat-icon>
 			{{ loading ? loadingLabel : label }}
 		</button>
 	`,
+	styleUrls: ['../../../../assets/app-buttons.css'],
 })
 export class DeleteButtonComponent {
 	/**

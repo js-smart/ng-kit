@@ -9,7 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 	imports: [CommonModule, MatButtonModule, MatIconModule],
 	template: `
 		<button
-			class="btn btn-success {{ loading || disabled ? 'disabled' : '' }}"
+			class="btn success-button {{ loading || disabled ? 'disabled' : '' }}"
 			mat-raised-button
 			type="{{ type }}"
 			data-cy="success-button">
@@ -18,6 +18,7 @@ import { MatButtonModule } from '@angular/material/button';
 			{{ loading ? loadingLabel : label }}
 		</button>
 	`,
+	styleUrls: ['../../../../assets/app-buttons.css'],
 })
 export class SuccessButtonComponent {
 	/**

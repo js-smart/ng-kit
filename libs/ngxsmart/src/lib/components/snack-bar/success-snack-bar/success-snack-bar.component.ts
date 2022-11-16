@@ -1,23 +1,23 @@
 import { Component, Inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MAT_SNACK_BAR_DATA, MatSnackBarRef } from '@angular/material/snack-bar';
-import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
 	selector: 'app-success-snack-bar',
 	standalone: true,
-	imports: [CommonModule, MatIconModule, MatButtonModule],
+	imports: [CommonModule, MatButtonModule, MatIconModule],
 	template: `
-		<div class="custom-flex-center">
+		<div class="custom-flex-center success-snackbar">
 			<mat-icon>check_circle</mat-icon>
 			<label>{{ data.message }}</label>
-			<button style="font-size: 18px; margin-left: auto" (click)="close()" mat-button>
-				{{ data.action ?? 'Close' }}
+			<button style="margin-left: auto" (click)="close()" mat-icon-button>
+				<mat-icon>close</mat-icon>
 			</button>
 		</div>
 	`,
-	styleUrls: ['../../../../assets/app-mat-snack-bar.scss'],
+	styleUrls: ['../../../../assets/app-mat-snack-bar.css'],
 })
 export class SuccessSnackBarComponent {
 	constructor(
