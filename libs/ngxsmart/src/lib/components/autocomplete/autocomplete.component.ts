@@ -18,9 +18,9 @@ import { MatOptionSelectionChange } from '@angular/material/core';
 import { CommonModule } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { TypeOfPipe } from '../../pipes/type-of.pipe';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { TypeOfPipe } from '../../pipes/type-of.pipe';
 
 /**
  * Reusable Auto Complete component that extends MatAutoComplete to show Clear icon and Arrow buttons
@@ -35,7 +35,6 @@ import { TypeOfPipe } from '../../pipes/type-of.pipe';
 		CommonModule,
 		ReactiveFormsModule,
 		TypeOfPipe,
-
 		MatFormFieldModule,
 		MatAutocompleteModule,
 		MatInputModule,

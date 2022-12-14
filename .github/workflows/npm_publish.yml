@@ -18,7 +18,7 @@ jobs:
       - name: Install PNPM Dependencies
         run: pnpm install --frozen-lockfile
       - name: Build project
-        run: ng build --project=ngxsmart
+        run: pnpm build --project=ngxsmart
       - name: Publish to NPM
         uses: JS-DevTools/npm-publish@v1
         with:

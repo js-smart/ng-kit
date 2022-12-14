@@ -10,7 +10,7 @@ export class MatSnackBarService {
 	/**
 	 * Duration (in milliseconds) of the Snack Bar to be open. Defaults to 5 seconds(5000 milliseconds)
 	 */
-	duration = 5000;
+	duration = 500000;
 
 	/**
 	 * Horizontal Position of the MatSnackBar. Defaults to left side

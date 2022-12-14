@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {
 	BsLinkButtonComponent,
+	DeleteButtonComponent,
 	EditBsButtonComponent,
 	EditButtonComponent,
 	EditSvgIconButtonComponent,
@@ -10,6 +11,7 @@ import {
 	PrimaryButtonComponent,
 	SavePrimaryButtonComponent,
 	SearchButtonComponent,
+	SuccessButtonComponent,
 	ViewButtonComponent,
 	ViewPrimaryButtonComponent,
 } from '@ngxsmart/ngxsmart';
@@ -33,6 +35,8 @@ import { CommonModule } from '@angular/common';
 		BsLinkButtonComponent,
 		ManageButtonComponent,
 		SearchButtonComponent,
+		SuccessButtonComponent,
+		DeleteButtonComponent,
 	],
 	templateUrl: './buttons-demo.component.html',
 	styles: [``],

@@ -1,4 +1,4 @@
-@import 'app-variables';
+@import 'app-variables.css';
 
 /* Remove underline from hyperlink  */
 a {
@@ -73,5 +73,5 @@ strong {
 
 //Primary color text
 .primary-color-text {
-  color: $primary-color;
+  color: var(--primary-color);
 }
