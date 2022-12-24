@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
+import { RouterLink, RouterOutlet } from '@angular/router';
 
 @Component({
+	standalone: true,
 	selector: 'ngxsmart-root',
 	templateUrl: './app.component.html',
-	styleUrls: ['./app.component.scss'],
+	imports: [RouterOutlet, RouterLink],
 })
 export class AppComponent {}
