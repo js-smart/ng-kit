@@ -1,0 +1,40 @@
+{
+	"name": "ngxsmart",
+	"$schema": "../../node_modules/nx/schemas/project-schema.json",
+	"projectType": "library",
+	"sourceRoot": "libs/ngxsmart/src",
+	"prefix": "ngxsmart",
+	"targets": {
+		"build": {
+			"executor": "@nrwl/angular:package",
+			"outputs": ["{workspaceRoot}/dist/libs/ngxsmart"],
+			"options": {
+				"project": "libs/ngxsmart/ng-package.json"
+			},
+			"configurations": {
+				"production": {
+					"tsConfig": "libs/ngxsmart/tsconfig.lib.prod.json"
+				},
+				"development": {
+					"tsConfig": "libs/ngxsmart/tsconfig.lib.json"
+				}
+			},
+			"defaultConfiguration": "production"
+		},
+		"test": {
+			"executor": "@nrwl/jest:jest",
+			"outputs": ["{workspaceRoot}/coverage/libs/ngxsmart"],
+			"options": {
+				"jestConfig": "libs/ngxsmart/jest.config.ts",
+				"passWithNoTests": true
+			}
+		},
+		"lint": {
+			"executor": "@nrwl/linter:eslint",
+			"options": {
+				"lintFilePatterns": ["libs/ngxsmart/src/**/*.ts", "libs/ngxsmart/src/**/*.html"]
+			}
+		}
+	},
+	"tags": []
+}
