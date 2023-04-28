@@ -71,13 +71,13 @@
 			}
 		},
 		"lint": {
-			"executor": "@nrwl/linter:eslint",
+			"executor": "@nx/linter:eslint",
 			"options": {
 				"lintFilePatterns": ["apps/ngxsmart-demo/src/**/*.ts", "apps/ngxsmart-demo/src/**/*.html"]
 			}
 		},
 		"test": {
-			"executor": "@nrwl/jest:jest",
+			"executor": "@nx/jest:jest",
 			"outputs": ["{workspaceRoot}/coverage/apps/ngxsmart-demo"],
 			"options": {
 				"jestConfig": "apps/ngxsmart-demo/jest.config.ts",

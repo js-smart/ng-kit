@@ -6,7 +6,7 @@
 	"prefix": "ngxsmart",
 	"targets": {
 		"build": {
-			"executor": "@nrwl/angular:package",
+			"executor": "@nx/angular:package",
 			"outputs": ["{workspaceRoot}/dist/libs/ngxsmart"],
 			"options": {
 				"project": "libs/ngxsmart/ng-package.json"
@@ -22,7 +22,7 @@
 			"defaultConfiguration": "production"
 		},
 		"test": {
-			"executor": "@nrwl/jest:jest",
+			"executor": "@nx/jest:jest",
 			"outputs": ["{workspaceRoot}/coverage/libs/ngxsmart"],
 			"options": {
 				"jestConfig": "libs/ngxsmart/jest.config.ts",
@@ -30,7 +30,7 @@
 			}
 		},
 		"lint": {
-			"executor": "@nrwl/linter:eslint",
+			"executor": "@nx/linter:eslint",
 			"options": {
 				"lintFilePatterns": ["libs/ngxsmart/src/**/*.ts", "libs/ngxsmart/src/**/*.html"]
 			}
