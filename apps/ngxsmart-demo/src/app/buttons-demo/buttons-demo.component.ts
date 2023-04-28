@@ -39,7 +39,7 @@ import { CommonModule } from '@angular/common';
 		DeleteButtonComponent,
 	],
 	templateUrl: './buttons-demo.component.html',
-	styles: [``],
+	styles: [],
 })
 export class ButtonsDemoComponent {
 	loading = false;
