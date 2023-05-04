@@ -1,29 +1,34 @@
 {
-	"name": "ngxsmart-demo-e2e",
-	"$schema": "../../node_modules/nx/schemas/project-schema.json",
-	"sourceRoot": "apps/ngxsmart-demo-e2e/src",
-	"projectType": "application",
-	"targets": {
-		"e2e": {
-			"executor": "@nx/cypress:cypress",
-			"options": {
-				"cypressConfig": "apps/ngxsmart-demo-e2e/cypress.json",
-				"devServerTarget": "ngxsmart-demo:serve:development"
-			},
-			"configurations": {
-				"production": {
-					"devServerTarget": "ngxsmart-demo:serve:production"
-				}
-			}
-		},
-		"lint": {
-			"executor": "@nx/linter:eslint",
-			"outputs": ["{options.outputFile}"],
-			"options": {
-				"lintFilePatterns": ["apps/ngxsmart-demo-e2e/**/*.{js,ts}"]
-			}
-		}
-	},
-	"tags": [],
-	"implicitDependencies": ["ngxsmart-demo"]
+  "name": "ngxsmart-demo-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/ngxsmart-demo-e2e/src",
+  "projectType": "application",
+  "targets": {
+    "e2e": {
+      "executor": "@mands/nx-playwright",
+      "options": {
+        "devServerTarget": "ngxsmart-demo:serve:development"
+      },
+      "configurations": {
+        "production": {
+          "devServerTarget": "ngxsmart-demo:serve:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": [
+        "{options.outputFile}"
+      ],
+      "options": {
+        "lintFilePatterns": [
+          "apps/ngxsmart-demo-e2e/**/*.{js,ts}"
+        ]
+      }
+    }
+  },
+  "tags": [],
+  "implicitDependencies": [
+    "ngxsmart-demo"
+  ]
 }
