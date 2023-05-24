@@ -1,9 +1,7 @@
-import { ApplicationConfig } from '@angular/core';
-import { enableProdMode, importProvidersFrom } from '@angular/core';
-import { bootstrapApplication, BrowserModule, Title } from '@angular/platform-browser';
+import { ApplicationConfig, importProvidersFrom } from '@angular/core';
+import { BrowserModule, Title } from '@angular/platform-browser';
 import { CommonModule, DatePipe } from '@angular/common';
 import { PreloadAllModules, RouterModule } from '@angular/router';
-import { routes } from './app/app.routes';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HttpClientXsrfModule } from '@angular/common/http';
@@ -12,6 +10,8 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
+import { routes } from './app.routes';
+
 export const appConfig: ApplicationConfig = {
 	providers: [
 		importProvidersFrom(

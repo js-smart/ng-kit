@@ -4,7 +4,6 @@
   "license": "MIT",
   "scripts": {
     "ng": "nx",
-    "postinstall": "node ./decorate-angular-cli.js",
     "start": "nx serve --watch --hmr --port=4300",
     "build": "nx build",
     "test": "nx test"
