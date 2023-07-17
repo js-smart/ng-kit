@@ -6,7 +6,6 @@ import { AlertComponent } from '@ngxsmart/ngxsmart';
 	standalone: true,
 	imports: [AlertComponent],
 	templateUrl: './alert-demo.component.html',
-	styleUrls: ['./alert-demo.component.scss'],
 })
 export class AlertDemoComponent {
 	dismissOnTimeout = true;
