@@ -16,5 +16,4 @@ test('has links', async ({ page }) => {
 	await expect(page.getByRole('link', { name: 'Edit Svg Icon Demo' })).toBeVisible();
 	await expect(page.getByRole('link', { name: 'Buttons Demo' })).toBeVisible();
 	await expect(page.getByRole('link', { name: 'Directives Demo' })).toBeVisible();
-	await expect(page.getByRole('link', { name: 'Snack Bar Demo' })).toBeVisible();
 });
