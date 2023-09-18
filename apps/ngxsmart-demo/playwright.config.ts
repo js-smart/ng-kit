@@ -1,7 +1,7 @@
 import { defineConfig, devices } from '@playwright/test';
 import { nxE2EPreset } from '@nx/playwright/preset';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { workspaceRoot } from '@nx/devkit';
+//import { workspaceRoot } from '@nx/devkit';
 
 /**
  * Read environment variables from file.
@@ -59,7 +59,7 @@ export default defineConfig({
 	/* Run your local dev server before starting the tests */
 	/*	webServer: {
 		command: 'pnpm start',
-		url: 'http://127.0.0.1:4300',
+		url: 'http://localhost:4300',
 		reuseExistingServer: !process.env.CI,
 		cwd: workspaceRoot,
 	},*/
