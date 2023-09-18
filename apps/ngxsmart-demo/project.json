@@ -83,6 +83,13 @@
 				"jestConfig": "apps/ngxsmart-demo/jest.config.ts",
 				"passWithNoTests": true
 			}
+		},
+		"e2e": {
+			"executor": "@nx/playwright:playwright",
+			"outputs": ["{workspaceRoot}/dist/.playwright/apps/ngxsmart-demo"],
+			"options": {
+				"config": "apps/ngxsmart-demo/playwright.config.ts"
+			}
 		}
 	},
 	"tags": []
