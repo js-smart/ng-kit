@@ -1,7 +1,5 @@
 import { defineConfig, devices } from '@playwright/test';
 import { nxE2EPreset } from '@nx/playwright/preset';
-import { workspaceRoot } from 'nx/src/utils/app-root';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 //import { workspaceRoot } from '@nx/devkit';
 
 /**
@@ -16,6 +14,7 @@ import { workspaceRoot } from 'nx/src/utils/app-root';
 export default defineConfig({
 	...nxE2EPreset(__filename, { testDir: './e2e' }),
 	/* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
+	/* Maximum time one test can run for. */
 	timeout: 30000,
 	expect: {
 		/**
@@ -31,7 +30,7 @@ export default defineConfig({
 	/* Retry on CI only */
 	retries: 2,
 	/* Opt out of parallel tests on CI. */
-	workers: process.env.CI ? 4 : 2,
+	workers: process.env.CI ? 4 : 4,
 	/* Reporter to use. See https://playwright.dev/docs/test-reporters */
 	reporter: process.env.CI ? 'dot' : 'list',
 	/* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
@@ -39,13 +38,13 @@ export default defineConfig({
 		/* Maximum time each action such as `click()` can take. Defaults to 0 (no limit). */
 		actionTimeout: 0,
 		/* Base URL to use in actions like `await page.goto('/')`. */
-		//baseURL: process.env.CI ? process.env.URL : 'http://localhost:4200',
-		baseURL: process.env['BASE_URL'] || 'http://localhost:4300',
+		baseURL: process.env.CI ? process.env.URL : 'http://localhost:4300',
 		/* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
 		trace: 'on-first-retry',
 		screenshot: 'off',
 		video: 'off',
 	},
+
 	/* Configure projects for major browsers */
 	projects: [
 		{
@@ -56,12 +55,32 @@ export default defineConfig({
 				...devices['Desktop Chrome'],
 			},
 		},
+		/* Test against branded browsers. */
+		/*	{
+			name: 'Microsoft Edge',
+			use: {
+				channel: 'msedge',
+			},
+		},*/
+		{
+			name: 'firefox',
+			use: {
+				...devices['Desktop Firefox'],
+			},
+		},
+		{
+			name: 'webkit',
+			use: {
+				...devices['Desktop Safari'],
+			},
+		},
 	],
+
 	/* Run your local dev server before starting the tests */
-	webServer: {
+	/*webServer: {
 		command: 'pnpm start',
-		url: 'http://localhost:4300',
+		url: 'https://localhost:4300',
 		reuseExistingServer: !process.env.CI,
 		cwd: workspaceRoot,
-	},
+	},*/
 });
