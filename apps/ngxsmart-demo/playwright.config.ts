@@ -15,20 +15,20 @@ export default defineConfig({
 	...nxE2EPreset(__filename, { testDir: './e2e' }),
 	/* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
 	/* Maximum time one test can run for. */
-	timeout: 30000,
+	//timeout: 30000,
 	expect: {
 		/**
 		 * Maximum time expect() should wait for the condition to be met.
 		 * For example in `await expect(locator).toHaveText();`
 		 */
-		timeout: 30000,
+		timeout: 10000,
 	},
 	/* Run tests in files in parallel */
 	fullyParallel: true,
 	/* Fail the build on CI if you accidentally left test.only in the source code. */
 	forbidOnly: !!process.env.CI,
 	/* Retry on CI only */
-	retries: 2,
+	retries: 0,
 	/* Opt out of parallel tests on CI. */
 	workers: process.env.CI ? 4 : 4,
 	/* Reporter to use. See https://playwright.dev/docs/test-reporters */
