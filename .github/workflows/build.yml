@@ -12,7 +12,7 @@ jobs:
     strategy:
       matrix:
         os: [ 'ubuntu-latest' ]
-        node: [ '18','latest' ]
+        node: [ 'latest' ]
     steps:
       - uses: actions/checkout@v3
       - uses: pnpm/action-setup@v2
@@ -24,6 +24,11 @@ jobs:
           node-version: ${{ matrix.node }}
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+
+      - name: E2E Tests
+        run: pnpm nx e2e
+        env:
+            CI: true
       - name: Build
         run: pnpm run build --configuration=production
         env:

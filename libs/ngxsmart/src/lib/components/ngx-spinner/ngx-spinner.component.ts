@@ -1,15 +1,4 @@
-import {
-	ChangeDetectionStrategy,
-	ChangeDetectorRef,
-	Component,
-	HostListener,
-	Input,
-	OnChanges,
-	OnDestroy,
-	OnInit,
-	SimpleChange,
-	ViewChild,
-} from '@angular/core';
+import { ChangeDetectorRef, Component, HostListener, Input, OnChanges, OnDestroy, OnInit, SimpleChange, ViewChild } from '@angular/core';
 import { NgxSpinnerService } from './ngx-spinner.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -24,7 +13,6 @@ import { SafeHtmlPipe } from './safe-html.pipe';
 	imports: [CommonModule, SafeHtmlPipe],
 	templateUrl: 'ngx-spinner.component.html',
 	styleUrls: ['ngx-spinner.component.css'],
-	changeDetection: ChangeDetectionStrategy.OnPush,
 	animations: [
 		trigger('fadeIn', [
 			state('in', style({ opacity: 1 })),
@@ -82,7 +70,7 @@ export class NgxSpinnerComponent implements OnDestroy, OnInit, OnChanges {
 	/**
 	 * To enable/disable animation
 	 */
-	@Input() disableAnimation: boolean = false;
+	@Input() disableAnimation = false;
 	/**
 	 * Spinner Object
 	 */
@@ -113,7 +101,10 @@ export class NgxSpinnerComponent implements OnDestroy, OnInit, OnChanges {
 	/**
 	 * Creates an instance of NgxSpinnerComponent.
 	 */
-	constructor(private spinnerService: NgxSpinnerService, private changeDetector: ChangeDetectorRef) {
+	constructor(
+		private spinnerService: NgxSpinnerService,
+		private changeDetector: ChangeDetectorRef
+	) {
 		this.bdColor = DEFAULTS.BD_COLOR;
 		this.zIndex = DEFAULTS.Z_INDEX;
 		this.color = DEFAULTS.SPINNER_COLOR;
