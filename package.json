@@ -45,7 +45,7 @@
     "@nx/linter": "16.9.0",
     "@nx/playwright": "16.9.0",
     "@nx/workspace": "16.9.0",
-    "@playwright/test": "^1.38.0",
+    "@playwright/test": "latest",
     "@schematics/angular": "16.2.0",
     "@types/jest": "latest",
     "@types/node": "latest",
