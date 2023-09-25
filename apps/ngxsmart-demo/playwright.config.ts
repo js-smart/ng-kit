@@ -1,6 +1,7 @@
 import { defineConfig, devices } from '@playwright/test';
 import { nxE2EPreset } from '@nx/playwright/preset';
-//import { workspaceRoot } from '@nx/devkit';
+// @ts-ignore
+import { workspaceRoot } from '@nx/devkit';
 
 /**
  * Read environment variables from file.
@@ -77,10 +78,10 @@ export default defineConfig({
 	],
 
 	/* Run your local dev server before starting the tests */
-	/*webServer: {
+	webServer: {
 		command: 'pnpm start',
 		url: 'https://localhost:4300',
 		reuseExistingServer: !process.env.CI,
 		cwd: workspaceRoot,
-	},*/
+	},
 });
