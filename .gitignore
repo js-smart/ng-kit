@@ -40,3 +40,5 @@ Thumbs.db
 
 .angular
 node_modules
+
+.nx/cache
