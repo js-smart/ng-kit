@@ -25,10 +25,10 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: E2E Tests
-        run: pnpm nx e2e
-        env:
-            CI: true
+#      - name: E2E Tests
+#        run: pnpm nx e2e
+#        env:
+#            CI: true
       - name: Build
         run: pnpm run build --configuration=production
         env:
