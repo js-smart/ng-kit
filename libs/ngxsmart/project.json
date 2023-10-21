@@ -9,8 +9,7 @@
 			"executor": "@nx/angular:package",
 			"outputs": ["{workspaceRoot}/dist/libs/ngxsmart"],
 			"options": {
-				"project": "libs/ngxsmart/ng-package.json",
-				"updateBuildableProjectDepsInPackageJson": true
+				"project": "libs/ngxsmart/ng-package.json"
 			},
 			"configurations": {
 				"production": {
