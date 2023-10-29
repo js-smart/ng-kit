@@ -31,7 +31,7 @@
 			(closed)="arrowIconSubject.next('arrow_drop_down')"
 			(opened)="arrowIconSubject.next('arrow_drop_up')"
 			(optionSelected)="arrowIconSubject.next('arrow_drop_down')"
-			[displayWith]="displayWith">
+			[displayWith]="displayFn">
 			<mat-option
 				(onSelectionChange)="emitSelectedValue($event)"
 				*ngFor="let option of filteredOptions | async; trackBy: trackByFn"

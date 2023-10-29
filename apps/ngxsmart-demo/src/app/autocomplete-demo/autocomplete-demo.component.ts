@@ -27,7 +27,7 @@ export class AutocompleteDemoComponent {
 
 	constructor(private fb: FormBuilder) {}
 
-	displayFn(object: any): string {
+	displayWith(object: any): string {
 		if (typeof object === 'string') return object;
 		return object && object['location'] ? object['location'] : '';
 	}
