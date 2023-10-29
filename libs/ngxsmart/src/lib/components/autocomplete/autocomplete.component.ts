@@ -6,8 +6,11 @@ import {
 	ElementRef,
 	EventEmitter,
 	Input,
+	OnChanges,
 	OnInit,
+	Optional,
 	Output,
+	SimpleChanges,
 	ViewChild,
 } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -44,7 +47,7 @@ import { MatIconModule } from '@angular/material/icon';
 	templateUrl: './autocomplete.component.html',
 	changeDetection: ChangeDetectionStrategy.Default,
 })
-export class AutocompleteComponent implements OnInit, AfterContentChecked {
+export class AutocompleteComponent implements OnInit, OnChanges, AfterContentChecked {
 	/**
 	 * Gets reference inputAutoComplete HTML attribute
 	 */
@@ -88,7 +91,7 @@ export class AutocompleteComponent implements OnInit, AfterContentChecked {
 	/**
 	 * Function that maps an option's control value to its display value in the trigger.
 	 */
-	@Input() displayWith: ((value: any) => string) | null;
+	@Input() @Optional() displayWith: ((value: any) => string) | null = null;
 
 	/**
 	 * Specifies if the autocomplete is required. Default is not required.
@@ -120,6 +123,10 @@ export class AutocompleteComponent implements OnInit, AfterContentChecked {
 
 	constructor(private cdRef: ChangeDetectorRef) {}
 
+	ngAfterContentChecked(): void {
+		this.cdRef.detectChanges();
+	}
+
 	/**
 	 * Define autocomplete search filter on search text changes
 	 *
@@ -141,14 +148,8 @@ export class AutocompleteComponent implements OnInit, AfterContentChecked {
 		);
 	}
 
-	/**
-	 * Detect and load changes when Form changed
-	 *
-	 * @author Pavan Kumar Jadda
-	 * @since 12.0.0
-	 */
-	ngAfterContentChecked(): void {
-		this.cdRef.detectChanges();
+	ngOnChanges(_changes: SimpleChanges): void {
+		this.displayFn = this.displayFn.bind(this);
 	}
 
 	/**
@@ -182,8 +183,13 @@ export class AutocompleteComponent implements OnInit, AfterContentChecked {
 	 * @since 12.0.0
 	 */
 	displayFn(object: any): string {
-		if (typeof object === 'string') return object;
-		return object && object[this.bindLabel] ? object[this.bindLabel] : '';
+		if (this.displayWith !== undefined && this.displayWith !== null && typeof this.displayWith === 'function') {
+			this.displayFn = this.displayWith.bind(this);
+			return this.displayWith(object);
+		} else {
+			if (typeof object === 'string') return object;
+			return object && object[this.bindLabel] ? object[this.bindLabel] : '';
+		}
 	}
 
 	/**
