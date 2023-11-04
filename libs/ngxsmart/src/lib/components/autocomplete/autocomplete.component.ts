@@ -5,6 +5,7 @@ import {
 	Component,
 	ElementRef,
 	EventEmitter,
+	forwardRef,
 	Input,
 	OnChanges,
 	OnInit,
@@ -13,9 +14,8 @@ import {
 	SimpleChanges,
 	ViewChild,
 } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { map, startWith } from 'rxjs/operators';
+import { BehaviorSubject, map, Observable, startWith } from 'rxjs';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule, MatAutocompleteTrigger } from '@angular/material/autocomplete';
 import { MatOptionSelectionChange } from '@angular/material/core';
 import { CommonModule } from '@angular/common';
@@ -44,19 +44,21 @@ import { MatIconModule } from '@angular/material/icon';
 		MatButtonModule,
 		MatIconModule,
 	],
+	providers: [
+		{
+			provide: NG_VALUE_ACCESSOR,
+			useExisting: forwardRef(() => AutocompleteComponent),
+			multi: true,
+		},
+	],
 	templateUrl: './autocomplete.component.html',
 	changeDetection: ChangeDetectionStrategy.Default,
 })
-export class AutocompleteComponent implements OnInit, OnChanges, AfterContentChecked {
+export class AutocompleteComponent implements OnInit, OnChanges, AfterContentChecked, ControlValueAccessor {
 	/**
 	 * Gets reference inputAutoComplete HTML attribute
 	 */
 	@ViewChild('inputAutoComplete') inputAutoComplete!: ElementRef;
-
-	/**
-	 * Input form group of the auto complete
-	 */
-	@Input() inputFormGroup!: FormGroup;
 
 	/**
 	 * Label of the AutoComplete
@@ -120,6 +122,8 @@ export class AutocompleteComponent implements OnInit, OnChanges, AfterContentChe
 	 * Filtered options when user
 	 */
 	filteredOptions: Observable<any[] | undefined> | undefined;
+	value: any;
+	private _disabled = false;
 
 	constructor(private cdRef: ChangeDetectorRef) {}
 
@@ -134,7 +138,7 @@ export class AutocompleteComponent implements OnInit, OnChanges, AfterContentChe
 	 * @since 12.0.0
 	 */
 	ngOnInit() {
-		this.filteredOptions = this.inputFormGroup?.get('autocomplete')?.valueChanges.pipe(
+		this.filteredOptions = this.inputAutoComplete.nativeElement.valueChanges.pipe(
 			startWith(''),
 			map((value) => (typeof value === 'string' ? value : value !== null ? value[this.bindLabel] : '')),
 			map(
@@ -160,7 +164,7 @@ export class AutocompleteComponent implements OnInit, OnChanges, AfterContentChe
 	 */
 	clearInput(evt: any): void {
 		evt.stopPropagation();
-		this.inputFormGroup.get('autocomplete')?.reset();
+		this.writeValue(null);
 		this.inputAutoComplete?.nativeElement.focus();
 	}
 
@@ -212,4 +216,72 @@ export class AutocompleteComponent implements OnInit, OnChanges, AfterContentChe
 	emitSelectedValue($event: MatOptionSelectionChange) {
 		this.onSelectionChange.emit($event.source.value);
 	}
+	/**
+	 * @description
+	 * Writes a new value to the element.
+	 *
+	 * This method is called by the forms API to write to the view when programmatic
+	 * changes from model to view are requested.
+	 *
+	 *
+	 * @param obj The new value for the element
+	 */
+	writeValue(obj: any): void {
+		this.value = obj;
+		this._onChange(obj);
+	}
+
+	/**
+	 * @description
+	 * Registers a callback function that is called when the control's value
+	 * changes in the UI.
+	 *
+	 * This method is called by the forms API on initialization to update the form
+	 * model when values propagate from the view to the model.
+	 *
+	 * When implementing the `registerOnChange` method in your own value accessor,
+	 * save the given function so your class calls it at the appropriate time.
+	 *
+	 *
+	 * @param fn The callback function to register
+	 */
+	registerOnChange(fn: any): void {
+		this._onChange = fn;
+		this.cdRef.markForCheck();
+	}
+
+	/**
+	 * @description
+	 * Registers a callback function that is called by the forms API on initialization
+	 * to update the form model on blur.
+	 *
+	 * When implementing `registerOnTouched` in your own value accessor, save the given
+	 * function so your class calls it when the control should be considered
+	 * blurred or "touched".
+	 *
+	 *
+	 * @param fn The callback function to register
+	 */
+	registerOnTouched(fn: any): void {
+		this._onTouched = fn;
+		this.cdRef.markForCheck();
+	}
+
+	/**
+	 * @description
+	 * Function that is called by the forms API when the control status changes to
+	 * or from 'DISABLED'. Depending on the status, it enables or disables the
+	 * appropriate DOM element.
+	 *
+	 *
+	 * @param isDisabled The disabled status to set on the element
+	 */
+	setDisabledState(isDisabled: boolean): void {
+		this._disabled = isDisabled;
+		this.cdRef.markForCheck();
+	}
+
+	private _onChange = (_: any) => {};
+
+	private _onTouched = () => {};
 }

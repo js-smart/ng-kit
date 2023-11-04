@@ -1,4 +1,4 @@
-<div [formGroup]="inputFormGroup">
+<div>
 	<mat-form-field appearance="fill" class="{{ classes }}">
 		<mat-label>{{ label }}</mat-label>
 		<input
@@ -7,14 +7,13 @@
 			[matAutocomplete]="auto"
 			[placeholder]="placeHolder"
 			[required]="required"
-			formControlName="autocomplete"
 			matInput
 			type="text" />
 
 		<div matSuffix style="display: flex">
 			<button
 				(click)="clearInput($event)"
-				*ngIf="inputFormGroup.get('autocomplete')?.value !== null && inputFormGroup.get('autocomplete')?.value !== ''"
+				*ngIf="value !== null && value !== ''"
 				aria-label="Clear"
 				mat-icon-button
 				type="button">
