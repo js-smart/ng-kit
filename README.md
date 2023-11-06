@@ -3,7 +3,7 @@ Reusable Angular components built with Angular Material and Bootstrap 5.x, Utili
 
 <p align="center">
 
-[![CI](https://github.com/ngxsmart/ngxsmart/actions/workflows/cicd.yml/badge.svg)](https://github.com/ngxsmart/ngxsmart/actions/workflows/cicd.yml)
+[![CI](https://github.com/ngxsmart/ngxsmart/actions/workflows/build.yml/badge.svg)](https://github.com/ngxsmart/ngxsmart/actions/workflows/build.yml)
 <a href="https://www.npmjs.com/@js-smart/ngxsmart">
 <img src="https://img.shields.io/npm/v/@js-smart/ngxsmart" alt="Ngx Cookie Service on npm" />
 </a>
