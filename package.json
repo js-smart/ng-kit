@@ -37,13 +37,13 @@
     "@angular/cli": "~16.2.2",
     "@angular/compiler-cli": "16.2.5",
     "@angular/language-service": "16.2.5",
-    "@nrwl/tao": "17.0.1",
+    "@nrwl/tao": "17.0.3",
     "@ns3/nx-playwright": "^4.2.0",
-    "@nx/angular": "17.0.1",
-    "@nx/eslint-plugin": "17.0.1",
-    "@nx/jest": "17.0.1",
-    "@nx/playwright": "17.0.1",
-    "@nx/workspace": "17.0.1",
+    "@nx/angular": "17.0.3",
+    "@nx/eslint-plugin": "17.0.3",
+    "@nx/jest": "17.0.3",
+    "@nx/playwright": "17.0.3",
+    "@nx/workspace": "17.0.3",
     "@playwright/test": "latest",
     "@schematics/angular": "16.2.0",
     "@types/jest": "latest",
@@ -57,7 +57,7 @@
     "jest-environment-jsdom": "latest",
     "jest-preset-angular": "latest",
     "ng-packagr": "16.2.0",
-    "nx": "17.0.1",
+    "nx": "17.0.3",
     "postcss": "^8.4.21",
     "postcss-import": "15.1.0",
     "postcss-preset-env": "~8.0.1",
@@ -65,7 +65,7 @@
     "prettier": "latest",
     "ts-jest": "latest",
     "typescript": "5.1.6",
-    "@nx/eslint": "17.0.1"
+    "@nx/eslint": "17.0.3"
   }
 }
 
