@@ -25,8 +25,7 @@
 			"executor": "@nx/jest:jest",
 			"outputs": ["{workspaceRoot}/coverage/libs/ngxsmart"],
 			"options": {
-				"jestConfig": "libs/ngxsmart/jest.config.ts",
-				"passWithNoTests": true
+				"jestConfig": "libs/ngxsmart/jest.config.ts"
 			}
 		},
 		"lint": {
