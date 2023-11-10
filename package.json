@@ -8,7 +8,9 @@
     "build:ngxsmart-demo": "ng build ngxsmart-demo --configuration=production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "lint": "ng lint"
+    "bundle:report": "ng build --configuration production --source-map=true && source-map-explorer dist/pres/**/*.js",
+    "e2e": "CI=true URL=http://localhost:4300 npx playwright test",
+    "lint": "ng lint ngxsmart"
   },
   "private": true,
   "dependencies": {
@@ -42,6 +44,10 @@
     "@typescript-eslint/eslint-plugin": "latest",
     "@typescript-eslint/parser": "latest",
     "eslint": "latest",
+    "eslint-config-prettier": "latest",
+    "eslint-plugin-import": "latest",
+    "eslint-plugin-jsdoc": "latest",
+    "eslint-plugin-prefer-arrow": "latest",
     "jest": "latest",
     "jest-environment-jsdom": "latest",
     "ng-packagr": "^17.0.0",
