@@ -16,13 +16,13 @@ jobs:
         with:
           node-version: 18
       - name: Install PNPM Dependencies
-        run: pnpm install --frozen-lockfile
+        run: pnpm i --frozen-lockfile
       - name: Build project
-        run: pnpm build --project=ngxsmart
+        run: pnpm build
       - name: Publish to NPM
         uses: JS-DevTools/npm-publish@v2
         with:
           strategy: all
           token: ${{ secrets.NPM_TOKEN }}
-          package: dist/libs/ngxsmart/package.json
+          package: dist/ngxsmart/package.json
           access: public
