@@ -21,7 +21,7 @@ export class PreventMultipleClicksDirective implements OnInit, OnDestroy {
 	 * @since 2.3.27
 	 */
 	@HostListener('click', ['$event'])
-	clickEvent(event) {
+	clickEvent(event: any) {
 		event.preventDefault();
 		event.stopPropagation();
 		this.clicks.next(event);
