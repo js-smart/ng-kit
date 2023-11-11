@@ -1,20 +1,22 @@
 import { Component, Input } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 
 @Component({
 	selector: 'success-button',
 	standalone: true,
-	imports: [CommonModule, MatButtonModule, MatIconModule],
+	imports: [MatButtonModule, MatIconModule],
 	template: `
 		<button
 			class="btn success-button {{ loading || disabled ? 'disabled' : '' }}"
 			mat-raised-button
 			type="{{ type }}"
 			data-cy="success-button">
-			<span *ngIf="loading" aria-hidden="true" class="spinner-border spinner-border-sm" role="status"></span>
-			<mat-icon *ngIf="!loading">{{ icon }}</mat-icon>
+			@if(loading){
+			<span aria-hidden="true" class="spinner-border spinner-border-sm" role="status"></span>
+			} @if(!loading){
+			<mat-icon>{{ icon }}</mat-icon>
+			}
 			{{ loading ? loadingLabel : label }}
 		</button>
 	`,

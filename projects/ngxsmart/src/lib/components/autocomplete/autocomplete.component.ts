@@ -18,12 +18,12 @@ import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { map, startWith } from 'rxjs/operators';
 import { MatAutocompleteModule, MatAutocompleteTrigger } from '@angular/material/autocomplete';
 import { MatOptionSelectionChange } from '@angular/material/core';
-import { CommonModule } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { TypeOfPipe } from '../../pipes/type-of.pipe';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { AsyncPipe } from '@angular/common';
 
 /**
  * Reusable Auto Complete component that extends MatAutoComplete to show Clear icon and Arrow buttons
@@ -35,7 +35,6 @@ import { MatIconModule } from '@angular/material/icon';
 	selector: 'autocomplete, lib-autocomplete',
 	standalone: true,
 	imports: [
-		CommonModule,
 		ReactiveFormsModule,
 		TypeOfPipe,
 		MatFormFieldModule,
@@ -43,6 +42,7 @@ import { MatIconModule } from '@angular/material/icon';
 		MatInputModule,
 		MatButtonModule,
 		MatIconModule,
+		AsyncPipe,
 	],
 	templateUrl: './autocomplete.component.html',
 	changeDetection: ChangeDetectionStrategy.Default,
@@ -143,8 +143,8 @@ export class AutocompleteComponent implements OnInit, OnChanges, AfterContentChe
 						return typeof option === 'string'
 							? option?.toLowerCase().indexOf(propertyName.toLowerCase()) === 0
 							: option[this.bindLabel]?.toLowerCase().indexOf(propertyName.toLowerCase()) === 0;
-					}) ?? this.data?.slice()
-			)
+					}) ?? this.data?.slice(),
+			),
 		);
 	}
 
@@ -190,16 +190,6 @@ export class AutocompleteComponent implements OnInit, OnChanges, AfterContentChe
 			if (typeof object === 'string') return object;
 			return object && object[this.bindLabel] ? object[this.bindLabel] : '';
 		}
-	}
-
-	/**
-	 * Tracks autocomplete values by bindVale
-	 *
-	 * @author Pavan Kumar Jadda
-	 * @since 12.1.2
-	 */
-	trackByFn(index: number, item: any) {
-		return item[this.bindLabel]?.bindValue;
 	}
 
 	/**
