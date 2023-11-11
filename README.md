@@ -18,7 +18,7 @@ and use it as shown below in each section
 
 
 ### Technologies
-1. Angular 13+
+1. Angular 17+
 2. Bootstrap 5+ (if applicable)
 
 ## Auto Complete
@@ -110,7 +110,7 @@ If you are using strings rather than objects, do not provide `bindLabel`, `bindV
 
 
 ## Alert
-Reusable alert component created with Bootstrap 5+ and Angular 11+
+Reusable alert component created with Bootstrap 5+ and Angular 17+
 ### Auto Complete API
 #### List of selectors that can be used to select the component
 
