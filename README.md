@@ -16,20 +16,6 @@ npm install @js-smart/ngxsmart
 ```
 and use it as shown below in each section
 
-### Publish library to NPM
-1. Build the library
-    ```shell
-    nx build ngxsmart
-    ```
-2. If the NPM token is not configured, open `~/.npmrc` and add the following line:
-    ```shell
-    //registry.npmjs.org/:_authToken=<your npm token>
-    ```
-3. Then navigate to `dist` directory anf publish the library to NPM. If prompted, enter the 2fa auth code from the Authenticator app.
-    ```shell
-    cd dist/libs/ngxsmart && npm publish --tag latest
-    ```
-   For beta releases use tag `--tag beta`
 
 ### Technologies
 1. Angular 13+
@@ -38,7 +24,7 @@ and use it as shown below in each section
 ## Auto Complete
 Reusable Auto Complete that extends Mat Auto Complete component
 ### Demo
-https://stackblitz.com/edit/ngxsmart-autocomplete-demo
+https://main--js-smart-ngxsmart.netlify.app/autocomplete-demo
 ### Usage
 
 The library has one `autocomplete` component. To use the Auto Complete component, add the following code to the HTML page
@@ -144,7 +130,10 @@ Reusable alert component created with Bootstrap 5+ and Angular 11+
 | type      |  Alert type. Provides one of four bootstrap supported contextual classes: success, info, warning and danger|string|info|
 
 ## Spinner
-Reusable Spinner component created with Bootstrap 5.x and Angular 12.x
+Reusable Spinner component created with Bootstrap 5.x and Angular 17.x
+
+### Demo
+https://main--js-smart-ngxsmart.netlify.app/alert-demo
 ### API
 #### List of selectors that can be used to select the component
 
@@ -292,3 +281,17 @@ its `id` attribute.
 </button>
 
 ```
+### Publish library to NPM
+1. Build the library
+    ```shell
+    nx build ngxsmart
+    ```
+2. If the NPM token is not configured, open `~/.npmrc` and add the following line:
+    ```shell
+    //registry.npmjs.org/:_authToken=<your npm token>
+    ```
+3. Then navigate to `dist` directory anf publish the library to NPM. If prompted, enter the 2fa auth code from the Authenticator app.
+    ```shell
+    cd dist/libs/ngxsmart && npm publish --tag latest
+    ```
+   For beta releases use tag `--tag beta`
