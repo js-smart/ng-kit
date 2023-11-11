@@ -96,6 +96,7 @@ export class NgxSpinnerComponent implements OnDestroy, OnInit, OnChanges {
 	/**
 	 * Element Reference
 	 */
+	// @ts-ignore
 	@ViewChild('overlay') spinnerDOM;
 
 	/**
@@ -103,7 +104,7 @@ export class NgxSpinnerComponent implements OnDestroy, OnInit, OnChanges {
 	 */
 	constructor(
 		private spinnerService: NgxSpinnerService,
-		private changeDetector: ChangeDetectorRef
+		private changeDetector: ChangeDetectorRef,
 	) {
 		this.bdColor = DEFAULTS.BD_COLOR;
 		this.zIndex = DEFAULTS.Z_INDEX;
@@ -112,9 +113,9 @@ export class NgxSpinnerComponent implements OnDestroy, OnInit, OnChanges {
 		this.size = 'large';
 		this.fullScreen = true;
 		this.name = PRIMARY_SPINNER;
+		// @ts-ignore
 		this.template = null;
 		this.showSpinner = false;
-
 		this.divArray = [];
 		this.divCount = 0;
 		this.show = false;
@@ -178,6 +179,7 @@ export class NgxSpinnerComponent implements OnDestroy, OnInit, OnChanges {
 					return;
 				} else if (typeof changedProp.currentValue !== 'undefined' && changedProp.currentValue !== changedProp.previousValue) {
 					if (changedProp.currentValue !== '') {
+						// @ts-ignore
 						this.spinner[propName] = changedProp.currentValue;
 						if (propName === 'showSpinner') {
 							if (changedProp.currentValue) {
@@ -196,6 +198,7 @@ export class NgxSpinnerComponent implements OnDestroy, OnInit, OnChanges {
 	 * To get class for spinner
 	 */
 	getClass(type: string, size: Size): string {
+		// @ts-ignore
 		this.spinner.divCount = LOADERS[type];
 		this.spinner.divArray = Array(this.spinner.divCount)
 			.fill(0)
@@ -221,7 +224,7 @@ export class NgxSpinnerComponent implements OnDestroy, OnInit, OnChanges {
 	 * Check if input variables have changed
 	 */
 	onInputChange() {
-		this.spinner.class = this.getClass(this.spinner.type, this.spinner.size);
+		this.spinner.class = this.getClass(this.spinner.type ?? DEFAULTS.SPINNER_TYPE, this.spinner.size ?? 'default');
 	}
 
 	/**

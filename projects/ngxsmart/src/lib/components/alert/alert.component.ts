@@ -50,6 +50,11 @@ export class AlertComponent implements OnInit {
 	 */
 	@Input() dismissTimeout = 5000;
 
+	/**
+	 * Additional classes to be added to the alert. This can be used to add custom styles to the alert
+	 */
+	@Input() class = '';
+
 	constructor(private cdr: ChangeDetectorRef) {}
 
 	/**
