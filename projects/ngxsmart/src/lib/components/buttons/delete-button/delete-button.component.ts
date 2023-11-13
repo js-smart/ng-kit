@@ -8,10 +8,11 @@ import { MatButtonModule } from '@angular/material/button';
 	imports: [MatButtonModule, MatIconModule],
 	template: `
 		<button class="btn delete-button {{ loading ? 'disabled' : '' }}" mat-raised-button type="{{ type }}" data-cy="delete-button">
-			@if(loading){
-			<span aria-hidden="true" class="spinner-border spinner-border-sm" role="status"></span>
-			} @if(!loading){
-			<mat-icon>{{ icon }}</mat-icon>
+			@if (loading) {
+				<span aria-hidden="true" class="spinner-border spinner-border-sm" role="status"></span>
+			}
+			@if (!loading) {
+				<mat-icon>{{ icon }}</mat-icon>
 			}
 			{{ loading ? loadingLabel : label }}
 		</button>

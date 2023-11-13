@@ -1,11 +1,11 @@
-import { Component, Input } from "@angular/core";
-import { CommonModule } from "@angular/common";
-import { MatButtonModule } from "@angular/material/button";
-import { MatIconModule } from "@angular/material/icon";
-import { EditSolidSvgComponent } from "../../../svg-icons/edit-solid-svg/edit-solid-svg.component";
+import { Component, Input } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { EditSolidSvgComponent } from '../../../svg-icons/edit-solid-svg/edit-solid-svg.component';
 
 @Component({
-	selector: "edit-bs-button",
+	selector: 'edit-bs-button',
 	standalone: true,
 	imports: [CommonModule, MatButtonModule, MatIconModule, EditSolidSvgComponent],
 	template: `
@@ -14,7 +14,7 @@ import { EditSolidSvgComponent } from "../../../svg-icons/edit-solid-svg/edit-so
 			{{ label }}
 		</button>
 	`,
-	styleUrls: ["../../../../assets/app-buttons.css"]
+	styleUrls: ['../../../../assets/app-buttons.css'],
 })
 export class EditBsButtonComponent {
 	/**

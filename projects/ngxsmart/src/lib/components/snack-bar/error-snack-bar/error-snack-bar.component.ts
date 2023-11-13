@@ -22,7 +22,7 @@ import { MatButtonModule } from '@angular/material/button';
 export class ErrorSnackBarComponent {
 	constructor(
 		public msb: MatSnackBarRef<ErrorSnackBarComponent>,
-		@Inject(MAT_SNACK_BAR_DATA) public data: { message: string; action?: string }
+		@Inject(MAT_SNACK_BAR_DATA) public data: { message: string; action?: string },
 	) {}
 
 	/**

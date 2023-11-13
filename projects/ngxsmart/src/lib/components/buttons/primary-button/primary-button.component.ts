@@ -12,10 +12,11 @@ import { MatIconModule } from '@angular/material/icon';
 			mat-raised-button
 			type="{{ type }}"
 			data-cy="primary-button">
-			@if(loading){
-			<span aria-hidden="true" class="spinner-border spinner-border-sm" role="status"></span>
-			} @if(!loading && showIcon){
-			<mat-icon>{{ icon }}</mat-icon>
+			@if (loading) {
+				<span aria-hidden="true" class="spinner-border spinner-border-sm" role="status"></span>
+			}
+			@if (!loading && showIcon) {
+				<mat-icon>{{ icon }}</mat-icon>
 			}
 			{{ loading ? loadingLabel : label }}
 		</button>
