@@ -1,6 +1,6 @@
-import { Component } from "@angular/core";
-import { MatIconModule, MatIconRegistry } from "@angular/material/icon";
-import { DomSanitizer } from "@angular/platform-browser";
+import { Component } from '@angular/core';
+import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
+import { DomSanitizer } from '@angular/platform-browser';
 
 const EDIT_ICON = `
 <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 512 512">
@@ -9,7 +9,7 @@ const EDIT_ICON = `
 `;
 
 @Component({
-	selector: "edit-solid-svg",
+	selector: 'edit-solid-svg',
 	standalone: true,
 	imports: [MatIconModule],
 	template: ` <mat-icon aria-hidden="false" aria-label="Edit" svgIcon="edit-solid"></mat-icon> `,

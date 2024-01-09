@@ -1,24 +1,24 @@
-@if(spinner.show){
-  <div
-    #overlay
-    [@.disabled]="disableAnimation"
-    [@fadeIn]="'in'"
-    [style.background-color]="spinner.bdColor"
-    [style.position]="spinner.fullScreen ? 'fixed' : 'absolute'"
-    [style.z-index]="spinner.zIndex"
-    class="ngx-spinner-overlay">
-    @if(spinner.show){
-      <div [class]="spinner.class" [style.color]="spinner.color">
-        @for( index of spinner.divArray;track index){
-          <div></div>
-        }
-      </div>
-    }
-    @if(template){
-      <div [innerHTML]="template | safeHtml"></div>
-    }
-    <div [style.z-index]="spinner.zIndex" class="loading-text">
-      <ng-content></ng-content>
-    </div>
-  </div>
+@if (spinner.show) {
+	<div
+		#overlay
+		[@.disabled]="disableAnimation"
+		[@fadeIn]="'in'"
+		[style.background-color]="spinner.bdColor"
+		[style.position]="spinner.fullScreen ? 'fixed' : 'absolute'"
+		[style.z-index]="spinner.zIndex"
+		class="ngx-spinner-overlay">
+		@if (spinner.show) {
+			<div [class]="spinner.class" [style.color]="spinner.color">
+				@for (index of spinner.divArray; track index) {
+					<div></div>
+				}
+			</div>
+		}
+		@if (template) {
+			<div [innerHTML]="template | safeHtml"></div>
+		}
+		<div [style.z-index]="spinner.zIndex" class="loading-text">
+			<ng-content></ng-content>
+		</div>
+	</div>
 }

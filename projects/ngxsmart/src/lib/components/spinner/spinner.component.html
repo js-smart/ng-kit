@@ -1,12 +1,11 @@
 <!-- Angular Material Spinner -->
-@if(!bootstrapSpinner){
-  <mat-spinner [color]="color" [diameter]="diameter" [strokeWidth]="strokeWidth" class="mx-auto"> </mat-spinner>
+@if (!bootstrapSpinner) {
+	<mat-spinner [color]="color" [diameter]="diameter" [strokeWidth]="strokeWidth" class="mx-auto"> </mat-spinner>
 }
 
 <!-- Bootstrap Spinner -->
-@if(bootstrapSpinner){
-  <div class="d-flex justify-content-center">
-    <div class="spinner-border bs-spinner" role="status"></div>
-  </div>
+@if (bootstrapSpinner) {
+	<div class="d-flex justify-content-center">
+		<div class="spinner-border bs-spinner" role="status"></div>
+	</div>
 }
-

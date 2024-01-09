@@ -2,23 +2,23 @@
 
 /* Remove underline from hyperlink  */
 a {
-  text-decoration: none;
+	text-decoration: none;
 }
 
 /* Show underline in hyperlink only when mouse is hovered  */
 a:hover {
-  text-decoration: underline;
+	text-decoration: underline;
 }
 
 /* By default make aligns items center for bootstrap row class */
 .row {
-  align-items: center;
+	align-items: center;
 }
 
 /* Extends bootstrap row class and aligns items start */
 .row-align-items-start {
-  @extend .row;
-  align-items: start;
+	@extend .row;
+	align-items: start;
 }
 
 /* End of Bootstrap 5 adjustments */
@@ -26,52 +26,52 @@ a:hover {
 // Sets Mat-Dialog Overflow to auto by default
 .mat-dialog-content,
 .mat-dialog-container {
-  overflow: auto;
+	overflow: auto;
 }
 
 // Places item in the middle of the box
 .custom-flex-center {
-  display: flex;
-  align-items: center;
+	display: flex;
+	align-items: center;
 }
 
 // Places item in the center of the box
 .custom-flex-justify-center {
-  display: flex;
-  justify-content: center;
+	display: flex;
+	justify-content: center;
 }
 
 // Places item in the left of the box
 .custom-flex-justify-left {
-  display: flex;
-  justify-content: flex-start;
+	display: flex;
+	justify-content: flex-start;
 }
 
 // Places item in the right of the box
 .custom-flex-justify-right {
-  display: flex;
-  justify-content: flex-end;
+	display: flex;
+	justify-content: flex-end;
 }
 
 // Places items at the start of the item
 .custom-flex-align-items-start {
-  display: flex;
-  align-items: flex-start;
+	display: flex;
+	align-items: flex-start;
 }
 
 // Places items at the start of the item
 .custom-flex-align-items-center {
-  display: flex;
-  align-items: center;
+	display: flex;
+	align-items: center;
 }
 
 // Add padding to strong HTML tag
 strong {
-  padding-left: 5px;
-  padding-right: 5px;
+	padding-left: 5px;
+	padding-right: 5px;
 }
 
 //Primary color text
 .primary-color-text {
-  color: var(--primary-color);
+	color: var(--primary-color);
 }

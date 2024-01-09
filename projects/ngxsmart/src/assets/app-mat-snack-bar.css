@@ -1,27 +1,27 @@
 @import 'app-variables.css';
 
 .success-snackbar {
-  color: white;
-  --mdc-snackbar-container-color: var(--success-color);
-  --mat-mdc-snack-bar-button-color: var(--white-color);
+	color: white;
+	--mdc-snackbar-container-color: var(--success-color);
+	--mat-mdc-snack-bar-button-color: var(--white-color);
 }
 
 .error-snackbar {
-  color: white;
-  --mdc-snackbar-container-color: var(--delete-color);
-  --mat-mdc-snack-bar-button-color: var(--white-color);
+	color: white;
+	--mdc-snackbar-container-color: var(--delete-color);
+	--mat-mdc-snack-bar-button-color: var(--white-color);
 }
 
 .light-success-snackbar {
-  color: #155724;
-  background-color: #d4edda;
-  --mdc-snackbar-container-color: #d4edda;
-  --mat-mdc-snack-bar-button-color: darkgreen;
+	color: #155724;
+	background-color: #d4edda;
+	--mdc-snackbar-container-color: #d4edda;
+	--mat-mdc-snack-bar-button-color: darkgreen;
 }
 
 .light-error-snackbar {
-  color: #721c24;
-  --mdc-snackbar-container-color: var(--success-color);
-  --mat-mdc-snack-bar-button-color: darkred;
-  border-color: #f5c6cb;
+	color: #721c24;
+	--mdc-snackbar-container-color: var(--success-color);
+	--mat-mdc-snack-bar-button-color: darkred;
+	border-color: #f5c6cb;
 }

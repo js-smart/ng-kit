@@ -22,7 +22,7 @@ import { MatIconModule } from '@angular/material/icon';
 export class SuccessSnackBarComponent {
 	constructor(
 		public msb: MatSnackBarRef<SuccessSnackBarComponent>,
-		@Inject(MAT_SNACK_BAR_DATA) public data: { message: string; action?: string }
+		@Inject(MAT_SNACK_BAR_DATA) public data: { message: string; action?: string },
 	) {}
 
 	/**

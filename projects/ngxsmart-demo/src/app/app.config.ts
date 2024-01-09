@@ -32,7 +32,7 @@ export const appConfig: ApplicationConfig = {
 			MatSelectModule,
 			MatAutocompleteModule,
 			MatNativeDateModule,
-			MatDatepickerModule
+			MatDatepickerModule,
 		),
 		Title,
 		DatePipe,

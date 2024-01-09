@@ -1,19 +1,19 @@
 import { Component } from '@angular/core';
 import {
-  BsLinkButtonComponent,
-  DeleteButtonComponent,
-  EditBsButtonComponent,
-  EditButtonComponent,
-  EditSvgIconButtonComponent,
-  ExcelExportButtonComponent,
-  ManageButtonComponent,
-  PdfExportButtonComponent,
-  PrimaryButtonComponent,
-  SavePrimaryButtonComponent,
-  SearchButtonComponent,
-  SuccessButtonComponent,
-  ViewButtonComponent,
-  ViewPrimaryButtonComponent,
+	BsLinkButtonComponent,
+	DeleteButtonComponent,
+	EditBsButtonComponent,
+	EditButtonComponent,
+	EditSvgIconButtonComponent,
+	ExcelExportButtonComponent,
+	ManageButtonComponent,
+	PdfExportButtonComponent,
+	PrimaryButtonComponent,
+	SavePrimaryButtonComponent,
+	SearchButtonComponent,
+	SuccessButtonComponent,
+	ViewButtonComponent,
+	ViewPrimaryButtonComponent,
 } from '@js-smart/ngxsmart';
 import { CommonModule } from '@angular/common';
 
