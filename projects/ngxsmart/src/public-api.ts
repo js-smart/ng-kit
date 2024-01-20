@@ -38,5 +38,9 @@ export * from './lib/svg-icons/edit-solid-svg/edit-solid-svg.component';
 // Export snackbar service
 export * from './lib/services/mat-snack-bar.service';
 
+// Export store and entity store services
+export * from './lib/store/store';
+export * from './lib/store/entity-store';
+
 // Export progress state
 export * from './lib/util/progress-util';
