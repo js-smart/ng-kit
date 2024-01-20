@@ -1,5 +1,5 @@
 import { computed, Injectable, signal } from '@angular/core';
-import { IdType } from '../../types/id-type';
+import { IdType } from '../types/id-type';
 
 /**
  * A core entity store class that stores a list of objects. This has list of methods to perform CRUD operations on the list of objects.
@@ -66,7 +66,7 @@ export class EntityStore<T extends IdType> {
 	 * @author Pavan Kumar Jadda
 	 * @since 17.1.0
 	 */
-	upsertMulti(newData: T) {
+	upsertMulti(newData: T[]) {
 		this._data.update((currentData) => {
 			const dataMap = new Map(currentData.map((item) => [item.id, item]));
 			newData.forEach((newItem: T) => dataMap.set(newItem.id, newItem));
