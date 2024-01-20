@@ -34,7 +34,7 @@
           }
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
+          "builder": "@angular-devkit/build-angular:jest",
           "options": {
             "tsConfig": "projects/ngxsmart/tsconfig.spec.json",
             "polyfills": [
@@ -116,25 +116,6 @@
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
             "buildTarget": "ngxsmart-demo:build"
-          }
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ],
-            "tsConfig": "projects/ngxsmart-demo/tsconfig.spec.json",
-            "inlineStyleLanguage": "scss",
-            "assets": [
-              "projects/ngxsmart-demo/src/favicon.ico",
-              "projects/ngxsmart-demo/src/assets"
-            ],
-            "styles": [
-              "projects/ngxsmart-demo/src/styles.scss"
-            ],
-            "scripts": []
           }
         }
       }

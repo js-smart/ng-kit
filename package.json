@@ -8,6 +8,7 @@
     "build:ngxsmart-demo": "ng build ngxsmart-demo --configuration=production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
+    "test:store": "ng test --include='**/store/*.spec.ts'",
     "bundle:report": "ng build --configuration production --source-map=true && source-map-explorer dist/pres/**/*.js",
     "e2e": "CI=true URL=http://localhost:4300 npx playwright test",
     "lint": "ng lint ngxsmart"
