@@ -24,7 +24,7 @@ and use it as shown below in each section
 ## Auto Complete
 Reusable Auto Complete that extends Mat Auto Complete component
 ### Demo
-[https://main--js-smart-ngxsmart.netlify.app/autocomplete-demo](https://js-smart-ngxsmart.netlify.app/)
+https://js-smart-ngxsmart.netlify.app/
 
 ### Usage
 
