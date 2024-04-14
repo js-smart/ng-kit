@@ -24,7 +24,8 @@ and use it as shown below in each section
 ## Auto Complete
 Reusable Auto Complete that extends Mat Auto Complete component
 ### Demo
-https://main--js-smart-ngxsmart.netlify.app/autocomplete-demo
+https://js-smart-ngxsmart.netlify.app/
+
 ### Usage
 
 The library has one `autocomplete` component. To use the Auto Complete component, add the following code to the HTML page
