@@ -9,8 +9,8 @@ dependencies:
     specifier: ^18.0.0-next.6
     version: 18.0.0-next.6(@angular/core@18.0.0-next.6)
   '@angular/cdk':
-    specifier: 17.3.4
-    version: 17.3.4(@angular/common@18.0.0-next.6)(@angular/core@18.0.0-next.6)(rxjs@7.8.1)
+    specifier: 18.0.0-next.6
+    version: 18.0.0-next.6(@angular/common@18.0.0-next.6)(@angular/core@18.0.0-next.6)(rxjs@7.8.1)
   '@angular/common':
     specifier: ^18.0.0-next.6
     version: 18.0.0-next.6(@angular/core@18.0.0-next.6)(rxjs@7.8.1)
@@ -24,11 +24,11 @@ dependencies:
     specifier: ^18.0.0-next.6
     version: 18.0.0-next.6(@angular/common@18.0.0-next.6)(@angular/core@18.0.0-next.6)(@angular/platform-browser@18.0.0-next.6)(rxjs@7.8.1)
   '@angular/material':
-    specifier: 17.3.4
-    version: 17.3.4(@angular/animations@18.0.0-next.6)(@angular/cdk@17.3.4)(@angular/common@18.0.0-next.6)(@angular/core@18.0.0-next.6)(@angular/forms@18.0.0-next.6)(@angular/platform-browser@18.0.0-next.6)(rxjs@7.8.1)
+    specifier: 18.0.0-next.6
+    version: 18.0.0-next.6(@angular/animations@18.0.0-next.6)(@angular/cdk@18.0.0-next.6)(@angular/common@18.0.0-next.6)(@angular/core@18.0.0-next.6)(@angular/forms@18.0.0-next.6)(@angular/platform-browser@18.0.0-next.6)(rxjs@7.8.1)
   '@angular/material-experimental':
     specifier: 17.3.4
-    version: 17.3.4(@angular/animations@18.0.0-next.6)(@angular/cdk@17.3.4)(@angular/common@18.0.0-next.6)(@angular/core@18.0.0-next.6)(@angular/forms@18.0.0-next.6)(@angular/material@17.3.4)(@angular/platform-browser@18.0.0-next.6)
+    version: 17.3.4(@angular/animations@18.0.0-next.6)(@angular/cdk@18.0.0-next.6)(@angular/common@18.0.0-next.6)(@angular/core@18.0.0-next.6)(@angular/forms@18.0.0-next.6)(@angular/material@18.0.0-next.6)(@angular/platform-browser@18.0.0-next.6)
   '@angular/platform-browser':
     specifier: ^18.0.0-next.6
     version: 18.0.0-next.6(@angular/animations@18.0.0-next.6)(@angular/common@18.0.0-next.6)(@angular/core@18.0.0-next.6)
@@ -502,11 +502,11 @@ packages:
       - terser
     dev: true
 
-  /@angular/cdk@17.3.4(@angular/common@18.0.0-next.6)(@angular/core@18.0.0-next.6)(rxjs@7.8.1):
-    resolution: {integrity: sha512-/wbKUbc0YC3HGE2TCgW7D07Q99PZ/5uoRvMyWw0/wHa8VLNavXZPecbvtyLs//3HnqoCMSUFE7E2Mrd7jAWfcA==}
+  /@angular/cdk@18.0.0-next.6(@angular/common@18.0.0-next.6)(@angular/core@18.0.0-next.6)(rxjs@7.8.1):
+    resolution: {integrity: sha512-r/7b5K6aUaJ+5RK5Cu0r1mKew9+KG9TM7Cj85P9pYgT0RdcSV197qFvtkc7MJwbl26I9oeuETpwWGmp2OWZw9A==}
     peerDependencies:
-      '@angular/common': ^17.0.0 || ^18.0.0
-      '@angular/core': ^17.0.0 || ^18.0.0
+      '@angular/common': ^18.0.0-0 || ^18.1.0-0 || ^18.2.0-0 || ^18.3.0-0 || ^19.0.0-0
+      '@angular/core': ^18.0.0-0 || ^18.1.0-0 || ^18.2.0-0 || ^18.3.0-0 || ^19.0.0-0
       rxjs: ^6.5.3 || ^7.4.0
     dependencies:
       '@angular/common': 18.0.0-next.6(@angular/core@18.0.0-next.6)(rxjs@7.8.1)
@@ -618,7 +618,7 @@ packages:
       tslib: 2.6.2
     dev: false
 
-  /@angular/material-experimental@17.3.4(@angular/animations@18.0.0-next.6)(@angular/cdk@17.3.4)(@angular/common@18.0.0-next.6)(@angular/core@18.0.0-next.6)(@angular/forms@18.0.0-next.6)(@angular/material@17.3.4)(@angular/platform-browser@18.0.0-next.6):
+  /@angular/material-experimental@17.3.4(@angular/animations@18.0.0-next.6)(@angular/cdk@18.0.0-next.6)(@angular/common@18.0.0-next.6)(@angular/core@18.0.0-next.6)(@angular/forms@18.0.0-next.6)(@angular/material@18.0.0-next.6)(@angular/platform-browser@18.0.0-next.6):
     resolution: {integrity: sha512-wgxJulaTFr87vx5sNlQ4Hk4Acm0Hp8erEbgwfZ+n/y5Q7uF0aq2WCY63aqdcXi1wuNHAPvl7JO692i8FWLcW0A==}
     peerDependencies:
       '@angular/animations': ^17.0.0 || ^18.0.0
@@ -630,11 +630,11 @@ packages:
       '@angular/platform-browser': ^17.0.0 || ^18.0.0
     dependencies:
       '@angular/animations': 18.0.0-next.6(@angular/core@18.0.0-next.6)
-      '@angular/cdk': 17.3.4(@angular/common@18.0.0-next.6)(@angular/core@18.0.0-next.6)(rxjs@7.8.1)
+      '@angular/cdk': 18.0.0-next.6(@angular/common@18.0.0-next.6)(@angular/core@18.0.0-next.6)(rxjs@7.8.1)
       '@angular/common': 18.0.0-next.6(@angular/core@18.0.0-next.6)(rxjs@7.8.1)
       '@angular/core': 18.0.0-next.6(rxjs@7.8.1)(zone.js@0.14.4)
       '@angular/forms': 18.0.0-next.6(@angular/common@18.0.0-next.6)(@angular/core@18.0.0-next.6)(@angular/platform-browser@18.0.0-next.6)(rxjs@7.8.1)
-      '@angular/material': 17.3.4(@angular/animations@18.0.0-next.6)(@angular/cdk@17.3.4)(@angular/common@18.0.0-next.6)(@angular/core@18.0.0-next.6)(@angular/forms@18.0.0-next.6)(@angular/platform-browser@18.0.0-next.6)(rxjs@7.8.1)
+      '@angular/material': 18.0.0-next.6(@angular/animations@18.0.0-next.6)(@angular/cdk@18.0.0-next.6)(@angular/common@18.0.0-next.6)(@angular/core@18.0.0-next.6)(@angular/forms@18.0.0-next.6)(@angular/platform-browser@18.0.0-next.6)(rxjs@7.8.1)
       '@angular/platform-browser': 18.0.0-next.6(@angular/animations@18.0.0-next.6)(@angular/common@18.0.0-next.6)(@angular/core@18.0.0-next.6)
       '@material/animation': 15.0.0-canary.7f224ddd4.0
       '@material/auto-init': 15.0.0-canary.7f224ddd4.0
@@ -686,19 +686,19 @@ packages:
       tslib: 2.6.2
     dev: false
 
-  /@angular/material@17.3.4(@angular/animations@18.0.0-next.6)(@angular/cdk@17.3.4)(@angular/common@18.0.0-next.6)(@angular/core@18.0.0-next.6)(@angular/forms@18.0.0-next.6)(@angular/platform-browser@18.0.0-next.6)(rxjs@7.8.1):
-    resolution: {integrity: sha512-SgCroIlHKt3s9pTEYlhW4ww6Gm1sIzJKuk0wlputPZvQS5PTJ8YY8vDg4QohpQcltlaXCbutt4qw+CBNU9W9iA==}
+  /@angular/material@18.0.0-next.6(@angular/animations@18.0.0-next.6)(@angular/cdk@18.0.0-next.6)(@angular/common@18.0.0-next.6)(@angular/core@18.0.0-next.6)(@angular/forms@18.0.0-next.6)(@angular/platform-browser@18.0.0-next.6)(rxjs@7.8.1):
+    resolution: {integrity: sha512-2/s28OWPrNeSlcZSDLMcsXnJ7oQRPv7SL8f6t8l/jUrHejgbtD9gvtqfRBFuYfOQvIixEmnhaeRDkJUiFtm9IA==}
     peerDependencies:
-      '@angular/animations': ^17.0.0 || ^18.0.0
-      '@angular/cdk': 17.3.4
-      '@angular/common': ^17.0.0 || ^18.0.0
-      '@angular/core': ^17.0.0 || ^18.0.0
-      '@angular/forms': ^17.0.0 || ^18.0.0
-      '@angular/platform-browser': ^17.0.0 || ^18.0.0
+      '@angular/animations': ^18.0.0-0 || ^18.1.0-0 || ^18.2.0-0 || ^18.3.0-0 || ^19.0.0-0
+      '@angular/cdk': 18.0.0-next.6
+      '@angular/common': ^18.0.0-0 || ^18.1.0-0 || ^18.2.0-0 || ^18.3.0-0 || ^19.0.0-0
+      '@angular/core': ^18.0.0-0 || ^18.1.0-0 || ^18.2.0-0 || ^18.3.0-0 || ^19.0.0-0
+      '@angular/forms': ^18.0.0-0 || ^18.1.0-0 || ^18.2.0-0 || ^18.3.0-0 || ^19.0.0-0
+      '@angular/platform-browser': ^18.0.0-0 || ^18.1.0-0 || ^18.2.0-0 || ^18.3.0-0 || ^19.0.0-0
       rxjs: ^6.5.3 || ^7.4.0
     dependencies:
       '@angular/animations': 18.0.0-next.6(@angular/core@18.0.0-next.6)
-      '@angular/cdk': 17.3.4(@angular/common@18.0.0-next.6)(@angular/core@18.0.0-next.6)(rxjs@7.8.1)
+      '@angular/cdk': 18.0.0-next.6(@angular/common@18.0.0-next.6)(@angular/core@18.0.0-next.6)(rxjs@7.8.1)
       '@angular/common': 18.0.0-next.6(@angular/core@18.0.0-next.6)(rxjs@7.8.1)
       '@angular/core': 18.0.0-next.6(rxjs@7.8.1)(zone.js@0.14.4)
       '@angular/forms': 18.0.0-next.6(@angular/common@18.0.0-next.6)(@angular/core@18.0.0-next.6)(@angular/platform-browser@18.0.0-next.6)(rxjs@7.8.1)
@@ -746,6 +746,7 @@ packages:
       '@material/tab-scroller': 15.0.0-canary.7f224ddd4.0
       '@material/textfield': 15.0.0-canary.7f224ddd4.0
       '@material/theme': 15.0.0-canary.7f224ddd4.0
+      '@material/tokens': 15.0.0-canary.7f224ddd4.0
       '@material/tooltip': 15.0.0-canary.7f224ddd4.0
       '@material/top-app-bar': 15.0.0-canary.7f224ddd4.0
       '@material/touch-target': 15.0.0-canary.7f224ddd4.0
