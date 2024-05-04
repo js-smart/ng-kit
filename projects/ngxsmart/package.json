@@ -1,9 +1,9 @@
 {
 	"name": "@js-smart/ngxsmart",
-	"version": "18.0.0-next.2",
+	"version": "18.0.0-rc.1",
 	"peerDependencies": {
-		"@angular/common": "^18.0.0-next.6",
-		"@angular/core": "^18.0.0-next.6"
+		"@angular/common": "^18.0.0-rc.0",
+		"@angular/core": "^18.0.0-rc.0"
 	},
 	"dependencies": {
 		"tslib": "^2.6.2"
