@@ -11,9 +11,9 @@ import { AutocompleteComponent } from '@js-smart/ngxsmart';
 })
 export class AutocompleteDemoComponent {
 	cities: City[] = [
-		{ id: 1001, location: 'New York' },
-		{ id: 1002, location: 'Boston' },
-		{ id: 1001, location: 'Washington DC' },
+		{ id: 1001, location: 'New York', state: 'NY' },
+		{ id: 1002, location: 'Boston', state: 'MA' },
+		{ id: 1001, location: 'Washington DC', state: 'DC' },
 	];
 	names = ['John', 'Steve', 'Ryan', 'Mary'];
 
@@ -36,4 +36,5 @@ export class AutocompleteDemoComponent {
 export interface City {
 	id: number;
 	location: string;
+	state: string;
 }

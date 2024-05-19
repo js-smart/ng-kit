@@ -5,6 +5,7 @@
 	<form [formGroup]="genericFormGroup">
 		<autocomplete
 			[data]="cities"
+			[displayWith]="displayWith"
 			[inputFormGroup]="genericFormGroup"
 			[required]="true"
 			bindLabel="location"

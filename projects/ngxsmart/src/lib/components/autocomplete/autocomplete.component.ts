@@ -1,29 +1,28 @@
 import {
-	AfterContentChecked,
-	ChangeDetectionStrategy,
-	ChangeDetectorRef,
-	Component,
-	ElementRef,
-	EventEmitter,
-	Input,
-	OnChanges,
-	OnInit,
-	Optional,
-	Output,
-	SimpleChanges,
-	ViewChild,
+  AfterContentChecked,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  Input,
+  input,
+  OnChanges,
+  OnInit,
+  Optional,
+  output,
+  SimpleChanges,
+  ViewChild,
 } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { map, startWith } from 'rxjs/operators';
-import { MatAutocompleteModule, MatAutocompleteTrigger } from '@angular/material/autocomplete';
-import { MatOptionSelectionChange } from '@angular/material/core';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { TypeOfPipe } from '../../pipes/type-of.pipe';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { AsyncPipe } from '@angular/common';
+import {BehaviorSubject, Observable} from 'rxjs';
+import {FormGroup, ReactiveFormsModule} from '@angular/forms';
+import {map, startWith} from 'rxjs/operators';
+import {MatAutocompleteModule, MatAutocompleteTrigger} from '@angular/material/autocomplete';
+import {MatOptionSelectionChange} from '@angular/material/core';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {TypeOfPipe} from '../../pipes/type-of.pipe';
+import {MatButtonModule} from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
+import {AsyncPipe} from '@angular/common';
 
 /**
  * Reusable Auto Complete component that extends MatAutoComplete to show Clear icon and Arrow buttons
@@ -45,7 +44,6 @@ import { AsyncPipe } from '@angular/common';
 		AsyncPipe,
 	],
 	templateUrl: './autocomplete.component.html',
-	changeDetection: ChangeDetectionStrategy.Default,
 })
 export class AutocompleteComponent implements OnInit, OnChanges, AfterContentChecked {
 	/**
@@ -61,32 +59,32 @@ export class AutocompleteComponent implements OnInit, OnChanges, AfterContentChe
 	/**
 	 * Label of the AutoComplete
 	 */
-	@Input() label = '';
+	label = input('');
 
 	/**
 	 * Placeholder of the AutoComplete
 	 */
-	@Input() placeHolder = '';
+	placeHolder = input('');
 
 	/**
 	 * Appearance of the AutoComplete, defaults to `fill`
 	 */
-	@Input() appearance = 'fill';
+	appearance = input('fill');
 
 	/**
 	 * List of CSS classes that need to applied to autocomplete
 	 */
-	@Input() classes = '';
+	classes = input('');
 
 	/**
 	 * Attribute of the Object whose value would be shown when searching for data. Defaults to `ID`
 	 */
-	@Input() bindLabel = '';
+	bindLabel = input('');
 
 	/**
 	 * Attribute of the Object whose value would be used for search
 	 */
-	@Input() bindValue = 'id';
+	bindValue = input('id');
 
 	/**
 	 * Function that maps an option's control value to its display value in the trigger.
@@ -96,12 +94,12 @@ export class AutocompleteComponent implements OnInit, OnChanges, AfterContentChe
 	/**
 	 * Specifies if the autocomplete is required. Default is not required.
 	 */
-	@Input() required = false;
+	required = input(false);
 
 	/**
 	 * List of Objects that need to be bind and searched for
 	 */
-	@Input() data: any[] | undefined;
+	data = input<string[] | any[]>();
 
 	/**
 	 * Emit selected value on selection changes
@@ -109,7 +107,7 @@ export class AutocompleteComponent implements OnInit, OnChanges, AfterContentChe
 	 * @author Pavan Kumar Jadda
 	 * @since 13.0.3
 	 */
-	@Output() onSelectionChange = new EventEmitter<any>();
+	onSelectionChange = output<any>();
 
 	/**
 	 * BehaviorSubject that shows the current active arrow icon
@@ -136,14 +134,14 @@ export class AutocompleteComponent implements OnInit, OnChanges, AfterContentChe
 	ngOnInit() {
 		this.filteredOptions = this.inputFormGroup?.get('autocomplete')?.valueChanges.pipe(
 			startWith(''),
-			map((value) => (typeof value === 'string' ? value : value !== null ? value[this.bindLabel] : '')),
+			map((value) => (typeof value === 'string' ? value : value !== null ? value[this.bindLabel()] : '')),
 			map(
 				(propertyName) =>
-					this.data?.filter((option) => {
+					this.data()?.filter((option) => {
 						return typeof option === 'string'
 							? option?.toLowerCase().indexOf(propertyName.toLowerCase()) === 0
-							: option[this.bindLabel]?.toLowerCase().indexOf(propertyName.toLowerCase()) === 0;
-					}) ?? this.data?.slice(),
+							: option[this.bindLabel()]?.toLowerCase().indexOf(propertyName.toLowerCase()) === 0;
+					}) ?? this.data()?.slice(),
 			),
 		);
 	}
@@ -188,7 +186,7 @@ export class AutocompleteComponent implements OnInit, OnChanges, AfterContentChe
 			return this.displayWith(object);
 		} else {
 			if (typeof object === 'string') return object;
-			return object && object[this.bindLabel] ? object[this.bindLabel] : '';
+			return object && object[this.bindLabel()] ? object[this.bindLabel()] : '';
 		}
 	}
 
