@@ -11,13 +11,15 @@
 
 	<hr />
 	<success-button (click)="setLoading()" [loading]="loading" class="m-3" label="Success Button"></success-button>
-	<delete-button (click)="setLoading()" [loading]="loading" class="m-3" label="Delete Button"></delete-button>
+	<delete-button (onClick)="setDeleteLoading($event)" [loading]="loading" class="m-3" label="Delete Button"></delete-button>
 
 	<hr />
 	<manage-button class="m-3"></manage-button>
 	<search-button class="m-3"></search-button>
 	<pdf-export-button class="m-3"></pdf-export-button>
 	<excel-export-button class="m-3"></excel-export-button>
+
+	<hr />
 </div>
 
 <hr />

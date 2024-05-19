@@ -1,34 +1,36 @@
 import { Component, input } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
+import { NgStyle } from '@angular/common';
+import { MatButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { BaseButtonComponent } from '../base-button/base-button.component';
 
 @Component({
 	selector: 'manage-button',
 	standalone: true,
-	imports: [CommonModule, MatButtonModule, MatIconModule],
-
+	imports: [MatButton, MatIcon, NgStyle],
 	template: `
-		<button type="{{ type() }}" class="mr-3 btn btn-secondary secondary-button" mat-raised-button data-cy="manage-button">
+		<button
+			mat-raised-button
+			class="{{ classes() }}"
+			(click)="onClick.emit($event)"
+			(focus)="onFocus.emit($event)"
+			(blur)="onBlur.emit($event)"
+			[disabled]="disabled()"
+			[type]="type()"
+			[ngStyle]="style()"
+			[attr.data-cy]="'manage-button'">
 			<mat-icon>{{ icon() }}</mat-icon>
 			{{ label() }}
 		</button>
 	`,
 	styleUrls: ['../../../../assets/app-buttons.css'],
 })
-export class ManageButtonComponent {
-	/**
-	 * If set, shows when search is not in progress
-	 */
-	label = input('Manage');
+export class ManageButtonComponent extends BaseButtonComponent {
+	override label = input('Manage');
+	override icon = input('settings');
+	override classes = input('mr-3 btn btn-secondary secondary-button');
 
-	/**
-	 * If set, shows material icon
-	 */
-	icon = input('settings');
-
-	/**
-	 * If set, shows button type. Defaults to 'button'. Other options are 'submit' and 'reset'
-	 */
-	type = input('button');
+	constructor() {
+		super();
+	}
 }
