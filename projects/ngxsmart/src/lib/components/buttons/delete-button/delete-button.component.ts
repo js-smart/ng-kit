@@ -7,7 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
 	standalone: true,
 	imports: [MatButtonModule, MatIconModule],
 	template: `
-		<button class="btn delete-button {{ loading ? 'disabled' : '' }}" mat-raised-button type="{{ type }}" data-cy="delete-button">
+		<button [disabled]="disabled || loading" class="btn delete-button }}" mat-raised-button type="{{ type }}" data-cy="delete-button">
 			@if (loading) {
 				<span aria-hidden="true" class="spinner-border spinner-border-sm" role="status"></span>
 			}
@@ -24,6 +24,11 @@ export class DeleteButtonComponent {
 	 *  Is search in progress and loading the data
 	 */
 	@Input() loading: boolean | undefined = false;
+
+	/**
+	 *  Is button disabled
+	 */
+	@Input() disabled: boolean | undefined = false;
 
 	/**
 	 * Type of the button. Following values are supported. See BootStrap docs for more information
