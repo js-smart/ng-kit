@@ -1,38 +1,36 @@
 import { Component, input } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
+import { NgStyle } from '@angular/common';
+import { MatButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { BaseButtonComponent } from '../base-button/base-button.component';
 
 @Component({
 	selector: 'view-primary-button',
 	standalone: true,
-	imports: [CommonModule, MatButtonModule, MatIconModule],
-
+	imports: [MatButton, MatIcon, NgStyle],
 	template: `
-		<button class="btn btn-primary primary-button" mat-raised-button type="{{ type() }}" data-cy="view-button">
+		<button
+			mat-raised-button
+			class="btn {{ classes() }}"
+			(click)="onClick.emit($event)"
+			(focus)="onFocus.emit($event)"
+			(blur)="onBlur.emit($event)"
+			[disabled]="disabled()"
+			[type]="type()"
+			[ngStyle]="style()"
+			[attr.data-cy]="'view-button'">
 			<mat-icon>{{ icon() }}</mat-icon>
 			{{ label() }}
 		</button>
 	`,
 	styleUrls: ['../../../../assets/app-buttons.css'],
 })
-export class ViewPrimaryButtonComponent {
-	/**
-	 * Type of the button. Following values are supported. See BootStrap docs for more information
-	 * <pre>
-	 *   1. button
-	 *   2. submit
-	 * </pre>
-	 */
-	type = input('button');
+export class ViewPrimaryButtonComponent extends BaseButtonComponent {
+	override label = input('View');
+	override icon = input('visibility');
+	override classes = input('btn-primary primary-button');
 
-	/**
-	 * If set, shows material icon
-	 */
-	icon = input('visibility');
-
-	/**
-	 * If set, shows when search is not in progress
-	 */
-	label = input('View');
+	constructor() {
+		super();
+	}
 }

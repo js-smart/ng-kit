@@ -1,39 +1,37 @@
 import { Component, input } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { MatButtonModule } from '@angular/material/button';
+import { MatButton } from '@angular/material/button';
 import { EditSolidSvgComponent } from '../../../svg-icons/edit-solid-svg/edit-solid-svg.component';
+import { BaseButtonComponent } from '../base-button/base-button.component';
+import { NgStyle } from '@angular/common';
 
 @Component({
 	selector: 'edit-svg-icon-button',
 	standalone: true,
-	imports: [CommonModule, MatButtonModule, EditSolidSvgComponent],
-
+	imports: [MatButton, EditSolidSvgComponent, NgStyle],
 	template: `
-		<button class="primary-button" mat-raised-button type="{{ type() }}" data-cy="edit-svg-icon-button">
+		<button
+			type="{{ type() }}"
+			class="{{ classes() }}"
+			(click)="onClick.emit($event)"
+			(focus)="onFocus.emit($event)"
+			(blur)="onBlur.emit($event)"
+			[disabled]="disabled()"
+			[type]="type()"
+			[ngStyle]="style()"
+			[attr.data-cy]="'edit-svg-icon-button'"
+			mat-raised-button>
 			<edit-solid-svg></edit-solid-svg>
 			{{ label() }}
 		</button>
 	`,
 	styleUrls: ['../../../../assets/app-buttons.css'],
 })
-export class EditSvgIconButtonComponent {
-	/**
-	 * Type of the button. Following values are supported. See BootStrap docs for mor
-	 * e information
-	 * <pre>
-	 *   1. button
-	 *   2. submit
-	 * </pre>
-	 */
-	type = input('button');
+export class EditSvgIconButtonComponent extends BaseButtonComponent {
+	override label = input('Edit');
+	override icon = input('edit');
+	override classes = input('primary-button');
 
-	/**
-	 * If set, shows material icon
-	 */
-	icon = input('edit');
-
-	/**
-	 * If set, shows the label on the button
-	 */
-	label = input('Edit');
+	constructor() {
+		super();
+	}
 }

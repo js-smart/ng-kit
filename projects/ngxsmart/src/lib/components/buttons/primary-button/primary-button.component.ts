@@ -1,18 +1,24 @@
 import { Component, input } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
+import { MatButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { BaseButtonComponent } from '../base-button/base-button.component';
+import { NgStyle } from '@angular/common';
 
 @Component({
 	selector: 'primary-button',
 	standalone: true,
-	imports: [MatButtonModule, MatIconModule],
-
+	imports: [MatButton, MatIcon, NgStyle],
 	template: `
 		<button
-			class="btn btn-primary primary-button {{ loading() || disabled() ? 'disabled' : '' }}"
 			mat-raised-button
-			type="{{ type() }}"
-			data-cy="primary-button">
+			class="btn {{ classes() }}"
+			(click)="onClick.emit($event)"
+			(focus)="onFocus.emit($event)"
+			(blur)="onBlur.emit($event)"
+			[disabled]="disabled() || loading()"
+			[type]="type()"
+			[ngStyle]="style()"
+			[attr.data-cy]="'primary-button'">
 			@if (loading()) {
 				<span aria-hidden="true" class="spinner-border spinner-border-sm" role="status"></span>
 			}
@@ -24,43 +30,14 @@ import { MatIconModule } from '@angular/material/icon';
 	`,
 	styleUrls: ['../../../../assets/app-buttons.css'],
 })
-export class PrimaryButtonComponent {
-	/**
-	 *  Is search in progress and loading the data
-	 */
-	loading = input<boolean>(false);
+export class PrimaryButtonComponent extends BaseButtonComponent {
+	override loadingLabel = input('Saving...');
+	override label = input('Save');
+	override icon = input('save');
+	override showIcon = input(false);
+	override classes = input('btn-primary primary-button');
 
-	/**
-	 *  Is button disabled, default is false
-	 */
-	disabled = input(false);
-
-	/**
-	 * Type of the button. Following values are supported. See BootStrap docs for more information
-	 * <pre>
-	 *   1. button
-	 *   2. submit
-	 * </pre>
-	 */
-	type = input('button');
-
-	/**
-	 * If set, shows when search in progress
-	 */
-	loadingLabel = input('Saving...');
-
-	/**
-	 * If set, shows when search is not in progress
-	 */
-	label = input('Save');
-
-	/**
-	 * If set, shows material icon
-	 */
-	icon = input('save');
-
-	/**
-	 * If set, shows material icon otherwise hides the icons
-	 */
-	showIcon = input(false);
+	constructor() {
+		super();
+	}
 }
