@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
@@ -13,20 +13,20 @@ export class SpinnerComponent {
 	/**
 	 *  Use Boostrap Spinner. Default `true`
 	 */
-	@Input() bootstrapSpinner = true;
+	bootstrapSpinner = input(true);
 
 	/**
 	 * Diameter of the Angular Material spinner
 	 */
-	@Input() diameter = 50;
+	diameter = input(50);
 
 	/**
 	 *  Color of the Angular Material spinner
 	 */
-	@Input() color: ThemePalette = 'primary';
+	color = input<ThemePalette>('primary');
 
 	/**
 	 *  Stroke Width of the Angular Material spinner
 	 */
-	@Input() strokeWidth = 5;
+	strokeWidth = input(5);
 }

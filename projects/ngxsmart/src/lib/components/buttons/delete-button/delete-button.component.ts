@@ -1,51 +1,42 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { BaseButtonComponent } from '../base-button/base-button.component';
+import { NgStyle } from '@angular/common';
 
 @Component({
 	selector: 'delete-button',
 	standalone: true,
-	imports: [MatButtonModule, MatIconModule],
+	imports: [MatButtonModule, MatIconModule, NgStyle],
 	template: `
-		<button class="btn delete-button {{ loading ? 'disabled' : '' }}" mat-raised-button type="{{ type }}" data-cy="delete-button">
-			@if (loading) {
+		<button
+			mat-raised-button
+			class="btn {{ classes() }}"
+			(click)="onClick.emit($event)"
+			(focus)="onFocus.emit($event)"
+			(blur)="onBlur.emit($event)"
+			[disabled]="disabled() || loading()"
+			[type]="type()"
+			[ngStyle]="style()"
+			[attr.data-cy]="'delete-button'">
+			@if (loading()) {
 				<span aria-hidden="true" class="spinner-border spinner-border-sm" role="status"></span>
 			}
-			@if (!loading) {
-				<mat-icon>{{ icon }}</mat-icon>
+			@if (!loading()) {
+				<mat-icon>{{ icon() }}</mat-icon>
 			}
-			{{ loading ? loadingLabel : label }}
+			{{ loading() ? loadingLabel() : label() }}
 		</button>
 	`,
 	styleUrls: ['../../../../assets/app-buttons.css'],
 })
-export class DeleteButtonComponent {
-	/**
-	 *  Is search in progress and loading the data
-	 */
-	@Input() loading: boolean | undefined = false;
+export class DeleteButtonComponent extends BaseButtonComponent {
+	override loadingLabel = input('Deleting...');
+	override label = input('Delete');
+	override icon = input('delete');
+	override classes = input('delete-button');
 
-	/**
-	 * Type of the button. Following values are supported. See BootStrap docs for more information
-	 * <pre>
-	 *   1. button
-	 *   2. submit
-	 * </pre>
-	 */
-	@Input() type = 'button';
-
-	/**
-	 * If set, shows when Delete in Progress
-	 */
-	@Input() loadingLabel = 'Deleting...';
-
-	/**
-	 * If set, shows when Delete is not in progress
-	 */
-	@Input() label = 'Delete';
-
-	/**
-	 * If set, shows the icon. Otherwise, shows delete icon
-	 */
-	@Input() icon = 'delete';
+	constructor() {
+		super();
+	}
 }

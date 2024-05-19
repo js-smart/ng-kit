@@ -50,4 +50,12 @@ export class ButtonsDemoComponent {
 			this.loading = false;
 		}, 3000);
 	}
+
+	setDeleteLoading($event: MouseEvent) {
+		console.log('Delete Button clicked');
+		this.loading = true;
+		setTimeout(() => {
+			this.loading = false;
+		}, 3000);
+	}
 }

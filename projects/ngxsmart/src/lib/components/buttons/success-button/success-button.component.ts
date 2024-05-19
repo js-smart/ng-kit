@@ -1,60 +1,41 @@
-import { Component, Input } from '@angular/core';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
+import { Component, input } from '@angular/core';
+import { BaseButtonComponent } from '../base-button/base-button.component';
+import { NgStyle } from '@angular/common';
+import { MatButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
 	selector: 'success-button',
 	standalone: true,
-	imports: [MatButtonModule, MatIconModule],
+	imports: [NgStyle, MatButton, MatIcon],
 	template: `
 		<button
-			class="btn success-button {{ loading || disabled ? 'disabled' : '' }}"
 			mat-raised-button
-			type="{{ type }}"
-			data-cy="success-button">
-			@if (loading) {
+			class="btn {{ classes() }}"
+			(click)="onClick.emit($event)"
+			(focus)="onFocus.emit($event)"
+			(blur)="onBlur.emit($event)"
+			[disabled]="disabled() || loading()"
+			[type]="type()"
+			[ngStyle]="style()"
+			[attr.data-cy]="'success-button'">
+			@if (loading()) {
 				<span aria-hidden="true" class="spinner-border spinner-border-sm" role="status"></span>
 			}
-			@if (!loading) {
-				<mat-icon>{{ icon }}</mat-icon>
+			@if (!loading()) {
+				<mat-icon>{{ icon() }}</mat-icon>
 			}
-			{{ loading ? loadingLabel : label }}
+			{{ loading() ? loadingLabel() : label() }}
 		</button>
 	`,
-	styleUrls: ['../../../../assets/app-buttons.css'],
 })
-export class SuccessButtonComponent {
-	/**
-	 *  Is search in progress and loading the data
-	 */
-	@Input() loading: boolean | undefined = false;
+export class SuccessButtonComponent extends BaseButtonComponent {
+	override loadingLabel = input('Updating...');
+	override label = input('Update');
+	override icon = input('save');
+	override classes = input('success-button');
 
-	/**
-	 *  Is button disabled, default is false
-	 */
-	@Input() disabled = false;
-
-	/**
-	 * Type of the button. Following values are supported. See BootStrap docs for more information
-	 * <pre>
-	 *   1. button
-	 *   2. submit
-	 * </pre>
-	 */
-	@Input() type = 'button';
-
-	/**
-	 * If set, shows when search in progress
-	 */
-	@Input() loadingLabel = 'Updating...';
-
-	/**
-	 * If set, shows when search is not in progress
-	 */
-	@Input() label = 'Update';
-
-	/**
-	 * If set, shows the icon. Otherwise, shows save icon
-	 */
-	@Input() icon = 'save';
+	constructor() {
+		super();
+	}
 }
