@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 
@@ -6,18 +6,19 @@ import { MatButtonModule } from '@angular/material/button';
 	selector: 'save-primary-button',
 	standalone: true,
 	imports: [MatButtonModule, MatIconModule],
+
 	template: ` <button
-		class="btn btn-primary primary-button {{ loading ? 'disabled' : '' }}"
+		class="btn btn-primary primary-button {{ loading() ? 'disabled' : '' }}"
 		mat-raised-button
-		type="{{ type }}"
+		type="{{ type() }}"
 		data-cy="save-primary-button">
-		@if (loading) {
+		@if (loading()) {
 			<span aria-hidden="true" class="spinner-border spinner-border-sm" role="status"></span>
 		}
-		@if (!loading) {
-			<mat-icon>{{ icon }}</mat-icon>
+		@if (!loading()) {
+			<mat-icon>{{ icon() }}</mat-icon>
 		}
-		{{ loading ? loadingLabel : label }}
+		{{ loading() ? loadingLabel() : label() }}
 	</button>`,
 	styleUrls: ['../../../../assets/app-buttons.css'],
 })
@@ -25,7 +26,7 @@ export class SavePrimaryButtonComponent {
 	/**
 	 *  Is search in progress and loading the data
 	 */
-	@Input() loading: boolean | undefined = false;
+	loading = input<boolean>(false);
 
 	/**
 	 * Type of the button. Following values are supported. See BootStrap docs for more information
@@ -34,20 +35,20 @@ export class SavePrimaryButtonComponent {
 	 *   2. submit
 	 * </pre>
 	 */
-	@Input() type = 'button';
+	type = input('button');
 
 	/**
 	 * If set, shows when search in progress
 	 */
-	@Input() loadingLabel = 'Saving...';
+	loadingLabel = input('Saving...');
 
 	/**
 	 * If set, shows when search is not in progress
 	 */
-	@Input() label = 'Save';
+	label = input('Save');
 
 	/**
 	 * If set, shows material icon
 	 */
-	@Input() icon = 'save';
+	icon = input('save');
 }

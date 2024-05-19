@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 
@@ -6,15 +6,16 @@ import { MatButtonModule } from '@angular/material/button';
 	selector: 'delete-button',
 	standalone: true,
 	imports: [MatButtonModule, MatIconModule],
+
 	template: `
-		<button [disabled]="disabled || loading" class="btn delete-button }}" mat-raised-button type="{{ type }}" data-cy="delete-button">
-			@if (loading) {
+		<button [disabled]="disabled() || loading()" class="btn delete-button }}" mat-raised-button type="{{ type() }}" data-cy="delete-button">
+			@if (loading()) {
 				<span aria-hidden="true" class="spinner-border spinner-border-sm" role="status"></span>
 			}
-			@if (!loading) {
-				<mat-icon>{{ icon }}</mat-icon>
+			@if (!loading()) {
+				<mat-icon>{{ icon() }}</mat-icon>
 			}
-			{{ loading ? loadingLabel : label }}
+			{{ loading() ? loadingLabel() : label() }}
 		</button>
 	`,
 	styleUrls: ['../../../../assets/app-buttons.css'],
@@ -23,12 +24,12 @@ export class DeleteButtonComponent {
 	/**
 	 *  Is search in progress and loading the data
 	 */
-	@Input() loading: boolean | undefined = false;
+	loading = input<boolean>(false);
 
 	/**
 	 *  Is button disabled
 	 */
-	@Input() disabled: boolean | undefined = false;
+	disabled = input<boolean>(false);
 
 	/**
 	 * Type of the button. Following values are supported. See BootStrap docs for more information
@@ -37,20 +38,20 @@ export class DeleteButtonComponent {
 	 *   2. submit
 	 * </pre>
 	 */
-	@Input() type = 'button';
+	type = input('button');
 
 	/**
 	 * If set, shows when Delete in Progress
 	 */
-	@Input() loadingLabel = 'Deleting...';
+	loadingLabel = input('Deleting...');
 
 	/**
 	 * If set, shows when Delete is not in progress
 	 */
-	@Input() label = 'Delete';
+	label = input('Delete');
 
 	/**
 	 * If set, shows the icon. Otherwise, shows delete icon
 	 */
-	@Input() icon = 'delete';
+	icon = input('delete');
 }

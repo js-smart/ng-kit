@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, input, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 /**
@@ -28,32 +28,37 @@ export class AlertComponent implements OnInit {
 	 *   8. light
 	 * </pre>
 	 */
-	@Input() type = 'info';
+	type = input('info');
 
 	/**
 	 *  Is alert visible or open
 	 */
-	@Input() isOpen = true;
+	isOpen = input(true);
+
+	/**
+	 *  Writable signal for isOpen
+	 */
+	open = signal(this.isOpen());
 
 	/**
 	 * If set, displays an inline “Close” button
 	 */
-	@Input() dismissible = true;
+	dismissible = input(true);
 
 	/**
 	 * If set, dismisses the alert after Dismiss Timeout
 	 */
-	@Input() dismissOnTimeout = true;
+	dismissOnTimeout = input(true);
 
 	/**
 	 * Number in milliseconds, after which alert will be closed. Default value is 5000 ms
 	 */
-	@Input() dismissTimeout = 5000;
+	dismissTimeout = input(5000);
 
 	/**
 	 * Additional classes to be added to the alert. This can be used to add custom styles to the alert
 	 */
-	@Input() class = '';
+	class = input('');
 
 	constructor(private cdr: ChangeDetectorRef) {}
 
@@ -66,11 +71,11 @@ export class AlertComponent implements OnInit {
 	ngOnInit(): void {
 		this.openAlert();
 
-		if (this.dismissOnTimeout) {
+		if (this.dismissOnTimeout()) {
 			setTimeout(() => {
 				this.closeAlert();
 				this.cdr.markForCheck();
-			}, this.dismissTimeout);
+			}, this.dismissTimeout());
 		}
 	}
 
@@ -81,10 +86,10 @@ export class AlertComponent implements OnInit {
 	 * @since 12.0.0
 	 */
 	closeAlert(): void {
-		if (!this.isOpen) {
+		if (!this.isOpen()) {
 			return;
 		}
-		this.isOpen = false;
+		this.open.set(false);
 	}
 
 	/**
@@ -94,6 +99,6 @@ export class AlertComponent implements OnInit {
 	 * @since 12.0.0
 	 */
 	private openAlert(): void {
-		this.isOpen = true;
+		this.open.set(true);
 	}
 }
