@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { EditSolidSvgComponent } from '../../../svg-icons/edit-solid-svg/edit-solid-svg.component';
@@ -7,10 +7,11 @@ import { EditSolidSvgComponent } from '../../../svg-icons/edit-solid-svg/edit-so
 	selector: 'edit-svg-icon-button',
 	standalone: true,
 	imports: [CommonModule, MatButtonModule, EditSolidSvgComponent],
+
 	template: `
-		<button class="primary-button" mat-raised-button type="{{ type }}" data-cy="edit-svg-icon-button">
+		<button class="primary-button" mat-raised-button type="{{ type() }}" data-cy="edit-svg-icon-button">
 			<edit-solid-svg></edit-solid-svg>
-			{{ label }}
+			{{ label() }}
 		</button>
 	`,
 	styleUrls: ['../../../../assets/app-buttons.css'],
@@ -24,15 +25,15 @@ export class EditSvgIconButtonComponent {
 	 *   2. submit
 	 * </pre>
 	 */
-	@Input() type = 'button';
+	type = input('button');
 
 	/**
 	 * If set, shows material icon
 	 */
-	@Input() icon = 'edit';
+	icon = input('edit');
 
 	/**
 	 * If set, shows the label on the button
 	 */
-	@Input() label = 'Edit';
+	label = input('Edit');
 }

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
@@ -6,19 +6,20 @@ import { MatIconModule } from '@angular/material/icon';
 	selector: 'primary-button',
 	standalone: true,
 	imports: [MatButtonModule, MatIconModule],
+
 	template: `
 		<button
-			class="btn btn-primary primary-button {{ loading || disabled ? 'disabled' : '' }}"
+			class="btn btn-primary primary-button {{ loading() || disabled() ? 'disabled' : '' }}"
 			mat-raised-button
-			type="{{ type }}"
+			type="{{ type() }}"
 			data-cy="primary-button">
-			@if (loading) {
+			@if (loading()) {
 				<span aria-hidden="true" class="spinner-border spinner-border-sm" role="status"></span>
 			}
-			@if (!loading && showIcon) {
-				<mat-icon>{{ icon }}</mat-icon>
+			@if (!loading() && showIcon()) {
+				<mat-icon>{{ icon() }}</mat-icon>
 			}
-			{{ loading ? loadingLabel : label }}
+			{{ loading() ? loadingLabel() : label() }}
 		</button>
 	`,
 	styleUrls: ['../../../../assets/app-buttons.css'],
@@ -27,12 +28,12 @@ export class PrimaryButtonComponent {
 	/**
 	 *  Is search in progress and loading the data
 	 */
-	@Input() loading: boolean | undefined = false;
+	loading = input<boolean>(false);
 
 	/**
 	 *  Is button disabled, default is false
 	 */
-	@Input() disabled = false;
+	disabled = input(false);
 
 	/**
 	 * Type of the button. Following values are supported. See BootStrap docs for more information
@@ -41,25 +42,25 @@ export class PrimaryButtonComponent {
 	 *   2. submit
 	 * </pre>
 	 */
-	@Input() type = 'button';
+	type = input('button');
 
 	/**
 	 * If set, shows when search in progress
 	 */
-	@Input() loadingLabel = 'Saving...';
+	loadingLabel = input('Saving...');
 
 	/**
 	 * If set, shows when search is not in progress
 	 */
-	@Input() label = 'Save';
+	label = input('Save');
 
 	/**
 	 * If set, shows material icon
 	 */
-	@Input() icon = 'save';
+	icon = input('save');
 
 	/**
 	 * If set, shows material icon otherwise hides the icons
 	 */
-	@Input() showIcon = false;
+	showIcon = input(false);
 }
