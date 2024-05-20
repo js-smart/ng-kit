@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { EditSvgIconButtonComponent } from '@js-smart/ngxsmart';
+import { EditSvgIconButtonComponent } from '@js-smart/ng-utils';
 
 @Component({
-	selector: 'ngxsmart-edit-svg-icon-demo',
+	selector: 'ng-utils-edit-svg-icon-demo',
 	standalone: true,
 	imports: [EditSvgIconButtonComponent],
 	template: ` <edit-svg-icon-button class="m-5"></edit-svg-icon-button> `,

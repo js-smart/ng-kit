@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { PreventMultipleClicksDirective, ViewButtonComponent } from '@js-smart/ngxsmart';
+import { PreventMultipleClicksDirective, ViewButtonComponent } from '@js-smart/ng-utils';
 
 @Component({
-	selector: 'ngxsmart-directives-demo',
+	selector: 'ng-utils-directives-demo',
 	imports: [ViewButtonComponent, PreventMultipleClicksDirective],
 	template: `
 		<div class="m-5">

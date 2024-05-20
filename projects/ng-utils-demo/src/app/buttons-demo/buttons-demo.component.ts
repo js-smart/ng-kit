@@ -14,11 +14,11 @@ import {
 	SuccessButtonComponent,
 	ViewButtonComponent,
 	ViewPrimaryButtonComponent,
-} from '@js-smart/ngxsmart';
+} from '@js-smart/ng-utils';
 import { CommonModule } from '@angular/common';
 
 @Component({
-	selector: 'ngxsmart-buttons-demo',
+	selector: 'ng-utils-buttons-demo',
 	standalone: true,
 	imports: [
 		CommonModule,

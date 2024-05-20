@@ -1,17 +1,17 @@
 {
-  "name": "ngxsmart",
-  "version": "0.0.0",
+  "name": "ng-utils",
+  "version": "18.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve --watch --hmr --port=4300",
-    "build": "ng build ngxsmart --configuration=production",
-    "build:ngxsmart-demo": "ng build ngxsmart-demo --configuration=production",
+    "build": "ng build ng-utils --configuration=production",
+    "build:ng-utils-demo": "ng build ng-utils-demo --configuration=production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "test:store": "ng test --include='**/store/*.spec.ts'",
     "bundle:report": "ng build --configuration production --source-map=true && source-map-explorer dist/pres/**/*.js",
     "e2e": "CI=true URL=http://localhost:4300 npx playwright test",
-    "lint": "ng lint ngxsmart"
+    "lint": "ng lint ng-utils"
   },
   "private": true,
   "dependencies": {

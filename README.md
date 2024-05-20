@@ -3,16 +3,16 @@ Reusable Angular components built with Angular Material and Bootstrap 5.x, Utili
 
 <p align="center">
 
-[![CI](https://github.com/ngxsmart/ngxsmart/actions/workflows/build.yml/badge.svg)](https://github.com/ngxsmart/ngxsmart/actions/workflows/build.yml)
-<a href="https://www.npmjs.com/@js-smart/ngxsmart">
-<img src="https://img.shields.io/npm/v/@js-smart/ngxsmart" alt="Ngx Cookie Service on npm" />
+[![CI](https://github.com/ng-utils/ng-utils/actions/workflows/build.yml/badge.svg)](https://github.com/ng-utils/ng-utils/actions/workflows/build.yml)
+<a href="https://www.npmjs.com/@js-smart/ng-utils">
+<img src="https://img.shields.io/npm/v/@js-smart/ng-utils" alt="Ngx Cookie Service on npm" />
 </a>
 </p>
 
 ### Installation
 Install the library
 ```shell
-npm install @js-smart/ngxsmart
+npm install @js-smart/ng-utils
 ```
 and use it as shown below in each section
 
@@ -24,7 +24,7 @@ and use it as shown below in each section
 ## Auto Complete
 Reusable Auto Complete that extends Mat Auto Complete component
 ### Demo
-https://js-smart-ngxsmart.netlify.app/
+https://js-smart-ng-utils.netlify.app/
 
 ### Usage
 
@@ -134,7 +134,7 @@ Reusable alert component created with Bootstrap 5+ and Angular 17+
 Reusable Spinner component created with Bootstrap 5.x and Angular 17.x
 
 ### Demo
-https://main--js-smart-ngxsmart.netlify.app/alert-demo
+https://main--js-smart-ng-utils.netlify.app/alert-demo
 ### API
 #### List of selectors that can be used to select the component
 
@@ -285,7 +285,7 @@ its `id` attribute.
 ### Publish library to NPM
 1. Build the library
     ```shell
-    nx build ngxsmart
+    nx build ng-utils
     ```
 2. If the NPM token is not configured, open `~/.npmrc` and add the following line:
     ```shell
@@ -293,6 +293,6 @@ its `id` attribute.
     ```
 3. Then navigate to `dist` directory anf publish the library to NPM. If prompted, enter the 2fa auth code from the Authenticator app.
     ```shell
-    cd dist/libs/ngxsmart && npm publish --tag latest
+    cd dist/libs/ng-utils && npm publish --tag latest
     ```
    For beta releases use tag `--tag beta`

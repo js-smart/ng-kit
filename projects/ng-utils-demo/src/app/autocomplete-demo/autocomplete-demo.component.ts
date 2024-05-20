@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, ReactiveFormsModule } from '@angular/forms';
-import { AutocompleteComponent } from '@js-smart/ngxsmart';
+import { AutocompleteComponent } from '@js-smart/ng-utils';
 
 @Component({
-	selector: 'ngxsmart-autocomplete-demo',
+	selector: 'ng-utils-autocomplete-demo',
 	standalone: true,
 	imports: [AutocompleteComponent, ReactiveFormsModule],
 	templateUrl: './autocomplete-demo.component.html',

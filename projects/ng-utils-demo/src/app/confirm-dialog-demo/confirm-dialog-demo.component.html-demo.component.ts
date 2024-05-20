@@ -1,9 +1,9 @@
 import { Component, inject, signal } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ConfirmDialogComponent, PrimaryButtonComponent } from '@js-smart/ngxsmart';
+import { ConfirmDialogComponent, PrimaryButtonComponent } from '@js-smart/ng-utils';
 
 @Component({
-	selector: 'ngxsmart-confirm-dialog-demo',
+	selector: 'ng-utils-confirm-dialog-demo',
 	standalone: true,
 	templateUrl: './confirm-dialog-demo.component.html',
 	styles: [``],

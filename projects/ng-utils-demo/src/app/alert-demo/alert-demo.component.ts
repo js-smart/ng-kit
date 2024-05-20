@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { AlertComponent } from '@js-smart/ngxsmart';
+import { AlertComponent } from '@js-smart/ng-utils';
 
 @Component({
-	selector: 'ngxsmart-alert-demo',
+	selector: 'ng-utils-alert-demo',
 	standalone: true,
 	imports: [AlertComponent],
 	templateUrl: './alert-demo.component.html',

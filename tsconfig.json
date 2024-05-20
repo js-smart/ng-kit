@@ -13,8 +13,8 @@
     "esModuleInterop": true,
     "sourceMap": true,
     "paths": {
-      "@js-smart/ngxsmart": [
-        "projects/ngxsmart/src/public-api.ts"
+      "@js-smart/ng-utils": [
+        "projects/ng-utils/src/public-api.ts"
       ]
     },
     "declaration": false,

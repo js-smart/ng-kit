@@ -5,7 +5,7 @@
 		{
 			"files": ["*.ts"],
 			"parserOptions": {
-				"project": ["src/ngxsmart/tsconfig.lib.json", "src/ngxsmart/tsconfig.spec.json"],
+				"project": ["src/ng-utils/tsconfig.lib.json", "src/ng-utils/tsconfig.spec.json"],
 				"createDefaultProgram": true
 			},
 			"rules": {}

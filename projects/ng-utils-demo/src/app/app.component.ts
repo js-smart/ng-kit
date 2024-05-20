@@ -3,7 +3,7 @@ import { RouterLink, RouterOutlet } from '@angular/router';
 
 @Component({
 	standalone: true,
-	selector: 'ngxsmart-root',
+	selector: 'ng-utils-root',
 	templateUrl: './app.component.html',
 	imports: [RouterOutlet, RouterLink],
 })
