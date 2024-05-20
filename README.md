@@ -1,4 +1,4 @@
-# NGX Smart utilities
+# Angular components and utilities
 Reusable Angular components built with Angular Material and Bootstrap 5.x, Utility classes/functions for Date, Form and String operations
 
 <p align="center">
