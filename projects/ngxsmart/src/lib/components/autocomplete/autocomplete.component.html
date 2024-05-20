@@ -1,12 +1,12 @@
 <div [formGroup]="inputFormGroup">
-	<mat-form-field appearance="fill" class="{{ classes }}">
-		<mat-label>{{ label }}</mat-label>
+	<mat-form-field appearance="fill" class="{{ classes() }}">
+		<mat-label>{{ label() }}</mat-label>
 		<input
 			#inputAutoComplete
 			#trigger="matAutocompleteTrigger"
 			[matAutocomplete]="auto"
-			[placeholder]="placeHolder"
-			[required]="required"
+			[placeholder]="placeHolder()"
+			[required]="required()"
 			formControlName="autocomplete"
 			matInput
 			type="text" />
@@ -28,12 +28,12 @@
 			(opened)="arrowIconSubject.next('arrow_drop_up')"
 			(optionSelected)="arrowIconSubject.next('arrow_drop_down')"
 			[displayWith]="displayFn">
-			@for (option of filteredOptions | async; track option[bindValue]) {
+			@for (option of filteredOptions | async; track option[bindValue()]) {
 				<mat-option (onSelectionChange)="emitSelectedValue($event)" [value]="option">
 					@if ((option | typeOf) === 'string') {
 						<ng-container>{{ option }}</ng-container>
 					} @else if ((option | typeOf) === 'object') {
-						<ng-container>{{ option[bindLabel] }}</ng-container>
+						<ng-container>{{ option[bindLabel()] }}</ng-container>
 					}
 				</mat-option>
 			}
