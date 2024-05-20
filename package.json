@@ -1,17 +1,17 @@
 {
-  "name": "ng-utils",
+  "name": "ng-kit",
   "version": "18.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve --watch --hmr --port=4300",
-    "build": "ng build ng-utils --configuration=production",
-    "build:ng-utils-demo": "ng build ng-utils-demo --configuration=production",
+    "build": "ng build ng-kit --configuration=production",
+    "build:ng-kit-demo": "ng build ng-kit-demo --configuration=production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "test:store": "ng test --include='**/store/*.spec.ts'",
     "bundle:report": "ng build --configuration production --source-map=true && source-map-explorer dist/pres/**/*.js",
     "e2e": "CI=true URL=http://localhost:4300 npx playwright test",
-    "lint": "ng lint ng-utils"
+    "lint": "ng lint ng-kit"
   },
   "private": true,
   "dependencies": {

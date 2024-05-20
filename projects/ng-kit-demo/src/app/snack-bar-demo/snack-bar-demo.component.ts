@@ -1,10 +1,10 @@
 import { Component, inject } from '@angular/core';
-import { MatSnackBarService } from '@js-smart/ng-utils';
+import { MatSnackBarService } from '@js-smart/ng-kit';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatButtonModule } from '@angular/material/button';
 
 @Component({
-	selector: 'ng-utils-snack-bar-demo',
+	selector: 'ng-kit-snack-bar-demo',
 	standalone: true,
 	imports: [MatSnackBarModule, MatButtonModule],
 	providers: [MatSnackBarService],

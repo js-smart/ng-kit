@@ -3,23 +3,23 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "ng-utils": {
+    "ng-kit": {
       "projectType": "library",
-      "root": "projects/ng-utils",
-      "sourceRoot": "projects/ng-utils/src",
+      "root": "projects/ng-kit",
+      "sourceRoot": "projects/ng-kit/src",
       "prefix": "lib",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
-            "project": "projects/ng-utils/ng-package.json"
+            "project": "projects/ng-kit/ng-package.json"
           },
           "configurations": {
             "production": {
-              "tsConfig": "projects/ng-utils/tsconfig.lib.prod.json"
+              "tsConfig": "projects/ng-kit/tsconfig.lib.prod.json"
             },
             "development": {
-              "tsConfig": "projects/ng-utils/tsconfig.lib.json"
+              "tsConfig": "projects/ng-kit/tsconfig.lib.json"
             }
           },
           "defaultConfiguration": "production"
@@ -36,7 +36,7 @@
         "test": {
           "builder": "@angular-devkit/build-angular:jest",
           "options": {
-            "tsConfig": "projects/ng-utils/tsconfig.spec.json",
+            "tsConfig": "projects/ng-kit/tsconfig.spec.json",
             "polyfills": [
               "zone.js",
               "zone.js/testing"
@@ -45,34 +45,34 @@
         }
       }
     },
-    "ng-utils-demo": {
+    "ng-kit-demo": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
           "style": "scss"
         }
       },
-      "root": "projects/ng-utils-demo",
-      "sourceRoot": "projects/ng-utils-demo/src",
+      "root": "projects/ng-kit-demo",
+      "sourceRoot": "projects/ng-kit-demo/src",
       "prefix": "app",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/ng-utils-demo",
-            "index": "projects/ng-utils-demo/src/index.html",
-            "browser": "projects/ng-utils-demo/src/main.ts",
+            "outputPath": "dist/ng-kit-demo",
+            "index": "projects/ng-kit-demo/src/index.html",
+            "browser": "projects/ng-kit-demo/src/main.ts",
             "polyfills": [
               "zone.js"
             ],
-            "tsConfig": "projects/ng-utils-demo/tsconfig.app.json",
+            "tsConfig": "projects/ng-kit-demo/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
-              "projects/ng-utils-demo/src/favicon.ico",
-              "projects/ng-utils-demo/src/assets"
+              "projects/ng-kit-demo/src/favicon.ico",
+              "projects/ng-kit-demo/src/assets"
             ],
             "styles": [
-              "projects/ng-utils-demo/src/styles.scss"
+              "projects/ng-kit-demo/src/styles.scss"
             ],
             "scripts": []
           },
@@ -104,10 +104,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "ng-utils-demo:build:production"
+              "buildTarget": "ng-kit-demo:build:production"
             },
             "development": {
-              "buildTarget": "ng-utils-demo:build:development"
+              "buildTarget": "ng-kit-demo:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -115,7 +115,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "ng-utils-demo:build"
+            "buildTarget": "ng-kit-demo:build"
           }
         }
       }

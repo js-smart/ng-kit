@@ -3,7 +3,7 @@ import { RouterLink, RouterOutlet } from '@angular/router';
 
 @Component({
 	standalone: true,
-	selector: 'ng-utils-root',
+	selector: 'ng-kit-root',
 	templateUrl: './app.component.html',
 	imports: [RouterOutlet, RouterLink],
 })

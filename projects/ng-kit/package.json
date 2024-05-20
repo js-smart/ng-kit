@@ -1,5 +1,5 @@
 {
-	"name": "@js-smart/ng-utils",
+	"name": "@js-smart/ng-kit",
 	"version": "18.0.0-rc.3",
   "license": "MIT",
   "author": "Pavan Kumar Jadda",
@@ -18,10 +18,10 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/js-smart/ng-utils.git"
+    "url": "https://github.com/js-smart/ng-kit.git"
   },
   "bugs": {
-    "url": "https://github.com/js-smart/ng-utils/issues"
+    "url": "https://github.com/js-smart/ng-kit/issues"
   },
 	"peerDependencies": {
 		"@angular/common": "^18.0.0-rc.2",

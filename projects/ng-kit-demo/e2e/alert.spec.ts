@@ -4,7 +4,7 @@ test('has title', async ({ page }) => {
 	await page.goto('/');
 
 	// Expect h1 to contain a substring.
-	expect(await page.title()).toContain('ng-utilsDemo');
+	expect(await page.title()).toContain('ng-kitDemo');
 });
 
 test('has links', async ({ page }) => {
