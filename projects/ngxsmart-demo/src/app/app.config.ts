@@ -4,7 +4,7 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { PreloadAllModules, RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule, HttpClientXsrfModule } from '@angular/common/http';
+import { provideHttpClient, withXsrfConfiguration } from '@angular/common/http';
 import { MatSelectModule } from '@angular/material/select';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatNativeDateModule } from '@angular/material/core';
@@ -27,13 +27,12 @@ export const appConfig: ApplicationConfig = {
 			FormsModule,
 			ReactiveFormsModule,
 			BrowserAnimationsModule,
-			HttpClientModule,
-			HttpClientXsrfModule.withOptions(),
 			MatSelectModule,
 			MatAutocompleteModule,
 			MatNativeDateModule,
 			MatDatepickerModule,
 		),
+		provideHttpClient(withXsrfConfiguration({ headerName: 'X-XSRF-TOKEN' })),
 		Title,
 		DatePipe,
 		{

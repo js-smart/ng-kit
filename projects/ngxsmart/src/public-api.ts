@@ -28,19 +28,12 @@ export * from './lib/components/buttons/excel-export-button/excel-export-button.
 
 // Export dialogs
 export * from './lib/components/confirm-dialog/confirm-dialog.component';
-export * from './lib/components/buttons/edit-bs-button/edit-bs-button.component';
-export * from './lib/components/buttons/bs-link-button/bs-link-button.component';
-export * from './lib/components/buttons/view-primary-button/view-primary-button.component';
 
 // Export svg icons
 export * from './lib/svg-icons/edit-solid-svg/edit-solid-svg.component';
 
 // Export snackbar service
 export * from './lib/services/mat-snack-bar.service';
-
-// Export store and entity store services
-export * from './lib/store/store';
-export * from './lib/store/entity-store';
 
 // Export progress state
 export * from './lib/util/progress-util';
