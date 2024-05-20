@@ -1,26 +1,8 @@
-@use '@angular/material' as mat;
 @import 'bootstrap/dist/css/bootstrap.css';
 @import '@angular/material/prebuilt-themes/indigo-pink.css';
 @import 'assets/app-variables';
 @import 'assets/app-buttons';
 @import 'assets/app-mat-snack-bar';
-
-$theme: mat.define-theme(
-	(
-		color: (
-			theme-type: light,
-			primary: mat.$azure-palette,
-			tertiary: mat.$blue-palette,
-		),
-	)
-);
-
-@include mat.core();
-@include mat.color-variants-backwards-compatibility($theme);
-
-:root {
-	@include mat.all-component-themes($theme);
-}
 
 html,
 body {
