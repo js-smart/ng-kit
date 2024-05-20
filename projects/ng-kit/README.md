@@ -1,4 +1,4 @@
-# Angular components and utilities
+# NGX Smart utilities
 Reusable Angular components built with Angular Material and Bootstrap 5.x, Utility classes/functions for Date, Form and String operations
 
 <p align="center">
@@ -24,8 +24,7 @@ and use it as shown below in each section
 ## Auto Complete
 Reusable Auto Complete that extends Mat Auto Complete component
 ### Demo
-https://js-smart-ng-kit.netlify.app/
-
+https://main--js-smart-ng-kit.netlify.app/autocomplete-demo
 ### Usage
 
 The library has one `autocomplete` component. To use the Auto Complete component, add the following code to the HTML page

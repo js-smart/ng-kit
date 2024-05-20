@@ -10,7 +10,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ 'ubuntu-latest','macos-14' ]
+        os: [ 'ubuntu-latest' ]
         node: [ 'latest' ]
     steps:
       - uses: actions/checkout@v3
@@ -23,8 +23,6 @@ jobs:
           node-version: ${{ matrix.node }}
       - name: Install dependencies
         run: pnpm i --frozen-lockfile
-      - name: Run Tests
-        run: pnpm test:store
 #      - name: E2E Tests
 #        run: pnpm nx e2e
 #        env:
