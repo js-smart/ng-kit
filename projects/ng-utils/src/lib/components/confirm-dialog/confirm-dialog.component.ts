@@ -9,7 +9,7 @@ import { MatDividerModule } from '@angular/material/divider';
 	imports: [MatButtonModule, MatDividerModule, MatDialogModule],
 	template: `
 		<div class="mat-dialog-title" style="text-align: center">
-			<h4>{{ title }}</h4>
+			<h3 class="m-3 mat-headline-5	">{{ title }}</h3>
 		</div>
 
 		<mat-divider></mat-divider>
@@ -19,7 +19,7 @@ import { MatDividerModule } from '@angular/material/divider';
 
 		<div align="end" class="modal-footer" mat-dialog-actions>
 			<button (click)="onDismiss()" mat-raised-button>No</button>
-			<button (click)="onConfirm()" color="primary" mat-raised-button>Yes</button>
+			<button (click)="onConfirm()" class="primary-button" mat-raised-button>Yes</button>
 		</div>
 	`,
 	styles: [],
