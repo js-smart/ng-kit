@@ -8,7 +8,7 @@ export class BaseButtonComponent {
 	/**
 	 *  Is search in progress and loading the data
 	 */
-	loading = input<boolean>(false);
+	loading = input<boolean|undefined>(false);
 
 	/**
 	 *  Is button disabled
