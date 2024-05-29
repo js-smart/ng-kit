@@ -1,0 +1,18 @@
+{
+	"extends": "../../.eslintrc.json",
+	"ignorePatterns": ["!**/*"],
+	"overrides": [
+		{
+			"files": ["*.ts"],
+			"parserOptions": {
+				"project": ["src/ng-kit-demo/tsconfig.app.json", "src/ng-kit-demo/tsconfig.spec.json"],
+				"createDefaultProgram": true
+			},
+			"rules": {}
+		},
+		{
+			"files": ["*.html"],
+			"rules": {}
+		}
+	]
+}

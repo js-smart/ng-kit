@@ -8,7 +8,7 @@ export class BaseButtonComponent {
 	/**
 	 *  Is search in progress and loading the data
 	 */
-	loading = input<boolean|undefined>(false);
+	loading = input(false, { transform: (value: boolean | undefined) => value ?? false });
 
 	/**
 	 *  Is button disabled
@@ -47,7 +47,7 @@ export class BaseButtonComponent {
 	/**
 	 * If set, sets the style of the button
 	 */
-	style = input<{ [name: string]: any } | null | undefined>();
+	style = input<any | null | undefined>();
 
 	/**
 	 * If set, sets the class of the button
