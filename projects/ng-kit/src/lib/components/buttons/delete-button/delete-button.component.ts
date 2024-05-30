@@ -17,7 +17,7 @@ import { NgStyle } from '@angular/common';
 			(blur)="onBlur.emit($event)"
 			[disabled]="disabled() || loading()"
 			[type]="type()"
-			[ngStyle]="style()"
+			[style]="style()"
 			[attr.data-cy]="'delete-button'">
 			@if (loading()) {
 				<span aria-hidden="true" class="spinner-border spinner-border-sm" role="status"></span>

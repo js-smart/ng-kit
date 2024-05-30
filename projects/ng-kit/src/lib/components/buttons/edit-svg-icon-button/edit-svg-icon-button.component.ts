@@ -17,7 +17,7 @@ import { NgStyle } from '@angular/common';
 			(blur)="onBlur.emit($event)"
 			[disabled]="disabled()"
 			[type]="type()"
-			[ngStyle]="style()"
+			[style]="style()"
 			[attr.data-cy]="'edit-svg-icon-button'"
 			mat-raised-button>
 			<edit-solid-svg></edit-solid-svg>
