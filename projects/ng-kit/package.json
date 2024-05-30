@@ -1,6 +1,6 @@
 {
-	"name": "@js-smart/ng-kit",
-	"version": "18.0.2",
+  "name": "@js-smart/ng-kit",
+  "version": "18.0.4",
   "license": "MIT",
   "author": "Pavan Kumar Jadda",
   "private": false,
@@ -23,12 +23,12 @@
   "bugs": {
     "url": "https://github.com/js-smart/ng-kit/issues"
   },
-	"peerDependencies": {
-		"@angular/common": "^18.0.0",
-		"@angular/core": "^18.0.0"
-	},
-	"dependencies": {
-		"tslib": "^2.6.2"
-	},
-	"sideEffects": false
+  "peerDependencies": {
+    "@angular/common": ">18.0.0",
+    "@angular/core": ">18.0.0"
+  },
+  "dependencies": {
+    "tslib": "^2.6.2"
+  },
+  "sideEffects": false
 }
