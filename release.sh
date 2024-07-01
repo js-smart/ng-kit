@@ -23,4 +23,4 @@ git add .
 git commit -m "$commit_message"
 
 # Push the commit
-git push
+git push origin main --force
