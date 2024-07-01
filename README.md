@@ -23,7 +23,7 @@ and use it as shown below in each section
 ### Technologies
 
 1. Angular
-2. Bootstrap 5+
+2. Bootstrap
 
 ## Auto Complete
 
