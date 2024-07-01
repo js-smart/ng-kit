@@ -13,7 +13,21 @@
     "e2e": "CI=true URL=http://localhost:4300 npx playwright test",
     "lint": "nx lint ng-kit"
   },
-  "private": true,
+  "release": {
+    "branch": "main",
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/github",
+      [
+        "@semantic-release/npm",
+        {
+          "pkgRoot": "dist/ng-kit"
+        }
+      ],
+      "@semantic-release/release-notes-generator"
+    ]
+  },
+  "private": false,
   "dependencies": {
     "@angular/animations": "^18.0.1",
     "@angular/cdk": "18.0.0",
@@ -59,6 +73,7 @@
     "ng-packagr": "^18.0.0",
     "nx": "19.3.2",
     "prettier": "^3.2.5",
+    "semantic-release": "^24.0.0",
     "typescript": "~5.4.5"
   }
 }
