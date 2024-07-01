@@ -1,4 +1,5 @@
 # Angular components and utilities
+
 Reusable Angular components built with Angular Material and Bootstrap 5.x, Utility classes/functions for Date, Form and String operations
 
 <p align="center">
@@ -10,20 +11,26 @@ Reusable Angular components built with Angular Material and Bootstrap 5.x, Utili
 </p>
 
 ### Installation
+
 Install the library
+
 ```shell
 npm install @js-smart/ng-kit
 ```
+
 and use it as shown below in each section
 
-
 ### Technologies
-1. Angular 17+
-2. Bootstrap 5+ (if applicable)
+
+1. Angular
+2. Bootstrap 5+
 
 ## Auto Complete
+
 Reusable Auto Complete that extends Mat Auto Complete component
+
 ### Demo
+
 https://js-smart-ng-kit.netlify.app/
 
 ### Usage
@@ -35,18 +42,18 @@ The library has one `autocomplete` component. To use the Auto Complete component
 ```typescript
 <!-- Auto Complete with Objects -->
 
-<form [formGroup]="genericFormGroup">
-    <autocomplete
-      [data]="cities"
-      [inputFormGroup]="genericFormGroup"
-      [required]="true"
-      [displayWith]="displayFn"
-      bindLabel="location"
-      bindValue="id"
-      label="City"
-      placeHolder="Select City">
-    </autocomplete>
-</form>
+<form [formGroup] = "genericFormGroup" >
+<autocomplete
+  [data] = "cities"
+  [inputFormGroup] = "genericFormGroup"
+  [required] = "true"
+  [displayWith] = "displayFn"
+bindLabel = "location"
+bindValue = "id"
+label = "City"
+placeHolder = "Select City" >
+  </autocomplete>
+  < /form>
 
 ```
 
@@ -56,7 +63,7 @@ Then define form group instances and object array (cities) and names (for string
 
 ```typescript
 // Define objects  
-cities = [{id: 1001, location: 'New York'}, {id: 1002, location: 'Boston'}, {id: 1001, location: 'Washington DC'}];
+cities = [{ id: 1001, location: 'New York' }, { id: 1002, location: 'Boston' }, { id: 1001, location: 'Washington DC' }];
 
 // Define Form Groups 
 inputFormGroup = this.fb.group({
@@ -64,13 +71,19 @@ inputFormGroup = this.fb.group({
 })
 
 //Display function
-displayFn(object: any): string {
-		if (typeof object === "string") return object;
-		return object && object["location"] ? object["location"] : "";
-	}
+displayFn(object
+:
+any
+):
+string
+{
+  if (typeof object === "string") return object;
+  return object && object["location"] ? object["location"] : "";
+}
 ```
 
 If you are using strings rather than objects, do not provide `bindLabel`, `bindValue` and `displayWith` inputs. See below sample
+
 ```
 <!-- Auto Complete with Strings -->
 <form [formGroup]="inputFormGroup">
@@ -84,81 +97,86 @@ If you are using strings rather than objects, do not provide `bindLabel`, `bindV
 </form>
 ```
 
-
 ### Auto Complete API
 
 #### List of selectors that can be used to select the component(s)
 
-|  AutoComplete Selector      | 
-| ----------- | 
+| AutoComplete Selector          | 
+|--------------------------------| 
 | autocomplete, lib-autocomplete | 
 
-
 #### Properties
 
-| Property      | Description | Type | Default Value |
-| ----------- | ----------- |----------- |----------- |
-| inputFormGroup      |  Input Form Group     |FormGroup||
-| label      | Label of the AutoComplete|string||
-| placeHolder      |  PlaceHolder of the AutoComplete|string||
-| appearance      |  Appearance of the AutoComplete, defaults to `fill`     |string|fill|
-| classes      |  List of CSS classes that need to applied to autocomplete|string||
-| bindLabel      |  Applies only to AutoComplete with Objects. Attribute of the Object whose value would be shown when searching for data |string|id|
-| bindValue      |  Applies only to AutoComplete with Objects. Attribute of the Object whose value would be used for search. Defaults to `ID`     |string|id|
-| displayWith      |  Applies only to AutoComplete with Objects. A function used to show display value in Input      |boolean|false|
-| required      |  Provide `true` if AutoComplete is required, otherwise provide `false`    |boolean|false|
-| data      |  List of Objects or String values that need to be bind and searched for     |any[] or string[]|false|
-
+| Property       | Description                                                                                                               | Type              | Default Value |
+|----------------|---------------------------------------------------------------------------------------------------------------------------|-------------------|---------------|
+| inputFormGroup | Input Form Group                                                                                                          | FormGroup         |               |
+| label          | Label of the AutoComplete                                                                                                 | string            |               |
+| placeHolder    | PlaceHolder of the AutoComplete                                                                                           | string            |               |
+| appearance     | Appearance of the AutoComplete, defaults to `fill`                                                                        | string            | fill          |
+| classes        | List of CSS classes that need to applied to autocomplete                                                                  | string            |               |
+| bindLabel      | Applies only to AutoComplete with Objects. Attribute of the Object whose value would be shown when searching for data     | string            | id            |
+| bindValue      | Applies only to AutoComplete with Objects. Attribute of the Object whose value would be used for search. Defaults to `ID` | string            | id            |
+| displayWith    | Applies only to AutoComplete with Objects. A function used to show display value in Input                                 | boolean           | false         |
+| required       | Provide `true` if AutoComplete is required, otherwise provide `false`                                                     | boolean           | false         |
+| data           | List of Objects or String values that need to be bind and searched for                                                    | any[] or string[] | false         |
 
 ## Alert
+
 Reusable alert component created with Bootstrap 5+ and Angular 17+
+
 ### Auto Complete API
+
 #### List of selectors that can be used to select the component
 
-| Selector      | 
-| ----------- | 
+| Selector        | 
+|-----------------| 
 | alert,lib-alert | 
-
 
 #### Properties
 
-| Property      | Description | Type | Default Value |
-| ----------- | ----------- |----------- |----------- |
-| dismissible      |  If set, displays an inline "Close" button      |boolean|false|
-| dismissOnTimeout      | If set, dismisses the alert after Dismiss Timeout|boolean|true|
-| dismissTimeout      |  Number in milliseconds, after which alert will be closed|string or number|5000|
-| isOpen      |  Is alert visible      |boolean|false|
-| type      |  Alert type. Provides one of four bootstrap supported contextual classes: success, info, warning and danger|string|info|
+| Property         | Description                                                                                                | Type             | Default Value |
+|------------------|------------------------------------------------------------------------------------------------------------|------------------|---------------|
+| dismissible      | If set, displays an inline "Close" button                                                                  | boolean          | false         |
+| dismissOnTimeout | If set, dismisses the alert after Dismiss Timeout                                                          | boolean          | true          |
+| dismissTimeout   | Number in milliseconds, after which alert will be closed                                                   | string or number | 5000          |
+| isOpen           | Is alert visible                                                                                           | boolean          | false         |
+| type             | Alert type. Provides one of four bootstrap supported contextual classes: success, info, warning and danger | string           | info          |
 
 ## Spinner
+
 Reusable Spinner component created with Bootstrap 5.x and Angular 17.x
 
 ### Demo
+
 https://main--js-smart-ng-kit.netlify.app/alert-demo
+
 ### API
+
 #### List of selectors that can be used to select the component
 
-| Selector      | 
-| ----------- | 
+| Selector            | 
+|---------------------| 
 | spinner,lib-spinner | 
-
 
 #### Properties
 
-| Property      | Description | Type | Default Value |
-| ----------- | ----------- |----------- |----------- |
-| bootstrapSpinner      |  Use Boostrap Spinner. Default `true` |boolean|false|
-| diameter      |  Diameter of the Angular Material spinner|boolean|true|
-| color      |  Color of the Angular Material spinner|string or `ThemePalette`|5000|
-| strokeWidth      |   Stroke Width of the Angular Material spinner|boolean|false|
+| Property         | Description                                  | Type                     | Default Value |
+|------------------|----------------------------------------------|--------------------------|---------------|
+| bootstrapSpinner | Use Boostrap Spinner. Default `true`         | boolean                  | false         |
+| diameter         | Diameter of the Angular Material spinner     | boolean                  | true          |
+| color            | Color of the Angular Material spinner        | string or `ThemePalette` | 5000          |
+| strokeWidth      | Stroke Width of the Angular Material spinner | boolean                  | false         |
 
 ## Print
+
 Angular (2++) directive that prints HTML section
+
 ### Usage
+
 Import the main module `NgxPrintModule` :
 
    ```js
-import {NgxPrintModule} from '@js-smart/print';
+import { NgxPrintModule } from '@js-smart/print';
 
 @NgModule({
   ...
@@ -282,7 +300,9 @@ its `id` attribute.
 </button>
 
 ```
+
 ### Publish library to NPM
+
 1. Build the library
     ```shell
     nx build ng-kit
