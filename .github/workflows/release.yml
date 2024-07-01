@@ -36,15 +36,5 @@ jobs:
       - name: Semantic release
         run: npx semantic-release
 
-      - name: Set up npm registry
-        run: echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" > ~/.npmrc
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - name: publish @js-smart/ng-kit
-        run: pnpm publish ./dist/ng-kit --access public
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-
       - name: build demo
         run: pnpm run build:ng-kit-demo

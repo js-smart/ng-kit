@@ -59,6 +59,7 @@
     "@nx/workspace": "19.3.2",
     "@playwright/test": "^1.44.0",
     "@schematics/angular": "^18.0.2",
+    "@semantic-release/npm": "^12.0.1",
     "@types/jest": "^29.5.12",
     "@types/node": "^20.12.12",
     "@typescript-eslint/eslint-plugin": "^7.9.0",
