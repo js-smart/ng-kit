@@ -30,11 +30,14 @@ jobs:
       - name: Build packages
         run: pnpm run build
 
-      #      - name: Copy README
-      #        run: cp README.md ./dist/ng-kit-demo/browser
-
       - name: Semantic release
         run: npx semantic-release
 
       - name: build demo
         run: pnpm run build:ng-kit-demo
+
+      - name: Update version in source code
+        run: |
+          latest_tag=$(git describe --abbrev=0 --tags)
+          version=${latest_tag#v}
+          bash release.sh $version
