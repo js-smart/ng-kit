@@ -29,10 +29,9 @@
       [
         {
           "assets": [
-            "package.json",
-            "projects/ng-kit/project.json"
+            "package.json"
           ],
-          "message": "chore(release): bump version to ${nextRelease.version}"
+          "message": "chore(release): bump version to ${nextRelease.version} [skip ci]"
         }
       ]
     ]
