@@ -37,7 +37,7 @@ jobs:
 
       - name: Update version in source code
         run: |
-          latest_tag=$(git describe --abbrev=0 --tags)
+          latest_tag=$(git describe --tags `git rev-list --tags --max-count=1`)
           version=${latest_tag#v}
           bash release.sh $version ${{ secrets.GPG_KEY_ID }}
 
