@@ -14,7 +14,9 @@
     "lint": "nx lint ng-kit"
   },
   "release": {
-    "branch": "main",
+    "branches": [
+      "main"
+    ],
     "plugins": [
       "@semantic-release/commit-analyzer",
       [
