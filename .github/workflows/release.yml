@@ -39,7 +39,7 @@ jobs:
         run: |
           latest_tag=$(git describe --abbrev=0 --tags)
           version=${latest_tag#v}
-          bash release.sh $version
+          bash release.sh $version ${{ secrets.GPG_KEY_ID }}
 
       - name: Semantic release
         run: npx semantic-release

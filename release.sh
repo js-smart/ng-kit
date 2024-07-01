@@ -15,6 +15,8 @@ commit_message="chore: bump version to $next_version"
 # Set the git user
 git config  user.name "Pavan Kumar Jadda"
 git config  user.email 17564080+pavankjadda@users.noreply.github.com
+git config user.signingkey "$2"
+git config commit.gpgsign true
 
 # Make the git commit with the message
 git add .
