@@ -17,7 +17,6 @@
     "branch": "main",
     "plugins": [
       "@semantic-release/commit-analyzer",
-      "@semantic-release/github",
       [
         "@semantic-release/npm",
         {
@@ -33,7 +32,8 @@
           ],
           "message": "chore(release): bump version to ${nextRelease.version} [skip ci]"
         }
-      ]
+      ],
+      "@semantic-release/github"
     ]
   },
   "private": false,
