@@ -24,7 +24,17 @@
           "pkgRoot": "dist/ng-kit"
         }
       ],
-      "@semantic-release/release-notes-generator"
+      "@semantic-release/release-notes-generator",
+      "@semantic-release/git",
+      [
+        {
+          "assets": [
+            "package.json",
+            "projects/ng-kit/project.json"
+          ],
+          "message": "chore(release): bump version to ${nextRelease.version}"
+        }
+      ]
     ]
   },
   "private": false,
@@ -59,6 +69,7 @@
     "@nx/workspace": "19.3.2",
     "@playwright/test": "^1.44.0",
     "@schematics/angular": "^18.0.2",
+    "@semantic-release/git": "^10.0.1",
     "@semantic-release/npm": "^12.0.1",
     "@types/jest": "^29.5.12",
     "@types/node": "^20.12.12",
