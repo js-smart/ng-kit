@@ -16,7 +16,7 @@ import { BaseButtonComponent } from '../base-button/base-button.component';
 			(blur)="onBlur.emit($event)"
 			[disabled]="disabled()"
 			[type]="type()"
-			[ngStyle]="style()"
+			[style]="style()"
 			[attr.data-cy]="'edit-button'"
 			mat-raised-button>
 			<mat-icon>{{ icon() }}</mat-icon>

@@ -18,7 +18,7 @@ import { NgStyle } from '@angular/common';
 			(blur)="onBlur.emit($event)"
 			[disabled]="disabled()"
 			[type]="type()"
-			[ngStyle]="style()"
+			[style]="style()"
 			[attr.data-cy]="'edit-link-button'"
 			mat-button>
 			<mat-icon>{{ icon() }}</mat-icon>

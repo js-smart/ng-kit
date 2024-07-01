@@ -17,7 +17,7 @@ import { MatButton } from '@angular/material/button';
 			(blur)="onBlur.emit($event)"
 			[disabled]="disabled() || loading()"
 			[type]="type()"
-			[ngStyle]="style()"
+			[style]="style()"
 			[attr.data-cy]="'save-primary-button'">
 			@if (loading()) {
 				<span aria-hidden="true" class="spinner-border spinner-border-sm" role="status"></span>
