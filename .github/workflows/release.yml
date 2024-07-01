@@ -31,7 +31,7 @@ jobs:
         run: pnpm run build
 
       - name: Import GPG key
-        uses: scalingo/ghaction-import-gpg@v1
+        uses: crazy-max/ghaction-import-gpg@v6
         with:
           gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
 
