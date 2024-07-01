@@ -36,6 +36,12 @@ jobs:
       - name: build demo
         run: pnpm run build:ng-kit-demo
 
+      - name: Import GPG key
+        uses: step-security/ghaction-import-gpg@v1
+        with:
+          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
+          trust_level: 5
+
       - name: Update version in source code
         run: |
           latest_tag=$(git describe --abbrev=0 --tags)
