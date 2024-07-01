@@ -4,10 +4,10 @@
 next_version=$1
 
 # Path to the package.json file
-PACKAGE_JSON="projects/ng-kit/package.json"
+PACKAGE_JSON_FILE="projects/ng-kit/package.json"
 
 # Update the version in package.json
-jq --arg v "$next_version" '.version = $v' "$PACKAGE_JSON" > "tmp.json" && mv "tmp.json" "$PACKAGE_JSON"
+jq --arg v "$next_version" '.version = $v' "$PACKAGE_JSON_FILE" > "tmp.json" && mv "tmp.json" "$PACKAGE_JSON_FILE"
 
 # Build the commit message
 commit_message="chore: bump version to $next_version"
