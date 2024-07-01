@@ -1,6 +1,6 @@
 {
   "name": "ng-kit",
-  "version": "18.0.5",
+  "version": "18.1.0",
   "scripts": {
     "ng": "ng",
     "start": "nx serve --watch --hmr --port=4300",
