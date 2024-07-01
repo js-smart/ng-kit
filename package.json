@@ -3,15 +3,15 @@
   "version": "18.0.5",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --watch --hmr --port=4300",
-    "build": "ng build ng-kit --configuration=production",
-    "build:ng-kit-demo": "ng build ng-kit-demo --configuration=production",
-    "watch": "ng build --watch --configuration development",
-    "test": "ng test",
-    "test:store": "ng test --include='**/store/*.spec.ts'",
-    "bundle:report": "ng build --configuration production --source-map=true && source-map-explorer dist/pres/**/*.js",
+    "start": "nx serve --watch --hmr --port=4300",
+    "build": "nx build ng-kit --configuration=production",
+    "build:ng-kit-demo": "nx build ng-kit-demo --configuration=production",
+    "watch": "nx build --watch --configuration development",
+    "test": "nx test",
+    "test:store": "nx test --include='**/store/*.spec.ts'",
+    "bundle:report": "nx build --configuration production --source-map=true && source-map-explorer dist/pres/**/*.js",
     "e2e": "CI=true URL=http://localhost:4300 npx playwright test",
-    "lint": "ng lint ng-kit"
+    "lint": "nx lint ng-kit"
   },
   "private": true,
   "dependencies": {
@@ -32,6 +32,8 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^18.0.2",
+    "@angular-devkit/core": "^18.0.2",
+    "@angular-devkit/schematics": "^18.0.2",
     "@angular-eslint/builder": "18.0.0",
     "@angular-eslint/eslint-plugin": "18.0.0",
     "@angular-eslint/eslint-plugin-template": "18.0.0",
@@ -39,7 +41,10 @@
     "@angular-eslint/template-parser": "18.0.0",
     "@angular/cli": "^18.0.2",
     "@angular/compiler-cli": "^18.0.1",
+    "@nx/angular": "19.3.2",
+    "@nx/workspace": "19.3.2",
     "@playwright/test": "^1.44.0",
+    "@schematics/angular": "^18.0.2",
     "@types/jest": "^29.5.12",
     "@types/node": "^20.12.12",
     "@typescript-eslint/eslint-plugin": "^7.9.0",
@@ -52,6 +57,7 @@
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
     "ng-packagr": "^18.0.0",
+    "nx": "19.3.2",
     "prettier": "^3.2.5",
     "typescript": "~5.4.5"
   }
