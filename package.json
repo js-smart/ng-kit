@@ -26,11 +26,9 @@
       "@semantic-release/release-notes-generator",
       "@semantic-release/git",
       [
+        "@semantic-release/exec",
         {
-          "assets": [
-            "package.json"
-          ],
-          "message": "chore(release): bump version to ${nextRelease.version} [skip ci]"
+          "successCmd": "./release.sh ${nextRelease.version}"
         }
       ],
       "@semantic-release/github"
