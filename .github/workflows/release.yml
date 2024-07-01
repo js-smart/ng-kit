@@ -30,8 +30,8 @@ jobs:
       - name: Build packages
         run: pnpm run build
 
-      - name: Copy README
-        run: cp README.md ./dist/ng-kit-demo/browser
+      #      - name: Copy README
+      #        run: cp README.md ./dist/ng-kit-demo/browser
 
       - name: Semantic release
         run: npx semantic-release
