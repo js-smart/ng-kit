@@ -30,6 +30,9 @@ jobs:
       - name: Build packages
         run: pnpm run build
 
+      - name: Semantic release
+        run: npx semantic-release
+
       - name: Import GPG key
         uses: crazy-max/ghaction-import-gpg@v6
         with:
@@ -37,13 +40,9 @@ jobs:
 
       - name: Update version in source code
         run: |
-          git fetch
           latest_tag=$(git describe --tags `git rev-list --tags --max-count=1`)
           version=${latest_tag#v}
           bash release.sh $version ${{ secrets.GPG_KEY_ID }}
-
-      - name: Semantic release
-        run: npx semantic-release
 
       - name: build demo
         run: pnpm run build:ng-kit-demo
