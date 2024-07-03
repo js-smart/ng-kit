@@ -13,19 +13,20 @@ jobs:
       NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
     steps:
       - uses: actions/checkout@v4
+      - name: Cache node modules
+        uses: actions/cache@v4
+        env:
+          cache-name: cache-node-modules
       - uses: pnpm/action-setup@v4
         with:
           version: latest
-
-      - name: Setup Node
+      - name: Use Node.js ${{ matrix.node }}
         uses: actions/setup-node@v4
         with:
-          node-version: 'latest'
-          cache: pnpm
-          cache-dependency-path: pnpm-lock.yaml
+          node-version: ${{ matrix.node }}
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: pnpm i --frozen-lockfile
 
       - name: Build packages
         run: pnpm run build
