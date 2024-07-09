@@ -3,15 +3,15 @@
   "version": "18.4.5",
   "scripts": {
     "ng": "ng",
-    "start": "nx serve --watch --hmr --port=4300",
-    "build": "nx build ng-kit --configuration=production",
-    "build:ng-kit-demo": "nx build ng-kit-demo --configuration=production",
-    "watch": "nx build --watch --configuration development",
-    "test": "nx test",
-    "test:store": "nx test --include='**/store/*.spec.ts'",
-    "bundle:report": "nx build --configuration production --source-map=true && source-map-explorer dist/pres/**/*.js",
+    "start": "ng serve --watch --hmr --port=4300",
+    "build": "ng build ng-kit --configuration=production",
+    "build:ng-kit-demo": "ng build ng-kit-demo --configuration=production",
+    "watch": "ng build --watch --configuration development",
+    "test": "ng test",
+    "test:store": "ng test --include='**/store/*.spec.ts'",
+    "bundle:report": "ng build --configuration production --source-map=true && source-map-explorer dist/pres/**/*.js",
     "e2e": "CI=true URL=http://localhost:4300 npx playwright test",
-    "lint": "nx lint ng-kit"
+    "lint": "ng lint ng-kit"
   },
   "release": {
     "branches": [
@@ -58,8 +58,6 @@
     "@angular-eslint/template-parser": "18.0.0",
     "@angular/cli": "^18.0.2",
     "@angular/compiler-cli": "^18.0.1",
-    "@nx/angular": "19.3.2",
-    "@nx/workspace": "19.3.2",
     "@playwright/test": "^1.44.0",
     "@schematics/angular": "^18.0.2",
     "@semantic-release/git": "^10.0.1",
@@ -76,7 +74,6 @@
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
     "ng-packagr": "^18.0.0",
-    "nx": "19.3.2",
     "prettier": "^3.2.5",
     "semantic-release": "^24.0.0",
     "@semantic-release/exec": "^2.3.0",
