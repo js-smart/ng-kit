@@ -1,3 +1,5 @@
+import { ProgressState } from './lib/types/progress-state';
+
 export * from './lib/components/alert/alert.component';
 export * from './lib/components/spinner/spinner.component';
 export * from './lib/components/ngx-spinner/ngx-spinner.service';
@@ -37,3 +39,6 @@ export * from './lib/services/mat-snack-bar.service';
 
 // Export progress state
 export * from './lib/util/progress-util';
+
+// Export the ProgressState type
+export type { ProgressState };
