@@ -5,10 +5,9 @@ import { BaseButtonComponent } from '../base-button/base-button.component';
 import { NgStyle } from '@angular/common';
 
 @Component({
-	selector: 'edit-svg-icon-button',
-	standalone: true,
-	imports: [MatButton, EditSolidSvgComponent, NgStyle],
-	template: `
+    selector: 'edit-svg-icon-button',
+    imports: [MatButton, EditSolidSvgComponent, NgStyle],
+    template: `
 		<button
 			type="{{ type() }}"
 			class="{{ classes() }}"
@@ -24,7 +23,7 @@ import { NgStyle } from '@angular/common';
 			{{ label() }}
 		</button>
 	`,
-	styleUrls: ['../../../../assets/app-buttons.css'],
+    styleUrls: ['../../../../assets/app-buttons.css']
 })
 export class EditSvgIconButtonComponent extends BaseButtonComponent {
 	override label = input('Edit');

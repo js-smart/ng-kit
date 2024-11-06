@@ -5,10 +5,9 @@ import { BaseButtonComponent } from '../base-button/base-button.component';
 import { NgStyle } from '@angular/common';
 
 @Component({
-	selector: 'delete-button',
-	standalone: true,
-	imports: [MatButtonModule, MatIconModule, NgStyle],
-	template: `
+    selector: 'delete-button',
+    imports: [MatButtonModule, MatIconModule, NgStyle],
+    template: `
 		<button
 			mat-raised-button
 			class="btn {{ classes() }}"
@@ -28,7 +27,7 @@ import { NgStyle } from '@angular/common';
 			{{ loading() ? loadingLabel() : label() }}
 		</button>
 	`,
-	styleUrls: ['../../../../assets/app-buttons.css'],
+    styleUrls: ['../../../../assets/app-buttons.css']
 })
 export class DeleteButtonComponent extends BaseButtonComponent {
 	override loadingLabel = input('Deleting...');

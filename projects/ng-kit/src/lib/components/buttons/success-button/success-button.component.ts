@@ -5,10 +5,9 @@ import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 
 @Component({
-	selector: 'success-button',
-	standalone: true,
-	imports: [NgStyle, MatButton, MatIcon],
-	template: `
+    selector: 'success-button',
+    imports: [NgStyle, MatButton, MatIcon],
+    template: `
 		<button
 			mat-raised-button
 			class="btn {{ classes() }}"
@@ -27,7 +26,7 @@ import { MatIcon } from '@angular/material/icon';
 			}
 			{{ loading() ? loadingLabel() : label() }}
 		</button>
-	`,
+	`
 })
 export class SuccessButtonComponent extends BaseButtonComponent {
 	override loadingLabel = input('Updating...');

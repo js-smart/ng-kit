@@ -3,10 +3,9 @@ import { CommonModule } from '@angular/common';
 import { AlertComponent, initializeState, markError, markLoading, markSuccess, SavePrimaryButtonComponent } from '@js-smart/ng-kit';
 
 @Component({
-	selector: 'app-progress-state-demo',
-	standalone: true,
-	imports: [CommonModule, SavePrimaryButtonComponent, AlertComponent],
-	templateUrl: './progress-state-demo.component.html',
+    selector: 'app-progress-state-demo',
+    imports: [CommonModule, SavePrimaryButtonComponent, AlertComponent],
+    templateUrl: './progress-state-demo.component.html'
 })
 export class ProgressStateDemoComponent {
 	updateState = initializeState();

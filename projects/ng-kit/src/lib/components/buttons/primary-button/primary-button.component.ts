@@ -5,10 +5,9 @@ import { BaseButtonComponent } from '../base-button/base-button.component';
 import { NgStyle } from '@angular/common';
 
 @Component({
-	selector: 'primary-button',
-	standalone: true,
-	imports: [MatButton, MatIcon, NgStyle],
-	template: `
+    selector: 'primary-button',
+    imports: [MatButton, MatIcon, NgStyle],
+    template: `
 		<button
 			mat-raised-button
 			class="btn {{ classes() }}"
@@ -28,7 +27,7 @@ import { NgStyle } from '@angular/common';
 			{{ loading() ? loadingLabel() : label() }}
 		</button>
 	`,
-	styleUrls: ['../../../../assets/app-buttons.css'],
+    styleUrls: ['../../../../assets/app-buttons.css']
 })
 export class PrimaryButtonComponent extends BaseButtonComponent {
 	override loadingLabel = input('Saving...');

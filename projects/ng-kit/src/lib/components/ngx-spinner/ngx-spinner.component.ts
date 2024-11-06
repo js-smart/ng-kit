@@ -7,18 +7,17 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { SafeHtmlPipe } from './safe-html.pipe';
 
 @Component({
-	selector: 'ngx-spinner',
-	standalone: true,
-	imports: [SafeHtmlPipe],
-	templateUrl: 'ngx-spinner.component.html',
-	styleUrls: ['ngx-spinner.component.css'],
-	animations: [
-		trigger('fadeIn', [
-			state('in', style({ opacity: 1 })),
-			transition(':enter', [style({ opacity: 0 }), animate(300)]),
-			transition(':leave', animate(200, style({ opacity: 0 }))),
-		]),
-	],
+    selector: 'ngx-spinner',
+    imports: [SafeHtmlPipe],
+    templateUrl: 'ngx-spinner.component.html',
+    styleUrls: ['ngx-spinner.component.css'],
+    animations: [
+        trigger('fadeIn', [
+            state('in', style({ opacity: 1 })),
+            transition(':enter', [style({ opacity: 0 }), animate(300)]),
+            transition(':leave', animate(200, style({ opacity: 0 }))),
+        ]),
+    ]
 })
 export class NgxSpinnerComponent implements OnDestroy, OnInit, OnChanges {
 	/**

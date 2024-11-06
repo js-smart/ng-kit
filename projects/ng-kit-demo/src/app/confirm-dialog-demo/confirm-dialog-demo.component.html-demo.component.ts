@@ -3,11 +3,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent, PrimaryButtonComponent } from '@js-smart/ng-kit';
 
 @Component({
-	selector: 'ng-kit-confirm-dialog-demo',
-	standalone: true,
-	templateUrl: './confirm-dialog-demo.component.html',
-	styles: [``],
-	imports: [ConfirmDialogComponent, PrimaryButtonComponent],
+    selector: 'ng-kit-confirm-dialog-demo',
+    templateUrl: './confirm-dialog-demo.component.html',
+    styles: [``],
+    imports: [ConfirmDialogComponent, PrimaryButtonComponent]
 })
 export class ConfirmDialogDemoComponent {
 	dialog = inject(MatDialog);
