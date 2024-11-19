@@ -5,10 +5,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 
 @Component({
-	selector: 'app-error-snack-bar',
-	standalone: true,
-	imports: [CommonModule, MatIconModule, MatButtonModule],
-	template: `
+    selector: 'app-error-snack-bar',
+    imports: [CommonModule, MatIconModule, MatButtonModule],
+    template: `
 		<div class="custom-flex-center error-snackbar">
 			<mat-icon>error</mat-icon>
 			<label>{{ data.message }}</label>
@@ -17,7 +16,7 @@ import { MatButtonModule } from '@angular/material/button';
 			</button>
 		</div>
 	`,
-	styleUrls: ['../../../../assets/app-mat-snack-bar.css'],
+    styleUrls: ['../../../../assets/app-mat-snack-bar.css']
 })
 export class ErrorSnackBarComponent {
 	constructor(

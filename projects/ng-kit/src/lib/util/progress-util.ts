@@ -1,9 +1,3 @@
-/**
- * Contains utility methods for {@link ProgressState}
- *
- * @author Pavan Kumar Jadda
- * @since 2.7.16
- */
 import { ProgressState } from '../types/progress-state';
 import { signal, WritableSignal } from '@angular/core';
 

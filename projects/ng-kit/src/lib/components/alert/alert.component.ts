@@ -8,11 +8,10 @@ import { CommonModule } from '@angular/common';
  * @since 12.0.0
  */
 @Component({
-	selector: 'lib-alert, alert',
-	standalone: true,
-	imports: [CommonModule],
-	templateUrl: './alert.component.html',
-	styleUrls: ['./alert.component.scss'],
+    selector: 'lib-alert, alert',
+    imports: [CommonModule],
+    templateUrl: './alert.component.html',
+    styleUrls: ['./alert.component.scss']
 })
 export class AlertComponent implements OnInit {
 	/**
