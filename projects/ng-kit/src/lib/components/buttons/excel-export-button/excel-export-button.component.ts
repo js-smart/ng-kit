@@ -3,13 +3,12 @@ import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 
 @Component({
-	selector: 'excel-export-button',
-	standalone: true,
-	imports: [CommonModule, MatButtonModule],
-	template: ` <button class="excel-export-button" mat-raised-button type="button" data-cy="excel-export-button">Excel</button> `,
-	styleUrls: ['../../../../assets/app-buttons.css'],
-	styles: [
-		`
+    selector: 'excel-export-button',
+    imports: [CommonModule, MatButtonModule],
+    template: ` <button class="excel-export-button" mat-raised-button type="button" data-cy="excel-export-button">Excel</button> `,
+    styleUrls: ['../../../../assets/app-buttons.css'],
+    styles: [
+        `
 			.excel-export-button {
 				margin-left: 20px !important;
 				margin-right: 20px !important;
@@ -19,6 +18,6 @@ import { MatButtonModule } from '@angular/material/button';
 				border-radius: 24px !important;
 			}
 		`,
-	],
+    ]
 })
 export class ExcelExportButtonComponent {}

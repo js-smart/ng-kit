@@ -3,11 +3,10 @@ import { FormBuilder, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { AutocompleteComponent } from '@js-smart/ng-kit';
 
 @Component({
-	selector: 'ng-kit-autocomplete-demo',
-	standalone: true,
-	imports: [AutocompleteComponent, ReactiveFormsModule],
-	templateUrl: './autocomplete-demo.component.html',
-	styles: [],
+    selector: 'ng-kit-autocomplete-demo',
+    imports: [AutocompleteComponent, ReactiveFormsModule],
+    templateUrl: './autocomplete-demo.component.html',
+    styles: []
 })
 export class AutocompleteDemoComponent {
 	cities: City[] = [

@@ -6,10 +6,9 @@ import { BaseButtonComponent } from '../base-button/base-button.component';
 import { NgStyle } from '@angular/common';
 
 @Component({
-	selector: 'bs-link-button',
-	standalone: true,
-	imports: [MatButton, MatIcon, EditSolidSvgComponent, MatAnchor, NgStyle],
-	template: `
+    selector: 'bs-link-button',
+    imports: [MatButton, MatIcon, EditSolidSvgComponent, MatAnchor, NgStyle],
+    template: `
 		<a
 			type="{{ type() }}"
 			class="{{ classes() }}"
@@ -25,7 +24,7 @@ import { NgStyle } from '@angular/common';
 			{{ label() }}
 		</a>
 	`,
-	styleUrls: ['../../../../assets/app-buttons.css'],
+    styleUrls: ['../../../../assets/app-buttons.css']
 })
 export class BsLinkButtonComponent extends BaseButtonComponent {
 	override label = input('Edit');

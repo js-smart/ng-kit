@@ -31,19 +31,18 @@ import { AsyncPipe } from '@angular/common';
  * @since 12.0.0
  */
 @Component({
-	selector: 'autocomplete, lib-autocomplete',
-	standalone: true,
-	imports: [
-		ReactiveFormsModule,
-		TypeOfPipe,
-		MatFormFieldModule,
-		MatAutocompleteModule,
-		MatInputModule,
-		MatButtonModule,
-		MatIconModule,
-		AsyncPipe,
-	],
-	templateUrl: './autocomplete.component.html',
+    selector: 'autocomplete, lib-autocomplete',
+    imports: [
+        ReactiveFormsModule,
+        TypeOfPipe,
+        MatFormFieldModule,
+        MatAutocompleteModule,
+        MatInputModule,
+        MatButtonModule,
+        MatIconModule,
+        AsyncPipe,
+    ],
+    templateUrl: './autocomplete.component.html'
 })
 export class AutocompleteComponent implements OnInit, OnChanges, AfterContentChecked {
 	/**

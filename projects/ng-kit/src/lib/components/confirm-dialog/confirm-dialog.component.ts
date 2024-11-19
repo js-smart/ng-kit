@@ -4,10 +4,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 
 @Component({
-	selector: 'app-confirm-dialog',
-	standalone: true,
-	imports: [MatButtonModule, MatDividerModule, MatDialogModule],
-	template: `
+    selector: 'app-confirm-dialog',
+    imports: [MatButtonModule, MatDividerModule, MatDialogModule],
+    template: `
 		<div class="mat-dialog-title" style="text-align: center">
 			<h3 class="m-3 mat-headline-5	">{{ title }}</h3>
 		</div>
@@ -22,7 +21,7 @@ import { MatDividerModule } from '@angular/material/divider';
 			<button (click)="onConfirm()" class="primary-button" mat-raised-button>Yes</button>
 		</div>
 	`,
-	styles: [],
+    styles: []
 })
 export class ConfirmDialogComponent {
 	title: string;

@@ -5,10 +5,9 @@ import { MatButton } from '@angular/material/button';
 import { BaseButtonComponent } from '../base-button/base-button.component';
 
 @Component({
-	selector: 'edit-button',
-	standalone: true,
-	imports: [MatButton, MatIcon, NgStyle],
-	template: `
+    selector: 'edit-button',
+    imports: [MatButton, MatIcon, NgStyle],
+    template: `
 		<button
 			class="{{ classes() }}"
 			(click)="onClick.emit($event)"
@@ -23,7 +22,7 @@ import { BaseButtonComponent } from '../base-button/base-button.component';
 			{{ label() }}
 		</button>
 	`,
-	styleUrls: ['../../../../assets/app-buttons.css'],
+    styleUrls: ['../../../../assets/app-buttons.css']
 })
 export class EditButtonComponent extends BaseButtonComponent {
 	override label = input('Edit');

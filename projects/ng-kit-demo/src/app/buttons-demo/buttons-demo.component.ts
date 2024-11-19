@@ -18,28 +18,27 @@ import {
 import { CommonModule } from '@angular/common';
 
 @Component({
-	selector: 'ng-kit-buttons-demo',
-	standalone: true,
-	imports: [
-		CommonModule,
-		SavePrimaryButtonComponent,
-		PrimaryButtonComponent,
-		PdfExportButtonComponent,
-		ExcelExportButtonComponent,
-		EditBsButtonComponent,
-		ViewButtonComponent,
-		ViewPrimaryButtonComponent,
-		EditButtonComponent,
-		EditSvgIconButtonComponent,
-		EditBsButtonComponent,
-		BsLinkButtonComponent,
-		ManageButtonComponent,
-		SearchButtonComponent,
-		SuccessButtonComponent,
-		DeleteButtonComponent,
-	],
-	templateUrl: './buttons-demo.component.html',
-	styles: [],
+    selector: 'ng-kit-buttons-demo',
+    imports: [
+        CommonModule,
+        SavePrimaryButtonComponent,
+        PrimaryButtonComponent,
+        PdfExportButtonComponent,
+        ExcelExportButtonComponent,
+        EditBsButtonComponent,
+        ViewButtonComponent,
+        ViewPrimaryButtonComponent,
+        EditButtonComponent,
+        EditSvgIconButtonComponent,
+        EditBsButtonComponent,
+        BsLinkButtonComponent,
+        ManageButtonComponent,
+        SearchButtonComponent,
+        SuccessButtonComponent,
+        DeleteButtonComponent,
+    ],
+    templateUrl: './buttons-demo.component.html',
+    styles: []
 })
 export class ButtonsDemoComponent {
 	loading = false;
