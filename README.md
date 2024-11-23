@@ -31,7 +31,7 @@ Reusable Auto Complete that extends Mat Auto Complete component
 
 ### Demo
 
-https://js-smart-ng-kit.netlify.app/
+https://ng-kit.netlify.app
 
 ### Usage
 
