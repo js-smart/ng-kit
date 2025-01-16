@@ -2,11 +2,11 @@ import { Component, input } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { EditSolidSvgComponent } from '../../../svg-icons/edit-solid-svg/edit-solid-svg.component';
 import { BaseButtonComponent } from '../base-button/base-button.component';
-import { NgStyle } from '@angular/common';
+
 
 @Component({
     selector: 'edit-svg-icon-button',
-    imports: [MatButton, EditSolidSvgComponent, NgStyle],
+    imports: [MatButton, EditSolidSvgComponent],
     template: `
 		<button
 			type="{{ type() }}"

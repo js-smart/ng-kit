@@ -1,14 +1,12 @@
 import { Component, input } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
-import { MatAnchor, MatButton } from '@angular/material/button';
-import { EditSolidSvgComponent } from '../../../svg-icons/edit-solid-svg/edit-solid-svg.component';
+import { MatAnchor } from '@angular/material/button';
 import { BaseButtonComponent } from '../base-button/base-button.component';
-import { NgStyle } from '@angular/common';
 
 @Component({
-    selector: 'bs-link-button',
-    imports: [MatButton, MatIcon, EditSolidSvgComponent, MatAnchor, NgStyle],
-    template: `
+	selector: 'bs-link-button',
+	imports: [MatIcon, MatAnchor],
+	template: `
 		<a
 			type="{{ type() }}"
 			class="{{ classes() }}"
@@ -24,7 +22,7 @@ import { NgStyle } from '@angular/common';
 			{{ label() }}
 		</a>
 	`,
-    styleUrls: ['../../../../assets/app-buttons.css']
+	styleUrls: ['../../../../assets/app-buttons.css'],
 })
 export class BsLinkButtonComponent extends BaseButtonComponent {
 	override label = input('Edit');

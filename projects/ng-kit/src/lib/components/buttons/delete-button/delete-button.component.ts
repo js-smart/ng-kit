@@ -2,11 +2,11 @@ import { Component, input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { BaseButtonComponent } from '../base-button/base-button.component';
-import { NgStyle } from '@angular/common';
+
 
 @Component({
     selector: 'delete-button',
-    imports: [MatButtonModule, MatIconModule, NgStyle],
+    imports: [MatButtonModule, MatIconModule],
     template: `
 		<button
 			mat-raised-button
