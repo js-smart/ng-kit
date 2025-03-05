@@ -1,12 +1,12 @@
 import { Component, input } from '@angular/core';
 import { BaseButtonComponent } from '../base-button/base-button.component';
-import { NgStyle } from '@angular/common';
+
 import { MatIcon } from '@angular/material/icon';
 import { MatButton } from '@angular/material/button';
 
 @Component({
     selector: 'save-primary-button',
-    imports: [MatButton, MatIcon, NgStyle],
+    imports: [MatButton, MatIcon],
     template: `
 		<button
 			mat-raised-button

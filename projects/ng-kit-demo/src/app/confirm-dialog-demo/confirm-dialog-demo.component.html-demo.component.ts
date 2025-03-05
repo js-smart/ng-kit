@@ -6,7 +6,7 @@ import { ConfirmDialogComponent, PrimaryButtonComponent } from '@js-smart/ng-kit
     selector: 'ng-kit-confirm-dialog-demo',
     templateUrl: './confirm-dialog-demo.component.html',
     styles: [``],
-    imports: [ConfirmDialogComponent, PrimaryButtonComponent]
+    imports: [PrimaryButtonComponent]
 })
 export class ConfirmDialogDemoComponent {
 	dialog = inject(MatDialog);
