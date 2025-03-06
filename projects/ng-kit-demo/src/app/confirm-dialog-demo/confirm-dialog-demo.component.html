@@ -1,11 +1,9 @@
 <div class="m-5">
-    <primary-button label="Click to Confirm" (click)="confirm()"></primary-button>
+	<primary-button (click)="confirm()" (keydown)="confirm()" label="Click to Confirm"></primary-button>
 
-    <br />
-    <br />
-    <section>
-        <h3 class="mat-h3">
-            <b class="m-2">Confirm Status:</b>{{confirmStatus()}}
-        </h3>
-    </section>
+	<br />
+	<br />
+	<section>
+		<h3 class="mat-h3"><b class="m-2">Confirm Status:</b>{{ confirmStatus() }}</h3>
+	</section>
 </div>

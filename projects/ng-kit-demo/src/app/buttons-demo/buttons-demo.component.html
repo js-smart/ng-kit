@@ -1,6 +1,11 @@
 <div class="m-5">
-	<primary-button (click)="setLoading()" [loading]="loading" class="m-3" label="Primary Button"></primary-button>
-	<save-primary-button (click)="setLoading()" [loading]="loading" class="m-3" label="Save Primary Button"></save-primary-button>
+	<primary-button (click)="setLoading()" (keydown)="setLoading()" [loading]="loading" class="m-3" label="Primary Button"></primary-button>
+	<save-primary-button
+		(click)="setLoading()"
+		(keydown)="setLoading()"
+		[loading]="loading"
+		class="m-3"
+		label="Save Primary Button"></save-primary-button>
 	<view-primary-button class="m-3"></view-primary-button>
 	<view-button></view-button>
 	<hr />
@@ -10,7 +15,7 @@
 	<bs-link-button class="m-3" label="Bootstrap Link Button"></bs-link-button>
 
 	<hr />
-	<success-button (click)="setLoading()" [loading]="loading" class="m-3" label="Success Button"></success-button>
+	<success-button (click)="setLoading()" (keydown)="setLoading()" [loading]="loading" class="m-3" label="Success Button"></success-button>
 	<delete-button (onClick)="setDeleteLoading($event)" [loading]="loading" class="m-3" label="Delete Button"></delete-button>
 
 	<hr />

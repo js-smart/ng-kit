@@ -73,4 +73,14 @@ export class BaseButtonComponent {
 	 * Output event when button is blurred
 	 */
 	onBlur = output<FocusEvent>();
+
+	/**
+	 *  Output event when key is pressed
+	 */
+	onKeyDown = output<KeyboardEvent>();
+
+	/**
+	 *  Output event when key is up
+	 */
+	onKeyUp = output<KeyboardEvent>();
 }

@@ -5,11 +5,16 @@ import { MatButtonModule } from '@angular/material/button';
 import { BaseButtonComponent } from '../base-button/base-button.component';
 
 @Component({
-    selector: 'search-button',
-    imports: [CommonModule, MatButtonModule, MatIconModule],
-    template: `
+	selector: 'search-button',
+	imports: [CommonModule, MatButtonModule, MatIconModule],
+	template: `
 		<button
 			class="btn btn-primary primary-button {{ loading() || disabled() ? 'disabled' : '' }}"
+			(click)="onClick.emit($event)"
+			(focus)="onFocus.emit($event)"
+			(blur)="onBlur.emit($event)"
+			(keydown)="onKeyDown.emit($event)"
+			(keyup)="onKeyUp.emit($event)"
 			mat-raised-button
 			type="{{ type() }}"
 			data-cy="primary-button">
@@ -22,7 +27,7 @@ import { BaseButtonComponent } from '../base-button/base-button.component';
 			{{ loading() ? loadingLabel() : label() }}
 		</button>
 	`,
-    styleUrls: ['../../../../assets/app-buttons.css']
+	styleUrls: ['../../../../assets/app-buttons.css'],
 })
 export class SearchButtonComponent extends BaseButtonComponent {
 	override loadingLabel = input('Searching...');

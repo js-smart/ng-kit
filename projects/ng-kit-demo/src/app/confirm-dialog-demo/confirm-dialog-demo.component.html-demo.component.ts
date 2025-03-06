@@ -3,14 +3,16 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent, PrimaryButtonComponent } from '@js-smart/ng-kit';
 
 @Component({
-    selector: 'ng-kit-confirm-dialog-demo',
-    templateUrl: './confirm-dialog-demo.component.html',
-    styles: [``],
-    imports: [PrimaryButtonComponent]
+	selector: 'ng-kit-confirm-dialog-demo',
+	templateUrl: './confirm-dialog-demo.component.html',
+	styles: [``],
+	imports: [PrimaryButtonComponent],
 })
 export class ConfirmDialogDemoComponent {
 	dialog = inject(MatDialog);
 	confirmStatus = signal('');
+	protected readonly console = console;
+
 	confirm() {
 		const ref = this.dialog.open(ConfirmDialogComponent, {
 			data: {

@@ -13,6 +13,8 @@ import { BaseButtonComponent } from '../base-button/base-button.component';
 			(click)="onClick.emit($event)"
 			(focus)="onFocus.emit($event)"
 			(blur)="onBlur.emit($event)"
+			(keydown)="onKeyDown.emit($event)"
+			(keyup)="onKeyUp.emit($event)"
 			[disabled]="disabled()"
 			[type]="type()"
 			[style]="style()"

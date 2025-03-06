@@ -3,17 +3,18 @@ import { MatButton } from '@angular/material/button';
 import { EditSolidSvgComponent } from '../../../svg-icons/edit-solid-svg/edit-solid-svg.component';
 import { BaseButtonComponent } from '../base-button/base-button.component';
 
-
 @Component({
-    selector: 'edit-svg-icon-button',
-    imports: [MatButton, EditSolidSvgComponent],
-    template: `
+	selector: 'edit-svg-icon-button',
+	imports: [MatButton, EditSolidSvgComponent],
+	template: `
 		<button
 			type="{{ type() }}"
 			class="{{ classes() }}"
 			(click)="onClick.emit($event)"
 			(focus)="onFocus.emit($event)"
 			(blur)="onBlur.emit($event)"
+			(keydown)="onKeyDown.emit($event)"
+			(keyup)="onKeyUp.emit($event)"
 			[disabled]="disabled()"
 			[type]="type()"
 			[style]="style()"
@@ -23,7 +24,7 @@ import { BaseButtonComponent } from '../base-button/base-button.component';
 			{{ label() }}
 		</button>
 	`,
-    styleUrls: ['../../../../assets/app-buttons.css']
+	styleUrls: ['../../../../assets/app-buttons.css'],
 })
 export class EditSvgIconButtonComponent extends BaseButtonComponent {
 	override label = input('Edit');

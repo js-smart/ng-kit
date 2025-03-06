@@ -3,17 +3,18 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { BaseButtonComponent } from '../base-button/base-button.component';
 
-
 @Component({
-    selector: 'delete-button',
-    imports: [MatButtonModule, MatIconModule],
-    template: `
+	selector: 'delete-button',
+	imports: [MatButtonModule, MatIconModule],
+	template: `
 		<button
 			mat-raised-button
 			class="btn {{ classes() }}"
 			(click)="onClick.emit($event)"
 			(focus)="onFocus.emit($event)"
 			(blur)="onBlur.emit($event)"
+			(keydown)="onKeyDown.emit($event)"
+			(keyup)="onKeyUp.emit($event)"
 			[disabled]="disabled() || loading()"
 			[type]="type()"
 			[style]="style()"
@@ -27,7 +28,7 @@ import { BaseButtonComponent } from '../base-button/base-button.component';
 			{{ loading() ? loadingLabel() : label() }}
 		</button>
 	`,
-    styleUrls: ['../../../../assets/app-buttons.css']
+	styleUrls: ['../../../../assets/app-buttons.css'],
 })
 export class DeleteButtonComponent extends BaseButtonComponent {
 	override loadingLabel = input('Deleting...');
