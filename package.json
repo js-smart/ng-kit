@@ -59,6 +59,7 @@
     "@angular/cli": "^19.2.0",
     "@angular/compiler-cli": "^19.2.0",
     "@playwright/test": "^1.49.1",
+    "@sonar/scan": "^4.2.7",
     "@schematics/angular": "^19.1.1",
     "@semantic-release/git": "^10.0.1",
     "@semantic-release/npm": "^12.0.1",
