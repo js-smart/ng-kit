@@ -1,0 +1,6 @@
+projectKey=ng-kit
+serverUrl=http://192.168.1.145:9000
+serverVersion=25.3.0.104237
+dashboardUrl=http://192.168.1.145:9000/dashboard?id=ng-kit
+ceTaskId=644a670b-7c85-43b6-b800-4d7970e25f43
+ceTaskUrl=http://192.168.1.145:9000/api/ce/task?id=644a670b-7c85-43b6-b800-4d7970e25f43
