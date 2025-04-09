@@ -97,8 +97,8 @@ importers:
         specifier: ^12.0.1
         version: 12.0.1(semantic-release@24.2.1(typescript@5.7.3))
       '@sonar/scan':
-        specifier: ^4.2.7
-        version: 4.2.8
+        specifier: ^4.3.0
+        version: 4.3.0
       '@types/jest':
         specifier: ^29.5.14
         version: 29.5.14
@@ -2368,8 +2368,8 @@ packages:
   '@sinonjs/fake-timers@10.3.0':
     resolution: {integrity: sha512-V4BG07kuYSUkTCSBHG8G8TNhM+F19jXFWnQtzj+we8DrkpSBCee9Z3Ms8yiGer/dlmhe35/Xdgyo3/0rQKg7YA==}
 
-  '@sonar/scan@4.2.8':
-    resolution: {integrity: sha512-V4OpbW22Bl0DBBDS43U88mG7d+2YKsIThz6yknK+VPf+jsgZ5n9eLSrX0JZpXYZhaBPpISgNRGPQJORjomJ4Qg==}
+  '@sonar/scan@4.3.0':
+    resolution: {integrity: sha512-iJaK5BzVfXv/BGVaRYHP/xv6YzWNCDbFKORBxy8HSnyEvMSpt5kdd6Gh2T9EhZCmH+AwjvcKAPgHR+kI9qyheA==}
     hasBin: true
 
   '@tootallnate/once@2.0.0':
@@ -2829,8 +2829,8 @@ packages:
     resolution: {integrity: sha512-wvUjBtSGN7+7SjNpq/9M2Tg350UZD3q62IFZLbRAR1bSMlCo1ZaeW+BJ+D090e4hIIZLBcTDWe4Mh4jvUDajzQ==}
     engines: {node: '>= 0.4'}
 
-  axios@1.7.7:
-    resolution: {integrity: sha512-S4kL7XrjgBmvdGut0sN3yJxqYzrDOnivkBiN0OFs6hLiUam3UPvswUo0kqGyhqUZGEOytHyumEdXsAkgCOUf3Q==}
+  axios@1.8.2:
+    resolution: {integrity: sha512-ls4GYBm5aig9vWx8AWDSGLpnpDQRtWAfrjU+EuytuODrFBkqesN2RkOQCBzrA1RQNHw1SmRMSDDDSwzNAYQ6Rg==}
 
   axobject-query@4.1.0:
     resolution: {integrity: sha512-qIj0G9wZbMGNLjLmg1PT6v2mE9AH2zlnADJD/2tC6E00hgmhUOfEB6greHPAfLRSufHqROIUTkw6E+M3lH0PTQ==}
@@ -9556,10 +9556,10 @@ snapshots:
     dependencies:
       '@sinonjs/commons': 3.0.0
 
-  '@sonar/scan@4.2.8':
+  '@sonar/scan@4.3.0':
     dependencies:
       adm-zip: 0.5.12
-      axios: 1.7.7
+      axios: 1.8.2
       commander: 12.0.0
       fs-extra: 11.2.0
       hpagent: 1.2.0
@@ -9803,7 +9803,7 @@ snapshots:
       fast-glob: 3.3.3
       is-glob: 4.0.3
       minimatch: 9.0.5
-      semver: 7.6.3
+      semver: 7.7.1
       ts-api-utils: 2.0.0(typescript@5.7.3)
       typescript: 5.7.3
     transitivePeerDependencies:
@@ -10119,7 +10119,7 @@ snapshots:
     dependencies:
       possible-typed-array-names: 1.0.0
 
-  axios@1.7.7:
+  axios@1.8.2:
     dependencies:
       follow-redirects: 1.15.9
       form-data: 4.0.0
@@ -13991,7 +13991,7 @@ snapshots:
 
   semver-diff@4.0.0:
     dependencies:
-      semver: 7.6.3
+      semver: 7.7.1
 
   semver-regex@4.0.5: {}
 
