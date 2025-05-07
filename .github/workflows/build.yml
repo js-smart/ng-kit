@@ -42,7 +42,7 @@ jobs:
         run: pnpm i --frozen-lockfile
 
       - name: Install playwright
-        run: pnpm exec playwright install
+        run: pnpm exec playwright install && sudo pnpm exec playwright install-deps
 
       - name: Run e2e tests
         run: pnpm e2e
