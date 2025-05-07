@@ -37,13 +37,13 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
           cache: 'pnpm'
-          
+
       - name: Install dependencies
         run: pnpm i --frozen-lockfile
-      #      - name: E2E Tests
-      #        run: pnpm nx e2e
-      #        env:
-      #            CI: true
+            - name: E2E Tests
+              run: pnpm e2e
+              env:
+                  CI: true
       - name: Build
         run: pnpm run build
         env:
