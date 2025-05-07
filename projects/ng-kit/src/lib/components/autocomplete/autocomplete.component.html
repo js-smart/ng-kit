@@ -1,4 +1,4 @@
-<div [formGroup]="inputFormGroup">
+<div>
 	<mat-form-field appearance="fill" class="{{ classes() }}">
 		<mat-label>{{ label() }}</mat-label>
 		<input
@@ -7,12 +7,12 @@
 			[matAutocomplete]="auto"
 			[placeholder]="placeHolder()"
 			[required]="required()"
-			formControlName="autocomplete"
+			[formControl]="control"
 			matInput
 			type="text" />
 
 		<div matSuffix style="display: flex">
-			@if (!!inputFormGroup.get('autocomplete')?.value) {
+      @if (control.value) {
 				<button (click)="clearInput($event)" aria-label="Clear" mat-icon-button type="button">
 					<mat-icon>clear</mat-icon>
 				</button>
