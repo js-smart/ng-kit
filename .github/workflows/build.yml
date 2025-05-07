@@ -20,7 +20,7 @@ jobs:
         env:
           cache-name: cache-node-modules
         with:
-          path: ~/.pnpm
+          path: ~/.local/share/pnpm/store/v3
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-build-${{ env.cache-name }}-
