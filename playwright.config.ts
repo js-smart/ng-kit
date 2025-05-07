@@ -51,7 +51,7 @@ const config: PlaywrightTestConfig = {
 			},
 			dependencies: ['setup'],
 		},
-		/*{
+		{
 			name: 'firefox',
 			use: {
 				...devices['Desktop Firefox'],
@@ -64,7 +64,7 @@ const config: PlaywrightTestConfig = {
 				...devices['Desktop Safari'],
 			},
 			dependencies: ['setup'],
-		},*/
+		},
 	],
 
 	/* Run your local dev server before starting the tests */

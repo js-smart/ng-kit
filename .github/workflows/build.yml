@@ -40,7 +40,11 @@ jobs:
 
       - name: Install dependencies
         run: pnpm i --frozen-lockfile
-      - name: E2E Tests
+
+      - name: Install playwright
+        run: pnpm exec playwright install
+
+      - name: Run e2e tests
         run: pnpm e2e
         env:
             CI: true
