@@ -18,7 +18,7 @@ import { BaseButtonComponent } from '../base-button/base-button.component';
 			[disabled]="disabled()"
 			[type]="type()"
 			[style]="style()"
-			[attr.data-cy]="'edit-link-button'"
+			[attr.data-cy]="'bs-link-button'"
 			mat-button>
 			<mat-icon>{{ icon() }}</mat-icon>
 			{{ label() }}

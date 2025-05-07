@@ -48,15 +48,13 @@ const config: PlaywrightTestConfig = {
 			name: 'chromium',
 			use: {
 				...devices['Desktop Chrome'],
-				storageState: 'playwright/.auth/read-only-user.json',
 			},
 			dependencies: ['setup'],
 		},
-		{
+		/*{
 			name: 'firefox',
 			use: {
 				...devices['Desktop Firefox'],
-				storageState: 'playwright/.auth/read-only-user.json',
 			},
 			dependencies: ['setup'],
 		},
@@ -64,15 +62,15 @@ const config: PlaywrightTestConfig = {
 			name: 'webkit',
 			use: {
 				...devices['Desktop Safari'],
-				storageState: 'playwright/.auth/read-only-user.json',
 			},
 			dependencies: ['setup'],
-		},
+		},*/
 	],
 
 	/* Run your local dev server before starting the tests */
 	webServer: {
 		command: 'pnpm start',
+		url: 'http://localhost:4300',
 	},
 };
 

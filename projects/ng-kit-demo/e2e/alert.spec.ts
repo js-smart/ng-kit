@@ -1,10 +1,10 @@
-import { test, expect } from '@playwright/test';
+import { expect, test } from '@playwright/test';
 
 test('has title', async ({ page }) => {
 	await page.goto('/');
 
 	// Expect h1 to contain a substring.
-	expect(await page.title()).toContain('ng-kitDemo');
+	expect(await page.title()).toContain('Angular Utilities Demo');
 });
 
 test('has links', async ({ page }) => {
