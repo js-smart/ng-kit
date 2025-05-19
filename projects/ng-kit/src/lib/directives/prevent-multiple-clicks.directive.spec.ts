@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import 'zone.js/testing';
-import { PreventMultipleClicksDirective } from './prevent-multiple-clicks.directive';
+import { PreventMultipleClicksDirective } from '@js-smart/ng-kit';
 
 @Component({
-	template: `<button preventMultipleClicks [throttleTime]="throttleTime" (throttleClick)="onClick($event)">Test Button</button>`,
+	template: ` <button preventMultipleClicks [throttleTime]="throttleTime" (throttleClick)="onClick($event)">Test Button</button>`,
 	standalone: true,
 	imports: [PreventMultipleClicksDirective],
 })
