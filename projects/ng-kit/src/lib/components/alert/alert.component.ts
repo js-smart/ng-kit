@@ -1,5 +1,6 @@
-import { ChangeDetectorRef, Component, OnInit, input, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { ChangeDetectorRef, Component, effect, inject, input, type OnInit, output, signal } from '@angular/core';
+
+export type AlertType = 'info' | 'primary' | 'secondary' | 'success' | 'warning' | 'danger' | 'dark' | 'light';
 
 /**
  * Boostrap Alert component that can be used to alert messages to the user
@@ -8,26 +9,16 @@ import { CommonModule } from '@angular/common';
  * @since 12.0.0
  */
 @Component({
-    selector: 'lib-alert, alert',
-    imports: [CommonModule],
-    templateUrl: './alert.component.html',
-    styleUrls: ['./alert.component.scss']
+	selector: 'lib-alert, alert',
+	templateUrl: './alert.component.html',
+	styleUrls: ['./alert.component.scss'],
 })
 export class AlertComponent implements OnInit {
+	cdr = inject(ChangeDetectorRef);
 	/**
 	 * Type of the BootStrap Alert. Following values are supported. See BootStrap docs for more information
-	 * <pre>
-	 *   1. info
-	 *   2. primary
-	 *   3. secondary
-	 *   4. success
-	 *   5. warning
-	 *   6. danger
-	 *   7. dark
-	 *   8. light
-	 * </pre>
 	 */
-	type = input('info');
+	type = input<AlertType>('info');
 
 	/**
 	 *  Is alert visible or open
@@ -59,7 +50,17 @@ export class AlertComponent implements OnInit {
 	 */
 	class = input('');
 
-	constructor(private cdr: ChangeDetectorRef) {}
+	/**
+	 * Emits when the alert is closed.
+	 */
+	closed = output<void>();
+
+	constructor() {
+		// React to isOpen input changes
+		effect(() => {
+			this.open.set(this.isOpen());
+		});
+	}
 
 	/**
 	 * Initialize the component and settings
@@ -89,6 +90,7 @@ export class AlertComponent implements OnInit {
 			return;
 		}
 		this.open.set(false);
+		this.closed.emit();
 	}
 
 	/**
