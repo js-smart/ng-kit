@@ -14,7 +14,8 @@ describe('Store', () => {
 	it('should update data', () => {
 		service.update(employee);
 		const storeEmployee = service.data();
-		expect(employee).toEqual(storeEmployee);
+		expect(storeEmployee).toBeDefined();
+		expect(employee).toEqual(storeEmployee!);
 	});
 
 	it('should update data', () => {
