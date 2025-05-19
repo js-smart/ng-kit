@@ -9,41 +9,44 @@
       "sourceRoot": "projects/ng-kit/src",
       "prefix": "lib",
       "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
-          "options": {
-            "project": "projects/ng-kit/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "projects/ng-kit/tsconfig.lib.prod.json"
-            },
-            "development": {
-              "tsConfig": "projects/ng-kit/tsconfig.lib.json"
-            }
-          },
-          "defaultConfiguration": "production"
-        },
-        "lint": {
-          "builder": "@angular-eslint/builder:lint",
-          "options": {
-            "lintFilePatterns": [
-              "src/**/*.ts",
-              "src/**/*.html"
-            ]
-          }
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:jest",
-          "options": {
-            "tsConfig": "projects/ng-kit/tsconfig.spec.json",
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ]
-          }
-        }
-      }
+				"build": {
+					"builder": "@angular-devkit/build-angular:ng-packagr",
+					"options": {
+						"project": "projects/ng-kit/ng-package.json"
+					},
+					"configurations": {
+						"production": {
+							"tsConfig": "projects/ng-kit/tsconfig.lib.prod.json"
+						},
+						"development": {
+							"tsConfig": "projects/ng-kit/tsconfig.lib.json"
+						}
+					},
+					"defaultConfiguration": "production"
+				},
+				"lint": {
+					"builder": "@angular-eslint/builder:lint",
+					"options": {
+						"lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
+					}
+				},
+				"test": {
+					"builder": "@angular-devkit/build-angular:karma",
+					"options": {
+						"polyfills": [],
+						"tsConfig": "tsconfig.spec.json",
+						"assets": [
+							{
+								"glob": "**/*",
+								"input": "public"
+							}
+						],
+						"styles": ["src/styles.css"],
+						"scripts": [],
+						"karmaConfig": "karma.conf.js"
+					}
+				}
+			}
     },
     "ng-kit-demo": {
       "projectType": "application",
