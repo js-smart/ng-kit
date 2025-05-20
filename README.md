@@ -305,7 +305,7 @@ its `id` attribute.
 
 1. Build the library
     ```shell
-    nx build ng-kit
+    pnpm build ng-kit
     ```
 2. If the NPM token is not configured, open `~/.npmrc` and add the following line:
     ```shell
