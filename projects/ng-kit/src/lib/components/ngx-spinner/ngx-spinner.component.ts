@@ -1,5 +1,5 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { ChangeDetectorRef, Component, HostListener, OnDestroy, OnInit, ViewChild, input } from '@angular/core';
+import { ChangeDetectorRef, Component, HostListener, input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { DEFAULTS, LOADERS, NgxSpinner, PRIMARY_SPINNER, Size } from './ngx-spinner.enum';
@@ -80,22 +80,22 @@ export class NgxSpinnerComponent implements OnDestroy, OnInit {
 	/**
 	 * Array for spinner's div
 	 */
-	divArray: Array<number> = [];
+	divArray: number[] = [];
 
 	/**
 	 * Counter for div
 	 */
-	divCount: number = 0;
+	divCount = 0;
 
 	/**
 	 * Show spinner
 	 **/
-	show: boolean = false;
+	show = false;
 
 	/**
 	 * Unsubscribe from spinner's observable
 	 **/
-	ngUnsubscribe: Subject<void> = new Subject();
+	ngUnsubscribe = new Subject<void>();
 
 	/**
 	 * Element Reference

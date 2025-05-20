@@ -32,7 +32,7 @@ export class NgxSpinner {
 	type?: string;
 	class?: string;
 	divCount?: number;
-	divArray?: Array<number>;
+	divArray?: number[];
 	fullScreen?: boolean;
 	show?: boolean;
 	zIndex?: number;

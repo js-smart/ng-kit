@@ -15,7 +15,7 @@ describe('NgxSpinnerComponent', () => {
 	const mockSpinnerSubject = new BehaviorSubject<NgxSpinner>(new NgxSpinner());
 
 	// Helper function to create a keyboard event with spies
-	const createKeyboardEvent = (type: string = 'keydown'): KeyboardEvent => {
+	const createKeyboardEvent = (type = 'keydown'): KeyboardEvent => {
 		const event = new KeyboardEvent(type);
 		spyOn(event, 'preventDefault');
 		Object.defineProperty(event, 'returnValue', {

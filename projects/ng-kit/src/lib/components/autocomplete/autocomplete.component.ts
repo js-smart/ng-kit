@@ -182,8 +182,11 @@ export class AutocompleteComponent implements OnInit, OnChanges, AfterContentChe
 
 	openOrClosePanel(evt: any, trigger: MatAutocompleteTrigger): void {
 		evt.stopPropagation();
-		if (trigger.panelOpen) trigger.closePanel();
-		else trigger.openPanel();
+		if (trigger.panelOpen) {
+			trigger.closePanel();
+		} else {
+			trigger.openPanel();
+		}
 	}
 
 	displayFn(object: any): string {
@@ -191,7 +194,9 @@ export class AutocompleteComponent implements OnInit, OnChanges, AfterContentChe
 			this.displayFn = this.displayWith.bind(this);
 			return this.displayWith(object);
 		} else {
-			if (typeof object === 'string') return object;
+			if (typeof object === 'string') {
+				return object;
+			}
 			return object && object[this.bindLabel()] ? object[this.bindLabel()] : '';
 		}
 	}

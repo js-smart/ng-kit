@@ -55,7 +55,7 @@ export class NgxSpinnerService {
 	 *
 	 * @memberof NgxSpinnerService
 	 */
-	hide(name: string = PRIMARY_SPINNER, debounce: number = 10) {
+	hide(name: string = PRIMARY_SPINNER, debounce = 10) {
 		return new Promise((resolve, _reject) => {
 			setTimeout(() => {
 				this.spinnerObservable.next(new NgxSpinner({ name, show: false }));

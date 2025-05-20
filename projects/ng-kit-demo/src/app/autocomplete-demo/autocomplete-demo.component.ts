@@ -3,10 +3,10 @@ import { FormBuilder, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { AutocompleteComponent } from '@js-smart/ng-kit';
 
 @Component({
-    selector: 'ng-kit-autocomplete-demo',
-    imports: [AutocompleteComponent, ReactiveFormsModule],
-    templateUrl: './autocomplete-demo.component.html',
-    styles: []
+	selector: 'ng-kit-autocomplete-demo',
+	imports: [AutocompleteComponent, ReactiveFormsModule],
+	templateUrl: './autocomplete-demo.component.html',
+	styles: [],
 })
 export class AutocompleteDemoComponent {
 	cities: City[] = [
@@ -27,7 +27,9 @@ export class AutocompleteDemoComponent {
 	constructor(private fb: FormBuilder) {}
 
 	displayWith(object: any): string {
-		if (typeof object === 'string') return object;
+		if (typeof object === 'string') {
+			return object;
+		}
 		return object && object['location'] ? object['location'] : '';
 	}
 }
