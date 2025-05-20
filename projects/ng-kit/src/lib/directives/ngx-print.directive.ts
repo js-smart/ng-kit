@@ -9,7 +9,6 @@ import { MatPaginator } from '@angular/material/paginator';
  * @author Pavan Kumar Jadda
  */
 @Directive({
-	// eslint-disable-next-line @angular-eslint/directive-selector
 	selector: 'button[ngxPrint], button[print]',
 	standalone: true,
 })
@@ -275,5 +274,5 @@ export class NgxPrintDirective {
 }
 
 interface PrintStyleParams {
-	values: { [p: string]: { [p: string]: string } };
+	values: Record<string, Record<string, string>>;
 }

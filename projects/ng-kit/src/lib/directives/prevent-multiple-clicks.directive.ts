@@ -8,8 +8,7 @@ import { Subject, Subscription, throttleTime } from 'rxjs';
 export class PreventMultipleClicksDirective implements OnInit, OnDestroy {
 	throttleTime = input(2000);
 	throttleClick = output<Event>();
-
-	private clicks = new Subject<Event>();
+	private readonly clicks = new Subject<Event>();
 	private subscription: Subscription | undefined;
 
 	/**
