@@ -7,7 +7,6 @@ module.exports = tseslint.config(
 	{
 		files: ['**/*.ts'],
 		rules: {
-			'@angular-eslint/prefer-on-push-component-change-detection': 'error',
 			'@typescript-eslint/no-explicit-any': 'error',
 			'@typescript-eslint/explicit-function-return-type': 'error',
 		},

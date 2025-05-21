@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import { ErrorSnackBarComponent } from '../components/snack-bar/error-snack-bar/error-snack-bar.component';
 import { SuccessSnackBarComponent } from '../components/snack-bar/success-snack-bar/success-snack-bar.component';
@@ -7,23 +7,22 @@ import { SuccessSnackBarComponent } from '../components/snack-bar/success-snack-
 	providedIn: 'root',
 })
 export class MatSnackBarService {
+	snackBar = inject(MatSnackBar);
 	/**
-	 * Duration (in milliseconds) of the Snack Bar to be open. Defaults to 5 seconds(5000 milliseconds)
+	 * Duration (in milliseconds) of the Snack Bar to be open. Defaults to 5 seconds (5000 milliseconds)
 	 */
-	duration = 500000;
+	duration = 5000;
 
 	/**
-	 * Horizontal Position of the MatSnackBar. Defaults to left side
+	 * Horizontal Position of the MatSnackBar. Defaults to right side
 	 */
 	horizontalPosition: MatSnackBarHorizontalPosition = 'right';
 
 	/**
-	 * Vertical Position of the MatSnackBar. Defaults to page bottom
+	 * Vertical Position of the MatSnackBar. Defaults to top of the page
 	 */
 	verticalPosition: MatSnackBarVerticalPosition = 'top';
-
-	constructor(private snackBar: MatSnackBar) {}
-
+  
 	/**
 	 * Opens Success Snack Bar
 	 *
@@ -33,7 +32,7 @@ export class MatSnackBarService {
 	 * @author Pavan Kumar Jadda
 	 * @since 2.2.3
 	 */
-	success(message: string, options?: MatSnackBarOptions) {
+	success(message: string, options?: MatSnackBarOptions): void {
 		this.snackBar.openFromComponent(SuccessSnackBarComponent, {
 			data: { message },
 			duration: options?.duration ?? this.duration,
@@ -52,10 +51,10 @@ export class MatSnackBarService {
 	 * @author Pavan Kumar Jadda
 	 * @since 2.2.3
 	 */
-	error(message: string, options?: MatSnackBarOptions) {
+	error(message: string, options?: MatSnackBarOptions): void {
 		this.snackBar.openFromComponent(ErrorSnackBarComponent, {
 			data: { message },
-			duration: options?.duration ?? 10000,
+			duration: options?.duration ?? this.duration,
 			panelClass: options?.panelClass ?? 'error-snackbar',
 			horizontalPosition: options?.horizontalPosition ?? this.horizontalPosition,
 			verticalPosition: options?.verticalPosition ?? this.verticalPosition,
@@ -70,7 +69,7 @@ export class MatSnackBarService {
 	 * @author Pavan Kumar Jadda
 	 * @since 2.2.3
 	 */
-	open(message: string) {
+	open(message: string): void {
 		this.snackBar.open(message, 'Close', {
 			duration: this.duration,
 			horizontalPosition: this.horizontalPosition,
