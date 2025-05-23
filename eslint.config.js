@@ -9,7 +9,6 @@ module.exports = tseslint.config(
 		extends: [eslint.configs.recommended, ...tseslint.configs.recommended, ...tseslint.configs.stylistic, ...angular.configs.tsRecommended],
 		processor: angular.processInlineTemplates,
 		rules: {
-			'prefer-inject-function': 'warn',
 			'id-blacklist': ['off'],
 			'@typescript-eslint/ban-ts-comment': ['off'],
 			'@typescript-eslint/no-explicit-any': ['off'],

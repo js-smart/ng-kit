@@ -59,11 +59,10 @@ export class NgxSpinnerComponent implements OnDestroy, OnInit {
 	/**
 	 * Custom template for spinner/loader
 	 */
-	template = input<string | undefined>(undefined);
+	template = input<string>('');
 
 	/**
 	 * Show/Hide the spinner
-	 * @type {boolean}
 	 */
 	showSpinner = input<boolean>(false);
 
@@ -107,13 +106,13 @@ export class NgxSpinnerComponent implements OnDestroy, OnInit {
 	 * Creates an instance of NgxSpinnerComponent.
 	 */
 	constructor(
-		private spinnerService: NgxSpinnerService,
-		private changeDetector: ChangeDetectorRef,
+		private readonly spinnerService: NgxSpinnerService,
+		private readonly changeDetector: ChangeDetectorRef,
 	) {}
 
 	@HostListener('document:keydown', ['$event'])
-	handleKeyboardEvent(event: KeyboardEvent) {
-		if (this.spinnerDOM && this.spinnerDOM.nativeElement) {
+	handleKeyboardEvent(event: KeyboardEvent): void {
+		if (this.spinnerDOM?.nativeElement) {
 			event.returnValue = false;
 			event.preventDefault();
 		}
@@ -122,7 +121,7 @@ export class NgxSpinnerComponent implements OnDestroy, OnInit {
 	/**
 	 * Initialization method
 	 */
-	ngOnInit() {
+	ngOnInit(): void {
 		this.setDefaultOptions();
 		this.spinnerService
 			.getSpinner(this.name())
@@ -140,7 +139,7 @@ export class NgxSpinnerComponent implements OnDestroy, OnInit {
 	/**
 	 * To set default ngx-spinner options
 	 */
-	setDefaultOptions = () => {
+	setDefaultOptions = (): void => {
 		this.spinner = new NgxSpinner({
 			name: this.name(),
 			bdColor: this.bdColor(),
@@ -165,7 +164,7 @@ export class NgxSpinnerComponent implements OnDestroy, OnInit {
 		this.spinner.divCount = LOADERS[type];
 		this.spinner.divArray = Array(this.spinner.divCount)
 			.fill(0)
-			.map((x, i) => i);
+			.map((_x, i) => i);
 		let sizeClass = '';
 		switch (size.toLowerCase()) {
 			case 'small':
@@ -186,14 +185,14 @@ export class NgxSpinnerComponent implements OnDestroy, OnInit {
 	/**
 	 * Check if input variables have changed
 	 */
-	onInputChange() {
+	onInputChange(): void {
 		this.spinner.class = this.getClass(this.spinner.type ?? DEFAULTS.SPINNER_TYPE, this.spinner.size ?? 'default');
 	}
 
 	/**
 	 * Component destroy event
 	 */
-	ngOnDestroy() {
+	ngOnDestroy(): void {
 		this.ngUnsubscribe.next();
 		this.ngUnsubscribe.complete();
 	}

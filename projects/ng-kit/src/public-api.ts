@@ -9,8 +9,8 @@ export * from './lib/components/ngx-spinner/ngx-spinner.component';
 export * from './lib/components/autocomplete/autocomplete.component';
 
 // Export directives
-export * from './lib/directives/ngx-print.directive';
-export * from './lib/directives/prevent-multiple-clicks.directive';
+export * from './lib/directives/ngx-print/ngx-print.directive';
+export * from './lib/directives/prevent-multiple-clicks/prevent-multiple-clicks.directive';
 
 // Export buttons
 export * from './lib/components/buttons/bs-link-button/bs-link-button.component';
