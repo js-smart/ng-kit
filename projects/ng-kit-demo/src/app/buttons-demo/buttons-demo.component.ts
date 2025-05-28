@@ -15,43 +15,40 @@ import {
 	ViewButtonComponent,
 	ViewPrimaryButtonComponent,
 } from '@js-smart/ng-kit';
-import { CommonModule } from '@angular/common';
 
 @Component({
-    selector: 'ng-kit-buttons-demo',
-    imports: [
-        CommonModule,
-        SavePrimaryButtonComponent,
-        PrimaryButtonComponent,
-        PdfExportButtonComponent,
-        ExcelExportButtonComponent,
-        EditBsButtonComponent,
-        ViewButtonComponent,
-        ViewPrimaryButtonComponent,
-        EditButtonComponent,
-        EditSvgIconButtonComponent,
-        EditBsButtonComponent,
-        BsLinkButtonComponent,
-        ManageButtonComponent,
-        SearchButtonComponent,
-        SuccessButtonComponent,
-        DeleteButtonComponent,
-    ],
-    templateUrl: './buttons-demo.component.html',
-    styles: []
+	selector: 'ng-kit-buttons-demo',
+	imports: [
+		SavePrimaryButtonComponent,
+		PrimaryButtonComponent,
+		PdfExportButtonComponent,
+		ExcelExportButtonComponent,
+		EditBsButtonComponent,
+		ViewButtonComponent,
+		ViewPrimaryButtonComponent,
+		EditButtonComponent,
+		EditSvgIconButtonComponent,
+		EditBsButtonComponent,
+		BsLinkButtonComponent,
+		ManageButtonComponent,
+		SearchButtonComponent,
+		SuccessButtonComponent,
+		DeleteButtonComponent,
+	],
+	templateUrl: './buttons-demo.component.html',
+	styles: [],
 })
 export class ButtonsDemoComponent {
 	loading = false;
 
-	setLoading() {
+	setLoading(): void {
 		this.loading = true;
 		setTimeout(() => {
 			this.loading = false;
 		}, 3000);
 	}
 
-	setDeleteLoading($event: MouseEvent) {
-		console.log('Delete Button clicked');
+	setDeleteLoading(_$event: MouseEvent): void {
 		this.loading = true;
 		setTimeout(() => {
 			this.loading = false;

@@ -1,16 +1,17 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+
 import { AlertComponent, initializeState, markError, markLoading, markSuccess, SavePrimaryButtonComponent } from '@js-smart/ng-kit';
 
 @Component({
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	selector: 'app-progress-state-demo',
-	imports: [CommonModule, SavePrimaryButtonComponent, AlertComponent],
+	imports: [SavePrimaryButtonComponent, AlertComponent],
 	templateUrl: './progress-state-demo.component.html',
 })
 export class ProgressStateDemoComponent {
 	updateState = initializeState();
 
-	setLoading() {
+	setLoading(): void {
 		markLoading(this.updateState);
 
 		setTimeout(() => {

@@ -1,12 +1,12 @@
 import { Component, input } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { BaseButtonComponent } from '../base-button/base-button.component';
 
 @Component({
 	selector: 'search-button',
-	imports: [CommonModule, MatButtonModule, MatIconModule],
+	imports: [MatButtonModule, MatIconModule],
 	template: `
 		<button
 			class="btn btn-primary primary-button {{ loading() || disabled() ? 'disabled' : '' }}"

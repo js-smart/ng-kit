@@ -3,10 +3,10 @@ import { ThemePalette } from '@angular/material/core';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
-    selector: 'spinner,lib-spinner',
-    imports: [MatProgressSpinnerModule],
-    templateUrl: './spinner.component.html',
-    styleUrls: ['./spinner.component.scss']
+	selector: 'spinner,lib-spinner',
+	imports: [MatProgressSpinnerModule],
+	templateUrl: './spinner.component.html',
+	styleUrls: ['./spinner.component.scss'],
 })
 export class SpinnerComponent {
 	/**

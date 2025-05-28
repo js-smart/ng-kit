@@ -1,5 +1,5 @@
 import { Component, input } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { EditSolidSvgComponent } from '../../../svg-icons/edit-solid-svg/edit-solid-svg.component';
@@ -7,7 +7,7 @@ import { BaseButtonComponent } from '../base-button/base-button.component';
 
 @Component({
 	selector: 'edit-bs-button',
-	imports: [CommonModule, MatButtonModule, MatIconModule, EditSolidSvgComponent],
+	imports: [MatButtonModule, MatIconModule, EditSolidSvgComponent],
 	template: `
 		<button
 			color="primary"

@@ -84,7 +84,7 @@ export class NgxPrintDirective {
 	 * @author Pavan Kumar Jadda
 	 */
 	@Input() hideMatTablePaginator = false;
-	
+
 	public printStyleArray = [];
 	printOptions = new PrintOptions();
 

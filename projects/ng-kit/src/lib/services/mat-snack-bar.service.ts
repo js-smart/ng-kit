@@ -22,7 +22,7 @@ export class MatSnackBarService {
 	 * Vertical Position of the MatSnackBar. Defaults to top of the page
 	 */
 	verticalPosition: MatSnackBarVerticalPosition = 'top';
-  
+
 	/**
 	 * Opens Success Snack Bar
 	 *
