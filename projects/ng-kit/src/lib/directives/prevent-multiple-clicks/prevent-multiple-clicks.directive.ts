@@ -1,4 +1,4 @@
-import { Directive, EventEmitter, HostListener, OnDestroy, OnInit, Output, input } from '@angular/core';
+import { Directive, HostListener, input, OnDestroy, OnInit, output } from '@angular/core';
 import { Subject, Subscription, throttleTime } from 'rxjs';
 
 @Directive({
@@ -7,9 +7,8 @@ import { Subject, Subscription, throttleTime } from 'rxjs';
 })
 export class PreventMultipleClicksDirective implements OnInit, OnDestroy {
 	throttleTime = input(2000);
-	@Output() throttleClick = new EventEmitter();
-
-	private clicks = new Subject();
+	throttleClick = output<Event>();
+	private readonly clicks = new Subject<Event>();
 	private subscription: Subscription | undefined;
 
 	/**
@@ -21,7 +20,7 @@ export class PreventMultipleClicksDirective implements OnInit, OnDestroy {
 	 * @since 2.3.27
 	 */
 	@HostListener('click', ['$event'])
-	clickEvent(event: any) {
+	clickEvent(event: Event) {
 		event.preventDefault();
 		event.stopPropagation();
 		this.clicks.next(event);

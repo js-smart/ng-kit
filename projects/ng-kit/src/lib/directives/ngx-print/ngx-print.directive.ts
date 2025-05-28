@@ -1,6 +1,7 @@
 import { Directive, HostListener, Input } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
+import { PrintOptions } from './print-options';
 
 /**
  * Reusable Angular directory that prints given contents of HTML element
@@ -9,7 +10,6 @@ import { MatPaginator } from '@angular/material/paginator';
  * @author Pavan Kumar Jadda
  */
 @Directive({
-	// eslint-disable-next-line @angular-eslint/directive-selector
 	selector: 'button[ngxPrint], button[print]',
 	standalone: true,
 })
@@ -21,7 +21,6 @@ export class NgxPrintDirective {
 	 * @author Pavan Kumar Jadda
 	 */
 	@Input() printSectionId: string | undefined;
-
 	/**
 	 * Title of the HTML element those contents need to be printed
 	 *
@@ -29,7 +28,6 @@ export class NgxPrintDirective {
 	 * @author Pavan Kumar Jadda
 	 */
 	@Input() printTitle: string | undefined;
-
 	/**
 	 * If `true`, uses CSS of HTMl element, otherwise no CSS applied
 	 *
@@ -37,7 +35,6 @@ export class NgxPrintDirective {
 	 * @author Pavan Kumar Jadda
 	 */
 	@Input() useExistingCss = false;
-
 	/**
 	 * A delay in milliseconds to force the print dialog to wait before opened. Default: 0
 	 *
@@ -45,7 +42,6 @@ export class NgxPrintDirective {
 	 * @author Pavan Kumar Jadda
 	 */
 	@Input() printDelay = 0;
-
 	/**
 	 * Instance of the Mat Table Data Source
 	 *
@@ -53,7 +49,6 @@ export class NgxPrintDirective {
 	 * @author Pavan Kumar Jadda
 	 */
 	@Input() matTableDataSource!: MatTableDataSource<any>;
-
 	/**
 	 * Instance of the Mat Paginator
 	 *
@@ -61,7 +56,6 @@ export class NgxPrintDirective {
 	 * @author Pavan Kumar Jadda
 	 */
 	@Input() paginator!: MatPaginator;
-
 	/**
 	 * ID of the Mat Paginator
 	 *
@@ -69,7 +63,6 @@ export class NgxPrintDirective {
 	 * @author Pavan Kumar Jadda
 	 */
 	@Input() paginatorId = '';
-
 	/**
 	 * HTML tag ID of the Mat-Table Input Filter
 	 *
@@ -77,7 +70,6 @@ export class NgxPrintDirective {
 	 * @author Pavan Kumar Jadda
 	 */
 	@Input() inputFilterId = '';
-
 	/**
 	 * If `true`, referenced table is Mat-Table
 	 *
@@ -85,7 +77,6 @@ export class NgxPrintDirective {
 	 * @author Pavan Kumar Jadda
 	 */
 	@Input() isMatTable = false;
-
 	/**
 	 * If `true` Mat-Table paginator will be hidden
 	 *
@@ -95,6 +86,8 @@ export class NgxPrintDirective {
 	@Input() hideMatTablePaginator = false;
 
 	public printStyleArray = [];
+	printOptions = new PrintOptions();
+
 	/**
 	 * List of Style sheet files
 	 *
@@ -102,6 +95,15 @@ export class NgxPrintDirective {
 	 * @author Pavan Kumar Jadda
 	 */
 	private styleSheetFileArray = '';
+
+	/**
+	 * Prevents the print dialog from opening on the window
+	 *
+	 * @memberof NgxPrintDirective
+	 */
+	@Input() set previewOnly(value: boolean) {
+		this.printOptions = { ...this.printOptions, previewOnly: value };
+	}
 
 	/**
 	 * List of CSS properties that needs to be applied while printing the document
@@ -275,5 +277,5 @@ export class NgxPrintDirective {
 }
 
 interface PrintStyleParams {
-	values: { [p: string]: { [p: string]: string } };
+	values: Record<string, Record<string, string>>;
 }

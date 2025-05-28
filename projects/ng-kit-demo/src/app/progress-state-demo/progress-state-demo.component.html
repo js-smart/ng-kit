@@ -7,11 +7,11 @@
 		label="Save Data"></save-primary-button>
 </div>
 <p style="margin: 1rem">
-	<alert *ngIf="updateState().isSuccess && !updateState().isLoading" [dismissible]="true" type="success">
-		<strong>Success!</strong> Your data has been saved.
-	</alert>
+	@if (updateState().isSuccess && !updateState().isLoading) {
+		<alert [dismissible]="true" type="success"><strong>Success!</strong> Your data has been saved.</alert>
+	}
 
-	<alert *ngIf="updateState().isError && !updateState().isLoading" [dismissible]="true" type="danger">
-		<strong>Failure!</strong> Your data has not been saved.
-	</alert>
+	@if (updateState().isError && !updateState().isLoading) {
+		<alert [dismissible]="true" type="danger"><strong>Failure!</strong> Your data has not been saved.</alert>
+	}
 </p>

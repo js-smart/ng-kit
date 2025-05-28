@@ -1,7 +1,7 @@
 @if (spinner.show) {
 	<div
 		#overlay
-		[@.disabled]="disableAnimation"
+		[@.disabled]="disableAnimation()"
 		[@fadeIn]="'in'"
 		[style.background-color]="spinner.bdColor"
 		[style.position]="spinner.fullScreen ? 'fixed' : 'absolute'"
@@ -14,8 +14,8 @@
 				}
 			</div>
 		}
-		@if (template) {
-			<div [innerHTML]="template | safeHtml"></div>
+		@if (template()) {
+			<div [innerHTML]="template() | safeHtml"></div>
 		}
 		<div [style.z-index]="spinner.zIndex" class="loading-text">
 			<ng-content></ng-content>

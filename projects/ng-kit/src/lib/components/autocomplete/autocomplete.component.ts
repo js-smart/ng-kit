@@ -5,6 +5,7 @@ import {
 	Component,
 	ElementRef,
 	forwardRef,
+	inject,
 	Input,
 	input,
 	OnChanges,
@@ -23,7 +24,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
-import { TypeOfPipe } from '../../pipes/type-of.pipe';
 
 /**
  * Reusable Auto Complete component that extends MatAutoComplete to show Clear icon and Arrow buttons
@@ -33,16 +33,7 @@ import { TypeOfPipe } from '../../pipes/type-of.pipe';
  */
 @Component({
 	selector: 'autocomplete, lib-autocomplete',
-	imports: [
-		ReactiveFormsModule,
-		TypeOfPipe,
-		MatFormFieldModule,
-		MatAutocompleteModule,
-		MatInputModule,
-		MatButtonModule,
-		MatIconModule,
-		AsyncPipe,
-	],
+	imports: [ReactiveFormsModule, MatFormFieldModule, MatAutocompleteModule, MatInputModule, MatButtonModule, MatIconModule, AsyncPipe],
 	templateUrl: './autocomplete.component.html',
 	providers: [
 		{
@@ -57,6 +48,8 @@ export class AutocompleteComponent implements OnInit, OnChanges, AfterContentChe
 	 * Gets reference inputAutoComplete HTML attribute
 	 */
 	@ViewChild('inputAutoComplete') inputAutoComplete!: ElementRef;
+
+	cdRef = inject(ChangeDetectorRef);
 
 	/**
 	 * Internal form control for the autocomplete
@@ -127,12 +120,8 @@ export class AutocompleteComponent implements OnInit, OnChanges, AfterContentChe
 	 * Filtered options when user types
 	 */
 	filteredOptions: Observable<any[] | undefined> | undefined;
-	private value: any;
-
-	constructor(private cdRef: ChangeDetectorRef) {}
 
 	writeValue(value: any): void {
-		this.value = value;
 		this.control.setValue(value, { emitEvent: false });
 	}
 
@@ -147,7 +136,11 @@ export class AutocompleteComponent implements OnInit, OnChanges, AfterContentChe
 	}
 
 	setDisabledState(isDisabled: boolean): void {
-		isDisabled ? this.control.disable() : this.control.enable();
+		if (isDisabled) {
+			this.control.disable();
+		} else {
+			this.control.enable();
+		}
 	}
 
 	ngAfterContentChecked(): void {
@@ -162,7 +155,7 @@ export class AutocompleteComponent implements OnInit, OnChanges, AfterContentChe
 				(propertyName) =>
 					this.data()?.filter((option) => {
 						return typeof option === 'string'
-							? option?.toLowerCase().indexOf(propertyName.toLowerCase()) === 0
+							? option?.toLowerCase().startsWith(propertyName.toLowerCase())
 							: option[this.bindLabel()]?.toLowerCase().indexOf(propertyName.toLowerCase()) === 0;
 					}) ?? this.data()?.slice(),
 			),
@@ -182,8 +175,11 @@ export class AutocompleteComponent implements OnInit, OnChanges, AfterContentChe
 
 	openOrClosePanel(evt: any, trigger: MatAutocompleteTrigger): void {
 		evt.stopPropagation();
-		if (trigger.panelOpen) trigger.closePanel();
-		else trigger.openPanel();
+		if (trigger.panelOpen) {
+			trigger.closePanel();
+		} else {
+			trigger.openPanel();
+		}
 	}
 
 	displayFn(object: any): string {
@@ -191,8 +187,10 @@ export class AutocompleteComponent implements OnInit, OnChanges, AfterContentChe
 			this.displayFn = this.displayWith.bind(this);
 			return this.displayWith(object);
 		} else {
-			if (typeof object === 'string') return object;
-			return object && object[this.bindLabel()] ? object[this.bindLabel()] : '';
+			if (typeof object === 'string') {
+				return object;
+			}
+			return object?.[this.bindLabel()] ? object[this.bindLabel()] : '';
 		}
 	}
 

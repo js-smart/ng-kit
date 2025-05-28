@@ -1,96 +1,101 @@
-import { ChangeDetectorRef, Component, HostListener, Input, OnChanges, OnDestroy, OnInit, SimpleChange, ViewChild } from '@angular/core';
-import { NgxSpinnerService } from './ngx-spinner.service';
+import { animate, state, style, transition, trigger } from '@angular/animations';
+import { ChangeDetectorRef, Component, HostListener, input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { DEFAULTS, LOADERS, NgxSpinner, PRIMARY_SPINNER, Size } from './ngx-spinner.enum';
-import { animate, state, style, transition, trigger } from '@angular/animations';
+import { NgxSpinnerService } from './ngx-spinner.service';
 import { SafeHtmlPipe } from './safe-html.pipe';
 
 @Component({
-    selector: 'ngx-spinner',
-    imports: [SafeHtmlPipe],
-    templateUrl: 'ngx-spinner.component.html',
-    styleUrls: ['ngx-spinner.component.css'],
-    animations: [
-        trigger('fadeIn', [
-            state('in', style({ opacity: 1 })),
-            transition(':enter', [style({ opacity: 0 }), animate(300)]),
-            transition(':leave', animate(200, style({ opacity: 0 }))),
-        ]),
-    ]
+	selector: 'ngx-spinner',
+	imports: [SafeHtmlPipe],
+	templateUrl: 'ngx-spinner.component.html',
+	styleUrls: ['ngx-spinner.component.css'],
+	animations: [
+		trigger('fadeIn', [
+			state('in', style({ opacity: 1 })),
+			transition(':enter', [style({ opacity: 0 }), animate(300)]),
+			transition(':leave', animate(200, style({ opacity: 0 }))),
+		]),
+	],
 })
-export class NgxSpinnerComponent implements OnDestroy, OnInit, OnChanges {
+export class NgxSpinnerComponent implements OnDestroy, OnInit {
 	/**
 	 * To set backdrop color
 	 * Only supports RGBA color format
 	 */
-	@Input() bdColor: string;
+	bdColor = input<string>(DEFAULTS.BD_COLOR);
 
 	/**
 	 * To set spinner size
 	 */
-	@Input() size: Size;
+	size = input<Size>('large');
 
 	/**
 	 * To set spinner color(DEFAULTS.SPINNER_COLOR)
 	 */
-	@Input() color: string;
+	color = input<string>(DEFAULTS.SPINNER_COLOR);
 
 	/**
 	 * To set type of spinner
 	 */
-	@Input() type: string;
+	type = input<string>(DEFAULTS.SPINNER_TYPE);
 
 	/**
 	 * To toggle fullscreen mode
 	 */
-	@Input() fullScreen: boolean;
+	fullScreen = input<boolean>(true);
+
 	/**
 	 * Spinner name
 	 */
-	@Input() name: string;
+	name = input<string>(PRIMARY_SPINNER);
+
 	/**
 	 * z-index value
 	 */
+	zIndex = input<number>(DEFAULTS.Z_INDEX);
 
-	@Input() zIndex: number;
 	/**
 	 * Custom template for spinner/loader
 	 */
+	template = input<string>('');
 
-	@Input() template: string;
 	/**
 	 * Show/Hide the spinner
-	 * @type {boolean}
 	 */
-	@Input() showSpinner: boolean;
+	showSpinner = input<boolean>(false);
 
 	/**
 	 * To enable/disable animation
 	 */
-	@Input() disableAnimation = false;
+	disableAnimation = input<boolean>(false);
+
 	/**
 	 * Spinner Object
 	 */
-
 	spinner: NgxSpinner = new NgxSpinner();
+
 	/**
 	 * Array for spinner's div
 	 */
-	divArray: Array<number>;
+	divArray: number[] = [];
+
 	/**
 	 * Counter for div
 	 */
-	divCount: number;
+	divCount = 0;
+
 	/**
 	 * Show spinner
 	 **/
-	show: boolean;
+	show = false;
 
 	/**
 	 * Unsubscribe from spinner's observable
 	 **/
-	ngUnsubscribe: Subject<void> = new Subject();
+	ngUnsubscribe = new Subject<void>();
+
 	/**
 	 * Element Reference
 	 */
@@ -101,40 +106,25 @@ export class NgxSpinnerComponent implements OnDestroy, OnInit, OnChanges {
 	 * Creates an instance of NgxSpinnerComponent.
 	 */
 	constructor(
-		private spinnerService: NgxSpinnerService,
-		private changeDetector: ChangeDetectorRef,
-	) {
-		this.bdColor = DEFAULTS.BD_COLOR;
-		this.zIndex = DEFAULTS.Z_INDEX;
-		this.color = DEFAULTS.SPINNER_COLOR;
-		this.type = DEFAULTS.SPINNER_TYPE;
-		this.size = 'large';
-		this.fullScreen = true;
-		this.name = PRIMARY_SPINNER;
-		// @ts-ignore
-		this.template = null;
-		this.showSpinner = false;
-		this.divArray = [];
-		this.divCount = 0;
-		this.show = false;
-	}
+		private readonly spinnerService: NgxSpinnerService,
+		private readonly changeDetector: ChangeDetectorRef,
+	) {}
 
 	@HostListener('document:keydown', ['$event'])
-	handleKeyboardEvent(event: KeyboardEvent) {
-		if (this.spinnerDOM && this.spinnerDOM.nativeElement) {
+	handleKeyboardEvent(event: KeyboardEvent): void {
+		if (this.spinnerDOM?.nativeElement) {
 			event.returnValue = false;
 			event.preventDefault();
 		}
 	}
 
 	/**
-   * Initialization method
-
-   */
-	ngOnInit() {
+	 * Initialization method
+	 */
+	ngOnInit(): void {
 		this.setDefaultOptions();
 		this.spinnerService
-			.getSpinner(this.name)
+			.getSpinner(this.name())
 			.pipe(takeUntil(this.ngUnsubscribe))
 			.subscribe((spinner: NgxSpinner) => {
 				this.setDefaultOptions();
@@ -149,48 +139,22 @@ export class NgxSpinnerComponent implements OnDestroy, OnInit, OnChanges {
 	/**
 	 * To set default ngx-spinner options
 	 */
-	setDefaultOptions = () => {
+	setDefaultOptions = (): void => {
 		this.spinner = new NgxSpinner({
-			name: this.name,
-			bdColor: this.bdColor,
-			size: this.size,
-			color: this.color,
-			type: this.type,
-			fullScreen: this.fullScreen,
+			name: this.name(),
+			bdColor: this.bdColor(),
+			size: this.size(),
+			color: this.color(),
+			type: this.type(),
+			fullScreen: this.fullScreen(),
 			divArray: this.divArray,
 			divCount: this.divCount,
 			show: this.show,
-			zIndex: this.zIndex,
-			template: this.template,
-			showSpinner: this.showSpinner,
+			zIndex: this.zIndex(),
+			template: this.template(),
+			showSpinner: this.showSpinner(),
 		});
 	};
-
-	/**
-	 * On changes event for input variables
-	 */
-	ngOnChanges(changes: { [propKey: string]: SimpleChange }) {
-		for (const propName in changes) {
-			if (propName) {
-				const changedProp = changes[propName];
-				if (changedProp.isFirstChange()) {
-					return;
-				} else if (typeof changedProp.currentValue !== 'undefined' && changedProp.currentValue !== changedProp.previousValue) {
-					if (changedProp.currentValue !== '') {
-						// @ts-ignore
-						this.spinner[propName] = changedProp.currentValue;
-						if (propName === 'showSpinner') {
-							if (changedProp.currentValue) {
-								this.spinnerService.show(this.spinner.name, this.spinner);
-							} else {
-								this.spinnerService.hide(this.spinner.name);
-							}
-						}
-					}
-				}
-			}
-		}
-	}
 
 	/**
 	 * To get class for spinner
@@ -200,7 +164,7 @@ export class NgxSpinnerComponent implements OnDestroy, OnInit, OnChanges {
 		this.spinner.divCount = LOADERS[type];
 		this.spinner.divArray = Array(this.spinner.divCount)
 			.fill(0)
-			.map((x, i) => i);
+			.map((_x, i) => i);
 		let sizeClass = '';
 		switch (size.toLowerCase()) {
 			case 'small':
@@ -221,14 +185,14 @@ export class NgxSpinnerComponent implements OnDestroy, OnInit, OnChanges {
 	/**
 	 * Check if input variables have changed
 	 */
-	onInputChange() {
+	onInputChange(): void {
 		this.spinner.class = this.getClass(this.spinner.type ?? DEFAULTS.SPINNER_TYPE, this.spinner.size ?? 'default');
 	}
 
 	/**
 	 * Component destroy event
 	 */
-	ngOnDestroy() {
+	ngOnDestroy(): void {
 		this.ngUnsubscribe.next();
 		this.ngUnsubscribe.complete();
 	}

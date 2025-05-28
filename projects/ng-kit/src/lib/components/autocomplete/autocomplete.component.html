@@ -4,15 +4,15 @@
 		<input
 			#inputAutoComplete
 			#trigger="matAutocompleteTrigger"
+			[formControl]="control"
 			[matAutocomplete]="auto"
 			[placeholder]="placeHolder()"
 			[required]="required()"
-			[formControl]="control"
 			matInput
 			type="text" />
 
 		<div matSuffix style="display: flex">
-      @if (control.value) {
+			@if (control.value) {
 				<button (click)="clearInput($event)" aria-label="Clear" mat-icon-button type="button">
 					<mat-icon>clear</mat-icon>
 				</button>
@@ -30,9 +30,9 @@
 			[displayWith]="displayFn">
 			@for (option of filteredOptions | async; track option[bindValue()]) {
 				<mat-option (onSelectionChange)="emitSelectedValue($event)" [value]="option">
-					@if ((option | typeOf) === 'string') {
+					@if (typeof option === 'string') {
 						<ng-container>{{ option }}</ng-container>
-					} @else if ((option | typeOf) === 'object') {
+					} @else if (typeof option === 'object') {
 						<ng-container>{{ option[bindLabel()] }}</ng-container>
 					}
 				</mat-option>

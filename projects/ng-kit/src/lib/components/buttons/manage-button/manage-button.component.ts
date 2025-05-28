@@ -5,9 +5,9 @@ import { MatIcon } from '@angular/material/icon';
 import { BaseButtonComponent } from '../base-button/base-button.component';
 
 @Component({
-    selector: 'manage-button',
-    imports: [MatButton, MatIcon],
-    template: `
+	selector: 'manage-button',
+	imports: [MatButton, MatIcon],
+	template: `
 		<button
 			mat-raised-button
 			class="{{ classes() }}"
@@ -22,7 +22,7 @@ import { BaseButtonComponent } from '../base-button/base-button.component';
 			{{ label() }}
 		</button>
 	`,
-    styleUrls: ['../../../../assets/app-buttons.css']
+	styleUrls: ['../../../../assets/app-buttons.css'],
 })
 export class ManageButtonComponent extends BaseButtonComponent {
 	override label = input('Manage');

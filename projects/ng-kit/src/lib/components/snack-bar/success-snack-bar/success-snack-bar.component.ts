@@ -1,13 +1,12 @@
 import { Component, Inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { MAT_SNACK_BAR_DATA, MatSnackBarRef } from '@angular/material/snack-bar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
-    selector: 'app-success-snack-bar',
-    imports: [CommonModule, MatButtonModule, MatIconModule],
-    template: `
+	selector: 'app-success-snack-bar',
+	imports: [MatButtonModule, MatIconModule],
+	template: `
 		<div class="custom-flex-center success-snackbar">
 			<mat-icon>check_circle</mat-icon>
 			<label>{{ data.message }}</label>
@@ -16,7 +15,7 @@ import { MatIconModule } from '@angular/material/icon';
 			</button>
 		</div>
 	`,
-    styleUrls: ['../../../../assets/app-mat-snack-bar.css']
+	styleUrls: ['../../../../assets/app-mat-snack-bar.css'],
 })
 export class SuccessSnackBarComponent {
 	constructor(
@@ -30,7 +29,7 @@ export class SuccessSnackBarComponent {
 	 * @author Pavan Kumar Jadda
 	 * @since 2.7.18
 	 */
-	close() {
+	close(): void {
 		this.msb.dismissWithAction();
 	}
 }
