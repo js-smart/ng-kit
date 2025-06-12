@@ -30,37 +30,37 @@ a:hover {
 }
 
 // Places item in the middle of the box
-.custom-flex-center {
+.app-flex-center {
 	display: flex;
 	align-items: center;
 }
 
 // Places item in the center of the box
-.custom-flex-justify-center {
+.app-flex-justify-center {
 	display: flex;
 	justify-content: center;
 }
 
 // Places item in the left of the box
-.custom-flex-justify-left {
+.app-flex-justify-left {
 	display: flex;
 	justify-content: flex-start;
 }
 
 // Places item in the right of the box
-.custom-flex-justify-right {
+.app-flex-justify-right {
 	display: flex;
 	justify-content: flex-end;
 }
 
 // Places items at the start of the item
-.custom-flex-align-items-start {
+.app-flex-align-items-start {
 	display: flex;
 	align-items: flex-start;
 }
 
 // Places items at the start of the item
-.custom-flex-align-items-center {
+.app-flex-align-items-center {
 	display: flex;
 	align-items: center;
 }
