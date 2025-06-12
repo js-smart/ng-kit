@@ -81,6 +81,16 @@ export class MatSnackBarService {
 /**
  * MatSnackBarOptions for Snack Bar
  *
+ * Available panelClass options:
+ * - 'success-snackbar': Green background (default for success)
+ * - 'error-snackbar': Red background (default for error)
+ * - 'light-success-snackbar': Light green background
+ * - 'light-error-snackbar': Light red background
+ * - 'primary-snackbar': Primary theme color
+ * - 'info-snackbar': Blue background
+ * - 'warning-snackbar': Yellow background
+ * - Custom CSS class names for additional styling
+ *
  * @author Pavan Kumar Jadda
  * @since 2.7.19
  */
@@ -88,5 +98,5 @@ export interface MatSnackBarOptions {
 	duration?: number;
 	horizontalPosition?: MatSnackBarHorizontalPosition;
 	verticalPosition?: MatSnackBarVerticalPosition;
-	panelClass?: string;
+	panelClass?: string | string[];
 }
