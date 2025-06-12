@@ -1,14 +1,14 @@
 import { Component, Inject } from '@angular/core';
-import { MAT_SNACK_BAR_DATA, MatSnackBarRef } from '@angular/material/snack-bar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MAT_SNACK_BAR_DATA, MatSnackBarRef } from '@angular/material/snack-bar';
 
 @Component({
 	selector: 'app-success-snack-bar',
 	imports: [MatButtonModule, MatIconModule],
 	template: `
 		<div class="custom-flex-center success-snackbar">
-			<mat-icon>check_circle</mat-icon>
+			<mat-icon style="font-size:1.3rem">check_circle</mat-icon>
 			<label>{{ data.message }}</label>
 			<button style="margin-left: auto" (click)="close()" mat-icon-button>
 				<mat-icon>close</mat-icon>
