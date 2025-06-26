@@ -26,7 +26,7 @@ export class EntityStore<T extends IdType> {
 	 * @author Pavan Kumar Jadda
 	 * @since 17.1.0
 	 */
-	findById(id: number) {
+	findById(id: number): T | undefined {
 		return this._data().find((item) => item.id === id);
 	}
 
@@ -38,7 +38,7 @@ export class EntityStore<T extends IdType> {
 	 * @author Pavan Kumar Jadda
 	 * @since 17.1.0
 	 */
-	setData(data: T[]) {
+	setData(data: T[]): void {
 		this._data.set(data);
 	}
 
@@ -50,7 +50,7 @@ export class EntityStore<T extends IdType> {
 	 * @author Pavan Kumar Jadda
 	 * @since 17.1.0
 	 */
-	upsert(data: T) {
+	upsert(data: T): void {
 		this._data.update((currentData) => {
 			const dataMap = new Map(currentData.map((item) => [item.id, item]));
 			dataMap.set(data.id, data);
@@ -66,7 +66,7 @@ export class EntityStore<T extends IdType> {
 	 * @author Pavan Kumar Jadda
 	 * @since 17.1.0
 	 */
-	upsertMulti(newData: T[]) {
+	upsertMulti(newData: T[]): void {
 		this._data.update((currentData) => {
 			const dataMap = new Map(currentData.map((item) => [item.id, item]));
 			newData.forEach((newItem: T) => dataMap.set(newItem.id, newItem));
@@ -82,7 +82,7 @@ export class EntityStore<T extends IdType> {
 	 * @author Pavan Kumar Jadda
 	 * @since 17.1.0
 	 */
-	remove(id: number) {
+	remove(id: number): void {
 		this._data.update((currentData) => currentData.filter((item) => item.id !== id));
 	}
 }

@@ -23,7 +23,7 @@ export class Store<T extends object> {
 	 * @author Pavan Kumar Jadda
 	 * @since 17.1.0
 	 */
-	update(newData: T) {
+	update(newData: T): void {
 		this._data.set(newData);
 	}
 }
