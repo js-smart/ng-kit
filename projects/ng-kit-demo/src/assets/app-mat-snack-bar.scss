@@ -1,25 +1,29 @@
+/* Success Snack Bar Styles */
 .success-snackbar {
-	color: white;
-	--mdc-snackbar-container-color: var(--success-color);
-	--mat-mdc-snack-bar-button-color: var(--white-color);
+	--mdc-snackbar-container-color: var(--success-color) !important;
+	--mat-mdc-snack-bar-button-color: var(--white-color) !important;
 }
 
+.success-snackbar .mdc-snackbar__surface {
+	background-color: var(--success-color) !important;
+	color: white !important;
+}
+
+.success-snackbar .mat-mdc-snack-bar-action {
+	color: var(--white-color) !important;
+}
+
+/* Error Snack Bar Styles */
 .error-snackbar {
-	color: white;
-	--mdc-snackbar-container-color: var(--delete-color);
-	--mat-mdc-snack-bar-button-color: var(--white-color);
+	--mdc-snackbar-container-color: var(--delete-color) !important;
+	--mat-mdc-snack-bar-button-color: var(--white-color) !important;
 }
 
-.light-success-snackbar {
-	color: #155724;
-	background-color: #d4edda;
-	--mdc-snackbar-container-color: #d4edda;
-	--mat-mdc-snack-bar-button-color: darkgreen;
+.error-snackbar .mdc-snackbar__surface {
+	background-color: var(--delete-color) !important;
+	color: white !important;
 }
 
-.light-error-snackbar {
-	color: #721c24;
-	--mdc-snackbar-container-color: var(--success-color);
-	--mat-mdc-snack-bar-button-color: darkred;
-	border-color: #f5c6cb;
+.error-snackbar .mat-mdc-snack-bar-action {
+	color: var(--white-color) !important;
 }
