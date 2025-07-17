@@ -1,12 +1,13 @@
-import { Directive, ElementRef, inject } from '@angular/core';
+import { Directive, ElementRef, inject, Renderer2 } from '@angular/core';
 
 @Directive({
 	selector: '[closeButton]',
 })
 export class CloseButtonDirective {
 	elementRef = inject(ElementRef);
+	renderer = inject(Renderer2);
 
 	constructor() {
-		this.elementRef.nativeElement.classList.add('secondary-button');
+		this.renderer.addClass(this.elementRef.nativeElement, 'secondary-button');
 	}
 }
