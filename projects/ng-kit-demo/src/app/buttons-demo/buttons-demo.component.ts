@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
 import {
 	BsLinkButtonComponent,
+	CloseButtonDirective,
 	DeleteButtonComponent,
 	EditBsButtonComponent,
 	EditButtonComponent,
@@ -34,8 +36,11 @@ import {
 		SearchButtonComponent,
 		SuccessButtonComponent,
 		DeleteButtonComponent,
+		CloseButtonDirective,
+		MatButtonModule,
 	],
 	templateUrl: './buttons-demo.component.html',
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	styles: [],
 })
 export class ButtonsDemoComponent {
