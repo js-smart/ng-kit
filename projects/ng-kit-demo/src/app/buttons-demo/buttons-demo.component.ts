@@ -1,9 +1,11 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import {
 	BsLinkButtonComponent,
+	BsLinkButtonDirective,
 	CloseButtonDirective,
 	DeleteButtonComponent,
+	DeleteButtonDirective,
 	EditBsButtonComponent,
 	EditButtonComponent,
 	EditSvgIconButtonComponent,
@@ -38,25 +40,27 @@ import {
 		DeleteButtonComponent,
 		CloseButtonDirective,
 		MatButtonModule,
+		BsLinkButtonDirective,
+		DeleteButtonDirective,
 	],
 	templateUrl: './buttons-demo.component.html',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	styles: [],
 })
 export class ButtonsDemoComponent {
-	loading = false;
+	loading = signal(false);
 
 	setLoading(): void {
-		this.loading = true;
+		this.loading.set(true);
 		setTimeout(() => {
-			this.loading = false;
+			this.loading.set(false);
 		}, 3000);
 	}
 
 	setDeleteLoading(_$event: MouseEvent): void {
-		this.loading = true;
+		this.loading.set(true);
 		setTimeout(() => {
-			this.loading = false;
+			this.loading.set(false);
 		}, 3000);
 	}
 }

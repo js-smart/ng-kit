@@ -14,8 +14,10 @@ export * from './lib/directives/prevent-multiple-clicks/prevent-multiple-clicks.
 
 // Export buttons
 export * from './lib/components/buttons/bs-link-button/bs-link-button.component';
+export * from './lib/components/buttons/bs-link-button/bs-link-button.directive';
 export * from './lib/components/buttons/close-button/close-button.directive';
 export * from './lib/components/buttons/delete-button/delete-button.component';
+export * from './lib/components/buttons/delete-button/delete-button.directive';
 export * from './lib/components/buttons/edit-bs-button/edit-bs-button.component';
 export * from './lib/components/buttons/edit-button/edit-button.component';
 export * from './lib/components/buttons/edit-svg-icon-button/edit-svg-icon-button.component';

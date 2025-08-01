@@ -1,31 +1,32 @@
 <div class="m-5">
-	<primary-button (click)="setLoading()" (keydown)="setLoading()" [loading]="loading" class="m-3" label="Primary Button"></primary-button>
-	<save-primary-button
-		(click)="setLoading()"
-		(keydown)="setLoading()"
-		[loading]="loading"
-		class="m-3"
-		label="Save Primary Button"></save-primary-button>
-	<view-primary-button class="m-3"></view-primary-button>
-	<view-button></view-button>
-	<hr />
-	<edit-button class="m-3" label="Edit Button"></edit-button>
-	<edit-svg-icon-button class="m-3" label="Edit Svg Icon Button"></edit-svg-icon-button>
-	<edit-bs-button class="m-3" label="Edit Bootstrap Button"></edit-bs-button>
-	<bs-link-button class="m-3" label="Bootstrap Link Button"></bs-link-button>
+  <primary-button (click)="setLoading()" (keydown)="setLoading()" [loading]="loading()" class="m-3"
+    label="Primary Button"></primary-button>
+  <save-primary-button (click)="setLoading()" (keydown)="setLoading()" [loading]="loading()" class="m-3"
+    label="Save Primary Button"></save-primary-button>
+  <view-primary-button class="m-3"></view-primary-button>
+  <view-button></view-button>
+  <hr />
+  <edit-button class="m-3" label="Edit Button"></edit-button>
+  <edit-svg-icon-button class="m-3" label="Edit Svg Icon Button"></edit-svg-icon-button>
+  <edit-bs-button class="m-3" label="Edit Bootstrap Button"></edit-bs-button>
+  <bs-link-button class="m-3" label="Bootstrap Link Button"></bs-link-button>
+  <button bsLinkButton matButton class="m-3">Bootstrap Link Button (directive)</button>
 
-	<hr />
-	<success-button (click)="setLoading()" (keydown)="setLoading()" [loading]="loading" class="m-3" label="Success Button"></success-button>
-	<delete-button (onClick)="setDeleteLoading($event)" [loading]="loading" class="m-3" label="Delete Button"></delete-button>
+  <hr />
+  <success-button (click)="setLoading()" (keydown)="setLoading()" [loading]="loading()" class="m-3"
+    label="Success Button"></success-button>
+  <delete-button (onClick)="setDeleteLoading($event)" [loading]="loading()" class="m-3"
+    label="Delete Button"></delete-button>
+  <button [loading]="loading()" (click)="setDeleteLoading($event)" deleteButton mat-raised-button>Delete Button
+    (directive)</button>
+  <hr />
+  <button closeButton mat-raised-button>Close Button</button>
+  <manage-button class="m-3"></manage-button>
+  <search-button class="m-3"></search-button>
+  <pdf-export-button class="m-3"></pdf-export-button>
+  <excel-export-button class="m-3"></excel-export-button>
 
-	<hr />
-	<button closeButton mat-raised-button>Close Button</button>
-	<manage-button class="m-3"></manage-button>
-	<search-button class="m-3"></search-button>
-	<pdf-export-button class="m-3"></pdf-export-button>
-	<excel-export-button class="m-3"></excel-export-button>
-
-	<hr />
+  <hr />
 </div>
 
 <hr />
