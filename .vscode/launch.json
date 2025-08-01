@@ -1,20 +1,15 @@
 {
-  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
-  "version": "0.2.0",
-  "configurations": [
+	// For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+	"version": "0.2.0",
+	"configurations": [
 		{
-			"name": "Start App",
-			"type": "chrome",
-			"request": "attach",
-			"preLaunchTask": "npm: start",
-			"url": "http://localhost:4300"
-		},
-		{
-			"name": "ng test",
-			"type": "chrome",
+			"name": "Run App",
+			"type": "node",
 			"request": "launch",
-			"preLaunchTask": "npm: test",
-			"url": "http://localhost:9876/debug.html"
+			"runtimeExecutable": "pnpm",
+			"runtimeArgs": ["start"],
+			"cwd": "${workspaceFolder}",
+			"console": "integratedTerminal"
 		}
 	]
 }
