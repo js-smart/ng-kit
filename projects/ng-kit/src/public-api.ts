@@ -24,6 +24,7 @@ export * from './lib/components/buttons/edit-bs-button/edit-bs-button.directive'
 export * from './lib/components/buttons/edit-button/edit-button.component';
 export * from './lib/components/buttons/edit-button/edit-button.directive';
 export * from './lib/components/buttons/edit-svg-icon-button/edit-svg-icon-button.component';
+export * from './lib/components/buttons/edit-svg-icon-button/edit-svg-icon-button.directive';
 
 export * from './lib/components/buttons/excel-export-button/excel-export-button.component';
 export * from './lib/components/buttons/excel-export-button/excel-export-button.directive';
