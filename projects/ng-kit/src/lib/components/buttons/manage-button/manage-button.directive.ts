@@ -9,7 +9,7 @@ export class ManageButtonDirective extends BaseButtonDirective {
 
 	constructor() {
 		super();
-		this.renderer.addClass(this.elementRef.nativeElement, 'mr-3');
-		this.renderer.addClass(this.elementRef.nativeElement, 'secondary-button');
+		this.elementRef.nativeElement.classList.add('mr-3');
+		this.elementRef.nativeElement.classList.add('secondary-button');
 	}
 }

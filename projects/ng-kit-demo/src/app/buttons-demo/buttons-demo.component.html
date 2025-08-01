@@ -1,4 +1,7 @@
 <div class="m-5">
+  <edit-bs-button class="m-3" label="Edit Bootstrap Button"></edit-bs-button>
+  <button editBsButton mat-button class="m-3">Edit BS (Directive)</button>
+  <hr />
 
   <primary-button (click)="setLoading()" [loading]="loading()" class="m-3" label="Primary Button"></primary-button>
   <button [loading]="loading()" (click)="setLoading()" primaryButton mat-raised-button class="m-3">Primary Button
@@ -26,9 +29,7 @@
   <edit-svg-icon-button class="m-3" label="Edit Svg Icon Button"></edit-svg-icon-button>
 
   <hr />
-  <edit-bs-button class="m-3" label="Edit Bootstrap Button"></edit-bs-button>
-  <button editBsButton mat-button class="m-3">Edit BS (Directive)</button>
-  <hr />
+
 
   <bs-link-button class="m-3" label="Bootstrap Link Button"></bs-link-button>
   <button bsLinkButton matButton class="m-3">Bootstrap Link (Directive)</button>

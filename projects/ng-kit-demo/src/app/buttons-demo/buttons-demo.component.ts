@@ -8,6 +8,7 @@ import {
 	DeleteButtonComponent,
 	DeleteButtonDirective,
 	EditBsButtonComponent,
+	EditBsButtonDirective,
 	EditButtonComponent,
 	EditButtonDirective,
 	EditSvgIconButtonComponent,
@@ -29,7 +30,6 @@ import {
 	ViewPrimaryButtonComponent,
 	ViewPrimaryButtonDirective,
 } from '@js-smart/ng-kit';
-import { EditBsButtonDirective } from './../../../../ng-kit/src/lib/components/buttons/edit-bs-button/edit-bs-button.directive';
 
 @Component({
 	selector: 'ng-kit-buttons-demo',

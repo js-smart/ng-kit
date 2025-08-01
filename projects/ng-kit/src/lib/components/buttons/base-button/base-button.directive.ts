@@ -1,4 +1,4 @@
-import { Directive, effect, ElementRef, inject, input, OnInit, Renderer2, signal } from '@angular/core';
+import { Directive, effect, ElementRef, inject, input, OnInit, signal } from '@angular/core';
 
 @Directive()
 export abstract class BaseButtonDirective implements OnInit {
@@ -6,13 +6,12 @@ export abstract class BaseButtonDirective implements OnInit {
 	loadingLabel = input<string>('Loading...');
 	loading = input<boolean>(false);
 	elementRef = inject(ElementRef);
-	renderer = inject(Renderer2);
 
 	protected originalText = signal('');
 	protected iconSpan = signal<HTMLElement | null>(null);
 
 	constructor() {
-		this.renderer.addClass(this.elementRef.nativeElement, 'btn');
+		this.elementRef.nativeElement.classList.add('btn');
 
 		effect(() => {
 			this.updateContent();
@@ -32,12 +31,9 @@ export abstract class BaseButtonDirective implements OnInit {
 	 */
 	protected createIcon(): void {
 		if (this.icon()) {
-			const iconElement = this.renderer.createElement('mat-icon');
-			this.renderer.addClass(iconElement, 'mat-icon');
-			this.renderer.addClass(iconElement, 'material-icons');
-			this.renderer.addClass(iconElement, 'pe-2');
-			this.renderer.setProperty(iconElement, 'textContent', this.icon());
-			this.renderer.appendChild(this.elementRef.nativeElement, iconElement);
+			const iconElement = document.createElement('mat-icon');
+			iconElement.classList.add('mat-icon', 'material-icons', 'pe-2');
+			iconElement.textContent = this.icon();
 			this.iconSpan.set(iconElement);
 		}
 	}
@@ -60,15 +56,17 @@ export abstract class BaseButtonDirective implements OnInit {
 	 * Show loading state. Add spinner and loadingLabel text
 	 */
 	protected showLoadingState(element: HTMLElement): void {
-		// Add spinner and loadingLabel text
-		const spinner = this.renderer.createElement('span');
-		this.renderer.addClass(spinner, 'spinner-border');
-		this.renderer.addClass(spinner, 'spinner-border-sm');
-		this.renderer.addClass(spinner, 'me-2');
-		this.renderer.setAttribute(spinner, 'role', 'status');
-		element.appendChild(spinner);
-		element.appendChild(this.renderer.createText(this.loadingLabel()));
-		this.renderer.setProperty(element, 'disabled', true);
+		// Create a new span element
+		const newSpan = document.createElement('span');
+
+		// Set its text content
+		newSpan.classList.add('spinner-border', 'spinner-border-sm', 'me-2');
+		newSpan.setAttribute('role', 'status');
+
+		// Append the new element to the host element
+		element.appendChild(newSpan);
+		element.appendChild(document.createTextNode(this.loadingLabel()));
+		element.setAttribute('disabled', 'true');
 	}
 
 	/**
@@ -80,7 +78,9 @@ export abstract class BaseButtonDirective implements OnInit {
 		if (iconElement) {
 			element.appendChild(iconElement);
 		}
-		element.appendChild(this.renderer.createText(this.originalText()));
-		this.renderer.setProperty(element, 'disabled', false);
+
+		// Append text node instead of setting textContent (which overwrites the icon)
+		element.appendChild(document.createTextNode(this.originalText()));
+		element.removeAttribute('disabled');
 	}
 }

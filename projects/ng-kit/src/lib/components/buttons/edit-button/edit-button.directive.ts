@@ -10,6 +10,6 @@ export class EditButtonDirective extends BaseButtonDirective {
 
 	constructor() {
 		super();
-		this.renderer.addClass(this.elementRef.nativeElement, 'primary-button');
+		this.elementRef.nativeElement.classList.add('primary-button');
 	}
 }

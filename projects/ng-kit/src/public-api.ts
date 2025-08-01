@@ -14,7 +14,6 @@ export * from './lib/directives/prevent-multiple-clicks/prevent-multiple-clicks.
 
 // Export buttons
 export * from './lib/components/buttons/base-button/base-button.directive';
-export * from './lib/components/buttons/base-svg-button/base-svg-button.directive';
 export * from './lib/components/buttons/bs-link-button/bs-link-button.component';
 export * from './lib/components/buttons/bs-link-button/bs-link-button.directive';
 export * from './lib/components/buttons/close-button/close-button.directive';

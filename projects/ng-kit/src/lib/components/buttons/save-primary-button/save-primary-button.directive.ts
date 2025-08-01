@@ -10,7 +10,7 @@ export class SavePrimaryButtonDirective extends BaseButtonDirective {
 
 	constructor() {
 		super();
-		this.renderer.addClass(this.elementRef.nativeElement, 'btn-primary');
-		this.renderer.addClass(this.elementRef.nativeElement, 'primary-button');
+		this.elementRef.nativeElement.classList.add('btn-primary');
+		this.elementRef.nativeElement.classList.add('primary-button');
 	}
 }

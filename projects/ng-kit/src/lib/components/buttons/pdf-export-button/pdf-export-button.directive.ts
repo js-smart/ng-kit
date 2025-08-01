@@ -16,7 +16,7 @@ export class PdfExportButtonDirective extends BaseButtonDirective {
 		];
 
 		styles.forEach((style) => {
-			this.renderer.setStyle(this.elementRef.nativeElement, style.property, style.value);
+			this.elementRef.nativeElement.style[style.property] = style.value;
 		});
 	}
 }

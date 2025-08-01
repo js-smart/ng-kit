@@ -10,6 +10,6 @@ export class DeleteButtonDirective extends BaseButtonDirective {
 
 	constructor() {
 		super();
-		this.renderer.addClass(this.elementRef.nativeElement, 'delete-button');
+		this.elementRef.nativeElement.classList.add('delete-button');
 	}
 }
