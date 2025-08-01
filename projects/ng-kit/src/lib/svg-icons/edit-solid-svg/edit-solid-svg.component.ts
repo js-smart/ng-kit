@@ -11,15 +11,7 @@ const EDIT_ICON = `
 @Component({
 	selector: 'edit-solid-svg',
 	imports: [MatIconModule],
-	template: ` <mat-icon aria-hidden="false" aria-label="Edit" svgIcon="edit-solid"></mat-icon> `,
-	styles: [
-		`
-			.mat-icon {
-				vertical-align: bottom;
-				padding-left: 5px;
-			}
-		`,
-	],
+	template: ` <mat-icon aria-hidden="false" aria-label="Edit" svgIcon="edit-solid" class="pe-2 align-bottom"></mat-icon> `,
 })
 export class EditSolidSvgComponent {
 	constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
