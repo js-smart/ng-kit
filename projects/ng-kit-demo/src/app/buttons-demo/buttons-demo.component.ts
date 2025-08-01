@@ -11,8 +11,11 @@ import {
 	EditButtonDirective,
 	EditSvgIconButtonComponent,
 	ExcelExportButtonComponent,
+	ExcelExportButtonDirective,
 	ManageButtonComponent,
+	ManageButtonDirective,
 	PdfExportButtonComponent,
+	PdfExportButtonDirective,
 	PrimaryButtonComponent,
 	PrimaryButtonDirective,
 	SavePrimaryButtonComponent,
@@ -25,6 +28,7 @@ import {
 	ViewPrimaryButtonComponent,
 	ViewPrimaryButtonDirective,
 } from '@js-smart/ng-kit';
+import { EditBsButtonDirective } from './../../../../ng-kit/src/lib/components/buttons/edit-bs-button/edit-bs-button.directive';
 
 @Component({
 	selector: 'ng-kit-buttons-demo',
@@ -34,8 +38,11 @@ import {
 		PrimaryButtonComponent,
 		PrimaryButtonDirective,
 		PdfExportButtonComponent,
+		PdfExportButtonDirective,
 		ExcelExportButtonComponent,
+		ExcelExportButtonDirective,
 		EditBsButtonComponent,
+		EditBsButtonDirective,
 		ViewButtonComponent,
 		ViewButtonDirective,
 		ViewPrimaryButtonComponent,
@@ -46,6 +53,7 @@ import {
 		EditBsButtonComponent,
 		BsLinkButtonComponent,
 		ManageButtonComponent,
+		ManageButtonDirective,
 		SearchButtonComponent,
 		SuccessButtonComponent,
 		SuccessButtonDirective,
