@@ -20,16 +20,22 @@ export * from './lib/components/buttons/delete-button/delete-button.component';
 export * from './lib/components/buttons/delete-button/delete-button.directive';
 export * from './lib/components/buttons/edit-bs-button/edit-bs-button.component';
 export * from './lib/components/buttons/edit-button/edit-button.component';
+export * from './lib/components/buttons/edit-button/edit-button.directive';
 export * from './lib/components/buttons/edit-svg-icon-button/edit-svg-icon-button.component';
 export * from './lib/components/buttons/excel-export-button/excel-export-button.component';
 export * from './lib/components/buttons/manage-button/manage-button.component';
 export * from './lib/components/buttons/pdf-export-button/pdf-export-button.component';
 export * from './lib/components/buttons/primary-button/primary-button.component';
+export * from './lib/components/buttons/primary-button/primary-button.directive';
 export * from './lib/components/buttons/save-primary-button/save-primary-button.component';
+export * from './lib/components/buttons/save-primary-button/save-primary-button.directive';
 export * from './lib/components/buttons/search-button/search-button.component';
 export * from './lib/components/buttons/success-button/success-button.component';
+export * from './lib/components/buttons/success-button/success-button.directive';
 export * from './lib/components/buttons/view-button/view-button.component';
+export * from './lib/components/buttons/view-button/view-button.directive';
 export * from './lib/components/buttons/view-primary-button/view-primary-button.component';
+export * from './lib/components/buttons/view-primary-button/view-primary-button.directive';
 
 // Export dialogs
 export * from './lib/components/confirm-dialog/confirm-dialog.component';

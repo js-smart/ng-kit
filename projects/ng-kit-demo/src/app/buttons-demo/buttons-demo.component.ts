@@ -8,40 +8,52 @@ import {
 	DeleteButtonDirective,
 	EditBsButtonComponent,
 	EditButtonComponent,
+	EditButtonDirective,
 	EditSvgIconButtonComponent,
 	ExcelExportButtonComponent,
 	ManageButtonComponent,
 	PdfExportButtonComponent,
 	PrimaryButtonComponent,
+	PrimaryButtonDirective,
 	SavePrimaryButtonComponent,
+	SavePrimaryButtonDirective,
 	SearchButtonComponent,
 	SuccessButtonComponent,
+	SuccessButtonDirective,
 	ViewButtonComponent,
+	ViewButtonDirective,
 	ViewPrimaryButtonComponent,
+	ViewPrimaryButtonDirective,
 } from '@js-smart/ng-kit';
 
 @Component({
 	selector: 'ng-kit-buttons-demo',
 	imports: [
 		SavePrimaryButtonComponent,
+		SavePrimaryButtonDirective,
 		PrimaryButtonComponent,
+		PrimaryButtonDirective,
 		PdfExportButtonComponent,
 		ExcelExportButtonComponent,
 		EditBsButtonComponent,
 		ViewButtonComponent,
+		ViewButtonDirective,
 		ViewPrimaryButtonComponent,
+		ViewPrimaryButtonDirective,
 		EditButtonComponent,
+		EditButtonDirective,
 		EditSvgIconButtonComponent,
 		EditBsButtonComponent,
 		BsLinkButtonComponent,
 		ManageButtonComponent,
 		SearchButtonComponent,
 		SuccessButtonComponent,
+		SuccessButtonDirective,
 		DeleteButtonComponent,
+		DeleteButtonDirective,
 		CloseButtonDirective,
 		MatButtonModule,
 		BsLinkButtonDirective,
-		DeleteButtonDirective,
 	],
 	templateUrl: './buttons-demo.component.html',
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -51,13 +63,7 @@ export class ButtonsDemoComponent {
 	loading = signal(false);
 
 	setLoading(): void {
-		this.loading.set(true);
-		setTimeout(() => {
-			this.loading.set(false);
-		}, 3000);
-	}
-
-	setDeleteLoading(_$event: MouseEvent): void {
+		console.log('setLoading');
 		this.loading.set(true);
 		setTimeout(() => {
 			this.loading.set(false);
