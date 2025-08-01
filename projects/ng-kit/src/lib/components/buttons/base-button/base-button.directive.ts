@@ -32,7 +32,8 @@ export abstract class BaseButtonDirective implements OnInit {
 	 */
 	protected createIcon(): void {
 		if (this.icon()) {
-			const iconElement = this.renderer.createElement('span');
+			const iconElement = this.renderer.createElement('mat-icon');
+			this.renderer.addClass(iconElement, 'mat-icon');
 			this.renderer.addClass(iconElement, 'material-icons');
 			this.renderer.addClass(iconElement, 'pe-2');
 			this.renderer.setProperty(iconElement, 'textContent', this.icon());

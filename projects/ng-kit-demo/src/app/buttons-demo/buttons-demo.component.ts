@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 import {
 	BsLinkButtonComponent,
 	BsLinkButtonDirective,
@@ -33,6 +34,7 @@ import { EditBsButtonDirective } from './../../../../ng-kit/src/lib/components/b
 @Component({
 	selector: 'ng-kit-buttons-demo',
 	imports: [
+		MatIconModule,
 		SavePrimaryButtonComponent,
 		SavePrimaryButtonDirective,
 		PrimaryButtonComponent,
