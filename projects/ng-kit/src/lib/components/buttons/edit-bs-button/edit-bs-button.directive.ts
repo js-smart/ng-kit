@@ -32,7 +32,5 @@ export class EditBsButtonDirective implements OnInit {
 
 		// Add text after the icon
 		this.elementRef.nativeElement.appendChild(document.createTextNode(' ' + this.originalText()));
-
-		console.log('Edit icon component created and stored in signal', componentRef);
 	}
 }

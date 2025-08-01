@@ -36,7 +36,5 @@ export class EditSvgIconButtonDirective implements OnInit {
 
 		// Add text after the icon
 		this.elementRef.nativeElement.appendChild(document.createTextNode(' ' + this.originalText()));
-
-		console.log('Edit SVG icon component created and stored in signal', componentRef);
 	}
 }
