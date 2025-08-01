@@ -49,7 +49,7 @@ export class NgxPrintDirective {
 	 * @since 12.0.0
 	 * @author Pavan Kumar Jadda
 	 */
-	@Input() matTableDataSource!: MatTableDataSource<any>;
+	@Input() matTableDataSource!: MatTableDataSource<unknown>;
 	/**
 	 * Instance of the Mat Paginator
 	 *
@@ -86,7 +86,7 @@ export class NgxPrintDirective {
 	 */
 	@Input() hideMatTablePaginator = false;
 
-	public printStyleArray = [];
+	public printStyleArray: string[] = [];
 	printOptions = new PrintOptions();
 
 	/**
@@ -115,8 +115,7 @@ export class NgxPrintDirective {
 	@Input()
 	set printStyle({ values }: PrintStyleParams) {
 		for (const key in values) {
-			if (values.hasOwnProperty(key)) {
-				// @ts-ignore
+			if (Object.prototype.hasOwnProperty.call(values, key)) {
 				this.printStyleArray.push((key + JSON.stringify(values[key])).replace(/['"]+/g, ''));
 			}
 		}
@@ -161,7 +160,7 @@ export class NgxPrintDirective {
 	 */
 	private static getElementTag(tag: keyof HTMLElementTagNameMap): string {
 		const html: string[] = [];
-		const elements = this.document.getElementsByTagName(tag);
+		const elements = document.getElementsByTagName(tag);
 		// @ts-ignore
 		for (const element of elements) {
 			html.push(element.outerHTML);
