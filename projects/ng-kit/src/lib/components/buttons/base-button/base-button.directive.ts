@@ -1,4 +1,4 @@
-import { Directive, effect, ElementRef, inject, input, OnInit, signal } from '@angular/core';
+import { Directive, DOCUMENT, effect, ElementRef, inject, input, OnInit, signal } from '@angular/core';
 
 @Directive()
 export abstract class BaseButtonDirective implements OnInit {
@@ -6,6 +6,7 @@ export abstract class BaseButtonDirective implements OnInit {
 	loadingLabel = input<string>('Loading...');
 	loading = input<boolean>(false);
 	elementRef = inject(ElementRef);
+	document = inject(DOCUMENT);
 
 	protected originalText = signal('');
 	protected iconSpan = signal<HTMLElement | null>(null);
@@ -31,7 +32,7 @@ export abstract class BaseButtonDirective implements OnInit {
 	 */
 	protected createIcon(): void {
 		if (this.icon()) {
-			const iconElement = document.createElement('mat-icon');
+			const iconElement = this.document.createElement('mat-icon');
 			iconElement.classList.add('mat-icon', 'material-icons', 'pe-2');
 			iconElement.textContent = this.icon();
 			this.iconSpan.set(iconElement);
@@ -57,7 +58,7 @@ export abstract class BaseButtonDirective implements OnInit {
 	 */
 	protected showLoadingState(element: HTMLElement): void {
 		// Create a new span element
-		const newSpan = document.createElement('span');
+		const newSpan = this.document.createElement('span');
 
 		// Set its text content
 		newSpan.classList.add('spinner-border', 'spinner-border-sm', 'me-2');
@@ -65,7 +66,7 @@ export abstract class BaseButtonDirective implements OnInit {
 
 		// Append the new element to the host element
 		element.appendChild(newSpan);
-		element.appendChild(document.createTextNode(this.loadingLabel()));
+		element.appendChild(this.document.createTextNode(this.loadingLabel()));
 		element.setAttribute('disabled', 'true');
 	}
 
@@ -80,7 +81,7 @@ export abstract class BaseButtonDirective implements OnInit {
 		}
 
 		// Append text node instead of setting textContent (which overwrites the icon)
-		element.appendChild(document.createTextNode(this.originalText()));
+		element.appendChild(this.document.createTextNode(this.originalText()));
 		element.removeAttribute('disabled');
 	}
 }

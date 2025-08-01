@@ -1,4 +1,4 @@
-import { ComponentRef, Directive, ElementRef, inject, OnInit, signal, ViewContainerRef } from '@angular/core';
+import { ComponentRef, Directive, DOCUMENT, ElementRef, inject, OnInit, signal, ViewContainerRef } from '@angular/core';
 import { EditSolidSvgComponent } from '../../../svg-icons/edit-solid-svg/edit-solid-svg.component';
 
 @Directive({
@@ -7,6 +7,7 @@ import { EditSolidSvgComponent } from '../../../svg-icons/edit-solid-svg/edit-so
 export class EditSvgIconButtonDirective implements OnInit {
 	elementRef = inject(ElementRef);
 	viewContainerRef = inject(ViewContainerRef);
+	document = inject(DOCUMENT);
 
 	protected originalText = signal('');
 	protected iconComponentRef = signal<ComponentRef<EditSolidSvgComponent> | null>(null);
@@ -33,8 +34,6 @@ export class EditSvgIconButtonDirective implements OnInit {
 		// Clear the original content and append the icon component
 		this.elementRef.nativeElement.textContent = '';
 		this.elementRef.nativeElement.appendChild(componentRef.location.nativeElement);
-
-		// Add text after the icon
-		this.elementRef.nativeElement.appendChild(document.createTextNode(' ' + this.originalText()));
+		this.elementRef.nativeElement.appendChild(this.document.createTextNode(' ' + this.originalText()));
 	}
 }

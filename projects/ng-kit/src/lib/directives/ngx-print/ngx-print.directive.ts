@@ -1,6 +1,6 @@
-import { Directive, HostListener, Input } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
+import { Directive, DOCUMENT, HostListener, inject, Input } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 import { PrintOptions } from './print-options';
 
 /**
@@ -14,6 +14,7 @@ import { PrintOptions } from './print-options';
 	standalone: true,
 })
 export class NgxPrintDirective {
+	document = inject(DOCUMENT);
 	/**
 	 * ID of the HTML element those contents need to be printed
 	 *
@@ -160,7 +161,7 @@ export class NgxPrintDirective {
 	 */
 	private static getElementTag(tag: keyof HTMLElementTagNameMap): string {
 		const html: string[] = [];
-		const elements = document.getElementsByTagName(tag);
+		const elements = this.document.getElementsByTagName(tag);
 		// @ts-ignore
 		for (const element of elements) {
 			html.push(element.outerHTML);
@@ -197,7 +198,7 @@ export class NgxPrintDirective {
 				links = NgxPrintDirective.getElementTag('link');
 			}
 			if (this.printSectionId) {
-				printContents = document.getElementById(this.printSectionId)?.innerHTML;
+				printContents = this.document.getElementById(this.printSectionId)?.innerHTML;
 				popupWin = window.open('', '_blank', 'top=0,left=0,height=auto,width=auto');
 				popupWin?.document.open();
 				popupWin?.document.write(`
@@ -240,12 +241,12 @@ export class NgxPrintDirective {
 	 * @since 12.0.1
 	 * @author Pavan Kumar Jadda
 	 */
-	private hideMatPaginatorBeforePrinting() {
+	private hideMatPaginatorBeforePrinting(): void {
 		// @ts-ignore
-		document.getElementById(this.paginatorId).style.display = 'none';
-		if (document.getElementById(this.inputFilterId) != null) {
+		this.document.getElementById(this.paginatorId).style.display = 'none';
+		if (this.document.getElementById(this.inputFilterId) != null) {
 			// @ts-ignore
-			document.getElementById(this.inputFilterId).style.display = 'none';
+			this.document.getElementById(this.inputFilterId).style.display = 'none';
 		}
 	}
 
@@ -255,13 +256,13 @@ export class NgxPrintDirective {
 	 * @since 12.0.1
 	 * @author Pavan Kumar Jadda
 	 */
-	private showMatPaginatorAfterPrinting() {
+	private showMatPaginatorAfterPrinting(): void {
 		this.matTableDataSource.paginator = this.paginator;
 		// @ts-ignore
-		document.getElementById(this.paginatorId).style.display = 'block';
-		if (document.getElementById(this.inputFilterId) != null) {
+		this.document.getElementById(this.paginatorId).style.display = 'block';
+		if (this.document.getElementById(this.inputFilterId) != null) {
 			// @ts-ignore
-			document.getElementById(this.inputFilterId).style.display = 'block';
+			this.document.getElementById(this.inputFilterId).style.display = 'block';
 		}
 	}
 
@@ -271,7 +272,7 @@ export class NgxPrintDirective {
 	 * @since 12.0.0
 	 * @author Pavan Kumar Jadda
 	 */
-	private returnStyleValues() {
+	private returnStyleValues(): string {
 		return `<style> ${this.printStyleArray.join(' ').replace(/,/g, ';')} </style>`;
 	}
 }
