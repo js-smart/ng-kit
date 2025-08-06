@@ -59,6 +59,7 @@
     "@semantic-release/exec": "^7.1.0",
     "@semantic-release/git": "^10.0.1",
     "@semantic-release/npm": "^12.0.2",
+    "@stackblitz/sdk": "^1.11.0",
     "@sonar/scan": "^4.3.0",
     "@types/jasmine": "^5.1.8",
     "@types/node": "^24.0.13",
