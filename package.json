@@ -1,6 +1,6 @@
 {
   "name": "ng-kit",
-  "version": "20.5.0",
+  "version": "20.6.1",
   "scripts": {
     "ng": "ng",
     "start": "ng serve --watch --hmr --port=4300",
