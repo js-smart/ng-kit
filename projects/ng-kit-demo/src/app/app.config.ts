@@ -1,5 +1,5 @@
 import { CommonModule, DatePipe } from '@angular/common';
-import { provideHttpClient, withXsrfConfiguration } from '@angular/common/http';
+import { provideHttpClient, withFetch, withXsrfConfiguration } from '@angular/common/http';
 import { ApplicationConfig, importProvidersFrom } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
@@ -32,7 +32,7 @@ export const appConfig: ApplicationConfig = {
 			MatNativeDateModule,
 			MatDatepickerModule,
 		),
-		provideHttpClient(withXsrfConfiguration({ headerName: 'X-XSRF-TOKEN' })),
+		provideHttpClient(withXsrfConfiguration({ headerName: 'X-XSRF-TOKEN' }), withFetch()),
 		Title,
 		DatePipe,
 		{

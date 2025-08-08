@@ -20,17 +20,17 @@ export class PreventMultipleClicksDirective implements OnInit, OnDestroy {
 	 * @since 2.3.27
 	 */
 	@HostListener('click', ['$event'])
-	clickEvent(event: Event) {
+	clickEvent(event: Event): void {
 		event.preventDefault();
 		event.stopPropagation();
 		this.clicks.next(event);
 	}
 
-	ngOnInit() {
+	ngOnInit(): void {
 		this.subscription = this.clicks.pipe(throttleTime(this.throttleTime())).subscribe((e) => this.throttleClick.emit(e));
 	}
 
-	ngOnDestroy() {
+	ngOnDestroy(): void {
 		this.subscription?.unsubscribe();
 	}
 }

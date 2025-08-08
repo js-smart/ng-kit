@@ -1,8 +1,8 @@
 # Cursor Rules for Angular Projects
 
 1. **Use Latest Angular and TypeScript**
-   - Always use the latest stable Angular (currently v19+) and TypeScript.
-   - Reference Angular 19+ APIs and features only.
+   - Always use the latest stable Angular (currently v20+) and TypeScript.
+   - Reference Angular 20+ APIs and features only.
 
 2. **Modern Angular Features**
    - Prefer Angular control flow syntax (`@for`, `@if`, `@switch`) over legacy structural directives.
@@ -35,7 +35,7 @@
 
 9. **State Management**
    - Use signals for component-level state.
-   - For app-wide state, use signals-based or lightweight state libraries compatible with Angular 19+ (e.g., SignalStore, Akita signals). Avoid heavy/legacy state libraries like NgRx unless necessary.
+   - For app-wide state, use signals-based or lightweight state libraries compatible with Angular 20+ (e.g., SignalStore, Akita signals). Avoid heavy/legacy state libraries like NgRx unless necessary.
 
 10. **Testing**
     - Include unit test snippets for all code examples where applicable.

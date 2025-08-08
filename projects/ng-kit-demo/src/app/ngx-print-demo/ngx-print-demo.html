@@ -1,0 +1,42 @@
+<div class="m-2 container">
+  <div class="row">
+    <div class="col-12">
+      <h2 class="text-center">NGX Print Directive Demo</h2>
+      <p class="text-center">This is a demo of the NGX Print Directive. It is used to print the table to a PDF
+        file.</p>
+      <div class="text-center">
+        <button [hideMatTablePaginator]="true" [isMatTable]="true" [matTableDataSource]="dataSource"
+          [paginator]="paginator" [useExistingCss]="true" class="pdf-export-button form-col-2" mat-raised-button
+          ngxPrint paginatorId="mat-paginator" printSectionId="print_id" color="primary" type="button">
+          Export to PDF
+        </button>
+      </div>
+    </div>
+  </div>
+
+</div>
+<!-- Generate Mat Table with sorting and pagination -->
+<table mat-table class="m-5" [dataSource]="dataSource" matSort matSortActive="name" matSortDirection="asc"
+  id="print_id">
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{ element.name }} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="email">
+    <mat-header-cell *matHeaderCellDef mat-sort-header> Email </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{ element.email }} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="phone">
+    <mat-header-cell *matHeaderCellDef mat-sort-header> Phone </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{ element.phone }} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="website">
+    <mat-header-cell *matHeaderCellDef mat-sort-header> Website </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{ element.website }} </mat-cell>
+  </ng-container>
+  <mat-header-row *matHeaderRowDef="['name', 'email', 'phone', 'website']"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: ['name', 'email', 'phone', 'website']"></mat-row>
+</table>
+<mat-paginator id="mat-paginator" [pageSize]="5" [pageSizeOptions]="[5,10, 20, 50, 100]"
+  [length]="result.value()?.length ?? 0"></mat-paginator>
+<hr />
