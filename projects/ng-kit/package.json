@@ -1,36 +1,36 @@
 {
-	"name": "@js-smart/ng-kit",
-	"version": "20.6.2",
-	"license": "MIT",
-	"author": "Pavan Kumar Jadda",
-	"private": false,
-	"keywords": [
-		"angular",
-		"angular-15",
-		"angular-16",
-		"angular-17",
-		"angular-18",
-		"angular-19",
-		"angular-20"
-	],
-	"contributors": [
-		{
-			"name": "Pavan Kumar Jadda"
-		}
-	],
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/js-smart/ng-kit.git"
-	},
-	"bugs": {
-		"url": "https://github.com/js-smart/ng-kit/issues"
-	},
-	"peerDependencies": {
-		"@angular/common": "^20.0.0",
-		"@angular/core": "^20.0.0"
-	},
-	"dependencies": {
-		"tslib": "^2.8.1"
-	},
-	"sideEffects": false
+  "name": "@js-smart/ng-kit",
+  "version": "20.6.2",
+  "license": "MIT",
+  "author": "Pavan Kumar Jadda",
+  "private": false,
+  "keywords": [
+    "angular",
+    "angular-15",
+    "angular-16",
+    "angular-17",
+    "angular-18",
+    "angular-19",
+    "angular-20"
+  ],
+  "contributors": [
+    {
+      "name": "Pavan Kumar Jadda"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/js-smart/ng-kit.git"
+  },
+  "bugs": {
+    "url": "https://github.com/js-smart/ng-kit/issues"
+  },
+  "peerDependencies": {
+    "@angular/common": "^20.0.0",
+    "@angular/core": "^20.0.0"
+  },
+  "dependencies": {
+    "tslib": "^2.8.1"
+  },
+  "sideEffects": false
 }
