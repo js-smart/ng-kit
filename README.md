@@ -9,7 +9,6 @@ Reusable Angular components built with Angular Material and Bootstrap 5.x, Utili
 
 
 ### Installation
-
 Install the library
 
 ```shell
@@ -19,24 +18,19 @@ npm install @js-smart/ng-kit
 and use it as shown below in each section
 
 ### Technologies
-
 1. Angular
 2. Bootstrap
 
 ## Auto Complete
-
 Reusable Auto Complete that extends Mat Auto Complete component
 
 ### Demo
-
-https://ng-kit.netlify.app
+https://ng-kit.netlify.app/autocomplete-demo
 
 ### Usage
-
 The library has one `autocomplete` component. To use the Auto Complete component, add the following code to the HTML page
 
 **app.component.html**
-
 ```typescript
 <!-- Auto Complete with Objects -->
 
@@ -56,7 +50,6 @@ placeHolder = "Select City" >
 ```
 
 **app.component.ts**
-
 Then define form group instances and object array (cities) and names (for string array)
 
 ```typescript
@@ -96,9 +89,7 @@ If you are using strings rather than objects, do not provide `bindLabel`, `bindV
 ```
 
 ### Auto Complete API
-
 #### List of selectors that can be used to select the component(s)
-
 | AutoComplete Selector          | 
 |--------------------------------| 
 | autocomplete, lib-autocomplete | 
@@ -119,11 +110,9 @@ If you are using strings rather than objects, do not provide `bindLabel`, `bindV
 | data           | List of Objects or String values that need to be bind and searched for                                                    | any[] or string[] | false         |
 
 ## Alert
-
 Reusable alert component created with Bootstrap 5+ and Angular 17+
 
 ### Auto Complete API
-
 #### List of selectors that can be used to select the component
 
 | Selector        | 
@@ -141,15 +130,12 @@ Reusable alert component created with Bootstrap 5+ and Angular 17+
 | type             | Alert type. Provides one of four bootstrap supported contextual classes: success, info, warning and danger | string           | info          |
 
 ## Spinner
-
 Reusable Spinner component created with Bootstrap 5.x and Angular 17.x
 
 ### Demo
-
 https://main--js-smart-ng-kit.netlify.app/alert-demo
 
 ### API
-
 #### List of selectors that can be used to select the component
 
 | Selector            | 
@@ -157,7 +143,6 @@ https://main--js-smart-ng-kit.netlify.app/alert-demo
 | spinner,lib-spinner | 
 
 #### Properties
-
 | Property         | Description                                  | Type                     | Default Value |
 |------------------|----------------------------------------------|--------------------------|---------------|
 | bootstrapSpinner | Use Boostrap Spinner. Default `true`         | boolean                  | false         |
@@ -166,11 +151,9 @@ https://main--js-smart-ng-kit.netlify.app/alert-demo
 | strokeWidth      | Stroke Width of the Angular Material spinner | boolean                  | false         |
 
 ## Print
-
 Angular (2++) directive that prints HTML section
 
 ### Usage
-
 Import the main module `NgxPrintModule` :
 
    ```js
@@ -300,7 +283,6 @@ its `id` attribute.
 ```
 
 ### Publish library to NPM
-
 1. Build the library
     ```shell
     pnpm build ng-kit
