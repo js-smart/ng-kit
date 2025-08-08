@@ -4,7 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { NgxPrintDirective } from '@js-smart/ng-kit';
+import { NgxPrintDirective, ViewPrimaryButtonDirective } from '@js-smart/ng-kit';
 
 interface User {
 	id: number;
@@ -16,7 +16,7 @@ interface User {
 
 @Component({
 	selector: 'ngx-print-demo',
-	imports: [MatTableModule, MatPaginatorModule, MatSortModule, NgxPrintDirective, MatButtonModule],
+	imports: [MatTableModule, MatPaginatorModule, MatSortModule, NgxPrintDirective, MatButtonModule, ViewPrimaryButtonDirective],
 	templateUrl: './ngx-print-demo.html',
 	styles: [``],
 	changeDetection: ChangeDetectionStrategy.OnPush,
