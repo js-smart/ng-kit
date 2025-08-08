@@ -2,12 +2,12 @@
 
 Reusable Angular components built with Angular Material and Bootstrap 5.x, Utility classes/functions for Date, Form and String operations
 
-<p align="center">
+
 [![CI](https://github.com/js-smart/ng-kit/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/js-smart/ng-kit/actions/workflows/build.yml)
 <a href="https://www.npmjs.com/@js-smart/ng-kit">
 <img src="https://img.shields.io/npm/v/@js-smart/ng-kit" alt="Ngx Cookie Service on npm" />
 </a>
-</p>
+
 
 ### Installation
 
@@ -21,8 +21,8 @@ and use it as shown below in each section
 
 ### Technologies
 
-1. Angular 17+
-2. Bootstrap 5+ (if applicable)
+1. Angular 20
+2. Bootstrap 5+
 
 ## Auto Complete
 
