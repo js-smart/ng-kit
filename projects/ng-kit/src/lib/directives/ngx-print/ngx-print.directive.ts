@@ -13,7 +13,7 @@ import { PrintOptions } from './print-options';
 	selector: 'button[ngxPrint], button[print]',
 	standalone: true,
 })
-export class NgxPrintDirective {
+export class NgxPrintDirective<T = unknown> {
 	document = inject(DOCUMENT);
 	/**
 	 * ID of the HTML element those contents need to be printed
@@ -49,7 +49,7 @@ export class NgxPrintDirective {
 	 * @since 12.0.0
 	 * @author Pavan Kumar Jadda
 	 */
-	@Input() matTableDataSource!: MatTableDataSource<unknown>;
+	@Input() matTableDataSource!: MatTableDataSource<T>;
 	/**
 	 * Instance of the Mat Paginator
 	 *
