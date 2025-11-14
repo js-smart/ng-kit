@@ -83,5 +83,14 @@
     "semantic-release": "^25.0.0",
     "typescript": "~5.9.3",
     "typescript-eslint": "8.46.1"
-  }
+  },
+  "browserslist": [
+		"last 2 Chrome versions",
+		"last 2 ChromeAndroid versions",
+		"last 2 Firefox versions",
+		"last 2 Edge versions",
+		"last 2 Safari major versions",
+		"last 2 iOS major versions"
+	]
+  
 }
