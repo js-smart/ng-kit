@@ -1,5 +1,6 @@
 import { ChangeDetectorRef } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideAnimations } from '@angular/platform-browser/animations';
 import { BehaviorSubject } from 'rxjs';
 import { NgxSpinnerComponent } from './ngx-spinner.component';
 import { DEFAULTS, NgxSpinner, PRIMARY_SPINNER } from './ngx-spinner.enum';
@@ -40,6 +41,7 @@ describe('NgxSpinnerComponent', () => {
 			providers: [
 				{ provide: NgxSpinnerService, useValue: spySpinnerService },
 				{ provide: ChangeDetectorRef, useValue: spyChangeDetectorRef },
+				provideAnimations(),
 			],
 		}).compileComponents();
 
