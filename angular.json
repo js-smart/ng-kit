@@ -52,23 +52,15 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/ng-kit-demo",
-            "index": "projects/ng-kit-demo/src/index.html",
-            "browser": "projects/ng-kit-demo/src/main.ts",
-            "polyfills": [
-              "zone.js"
-            ],
-            "tsConfig": "projects/ng-kit-demo/tsconfig.app.json",
-            "inlineStyleLanguage": "scss",
-            "assets": [
-              "projects/ng-kit-demo/src/favicon.ico",
-              "projects/ng-kit-demo/src/assets"
-            ],
-            "styles": [
-              "projects/ng-kit-demo/src/styles.scss"
-            ],
-            "scripts": []
-          },
+						"outputPath": "dist/ng-kit-demo",
+						"index": "projects/ng-kit-demo/src/index.html",
+						"browser": "projects/ng-kit-demo/src/main.ts",
+						"tsConfig": "projects/ng-kit-demo/tsconfig.app.json",
+						"inlineStyleLanguage": "scss",
+						"assets": ["projects/ng-kit-demo/src/favicon.ico", "projects/ng-kit-demo/src/assets"],
+						"styles": ["projects/ng-kit-demo/src/styles.scss"],
+						"scripts": []
+					},
           "configurations": {
             "production": {
               "budgets": [
