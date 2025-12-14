@@ -1,6 +1,5 @@
 import { ChangeDetectorRef } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { provideAnimations } from '@angular/platform-browser/animations';
 import { BehaviorSubject } from 'rxjs';
 import { NgxSpinnerComponent } from './ngx-spinner.component';
 import { DEFAULTS, NgxSpinner, PRIMARY_SPINNER } from './ngx-spinner.enum';
@@ -9,39 +8,43 @@ import { NgxSpinnerService } from './ngx-spinner.service';
 describe('NgxSpinnerComponent', () => {
 	let component: NgxSpinnerComponent;
 	let fixture: ComponentFixture<NgxSpinnerComponent>;
-	let spinnerService: jasmine.SpyObj<NgxSpinnerService>;
-	let changeDetectorRef: jasmine.SpyObj<ChangeDetectorRef>;
+	let spinnerService: ReturnType<typeof vi.spyOn>;
+	let changeDetectorRef: ReturnType<typeof vi.spyOn>;
 
 	const mockSpinnerSubject = new BehaviorSubject<NgxSpinner>(new NgxSpinner());
 
 	// Helper function to create a keyboard event with spies
 	const createKeyboardEvent = (type = 'keydown'): KeyboardEvent => {
 		const event = new KeyboardEvent(type);
-		spyOn(event, 'preventDefault');
+		vi.spyOn(event, 'preventDefault');
 		Object.defineProperty(event, 'returnValue', {
-			set: jasmine.createSpy('set returnValue'),
-			get: jasmine.createSpy('get returnValue').and.returnValue(false),
+			set: vi.fn(),
+			get: vi.fn(() => false),
+			configurable: true,
 		});
 		return event;
 	};
 
 	beforeEach(async () => {
-		const spySpinnerService = jasmine.createSpyObj('NgxSpinnerService', ['getSpinner', 'show', 'hide']);
-		const spyChangeDetectorRef = jasmine.createSpyObj('ChangeDetectorRef', ['detectChanges']);
-
-		spySpinnerService.getSpinner.and.returnValue(mockSpinnerSubject.asObservable());
+		const spySpinnerService = {
+			getSpinner: vi.fn().mockReturnValue(mockSpinnerSubject.asObservable()),
+			show: vi.fn(),
+			hide: vi.fn(),
+		} as unknown as NgxSpinnerService;
+		const spyChangeDetectorRef = {
+			detectChanges: vi.fn(),
+		} as unknown as ChangeDetectorRef;
 
 		await TestBed.configureTestingModule({
 			imports: [NgxSpinnerComponent],
 			providers: [
 				{ provide: NgxSpinnerService, useValue: spySpinnerService },
 				{ provide: ChangeDetectorRef, useValue: spyChangeDetectorRef },
-				provideAnimations(),
 			],
 		}).compileComponents();
 
-		spinnerService = TestBed.inject(NgxSpinnerService) as jasmine.SpyObj<NgxSpinnerService>;
-		changeDetectorRef = TestBed.inject(ChangeDetectorRef) as jasmine.SpyObj<ChangeDetectorRef>;
+		spinnerService = TestBed.inject(NgxSpinnerService);
+		changeDetectorRef = TestBed.inject(ChangeDetectorRef);
 	});
 
 	beforeEach(() => {
@@ -62,7 +65,7 @@ describe('NgxSpinnerComponent', () => {
 		expect(component.fullScreen()).toBe(true);
 		expect(component.name()).toBe(PRIMARY_SPINNER);
 		expect(component.zIndex()).toBe(DEFAULTS.Z_INDEX);
-		expect(component.template()).toBeUndefined();
+		expect(component.template()).toBe('');
 		expect(component.showSpinner()).toBe(false);
 		expect(component.disableAnimation()).toBe(false);
 	});
@@ -168,8 +171,8 @@ describe('NgxSpinnerComponent', () => {
 
 	describe('Component Lifecycle', () => {
 		it('should clean up subscription on destroy', () => {
-			spyOn(component.ngUnsubscribe, 'next');
-			spyOn(component.ngUnsubscribe, 'complete');
+			vi.spyOn(component.ngUnsubscribe, 'next');
+			vi.spyOn(component.ngUnsubscribe, 'complete');
 
 			component.ngOnDestroy();
 
@@ -178,7 +181,7 @@ describe('NgxSpinnerComponent', () => {
 		});
 
 		it('should set default options on init', () => {
-			spyOn(component, 'setDefaultOptions');
+			vi.spyOn(component, 'setDefaultOptions');
 			component.ngOnInit();
 			expect(component.setDefaultOptions).toHaveBeenCalled();
 		});

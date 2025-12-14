@@ -1,7 +1,6 @@
-import { Component } from '@angular/core';
-import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { ChangeDetectorRef, Component } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import 'zone.js/testing';
 import { PreventMultipleClicksDirective } from '@js-smart/ng-kit';
 
 @Component({
@@ -41,8 +40,8 @@ describe('PreventMultipleClicksDirective', () => {
 
 	it('should prevent default behavior and stop propagation', () => {
 		const event = new MouseEvent('click');
-		spyOn(event, 'preventDefault');
-		spyOn(event, 'stopPropagation');
+		vi.spyOn(event, 'preventDefault');
+		vi.spyOn(event, 'stopPropagation');
 
 		button.dispatchEvent(event);
 
@@ -50,47 +49,56 @@ describe('PreventMultipleClicksDirective', () => {
 		expect(event.stopPropagation).toHaveBeenCalled();
 	});
 
-	it('should emit only one event within throttle time period', fakeAsync(() => {
+	it('should emit only one event within throttle time period', () => {
+		vi.useFakeTimers();
+
 		// First click
 		button.click();
-		tick(1000); // Wait 1 second
+		vi.advanceTimersByTime(1000); // Wait 1 second
 
 		// Second click within throttle period
 		button.click();
-		tick(1000);
+		vi.advanceTimersByTime(1000);
 
 		expect(component.clicks.length).toBe(1);
 
 		// Third click after throttle period
-		tick(2000);
+		vi.advanceTimersByTime(2000);
 		button.click();
 
 		expect(component.clicks.length).toBe(2);
-	}));
 
-	it('should respect custom throttle time', fakeAsync(() => {
+		vi.useRealTimers();
+	});
+
+	it('should respect custom throttle time', () => {
+		vi.useFakeTimers();
+
 		component.throttleTime = 1000;
-		fixture.detectChanges();
+		const cdr = fixture.debugElement.injector.get(ChangeDetectorRef);
+		cdr.detectChanges();
 
 		button.click();
-		tick(500);
+		vi.advanceTimersByTime(500);
 		button.click(); // Should be throttled
-		tick(500);
+		vi.advanceTimersByTime(500);
 
 		expect(component.clicks.length).toBe(1);
 
-		tick(1000);
+		vi.advanceTimersByTime(1000);
 		button.click(); // Should emit after throttle period
 
 		expect(component.clicks.length).toBe(2);
-	}));
+
+		vi.useRealTimers();
+	});
 
 	it('should clean up subscription on destroy', () => {
 		const directive = fixture.debugElement.query(By.directive(PreventMultipleClicksDirective));
 		const instance = directive.injector.get(PreventMultipleClicksDirective);
 
 		const subscription = instance['subscription'];
-		spyOn(subscription!, 'unsubscribe');
+		vi.spyOn(subscription!, 'unsubscribe');
 
 		fixture.destroy();
 
