@@ -50,7 +50,7 @@
 10. **Testing**
 
 - All code examples should include unit test snippets where applicable.
-- Use Angular’s karma, jasmine testing APIs.
+- Use Angular’s vitest and browser-playwright testing APIs.
 
 11. **Accessibility**
 

@@ -10,20 +10,20 @@
       "prefix": "lib",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
-          "options": {
-            "project": "projects/ng-kit/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "projects/ng-kit/tsconfig.lib.prod.json"
-            },
-            "development": {
-              "tsConfig": "projects/ng-kit/tsconfig.lib.json"
-            }
-          },
-          "defaultConfiguration": "production"
-        },
+					"builder": "@angular/build:ng-packagr",
+					"options": {
+						"project": "projects/ng-kit/ng-package.json"
+					},
+					"configurations": {
+						"production": {
+							"tsConfig": "projects/ng-kit/tsconfig.lib.prod.json"
+						},
+						"development": {
+							"tsConfig": "projects/ng-kit/tsconfig.lib.json"
+						}
+					},
+					"defaultConfiguration": "production"
+				},
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
@@ -34,15 +34,8 @@
           }
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:jest",
-          "options": {
-            "tsConfig": "projects/ng-kit/tsconfig.spec.json",
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ]
-          }
-        }
+					"builder": "@angular/build:unit-test"
+				}
       }
     },
     "ng-kit-demo": {
@@ -59,23 +52,15 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/ng-kit-demo",
-            "index": "projects/ng-kit-demo/src/index.html",
-            "browser": "projects/ng-kit-demo/src/main.ts",
-            "polyfills": [
-              "zone.js"
-            ],
-            "tsConfig": "projects/ng-kit-demo/tsconfig.app.json",
-            "inlineStyleLanguage": "scss",
-            "assets": [
-              "projects/ng-kit-demo/src/favicon.ico",
-              "projects/ng-kit-demo/src/assets"
-            ],
-            "styles": [
-              "projects/ng-kit-demo/src/styles.scss"
-            ],
-            "scripts": []
-          },
+						"outputPath": "dist/ng-kit-demo",
+						"index": "projects/ng-kit-demo/src/index.html",
+						"browser": "projects/ng-kit-demo/src/main.ts",
+						"tsConfig": "projects/ng-kit-demo/tsconfig.app.json",
+						"inlineStyleLanguage": "scss",
+						"assets": ["projects/ng-kit-demo/src/favicon.ico", "projects/ng-kit-demo/src/assets"],
+						"styles": ["projects/ng-kit-demo/src/styles.scss"],
+						"scripts": []
+					},
           "configurations": {
             "production": {
               "budgets": [
