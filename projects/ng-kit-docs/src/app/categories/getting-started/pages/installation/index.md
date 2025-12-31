@@ -1,54 +1,67 @@
-Install the library via npm or pnpm or yarn:
+
+
+
+**ng-kit** supports Angular 19, 20, and 21. Requires RxJS 7.x. Install with your preferred package manager:
 
 ```bash
-npm i @js-smart/ng-kit
-```
+# npm
+npm install @js-smart/ng-kit
 
-Or
+# pnpm
+pnpm add @js-smart/ng-kit
 
-```bash
-pnpm i @js-smart/ng-kit
-```
-
-Or
-
-```bash
+# yarn
 yarn add @js-smart/ng-kit
 ```
 
-## Requirements
+---
 
-- **Angular**: 19.x / 20.x / 21.x
-- **RxJS**: 7.x
+# Usage Example
 
-# Usage
+**ng-kit** is fully modular and tree-shakable. Import only the features you need.
 
-**ng-kit** is modular by design. Import the components that you need. Here is an example to load Primary Button
-
-### Example
+Here’s how to use the Primary Button Directive in a standalone component:
 
 ```typescript
-import { Component } from '@angular/core';
-import {ViewPrimaryButtonDirective} from '@js-smart/ng-kit';
+import { Component, signal } from '@angular/core';
+import { ViewPrimaryButtonDirective } from '@js-smart/ng-kit';
 
 @Component({
   selector: 'app-component',
+  standalone: true,
+  imports: [ViewPrimaryButtonDirective],
   template: `
-    <button [loading]="loading()" (click)="setLoading()" primaryButton mat-raised-button class="m-3">Edit</button>
-  `,
-  imports: [ViewPrimaryButtonDirective]
+    <button
+      [loading]="loading()"
+      (click)="setLoading()"
+      primaryButton
+      mat-raised-button
+      class="m-3"
+    >Edit</button>
+  `
 })
 export class AppComponent {
-}
+  loading = signal(false);
 
+  setLoading() {
+    this.loading.set(true);
+    setTimeout(() => this.loading.set(false), 3000);
+  }
+}
 ```
 
-Since the library is tree-shakable, only the features you actually import will be included in your final bundle.
+---
 
 # Troubleshooting
 
-If you run into issues:
-1. Check that your Angular version is compatible.
-2. Try clearing your `node_modules` and reinstalling.
-3. Check for any peer dependency warnings during installation.
+If you encounter issues:
+
+1. Ensure your Angular version is supported.
+2. Delete `node_modules` and reinstall dependencies.
+3. Check for peer dependency warnings during install.
+4. Review the [Angular Update Guide](https://update.angular.io/) for breaking changes.
+
+---
+
+For more examples and advanced usage, see the documentation sections in this guide.
 
