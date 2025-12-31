@@ -1,7 +1,7 @@
 @if (open()) {
 	<div class="row {{ class() }}">
 		<div class="col-xs-12 col-sm-12 col-md-auto mx-auto">
-			<div class="alert alert-{{ type() }} alert-dismissible alert_div" role="alert">
+			<div class="alert alert-{{ type() }} alert-dismissible alert_div" role="alert" aria-live="polite">
 				<ng-content></ng-content>
 				@if (dismissible()) {
 					<button (click)="closeAlert()" aria-label="Close" class="btn-close" data-bs-dismiss="alert" type="button"></button>

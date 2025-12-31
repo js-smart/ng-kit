@@ -1,0 +1,19 @@
+<ng-doc-root>
+	<ng-doc-navbar>
+		<div class="logo-container" ngDocNavbarLeft>
+			<a href="https://js-smart.github.io/ng-kit"> </a>
+			<h3 class="logo-text">NG Kit</h3>
+		</div>
+
+		<div class="ng-doc-header-controls" ngDocNavbarRight>
+			<ng-doc-theme-toggle></ng-doc-theme-toggle>
+			<a href="https://github.com/js-smart/ng-kit" ng-doc-button-icon ngDocTooltip="Repository on GitHub" size="large" target="_blank">
+				<ng-doc-icon [size]="24" customIcon="github"></ng-doc-icon>
+			</a>
+		</div>
+	</ng-doc-navbar>
+	<ng-doc-sidebar></ng-doc-sidebar>
+	<div>
+		<router-outlet></router-outlet>
+	</div>
+</ng-doc-root>

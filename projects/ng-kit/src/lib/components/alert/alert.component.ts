@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, effect, inject, input, type OnInit, output, signal } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, effect, inject, input, type OnInit, output, signal } from '@angular/core';
 
 export type AlertType = 'info' | 'primary' | 'secondary' | 'success' | 'warning' | 'danger' | 'dark' | 'light';
 
@@ -12,6 +12,7 @@ export type AlertType = 'info' | 'primary' | 'secondary' | 'success' | 'warning'
 	selector: 'lib-alert, alert',
 	templateUrl: './alert.component.html',
 	styleUrls: ['./alert.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AlertComponent implements OnInit {
 	cdr = inject(ChangeDetectorRef);
@@ -69,8 +70,6 @@ export class AlertComponent implements OnInit {
 	 * @since 12.0.0
 	 */
 	ngOnInit(): void {
-		this.openAlert();
-
 		if (this.dismissOnTimeout()) {
 			setTimeout(() => {
 				this.closeAlert();
@@ -86,20 +85,10 @@ export class AlertComponent implements OnInit {
 	 * @since 12.0.0
 	 */
 	closeAlert(): void {
-		if (!this.isOpen()) {
+		if (!this.open()) {
 			return;
 		}
 		this.open.set(false);
 		this.closed.emit();
-	}
-
-	/**
-	 * Opens Bootstrap Alert
-	 *
-	 * @author Pavan Kumar Jadda
-	 * @since 12.0.0
-	 */
-	private openAlert(): void {
-		this.open.set(true);
 	}
 }
