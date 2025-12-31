@@ -1,51 +1,58 @@
 Custom button components build on top of Angular Material buttons. Provides the ability to create different types of buttons with additional styling and features. 
 
-### Available Buttons
-A base button component that provides common functionality and styling for all button types. All buttons extends this base button. Here are the available button types in the library.
-- Base Button
-- Bootstrap Link Button
-- Close Button
-- Delete Button
-- Edit Bootstrap Button
-- Edit Button
-- Edit SVG Icon Button
-- Excel Button
-- Manage Button
-- PDF Button
-- Primary Button
-- Save Primey Button
-- Search Button
-- Success Button
-- View Button
-- View Primary Button
+## Base Button
+A base button component that provides common functionality and styling for all button types. All buttons extends this base button
 
-## Base Button API
-Buttons that extend the base button component inherit its inputs and outputs.
+## Usage
+
+Button components in ng-kit can be used in two ways: as **directives** (recommended) or as **components** (legacy). The directive approach provides more flexibility and cleaner markup by applying button behavior directly to existing HTML elements.
+
+### Recommended: Using Directives
+
+Directives allow you to apply button styling and behavior to any HTML element. This approach is more flexible and results in cleaner markup.
+
+```html
+<!-- Primary Button -->
+<button ariaLabel="Submit" (click)="onSubmit()" primaryButton>Submit</button>
+
+<!-- Delete Button -->
+<button ariaLabel="Delete item" (click)="onDelete()" deleteButton>Delete</button>
+
+<!-- Edit Button -->
+<button ariaLabel="Edit item" (click)="onEdit()" editButton>Edit</button>
+```
+
+### Legacy: Using Components
+
+The component approach uses dedicated Angular components that wrap Angular Material buttons. While still supported, the directive approach is preferred for new implementations.
+
+```html
+<!-- Primary Button -->
+<primary-button ariaLabel="Submit" (click)="onSubmit()">Submit</primary-button>
+
+<!-- Delete Button -->
+<delete-button ariaLabel="Delete item" (click)="onDelete()"></delete-button>
+
+<!-- Edit Button -->
+<edit-button ariaLabel="Edit item" (click)="onEdit()"></edit-button>
+```
 
 
-#### API Reference
-
-| Name         | Type                | Default      | Description                                              |
-|--------------|---------------------|--------------|----------------------------------------------------------|
-| `loading`    | boolean             | false        | Show loading state (disables button, shows spinner)      |
-| `disabled`   | boolean             | false        | Disable the button                                       |
-| `type`       | 'button' \| 'submit'| 'button'     | Button type attribute                                    |
-| `loadingLabel`| string             | 'Saving...'  | Label to show when loading                               |
-| `label`      | string              | 'Save'       | Button label                                             |
-| `icon`       | string              | 'save'       | Material icon name to display                            |
-| `showIcon`   | boolean             | true         | Show/hide icon                                           |
-| `style`      | any                 | null         | Inline style object                                      |
-| `classes`    | string              | 'btn'        | CSS classes to apply                                     |
-| `dataCy`     | string              | 'save-button'| data-cy attribute for testing                            |
-
-#### Outputs
-| Name         | Type                | Description                                  |
-|--------------|---------------------|----------------------------------------------|
-| `onClick`    | MouseEvent          | Emits when button is clicked                 |
-| `onFocus`    | FocusEvent          | Emits when button is focused                 |
-| `onBlur`     | FocusEvent          | Emits when button is blurred                 |
-| `onKeyDown`  | KeyboardEvent       | Emits when key is pressed down on button     |
-| `onKeyUp`    | KeyboardEvent       | Emits when key is released on button         |
-
----
-
+## Available Buttons
+Here are the available buttons in the library.
+- [Base Button](components/buttons/base-button)
+- [Bootstrap Link Button](components/buttons/bs-link-button)
+- [Close Button](components/buttons/close-button)
+- [Delete Button](components/buttons/delete-button)
+- [Edit Bootstrap Button](components/buttons/edit-bs-button)
+- [Edit Button](components/buttons/edit-button)
+- [Edit SVG Icon Button](components/buttons/edit-svg-icon-button)
+- [Excel Export Button](components/buttons/excel-export-button)
+- [Manage Button](components/buttons/manage-button)
+- [PDF Export Button](components/buttons/pdf-export-button)
+- [Primary Button](components/buttons/primary-button)
+- [Save Primary Button](components/buttons/save-primary-button)
+- [Search Button](components/buttons/search-button)
+- [Success Button](components/buttons/success-button)
+- [View Button](components/buttons/view-button)
+- [View Primary Button](components/buttons/view-primary-button)
