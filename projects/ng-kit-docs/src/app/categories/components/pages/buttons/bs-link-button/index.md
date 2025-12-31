@@ -1,8 +1,17 @@
 A button styled as a bootstrap link, used for navigation or actions that look like links but behave as buttons. Useful for actions that should look like links but require button semantics.
 
 ## Usage
+
+### Recommended: Using Directive
+
 ```html
-  <bs-link-button class="m-3" label="Bootstrap Link Button"></bs-link-button>
+<a href="/path" ariaLabel="Bootstrap Link Button" bsLinkButton>Bootstrap Link Button</a>
+```
+
+### Legacy: Using Component
+
+```html
+<bs-link-button class="m-3" label="Bootstrap Link Button"></bs-link-button>
 ```
 
 ## API Reference

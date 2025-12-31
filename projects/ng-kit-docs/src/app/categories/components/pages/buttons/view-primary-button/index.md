@@ -1,6 +1,15 @@
 A primary-styled button for view or details actions. The View Primary Button extends the Base Button and is styled as a primary action. It is used for prominent view or details actions, often with an eye icon and primary color.
 
 ## Usage
+
+### Recommended: Using Directive
+
+```html
+<button ariaLabel="View details" (click)="onView()" viewPrimaryButton>View</button>
+```
+
+### Legacy: Using Component
+
 ```html
 <view-primary-button ariaLabel="View details" (click)="onView()">View</view-primary-button>
 ```

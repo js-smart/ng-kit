@@ -7,6 +7,11 @@ The Close Button extends the Base Button and includes additional properties for 
 - **(click)**: `EventEmitter<MouseEvent>` — Emits when the button is clicked.
 
 ## Usage
+
+### Using Directive
+
+The Close Button is only available as a directive.
+
 ```html
-<ng-kit-close-button ariaLabel="Close dialog"></ng-kit-close-button>
+<button ariaLabel="Close dialog" closeButton>×</button>
 ```

@@ -1,6 +1,15 @@
 A button for management actions, such as opening settings or admin panels. The Manage Button extends the Base Button and is styled for actions related to management or administration. It may include a gear or settings icon.
 
 ## Usage
+
+### Recommended: Using Directive
+
+```html
+<button ariaLabel="Manage settings" (click)="onManage()" manageButton>Manage</button>
+```
+
+### Legacy: Using Component
+
 ```html
 <manage-button ariaLabel="Manage settings" (click)="onManage()"></manage-button>
 ```

@@ -1,6 +1,15 @@
 A Bootstrap-styled button for edit actions, often with a pencil icon. The Edit BS Button extends the Base Button and is styled for edit actions, using Bootstrap conventions. It is commonly used to trigger editing of items in lists or tables.
 
 ## Usage
+
+### Recommended: Using Directive
+
+```html
+<button ariaLabel="Edit item" (click)="onEdit()" editBsButton>Edit</button>
+```
+
+### Legacy: Using Component
+
 ```html
 <edit-bs-button ariaLabel="Edit item" (click)="onEdit()"></edit-bs-button>
 ```

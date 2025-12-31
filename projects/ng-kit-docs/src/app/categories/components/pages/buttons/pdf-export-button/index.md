@@ -1,6 +1,15 @@
 A button for exporting data to PDF format. The PDF Export Button is a standalone button component styled for PDF export functionality with a red background.
 
 ## Usage
+
+### Recommended: Using Directive
+
+```html
+<button pdfExportButton>PDF</button>
+```
+
+### Legacy: Using Component
+
 ```html
 <pdf-export-button></pdf-export-button>
 ```

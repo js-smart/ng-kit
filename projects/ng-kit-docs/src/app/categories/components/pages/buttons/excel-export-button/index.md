@@ -1,6 +1,15 @@
 A button for exporting data to Excel format. The Excel Export Button is a standalone button component styled for Excel export functionality with a dark green background.
 
 ## Usage
+
+### Recommended: Using Directive
+
+```html
+<button excelExportButton>Excel</button>
+```
+
+### Legacy: Using Component
+
 ```html
 <excel-export-button></excel-export-button>
 ```

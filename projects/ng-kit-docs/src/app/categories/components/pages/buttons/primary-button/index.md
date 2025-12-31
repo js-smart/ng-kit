@@ -1,6 +1,15 @@
 A button styled as the primary action button. The Primary Button extends the Base Button and is styled to stand out as the main action on a page or form. It uses a prominent color and may include an icon.
 
 ## Usage
+
+### Recommended: Using Directive
+
+```html
+<button ariaLabel="Submit" (click)="onSubmit()" primaryButton>Submit</button>
+```
+
+### Legacy: Using Component
+
 ```html
 <primary-button ariaLabel="Submit" (click)="onSubmit()">Submit</primary-button>
 ```

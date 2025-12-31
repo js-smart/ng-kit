@@ -1,6 +1,15 @@
 A button for delete actions, often styled with a danger color and icon. The Delete Button extends the Base Button and is used to trigger destructive actions. It typically displays a trash or delete icon and uses a warning color.
 
 ## Usage
+
+### Recommended: Using Directive
+
+```html
+<button ariaLabel="Delete item" (click)="onDelete()" deleteButton>Delete</button>
+```
+
+### Legacy: Using Component
+
 ```html
 <delete-button ariaLabel="Delete item" (click)="onDelete()"></delete-button>
 ```

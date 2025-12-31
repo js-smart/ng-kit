@@ -1,6 +1,15 @@
 A primary button for save actions, styled to indicate importance. The Save Primary Button extends the Base Button and is used for save actions. It is styled to stand out and may include a save icon.
 
 ## Usage
+
+### Recommended: Using Directive
+
+```html
+<button ariaLabel="Save" (click)="onSave()" savePrimaryButton>Save</button>
+```
+
+### Legacy: Using Component
+
 ```html
 <save-primary-button ariaLabel="Save" (click)="onSave()">Save</save-primary-button>
 ```

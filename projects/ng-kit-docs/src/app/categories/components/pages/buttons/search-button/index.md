@@ -1,6 +1,11 @@
 A button for search actions, often with a magnifier icon. The Search Button extends the Base Button and is used to trigger search actions. It is styled with a search icon and is accessible.
 
 ## Usage
+
+### Using Component
+
+The Search Button is only available as a component.
+
 ```html
 <search-button ariaLabel="Search" (click)="onSearch()"></search-button>
 ```

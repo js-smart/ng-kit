@@ -1,6 +1,15 @@
 A button for edit actions using a custom SVG icon. The Edit SVG Icon Button extends the Base Button and displays a custom SVG icon for edit actions. Useful for consistent iconography across your app.
 
 ## Usage
+
+### Recommended: Using Directive
+
+```html
+<button ariaLabel="Edit item" (click)="onEdit()" editSvgIconButton>Edit</button>
+```
+
+### Legacy: Using Component
+
 ```html
 <edit-svg-icon-button ariaLabel="Edit item" (click)="onEdit()"></edit-svg-icon-button>
 ```

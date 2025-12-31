@@ -1,6 +1,15 @@
 A button for edit actions, typically with a pencil or edit icon. The Edit Button extends the Base Button and is used to trigger editing of content. It is styled to indicate an edit action and is accessible.
 
 ## Usage
+
+### Recommended: Using Directive
+
+```html
+<button ariaLabel="Edit item" (click)="onEdit()" editButton>Edit</button>
+```
+
+### Legacy: Using Component
+
 ```html
 <edit-button ariaLabel="Edit item" (click)="onEdit()"></edit-button>
 ```

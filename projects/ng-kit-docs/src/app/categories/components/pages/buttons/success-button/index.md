@@ -1,6 +1,15 @@
 A button styled to indicate a successful or positive action. The Success Button extends the Base Button and is styled with a success color, typically green. It is used for actions that result in a positive outcome.
 
 ## Usage
+
+### Recommended: Using Directive
+
+```html
+<button ariaLabel="Success" (click)="onSuccess()" successButton>Success</button>
+```
+
+### Legacy: Using Component
+
 ```html
 <success-button ariaLabel="Success" (click)="onSuccess()">Success</success-button>
 ```
