@@ -1,4 +1,4 @@
-**ngx-kit** is a collection of reusable Angular components built with Angular Material and Bootstrap 5.x, Utility classes, functions for Date, Form and String operations
+**ngx-kit** is a collection of reusable Angular components built with Angular Material and Bootstrap 5.x, Utility classes, functions for Date, Form and String operations. These are primarly designed for our projects
 
 
 # Key Features
