@@ -1,16 +1,18 @@
-# Save Primary Button
-
-A primary button for save actions, styled to indicate importance.
-
-## Description
-The Save Primary Button extends the Primary Button and is used for save actions. It is styled to stand out and may include a save icon.
-
-## API
-- **disabled**: `boolean` — Disables the button.
-- **ariaLabel**: `string` — Accessibility label.
-- **(click)**: `EventEmitter<MouseEvent>` — Emits when the button is clicked.
+A primary button for save actions, styled to indicate importance. The Save Primary Button extends the Base Button and is used for save actions. It is styled to stand out and may include a save icon.
 
 ## Usage
 ```html
-<ng-kit-save-primary-button ariaLabel="Save" (click)="onSave()">Save</ng-kit-save-primary-button>
+<save-primary-button ariaLabel="Save" (click)="onSave()">Save</save-primary-button>
 ```
+
+## API Reference
+The Save Primary Button extends the Base Button and overrides below properties for save behavior. See [Base Button](/components/buttons/base-button#api-reference) for inherited properties.
+
+Below are the inputs overridden by the Save Primary Button.
+
+| Name          | Type   | Default                | Description                    |
+|---------------|--------|------------------------|--------------------------------|
+| `loadingLabel`| string | 'Saving...'            | Label to show when saving      |
+| `label`       | string | 'Save'                 | Button label                   |
+| `icon`        | string | 'save'                 | Material icon name to display  |
+| `classes`     | string | 'btn-primary primary-button' | CSS classes to apply           |

@@ -1,9 +1,4 @@
-# Excel Export Button
-
-A button for exporting data to Excel format.
-
-## Description
-The Excel Export Button extends the Base Button and is used to trigger the export of data to an Excel file. It is styled to indicate export functionality and may include an Excel icon.
+A button for exporting data to Excel format. The Excel Export Button extends the Base Button and is used to trigger the export of data to an Excel file. It is styled to indicate export functionality and may include an Excel icon.
 
 ## API
 - **fileName**: `string` — Name of the exported Excel file.

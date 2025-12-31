@@ -1,11 +1,8 @@
-# Close Button
+A button for closing dialogs, modals, or dismissible elements. The Close Button provides a standard close (×) icon and accessible semantics for dismissing content. Inherits from Base Button.
 
-A button for closing dialogs, modals, or dismissible elements.
+## API Reference
+The Close Button extends the Base Button and includes additional properties for close behavior. See [Base Button](/components/buttons/base-button#api-reference) for inherited properties.
 
-## Description
-The Close Button provides a standard close (×) icon and accessible semantics for dismissing content. Inherits from Base Button.
-
-## API
 - **ariaLabel**: `string` — Accessibility label for screen readers.
 - **(click)**: `EventEmitter<MouseEvent>` — Emits when the button is clicked.
 

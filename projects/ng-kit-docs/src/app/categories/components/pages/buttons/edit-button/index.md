@@ -1,16 +1,17 @@
-# Edit Button
-
-A button for edit actions, typically with a pencil or edit icon.
-
-## Description
-The Edit Button extends the Base Button and is used to trigger editing of content. It is styled to indicate an edit action and is accessible.
-
-## API
-- **disabled**: `boolean` — Disables the button.
-- **ariaLabel**: `string` — Accessibility label.
-- **(click)**: `EventEmitter<MouseEvent>` — Emits when the button is clicked.
+A button for edit actions, typically with a pencil or edit icon. The Edit Button extends the Base Button and is used to trigger editing of content. It is styled to indicate an edit action and is accessible.
 
 ## Usage
 ```html
-<ng-kit-edit-button ariaLabel="Edit item" (click)="onEdit()"></ng-kit-edit-button>
+<edit-button ariaLabel="Edit item" (click)="onEdit()"></edit-button>
 ```
+
+## API Reference
+The Edit Button extends the Base Button and overrides below properties for edit behavior. See [Base Button](/components/buttons/base-button#api-reference) for inherited properties.
+
+Below are the inputs overridden by the Edit Button.
+
+| Name      | Type   | Default         | Description                    |
+|-----------|--------|-----------------|--------------------------------|
+| `label`   | string | 'Edit'          | Button label                   |
+| `icon`    | string | 'edit'          | Material icon name to display  |
+| `classes` | string | 'primary-button'| CSS classes to apply           |

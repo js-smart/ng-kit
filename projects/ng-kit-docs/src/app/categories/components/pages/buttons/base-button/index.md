@@ -11,7 +11,7 @@ The Base Button is not intended to be used directly. Instead, extend it to creat
 The Base Button component exposes the following inputs and outputs
 
 #### Inputs
-All of these are angular signal inputs
+All of these are Angular signal inputs.
 
 | Name         | Type                | Default      | Description                                              |
 |--------------|---------------------|--------------|----------------------------------------------------------|
