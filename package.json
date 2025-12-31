@@ -7,7 +7,7 @@
 		"start:docs": "ng serve ng-kit-docs --watch --hmr --port=4300",
 		"build": "ng build ng-kit --configuration=production",
 		"build:ng-kit-demo": "ng build ng-kit-demo --configuration=production",
-		"build:ng-kit-docs": "ng build ng-kit-docs --configuration=production",
+		"build:docs": "ng build ng-kit-docs --configuration=production",
 		"watch": "ng build --watch --configuration development",
 		"test": "ng test --watch=false",
 		"test:store": "ng test --include='**/store/*.spec.ts'",
