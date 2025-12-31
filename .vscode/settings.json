@@ -1,0 +1,12 @@
+{
+	// Enable inline suggestions (Tab autocomplete) for markdown files
+	"cursor.inlineSuggest.enabled": true,
+	"[markdown]": {
+		"editor.inlineSuggest.enabled": true,
+		"editor.quickSuggestions": {
+			"other": true,
+			"comments": true,
+			"strings": true
+		}
+	}
+}
