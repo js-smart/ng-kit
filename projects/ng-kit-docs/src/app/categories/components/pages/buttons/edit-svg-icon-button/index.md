@@ -2,15 +2,11 @@ A button for edit actions using a custom SVG icon. The Edit SVG Icon Button exte
 
 ## Usage
 
-### Recommended: Using Directive
-
-```html
+```html group="usage" name="Directive (Preferred)" active
 <button ariaLabel="Edit item" (click)="onEdit()" editSvgIconButton>Edit</button>
 ```
 
-### Legacy: Using Component
-
-```html
+```html group="usage" name="Component"
 <edit-svg-icon-button ariaLabel="Edit item" (click)="onEdit()"></edit-svg-icon-button>
 ```
 

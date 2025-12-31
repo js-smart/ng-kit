@@ -2,15 +2,11 @@ A button styled as a bootstrap link, used for navigation or actions that look li
 
 ## Usage
 
-### Recommended: Using Directive
-
-```html
+```html group="usage" name="Directive (Preferred)" active
 <a href="/path" ariaLabel="Bootstrap Link Button" bsLinkButton>Bootstrap Link Button</a>
 ```
 
-### Legacy: Using Component
-
-```html
+```html group="usage" name="Component"
 <bs-link-button class="m-3" label="Bootstrap Link Button"></bs-link-button>
 ```
 

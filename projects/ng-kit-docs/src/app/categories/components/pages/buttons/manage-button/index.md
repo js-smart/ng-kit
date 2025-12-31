@@ -2,15 +2,11 @@ A button for management actions, such as opening settings or admin panels. The M
 
 ## Usage
 
-### Recommended: Using Directive
-
-```html
+```html group="usage" name="Directive (Preferred)" active
 <button ariaLabel="Manage settings" (click)="onManage()" manageButton>Manage</button>
 ```
 
-### Legacy: Using Component
-
-```html
+```html group="usage" name="Component"
 <manage-button ariaLabel="Manage settings" (click)="onManage()"></manage-button>
 ```
 

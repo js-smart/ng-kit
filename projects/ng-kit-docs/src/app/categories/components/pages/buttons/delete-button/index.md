@@ -2,15 +2,11 @@ A button for delete actions, often styled with a danger color and icon. The Dele
 
 ## Usage
 
-### Recommended: Using Directive
-
-```html
+```html group="usage" name="Directive (Preferred)" active
 <button ariaLabel="Delete item" (click)="onDelete()" deleteButton>Delete</button>
 ```
 
-### Legacy: Using Component
-
-```html
+```html group="usage" name="Component"
 <delete-button ariaLabel="Delete item" (click)="onDelete()"></delete-button>
 ```
 

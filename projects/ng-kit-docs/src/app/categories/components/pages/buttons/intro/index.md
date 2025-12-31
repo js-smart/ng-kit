@@ -7,11 +7,9 @@ A base button component that provides common functionality and styling for all b
 
 Button components in ng-kit can be used in two ways: as **directives** (recommended) or as **components** (legacy). The directive approach provides more flexibility and cleaner markup by applying button behavior directly to existing HTML elements.
 
-### Recommended: Using Directives
-
 Directives allow you to apply button styling and behavior to any HTML element. This approach is more flexible and results in cleaner markup.
 
-```html
+```html group="usage" name="Directive (Preferred)" active
 <!-- Primary Button -->
 <button ariaLabel="Submit" (click)="onSubmit()" primaryButton>Submit</button>
 
@@ -22,11 +20,9 @@ Directives allow you to apply button styling and behavior to any HTML element. T
 <button ariaLabel="Edit item" (click)="onEdit()" editButton>Edit</button>
 ```
 
-### Legacy: Using Components
-
 The component approach uses dedicated Angular components that wrap Angular Material buttons. While still supported, the directive approach is preferred for new implementations.
 
-```html
+```html group="usage" name="Component"
 <!-- Primary Button -->
 <primary-button ariaLabel="Submit" (click)="onSubmit()">Submit</primary-button>
 

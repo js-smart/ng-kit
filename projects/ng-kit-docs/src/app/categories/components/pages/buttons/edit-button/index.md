@@ -2,15 +2,11 @@ A button for edit actions, typically with a pencil or edit icon. The Edit Button
 
 ## Usage
 
-### Recommended: Using Directive
-
-```html
+```html group="usage" name="Directive (Preferred)" active
 <button ariaLabel="Edit item" (click)="onEdit()" editButton>Edit</button>
 ```
 
-### Legacy: Using Component
-
-```html
+```html group="usage" name="Component"
 <edit-button ariaLabel="Edit item" (click)="onEdit()"></edit-button>
 ```
 

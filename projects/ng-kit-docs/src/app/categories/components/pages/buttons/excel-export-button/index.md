@@ -2,15 +2,11 @@ A button for exporting data to Excel format. The Excel Export Button is a standa
 
 ## Usage
 
-### Recommended: Using Directive
-
-```html
+```html group="usage" name="Directive (Preferred)" active
 <button excelExportButton>Excel</button>
 ```
 
-### Legacy: Using Component
-
-```html
+```html group="usage" name="Component"
 <excel-export-button></excel-export-button>
 ```
 

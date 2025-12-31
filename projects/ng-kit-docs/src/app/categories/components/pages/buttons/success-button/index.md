@@ -2,15 +2,11 @@ A button styled to indicate a successful or positive action. The Success Button 
 
 ## Usage
 
-### Recommended: Using Directive
-
-```html
+```html group="usage" name="Directive (Preferred)" active
 <button ariaLabel="Success" (click)="onSuccess()" successButton>Success</button>
 ```
 
-### Legacy: Using Component
-
-```html
+```html group="usage" name="Component"
 <success-button ariaLabel="Success" (click)="onSuccess()">Success</success-button>
 ```
 

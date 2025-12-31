@@ -2,15 +2,11 @@ A button styled as the primary action button. The Primary Button extends the Bas
 
 ## Usage
 
-### Recommended: Using Directive
-
-```html
+```html group="usage" name="Directive (Preferred)" active
 <button ariaLabel="Submit" (click)="onSubmit()" primaryButton>Submit</button>
 ```
 
-### Legacy: Using Component
-
-```html
+```html group="usage" name="Component"
 <primary-button ariaLabel="Submit" (click)="onSubmit()">Submit</primary-button>
 ```
 

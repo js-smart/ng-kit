@@ -1,16 +1,22 @@
 
 Install **@js-smart/ng-kit** using your preferred package manager:
 
-```bash
-# npm
+```bash  group="installation" name="npm"
 npm install @js-smart/ng-kit
+```
 
-# pnpm
+```bash  group="installation" name="pnpm"
 pnpm add @js-smart/ng-kit
+```
 
-# yarn
+```bash  group="installation" name="yarn"
 yarn add @js-smart/ng-kit
 ```
+
+```bash  group="installation" name="bun"
+bun add @js-smart/ng-kit
+```
+
 
 ## Prerequisites
 

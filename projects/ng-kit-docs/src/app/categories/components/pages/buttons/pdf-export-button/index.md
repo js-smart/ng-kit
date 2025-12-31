@@ -2,15 +2,11 @@ A button for exporting data to PDF format. The PDF Export Button is a standalone
 
 ## Usage
 
-### Recommended: Using Directive
-
-```html
+```html group="usage" name="Directive (Preferred)" active
 <button pdfExportButton>PDF</button>
 ```
 
-### Legacy: Using Component
-
-```html
+```html group="usage" name="Component"
 <pdf-export-button></pdf-export-button>
 ```
 

@@ -2,15 +2,11 @@ A primary-styled button for view or details actions. The View Primary Button ext
 
 ## Usage
 
-### Recommended: Using Directive
-
-```html
+```html group="usage" name="Directive (Preferred)" active
 <button ariaLabel="View details" (click)="onView()" viewPrimaryButton>View</button>
 ```
 
-### Legacy: Using Component
-
-```html
+```html group="usage" name="Component"
 <view-primary-button ariaLabel="View details" (click)="onView()">View</view-primary-button>
 ```
 

@@ -2,15 +2,11 @@ A primary button for save actions, styled to indicate importance. The Save Prima
 
 ## Usage
 
-### Recommended: Using Directive
-
-```html
+```html group="usage" name="Directive (Preferred)" active
 <button ariaLabel="Save" (click)="onSave()" savePrimaryButton>Save</button>
 ```
 
-### Legacy: Using Component
-
-```html
+```html group="usage" name="Component"
 <save-primary-button ariaLabel="Save" (click)="onSave()">Save</save-primary-button>
 ```
 

@@ -2,15 +2,11 @@ A Bootstrap-styled button for edit actions, often with a pencil icon. The Edit B
 
 ## Usage
 
-### Recommended: Using Directive
-
-```html
+```html group="usage" name="Directive (Preferred)" active
 <button ariaLabel="Edit item" (click)="onEdit()" editBsButton>Edit</button>
 ```
 
-### Legacy: Using Component
-
-```html
+```html group="usage" name="Component"
 <edit-bs-button ariaLabel="Edit item" (click)="onEdit()"></edit-bs-button>
 ```
 

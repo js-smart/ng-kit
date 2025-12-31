@@ -4,13 +4,9 @@ A button for view or details actions, often with an eye icon. The View Button ex
 
 This component is not intended to be used directly. Use the directive or extended button components instead.
 
-### Recommended: Using Directive
-
-```html
+```html group="usage" name="Directive (Preferred)" active
 <button ariaLabel="View details" (click)="onView()" viewButton>View</button>
 ```
-
-### Legacy: Using Component
 
 This component should not be used directly. Use `view-primary-button` instead.
 
