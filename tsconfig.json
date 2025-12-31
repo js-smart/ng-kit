@@ -30,5 +30,13 @@
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
     "strictTemplates": true
-  }
+  },
+  "references": [
+    {
+      "path": "./projects/ng-kit-docs/tsconfig.app.json"
+    },
+    {
+      "path": "./projects/ng-kit-docs/tsconfig.spec.json"
+    }
+  ]
 }
