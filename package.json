@@ -3,11 +3,9 @@
   "version": "21.2.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve ng-kit-demo --port=4300",
+    "start": "ng serve ng-kit-docs --port=4300",
     "start:docs": "ng serve ng-kit-docs  --port=4300",
     "build": "ng build ng-kit --configuration=production",
-    "build:ng-kit-demo": "ng build ng-kit-demo --configuration=production",
-    "build:demo": "ng build ng-kit-demo --configuration=production",
     "build:docs": "ng build ng-kit-docs --configuration=production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test --watch=false",

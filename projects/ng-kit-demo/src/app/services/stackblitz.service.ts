@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { openProject } from '@stackblitz/sdk';
+import sdk from '@stackblitz/sdk';
 import { DemoConfig } from '../types/demo-config';
 
 @Injectable({
@@ -12,13 +12,14 @@ export class StackBlitzService {
 	 */
 	openDemo(demoConfig: DemoConfig): void {
 		const files = this.generateStackBlitzFiles(demoConfig);
+		const dependencies = this.getDependencies();
 
-		openProject({
+		sdk.openProject({
 			title: demoConfig.title || 'Angular Demo',
 			description: demoConfig.description || 'Angular demo powered by @js-smart/ng-kit',
 			template: 'angular-cli',
 			files: files,
-			dependencies: this.getDependencies(),
+			dependencies: dependencies,
 		});
 	}
 
@@ -34,7 +35,7 @@ export class StackBlitzService {
 
 			// App component
 			'src/app/app.component.ts': this.getAppComponentTs(demoConfig),
-			'src/app/app.component.html': demoConfig.componentHtml || '<router-outlet></router-outlet>',
+			'src/app/app.component.html': '<router-outlet></router-outlet>',
 			'src/app/app.config.ts': this.getAppConfigTs(demoConfig),
 			'src/app/app.routes.ts': this.getAppRoutesTs(demoConfig),
 
@@ -94,6 +95,10 @@ bootstrapApplication(AppComponent, appConfig).catch((err) =>
 		<link href="https://fonts.gstatic.com" rel="preconnect" />
 		<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet" />
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+		/>
 	</head>
 	<body class="mat-typography">
 		<app-root></app-root>
@@ -125,7 +130,7 @@ body {
 	 * Gets the app.component.ts file content
 	 */
 	private getAppComponentTs(demoConfig: DemoConfig): string {
-		return `import { Component } from '@angular/core';
+		return `import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
@@ -133,11 +138,9 @@ import { RouterOutlet } from '@angular/router';
 	standalone: true,
 	imports: [RouterOutlet],
 	templateUrl: './app.component.html',
-	styleUrl: './app.component.scss',
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent {
-	title = '${demoConfig.title || 'Angular Demo'}';
-}
+export class AppComponent {}
 `;
 	}
 
@@ -148,20 +151,60 @@ export class AppComponent {
 		const imports = demoConfig.requiredImports || [];
 		const providers = demoConfig.additionalProviders || [];
 
-		return `import { ApplicationConfig, importProvidersFrom } from '@angular/core';
-import { provideRouter } from '@angular/router';
-import { provideAnimations } from '@angular/platform-browser/animations';
-import { provideHttpClient } from '@angular/common/http';
-${imports.map((imp) => `import { ${imp} } from '${this.getImportPath(imp)}';`).join('\n')}
+		// Generate import statements only for demo-specific imports (base imports are hardcoded)
+		const importStatements =
+			imports.length > 0
+				? imports
+						.map((imp) => {
+							const path = this.getImportPath(imp);
+							return `import { ${imp} } from '${path}';`;
+						})
+						.join('\n')
+				: '';
+
+		// Build importProvidersFrom only for demo-specific imports
+		const importProvidersStatement = imports.length > 0 ? `importProvidersFrom(\n\t\t\t${imports.join(',\n\t\t\t')}\n\t\t)` : '';
+
+		const additionalProvidersStatement = providers.length > 0 ? providers.join(',\n\t\t') : '';
+
+		const allProviders = [
+			`provideRouter(
+			routes,
+			withComponentInputBinding(),
+			withRouterConfig({
+				onSameUrlNavigation: 'reload',
+			}),
+			withInMemoryScrolling(),
+			withPreloading(PreloadAllModules),
+			withRouterConfig({
+				paramsInheritanceStrategy: 'always',
+				onSameUrlNavigation: 'reload',
+				defaultQueryParamsHandling: 'replace',
+			}),
+		)`,
+			importProvidersStatement,
+			additionalProvidersStatement,
+		]
+			.filter((p) => p && p.trim())
+			.join(',\n\t\t');
+
+		const importProvidersImport = imports.length > 0 ? ', importProvidersFrom' : '';
+
+		return `import { ApplicationConfig${importProvidersImport} } from '@angular/core';
+import {
+	PreloadAllModules,
+	provideRouter,
+	withComponentInputBinding,
+	withInMemoryScrolling,
+	withPreloading,
+	withRouterConfig,
+} from '@angular/router';
 import { routes } from './app.routes';
+${importStatements ? `// Additional imports from demo config\n${importStatements}\n` : ''}
 
 export const appConfig: ApplicationConfig = {
 	providers: [
-		provideRouter(routes),
-		provideAnimations(),
-		provideHttpClient(),
-		${imports.length > 0 ? `importProvidersFrom(${imports.join(', ')}),` : ''}
-		${providers.join(',\n\t\t')}
+		${allProviders}
 	],
 };
 `;
@@ -178,7 +221,7 @@ export const appConfig: ApplicationConfig = {
 import { ${ComponentClass} } from './${componentName}.component';
 
 export const routes: Route[] = [
-	{ path: '', component: ${ComponentClass} },
+	{ path: '', component: ${ComponentClass}, pathMatch: 'full' },
 ];
 `;
 	}
@@ -202,7 +245,7 @@ export const routes: Route[] = [
 					sourceMap: true,
 					declaration: false,
 					experimentalDecorators: true,
-					moduleResolution: 'bundler',
+					moduleResolution: 'node',
 					importHelpers: true,
 					target: 'ES2022',
 					module: 'ES2022',
@@ -260,7 +303,7 @@ export const routes: Route[] = [
 				private: true,
 				dependencies: deps,
 				devDependencies: {
-					'@angular-devkit/build-angular': '^21.0.0',
+					'@angular/build': '^21.0.0',
 					'@angular/cli': '^21.0.0',
 					'@angular/compiler-cli': '^21.0.0',
 					typescript: '~5.9.3',
@@ -293,12 +336,11 @@ export const routes: Route[] = [
 						prefix: 'app',
 						architect: {
 							build: {
-								builder: '@angular-devkit/build-angular:application',
+								builder: '@angular/build:application',
 								options: {
 									outputPath: 'dist/demo-app',
 									index: 'src/index.html',
 									browser: 'src/main.ts',
-									polyfills: [],
 									tsConfig: 'tsconfig.app.json',
 									inlineStyleLanguage: 'scss',
 									assets: [],
@@ -325,7 +367,10 @@ export const routes: Route[] = [
 								defaultConfiguration: 'production',
 							},
 							serve: {
-								builder: '@angular-devkit/build-angular:dev-server',
+								builder: '@angular/build:dev-server',
+								options: {
+									buildTarget: 'demo-app:build',
+								},
 								configurations: {
 									production: {
 										buildTarget: 'demo-app:build:production',
@@ -351,12 +396,12 @@ export const routes: Route[] = [
 	private getDependencies(): Record<string, string> {
 		return {
 			'@angular/animations': '^21.0.0',
-			'@angular/cdk': '21.0.0',
+			'@angular/cdk': '^21.0.0',
 			'@angular/common': '^21.0.0',
 			'@angular/compiler': '^21.0.0',
 			'@angular/core': '^21.0.0',
 			'@angular/forms': '^21.0.0',
-			'@angular/material': '21.0.0',
+			'@angular/material': '^21.0.0',
 			'@angular/platform-browser': '^21.0.0',
 			'@angular/platform-browser-dynamic': '^21.0.0',
 			'@angular/router': '^21.0.0',
@@ -373,14 +418,25 @@ export const routes: Route[] = [
 	 */
 	private getImportPath(importName: string): string {
 		const importMap: Record<string, string> = {
+			CommonModule: '@angular/common',
+			DatePipe: '@angular/common',
 			FormsModule: '@angular/forms',
 			ReactiveFormsModule: '@angular/forms',
 			BrowserModule: '@angular/platform-browser',
+			Title: '@angular/platform-browser',
 			BrowserAnimationsModule: '@angular/platform-browser/animations',
+			RouterModule: '@angular/router',
+			PreloadAllModules: '@angular/router',
+			provideRouter: '@angular/router',
+			withComponentInputBinding: '@angular/router',
+			withRouterConfig: '@angular/router',
+			withInMemoryScrolling: '@angular/router',
+			withPreloading: '@angular/router',
 			MatSelectModule: '@angular/material/select',
 			MatAutocompleteModule: '@angular/material/autocomplete',
 			MatDatepickerModule: '@angular/material/datepicker',
 			MatNativeDateModule: '@angular/material/core',
+			MAT_DIALOG_DEFAULT_OPTIONS: '@angular/material/dialog',
 		};
 
 		return importMap[importName] || '@angular/core';
@@ -396,4 +452,3 @@ export const routes: Route[] = [
 			.join('');
 	}
 }
-
