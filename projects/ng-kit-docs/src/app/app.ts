@@ -1,13 +1,14 @@
-import { Component, inject } from '@angular/core';
-import { ChildrenOutletContexts, RouterOutlet } from '@angular/router';
+import { CommonModule, Location } from '@angular/common';
+import { Component, HostBinding, inject } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
 import { NgDocNavbarComponent, NgDocRootComponent, NgDocSidebarComponent, NgDocThemeToggleComponent } from '@ng-doc/app';
-import { NgDocThemeService } from '@ng-doc/app/services/theme';
 import { NgDocButtonIconComponent, NgDocIconComponent } from '@ng-doc/ui-kit';
 
 @Component({
 	selector: 'app-root',
 	imports: [
 		RouterOutlet,
+		CommonModule,
 		NgDocRootComponent,
 		NgDocNavbarComponent,
 		NgDocSidebarComponent,
@@ -19,14 +20,10 @@ import { NgDocButtonIconComponent, NgDocIconComponent } from '@ng-doc/ui-kit';
 	styleUrls: ['./app.scss'],
 })
 export class App {
-	private contexts = inject(ChildrenOutletContexts);
-	private readonly themeService = inject(NgDocThemeService);
+	protected readonly location = inject(Location);
 
-	constructor() {
-		this.themeService.set('auto');
-	}
-
-	get routingAnimations() {
-		return this.contexts.getContext('primary')?.route?.snapshot?.title;
+	@HostBinding('attr.data-ng-doc-is-landing')
+	get isLandingPage(): boolean {
+		return this.location.path() === '';
 	}
 }
