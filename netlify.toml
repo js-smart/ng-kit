@@ -1,6 +1,6 @@
 [build]
   command = "pnpm run build:docs"
-  publish = "dist/ng-kit-docs"
+  publish = "dist/ng-kit-docs/browser"
   [build.environment]
     ANGULAR_PROJECT = "ng-kit-docs"
 
