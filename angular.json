@@ -83,12 +83,7 @@
 						],
 						"styles": ["node_modules/@ng-doc/app/styles/global.css", "projects/ng-kit-docs/src/styles.scss"],
 						"scripts": [],
-						"server": "projects/ng-kit-docs/src/main.server.ts",
-						"prerender": false,
-						"allowedCommonJsDependencies": ["@ng-doc/core"],
-						"ssr": {
-							"entry": "projects/ng-kit-docs/src/server.ts"
-						}
+						"allowedCommonJsDependencies": ["@ng-doc/core"]
 					},
 					"configurations": {
 						"production": {
