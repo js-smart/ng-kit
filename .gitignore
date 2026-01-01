@@ -52,6 +52,4 @@ test-results
 
 # NgDoc files
 /ng-doc
-
-# NgDoc files
-/ng-doc
+docs/

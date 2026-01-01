@@ -10,43 +10,9 @@
 			"prefix": "lib",
 			"architect": {
 				"build": {
-					"builder": "@ng-doc/builder:application",
+					"builder": "@angular-devkit/build-angular:ng-packagr",
 					"options": {
-						"project": "projects/ng-kit/ng-package.json",
-						"styles": ["node_modules/@ng-doc/app/styles/global.css"],
-						"assets": [
-							{
-								"glob": "**/*",
-								"input": "node_modules/@ng-doc/app/assets",
-								"output": "assets/ng-doc/app"
-							},
-							{
-								"glob": "**/*",
-								"input": "node_modules/@ng-doc/ui-kit/assets",
-								"output": "assets/ng-doc/ui-kit"
-							},
-							{
-								"glob": "**/*",
-								"input": "ng-doc/ng-kit/assets",
-								"output": "assets/ng-doc"
-							},
-							{
-								"glob": "**/*",
-								"input": "node_modules/@ng-doc/app/assets",
-								"output": "assets/ng-doc/app"
-							},
-							{
-								"glob": "**/*",
-								"input": "node_modules/@ng-doc/ui-kit/assets",
-								"output": "assets/ng-doc/ui-kit"
-							},
-							{
-								"glob": "**/*",
-								"input": "ng-doc/ng-kit/assets",
-								"output": "assets/ng-doc"
-							}
-						],
-						"allowedCommonJsDependencies": ["@ng-doc/core"]
+						"project": "projects/ng-kit/ng-package.json"
 					},
 					"configurations": {
 						"production": {
