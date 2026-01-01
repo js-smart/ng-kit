@@ -1,12 +1,3 @@
-[build]
-  command = "pnpm run build:docs"
-  publish = "dist/ng-kit-docs/browser"
-  [build.environment]
-    ANGULAR_PROJECT = "ng-kit-docs"
-
-[[plugins]]
-  package = "@netlify/angular-runtime"
-
 [[redirects]]
   from = "/*"
   status = 200
