@@ -116,10 +116,7 @@
 				"build": {
 					"builder": "@ng-doc/builder:application",
 					"options": {
-						"outputPath": {
-							"base": "docs",
-							"browser": ""
-						},
+						"outputPath": "dist/ng-kit-docs",
 						"index": "projects/ng-kit-docs/src/index.html",
 						"browser": "projects/ng-kit-docs/src/main.ts",
 
