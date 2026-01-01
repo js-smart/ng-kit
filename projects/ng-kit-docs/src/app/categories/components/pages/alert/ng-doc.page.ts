@@ -7,9 +7,7 @@ const Alert: NgDocPage = {
 	mdFile: './index.md',
 	order: 0,
 	category: ComponentsCategory,
-	demos: {
-		AlertDemoComponent,
-	},
+	demos: { AlertDemoComponent },
 };
 
 export default Alert;
