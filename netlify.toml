@@ -1,7 +1,3 @@
-[build]
-  command = "pnpm run build:docs"
-  publish = "docs"
-
 [[redirects]]
   from = "/*"
   status = 200
