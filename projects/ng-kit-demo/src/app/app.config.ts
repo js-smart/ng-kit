@@ -1,5 +1,4 @@
 import { CommonModule, DatePipe } from '@angular/common';
-import { provideHttpClient, withFetch, withXsrfConfiguration } from '@angular/common/http';
 import { ApplicationConfig, importProvidersFrom } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
@@ -11,6 +10,7 @@ import { BrowserModule, Title } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PreloadAllModules, RouterModule } from '@angular/router';
 import { routes } from './app.routes';
+import { provideHttpClient, withFetch, withXsrfConfiguration } from '@angular/common/http';
 
 export const appConfig: ApplicationConfig = {
 	providers: [

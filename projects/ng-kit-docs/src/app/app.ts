@@ -2,7 +2,7 @@ import { CommonModule, Location } from '@angular/common';
 import { Component, HostBinding, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NgDocNavbarComponent, NgDocRootComponent, NgDocSidebarComponent, NgDocThemeToggleComponent } from '@ng-doc/app';
-import { NgDocButtonIconComponent, NgDocIconComponent } from '@ng-doc/ui-kit';
+import { NgDocButtonIconComponent, NgDocIconComponent, NgDocTooltipDirective } from '@ng-doc/ui-kit';
 
 @Component({
 	selector: 'app-root',
@@ -15,6 +15,7 @@ import { NgDocButtonIconComponent, NgDocIconComponent } from '@ng-doc/ui-kit';
 		NgDocIconComponent,
 		NgDocButtonIconComponent,
 		NgDocThemeToggleComponent,
+		NgDocTooltipDirective,
 	],
 	templateUrl: './app.html',
 	styleUrls: ['./app.scss'],

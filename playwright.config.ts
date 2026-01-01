@@ -4,7 +4,7 @@ import { devices, type PlaywrightTestConfig } from '@playwright/test';
  * See https://playwright.dev/docs/test-configuration.
  */
 const config: PlaywrightTestConfig = {
-	testDir: './projects/ng-kit-demo/e2e',
+	testDir: './projects/ng-kit-docs/e2e',
 	/* Maximum time one test can run for. */
 	timeout: 30000,
 	expect: {

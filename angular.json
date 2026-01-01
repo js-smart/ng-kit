@@ -35,73 +35,6 @@
 				}
 			}
 		},
-		"ng-kit-demo": {
-			"projectType": "application",
-			"schematics": {
-				"@schematics/angular:component": {
-					"style": "scss"
-				}
-			},
-			"root": "projects/ng-kit-demo",
-			"sourceRoot": "projects/ng-kit-demo/src",
-			"prefix": "app",
-			"architect": {
-				"build": {
-					"builder": "@angular-devkit/build-angular:application",
-					"options": {
-						"outputPath": "dist/ng-kit-demo",
-						"index": "projects/ng-kit-demo/src/index.html",
-						"browser": "projects/ng-kit-demo/src/main.ts",
-						"tsConfig": "projects/ng-kit-demo/tsconfig.app.json",
-						"inlineStyleLanguage": "scss",
-						"assets": ["projects/ng-kit-demo/src/favicon.ico", "projects/ng-kit-demo/src/assets"],
-						"styles": ["projects/ng-kit-demo/src/styles.scss"],
-						"scripts": []
-					},
-					"configurations": {
-						"production": {
-							"budgets": [
-								{
-									"type": "initial",
-									"maximumWarning": "1mb",
-									"maximumError": "2mb"
-								},
-								{
-									"type": "anyComponentStyle",
-									"maximumWarning": "5kb",
-									"maximumError": "10kb"
-								}
-							],
-							"outputHashing": "all"
-						},
-						"development": {
-							"optimization": false,
-							"extractLicenses": false,
-							"sourceMap": true
-						}
-					},
-					"defaultConfiguration": "production"
-				},
-				"serve": {
-					"builder": "@angular-devkit/build-angular:dev-server",
-					"configurations": {
-						"production": {
-							"buildTarget": "ng-kit-demo:build:production"
-						},
-						"development": {
-							"buildTarget": "ng-kit-demo:build:development"
-						}
-					},
-					"defaultConfiguration": "development"
-				},
-				"extract-i18n": {
-					"builder": "@angular-devkit/build-angular:extract-i18n",
-					"options": {
-						"buildTarget": "ng-kit-demo:build"
-					}
-				}
-			}
-		},
 		"ng-kit-docs": {
 			"projectType": "application",
 			"schematics": {
@@ -119,7 +52,6 @@
 						"outputPath": "dist/ng-kit-docs",
 						"index": "projects/ng-kit-docs/src/index.html",
 						"browser": "projects/ng-kit-docs/src/main.ts",
-
 						"tsConfig": "projects/ng-kit-docs/tsconfig.app.json",
 						"inlineStyleLanguage": "scss",
 						"assets": [
@@ -151,8 +83,6 @@
 						],
 						"styles": ["node_modules/@ng-doc/app/styles/global.css", "projects/ng-kit-docs/src/styles.scss"],
 						"scripts": [],
-						"server": "projects/ng-kit-docs/src/main.server.ts",
-						"prerender": false,
 						"allowedCommonJsDependencies": ["@ng-doc/core"]
 					},
 					"configurations": {

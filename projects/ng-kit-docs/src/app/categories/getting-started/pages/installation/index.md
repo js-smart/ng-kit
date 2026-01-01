@@ -1,12 +1,11 @@
-
 Install **@js-smart/ng-kit** using your preferred package manager:
 
 ```bash  group="installation" name="npm"
-npm install @js-smart/ng-kit
+npm i @js-smart/ng-kit
 ```
 
 ```bash  group="installation" name="pnpm"
-pnpm add @js-smart/ng-kit
+pnpm i @js-smart/ng-kit
 ```
 
 ```bash  group="installation" name="yarn"
@@ -17,10 +16,10 @@ yarn add @js-smart/ng-kit
 bun add @js-smart/ng-kit
 ```
 
-
 ## Prerequisites
 
-**@js-smart/ng-kit** requires:
+The library requires:
+
 - **Angular**: Version 19 or later
 - **RxJS**: Version 7.x
 - **Bootstrap**: Version 5.x (if using)
@@ -28,10 +27,10 @@ bun add @js-smart/ng-kit
 
 ## Compatibility Matrix
 
-**@js-smart/ng-kit** follows Angular semantic versioning. Use the ng-kit version that matches your Angular version:
+**ng-kit** follows Angular semantic versioning. Use the ng-kit version that matches your Angular version:
 
-| Angular Version | Libary Version | Status |
-|-----------------|----------------|--------|
+| Angular Version | Libary Version | Status      |
+|-----------------|----------------|-------------|
 | 21.x            | 21.x           | ✅ Supported |
 | 20.x            | 20.x           | ✅ Supported |
 | 19.x            | 19.x           | ✅ Supported |
@@ -42,6 +41,7 @@ bun add @js-smart/ng-kit
 
 **ng-kit** is fully modular and tree-shakable. Import only the features you need. Here's how to use the Primary Button Directive in a standalone component:
 {% raw %}
+
 ```typescript
 import { Component, signal } from '@angular/core';
 import { PrimaryButtonDirective } from '@js-smart/ng-kit';
@@ -70,6 +70,7 @@ export class AppComponent {
   }
 }
 ```
+
 {% endraw %}
 
 ## Troubleshooting
