@@ -52,7 +52,6 @@
 						"outputPath": "dist/ng-kit-docs",
 						"index": "projects/ng-kit-docs/src/index.html",
 						"browser": "projects/ng-kit-docs/src/main.ts",
-
 						"tsConfig": "projects/ng-kit-docs/tsconfig.app.json",
 						"inlineStyleLanguage": "scss",
 						"assets": [
@@ -86,7 +85,10 @@
 						"scripts": [],
 						"server": "projects/ng-kit-docs/src/main.server.ts",
 						"prerender": false,
-						"allowedCommonJsDependencies": ["@ng-doc/core"]
+						"allowedCommonJsDependencies": ["@ng-doc/core"],
+						"ssr": {
+							"entry": "projects/ng-kit-docs/src/server.ts"
+						}
 					},
 					"configurations": {
 						"production": {
