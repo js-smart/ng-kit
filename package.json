@@ -1,6 +1,6 @@
 {
   "name": "ng-kit",
-  "version": "21.1.0",
+  "version": "21.2.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve ng-kit-demo --watch --hmr --port=4300",
