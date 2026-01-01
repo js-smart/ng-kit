@@ -62,4 +62,4 @@ jobs:
           bash release.sh $version ${{ secrets.GPG_KEY_ID }}
 
       - name: build demo
-        run: pnpm run build:ng-kit-demo
+        run: pnpm run build:docs
