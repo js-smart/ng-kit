@@ -1,6 +1,6 @@
 {
   "name": "ng-kit",
-  "version": "21.3.0",
+  "version": "21.3.1",
   "scripts": {
     "ng": "ng",
     "start": "ng serve ng-kit-docs --port=4300",
