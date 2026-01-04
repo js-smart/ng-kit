@@ -3,11 +3,20 @@
 	"version": "0.2.0",
 	"configurations": [
 		{
-			"name": "Run App",
+			"name": "Run Demo",
 			"type": "node",
 			"request": "launch",
 			"runtimeExecutable": "pnpm",
 			"runtimeArgs": ["start"],
+			"cwd": "${workspaceFolder}",
+			"console": "integratedTerminal"
+		},
+		{
+			"name": "Run Docs",
+			"type": "node",
+			"request": "launch",
+			"runtimeExecutable": "pnpm",
+			"runtimeArgs": ["start:docs"],
 			"cwd": "${workspaceFolder}",
 			"console": "integratedTerminal"
 		}
