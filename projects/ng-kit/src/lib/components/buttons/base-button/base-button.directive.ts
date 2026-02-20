@@ -3,6 +3,7 @@ import { Directive, DOCUMENT, effect, ElementRef, inject, input, OnInit, signal 
 @Directive()
 export abstract class BaseButtonDirective implements OnInit {
 	icon = input<string>('');
+	label = input<string>('');
 	loadingLabel = input<string>('Loading...');
 	loading = input<boolean>(false);
 	elementRef = inject(ElementRef);
@@ -15,6 +16,14 @@ export abstract class BaseButtonDirective implements OnInit {
 		this.elementRef.nativeElement.classList.add('btn');
 
 		effect(() => {
+			// If a consumer provides a label input, always use it. Otherwise, fall back to the initially captured host text.
+			const nextText = this.label() || this.originalText();
+			this.originalText.set(nextText);
+
+			// Keep the icon element in sync with [icon]
+			this.createIcon();
+
+			// Re-render on any relevant signal change
 			this.updateContent();
 		});
 	}
@@ -27,9 +36,6 @@ export abstract class BaseButtonDirective implements OnInit {
 		this.createIcon();
 	}
 
-	/**
-	 * Create icon element if icon name is provided
-	 */
 	protected createIcon(): void {
 		if (this.icon()) {
 			const iconElement = this.document.createElement('mat-icon');
@@ -39,9 +45,6 @@ export abstract class BaseButtonDirective implements OnInit {
 		}
 	}
 
-	/**
-	 * Update content of the button
-	 */
 	protected updateContent(): void {
 		const element = this.elementRef.nativeElement;
 		element.innerHTML = '';
@@ -53,34 +56,22 @@ export abstract class BaseButtonDirective implements OnInit {
 		}
 	}
 
-	/**
-	 * Show loading state. Add spinner and loadingLabel text
-	 */
 	protected showLoadingState(element: HTMLElement): void {
-		// Create a new span element
 		const newSpan = this.document.createElement('span');
-
-		// Set its text content
 		newSpan.classList.add('spinner-border', 'spinner-border-sm', 'me-2');
 		newSpan.setAttribute('role', 'status');
 
-		// Append the new element to the host element
 		element.appendChild(newSpan);
 		element.appendChild(this.document.createTextNode(this.loadingLabel()));
 		element.setAttribute('disabled', 'true');
 	}
 
-	/**
-	 * Show normal state. Add icon and original text
-	 */
 	protected showNormalState(element: HTMLElement): void {
-		// Add icon and original text
 		const iconElement = this.iconSpan();
 		if (iconElement) {
 			element.appendChild(iconElement);
 		}
 
-		// Append text node instead of setting textContent (which overwrites the icon)
 		element.appendChild(this.document.createTextNode(this.originalText()));
 		element.removeAttribute('disabled');
 	}
