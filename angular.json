@@ -35,6 +35,93 @@
 				}
 			}
 		},
+		"ng-kit-demo": {
+			"projectType": "application",
+			"schematics": {
+				"@schematics/angular:component": {
+					"style": "scss"
+				}
+			},
+			"root": "projects/ng-kit-demo",
+			"sourceRoot": "projects/ng-kit-demo/src",
+			"prefix": "app",
+			"architect": {
+				"build": {
+					"builder": "@angular-devkit/build-angular:application",
+					"options": {
+						"outputPath": "dist/ng-kit-demo",
+						"index": "projects/ng-kit-demo/src/index.html",
+						"browser": "projects/ng-kit-demo/src/main.ts",
+						"polyfills": [],
+						"tsConfig": "projects/ng-kit-demo/tsconfig.app.json",
+						"inlineStyleLanguage": "scss",
+						"assets": [
+							{
+								"glob": "**/*",
+								"input": "projects/ng-kit-demo/public",
+								"output": ""
+							}
+						],
+						"styles": ["projects/ng-kit-demo/src/styles.scss"],
+						"scripts": []
+					},
+					"configurations": {
+						"production": {
+							"budgets": [
+								{
+									"type": "initial",
+									"maximumWarning": "1MB",
+									"maximumError": "2MB"
+								},
+								{
+									"type": "anyComponentStyle",
+									"maximumWarning": "2kB",
+									"maximumError": "4kB"
+								}
+							],
+							"outputHashing": "all"
+						},
+						"development": {
+							"optimization": false,
+							"extractLicenses": false,
+							"sourceMap": true
+						}
+					},
+					"defaultConfiguration": "production"
+				},
+				"serve": {
+					"builder": "@angular-devkit/build-angular:dev-server",
+					"configurations": {
+						"production": {
+							"buildTarget": "ng-kit-demo:build:production"
+						},
+						"development": {
+							"buildTarget": "ng-kit-demo:build:development"
+						}
+					},
+					"defaultConfiguration": "development"
+				},
+				"extract-i18n": {
+					"builder": "@angular/build:extract-i18n"
+				},
+				"test": {
+					"builder": "@angular/build:karma",
+					"options": {
+						"polyfills": [],
+						"tsConfig": "projects/ng-kit-demo/tsconfig.spec.json",
+						"inlineStyleLanguage": "scss",
+						"assets": [
+							{
+								"glob": "**/*",
+								"input": "projects/ng-kit-demo/public"
+							}
+						],
+						"styles": ["projects/ng-kit-demo/src/styles.scss"],
+						"scripts": []
+					}
+				}
+			}
+		},
 		"ng-kit-docs": {
 			"projectType": "application",
 			"schematics": {
@@ -90,8 +177,8 @@
 							"budgets": [
 								{
 									"type": "initial",
-									"maximumWarning": "2MB",
-									"maximumError": "3MB"
+									"maximumWarning": "3MB",
+									"maximumError": "5MB"
 								},
 								{
 									"type": "anyComponentStyle",
