@@ -65,5 +65,8 @@ jobs:
           version=${latest_tag#v}
           bash release.sh $version ${{ secrets.GPG_KEY_ID }}
 
+      - name: build docs
+        run: pnpm run build:docs
+
       - name: build demo
         run: pnpm run build:docs
