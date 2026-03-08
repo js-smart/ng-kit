@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { expect, test } from '@playwright/test';
 
 test('has throttle button button', async ({ page }) => {
 	await page.goto('/directives-demo');
