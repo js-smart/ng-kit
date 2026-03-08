@@ -150,14 +150,16 @@ export class AutocompleteComponent implements OnInit, OnChanges, AfterContentChe
 	ngOnInit() {
 		this.filteredOptions = this.control.valueChanges.pipe(
 			startWith(''),
-			map((value) => (typeof value === 'string' ? value : value !== null ? value[this.bindLabel()] : '')),
+			map((value) => (typeof value === 'string' ? value : '')),
 			map(
 				(propertyName) =>
-					this.data()?.filter((option) => {
-						return typeof option === 'string'
-							? option?.toLowerCase().startsWith(propertyName.toLowerCase())
-							: option[this.bindLabel()]?.toLowerCase().indexOf(propertyName.toLowerCase()) === 0;
-					}) ?? this.data()?.slice(),
+					propertyName
+						? (this.data()?.filter((option) => {
+								return typeof option === 'string'
+									? option?.toLowerCase().includes(propertyName.toLowerCase())
+									: option[this.bindLabel()]?.toLowerCase().includes(propertyName.toLowerCase());
+							}) ?? this.data()?.slice())
+						: this.data()?.slice(),
 			),
 		);
 	}
