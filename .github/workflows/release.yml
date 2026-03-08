@@ -69,4 +69,4 @@ jobs:
         run: pnpm run build:docs
 
       - name: build demo
-        run: pnpm run build:docs
+        run: pnpm run build:demo
