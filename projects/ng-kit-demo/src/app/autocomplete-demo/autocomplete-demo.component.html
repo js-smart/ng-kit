@@ -1,6 +1,4 @@
-<h1 style="display: flex; justify-content: center; align-items: center; margin-top: 50px">
-	Generic Auto Complete (Works with Objects and Strings)
-</h1>
+<h1 style="display: flex; justify-content: center; align-items: center; margin-top: 50px">Autocomplete with Objects</h1>
 <div style="display: flex; justify-content: center; align-items: center">
 	<form [formGroup]="genericFormGroup">
 		<autocomplete
@@ -21,13 +19,42 @@
 </div>
 <hr />
 
-<h2 style="display: flex; justify-content: center; align-items: center; margin-top: 50px">Auto Complete (Works with Strings)</h2>
+<h2 style="display: flex; justify-content: center; align-items: center; margin-top: 50px">Autocomplete with Loading State</h2>
 <div style="display: flex; justify-content: center; align-items: center">
-	<form [formGroup]="stringInputFormGroup">
-		<autocomplete [data]="names" [required]="true" formControlName="autocomplete" label="City" placeHolder="Select City"></autocomplete>
+	<form [formGroup]="loadingFormGroup">
+		<autocomplete
+			[data]="loadingCities()"
+			[displayWith]="displayWith"
+			[loading]="isLoading()"
+			bindLabel="location"
+			bindValue="id"
+			formControlName="autocomplete"
+			label="City"
+			loadingText="Fetching cities..."
+			placeHolder="Select City">
+		</autocomplete>
 	</form>
 </div>
 <div style="display: flex; justify-content: center; align-items: center; margin-top: 20px">
 	<p>Selected Option Is:</p>
-	<h2>{{ stringInputFormGroup.get('autocomplete')?.value ?? '' }}</h2>
+	<h2>{{ loadingFormGroup.get('autocomplete')?.value?.location ?? '' }}</h2>
+</div>
+<hr />
+
+<h2 style="display: flex; justify-content: center; align-items: center; margin-top: 50px">Autocomplete with Disabled State</h2>
+<div style="display: flex; flex-direction: column; justify-content: center; align-items: center">
+	<form [formGroup]="disabledFormGroup">
+		<autocomplete
+			[data]="cities"
+			[displayWith]="displayWith"
+			bindLabel="location"
+			bindValue="id"
+			formControlName="autocomplete"
+			label="City"
+			placeHolder="Select City">
+		</autocomplete>
+	</form>
+	<button (click)="toggleDisabled()" style="margin-top: 10px">
+		{{ disabledFormGroup.get('autocomplete')?.disabled ? 'Enable' : 'Disable' }}
+	</button>
 </div>

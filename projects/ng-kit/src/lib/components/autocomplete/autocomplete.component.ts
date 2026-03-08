@@ -8,11 +8,12 @@ import { MatOptionSelectionChange } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-type AutocompleteOption = Record<string, any>;
+export type AutocompleteOption = Record<string, any>;
 
 /**
  * Reusable Auto Complete component that extends MatAutoComplete to show Clear icon and Arrow buttons
@@ -22,7 +23,7 @@ type AutocompleteOption = Record<string, any>;
  */
 @Component({
 	selector: 'autocomplete, lib-autocomplete',
-	imports: [AsyncPipe, ReactiveFormsModule, MatFormFieldModule, MatAutocompleteModule, MatInputModule, MatButtonModule, MatIconModule],
+	imports: [AsyncPipe, ReactiveFormsModule, MatFormFieldModule, MatAutocompleteModule, MatInputModule, MatButtonModule, MatIconModule, MatProgressSpinnerModule],
 	templateUrl: './autocomplete.component.html',
 	providers: [
 		{
@@ -89,6 +90,21 @@ export class AutocompleteComponent implements OnInit, OnChanges, ControlValueAcc
 	 * Specifies if the autocomplete is disabled. Default is not required.
 	 */
 	disabled = input(false);
+
+	/**
+	 * Text displayed when no options match the input. Defaults to 'No options'
+	 */
+	noOptionsText = input('No options');
+
+	/**
+	 * Whether the autocomplete is in a loading state. Shows a loading message instead of options
+	 */
+	loading = input(false);
+
+	/**
+	 * Text displayed when the autocomplete is in a loading state. Defaults to 'Loading...'
+	 */
+	loadingText = input('Loading...');
 
 	/**
 	 * List of Objects that need to be bind and searched for

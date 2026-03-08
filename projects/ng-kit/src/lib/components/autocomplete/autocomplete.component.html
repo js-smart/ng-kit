@@ -10,19 +10,21 @@
 		matInput
 		type="text" />
 
-	<div matSuffix style="display: flex">
-		<button
-			(click)="clearInput($event)"
-			[style.visibility]="control.value ? 'visible' : 'hidden'"
-			aria-label="Clear"
-			mat-icon-button
-			type="button">
-			<mat-icon>clear</mat-icon>
-		</button>
-		<button (click)="openOrClosePanel($event, trigger)" aria-label="Toggle dropdown" mat-icon-button type="button">
-			<mat-icon>{{ arrowIcon() }}</mat-icon>
-		</button>
-	</div>
+	@if (!control.disabled) {
+		<div matSuffix style="display: flex">
+			<button
+				(click)="clearInput($event)"
+				[style.visibility]="control.value ? 'visible' : 'hidden'"
+				aria-label="Clear"
+				mat-icon-button
+				type="button">
+				<mat-icon>clear</mat-icon>
+			</button>
+			<button (click)="openOrClosePanel($event, trigger)" aria-label="Toggle dropdown" mat-icon-button type="button">
+				<mat-icon>{{ arrowIcon() }}</mat-icon>
+			</button>
+		</div>
+	}
 
 	<mat-autocomplete
 		#auto="matAutocomplete"
@@ -30,14 +32,25 @@
 		(opened)="onPanelOpened()"
 		(optionSelected)="onPanelClosed()"
 		[displayWith]="displayFn">
-		@for (option of filteredOptions | async; track typeof option === 'string' ? option : option[bindValue()]) {
-			<mat-option (onSelectionChange)="emitSelectedValue($event)" [value]="option">
-				@if (typeof option === 'string') {
-					<ng-container>{{ option }}</ng-container>
-				} @else if (typeof option === 'object') {
-					<ng-container>{{ option[bindLabel()] }}</ng-container>
-				}
+		@if (loading()) {
+			<mat-option disabled>
+				<div style="display: flex; align-items: center; gap: 8px">
+					<mat-spinner diameter="20"></mat-spinner>
+					<span>{{ loadingText() }}</span>
+				</div>
 			</mat-option>
+		} @else {
+			@for (option of filteredOptions | async; track typeof option === 'string' ? option : option[bindValue()]) {
+				<mat-option (onSelectionChange)="emitSelectedValue($event)" [value]="option">
+					@if (typeof option === 'string') {
+						<ng-container>{{ option }}</ng-container>
+					} @else if (typeof option === 'object') {
+						<ng-container>{{ option[bindLabel()] }}</ng-container>
+					}
+				</mat-option>
+			} @empty {
+				<mat-option disabled>{{ noOptionsText() }}</mat-option>
+			}
 		}
 	</mat-autocomplete>
 </mat-form-field>
