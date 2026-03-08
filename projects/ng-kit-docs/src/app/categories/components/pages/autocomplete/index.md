@@ -111,7 +111,7 @@ Disable the autocomplete via reactive forms. When disabled, the clear and arrow 
       ></autocomplete>
     </form>
     <button (click)="toggleDisabled()">
-      {{ form.get('city')?.disabled ? 'Enable' : 'Disable' }}
+      {% raw %}{{ form.get('city')?.disabled ? 'Enable' : 'Disable' }}{% endraw %}
     </button>
   `
 })

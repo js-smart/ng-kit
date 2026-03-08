@@ -57,7 +57,7 @@ import { MatButtonModule } from '@angular/material/button';
       (click)="handleClick()"
       primaryButton
       mat-raised-button>
-      {{ loading() ? 'Loading...' : 'Submit' }}
+      {% raw %}{{ loading() ? 'Loading...' : 'Submit' }}{% endraw %}
     </button>
   `
 })
