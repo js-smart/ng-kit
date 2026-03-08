@@ -1,20 +1,6 @@
 import { AsyncPipe } from '@angular/common';
-import {
-	AfterContentChecked,
-	ChangeDetectorRef,
-	Component,
-	ElementRef,
-	forwardRef,
-	inject,
-	Input,
-	input,
-	OnChanges,
-	OnInit,
-	Optional,
-	output,
-	SimpleChanges,
-	ViewChild,
-} from '@angular/core';
+import { Component, DestroyRef, ElementRef, forwardRef, inject, input, OnChanges, OnInit, output, signal, SimpleChanges, ViewChild } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule, MatAutocompleteTrigger } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
@@ -22,7 +8,7 @@ import { MatOptionSelectionChange } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 
 /**
@@ -33,7 +19,7 @@ import { map, startWith } from 'rxjs/operators';
  */
 @Component({
 	selector: 'autocomplete, lib-autocomplete',
-	imports: [ReactiveFormsModule, MatFormFieldModule, MatAutocompleteModule, MatInputModule, MatButtonModule, MatIconModule, AsyncPipe],
+	imports: [AsyncPipe, ReactiveFormsModule, MatFormFieldModule, MatAutocompleteModule, MatInputModule, MatButtonModule, MatIconModule],
 	templateUrl: './autocomplete.component.html',
 	providers: [
 		{
@@ -43,18 +29,18 @@ import { map, startWith } from 'rxjs/operators';
 		},
 	],
 })
-export class AutocompleteComponent implements OnInit, OnChanges, AfterContentChecked, ControlValueAccessor {
+export class AutocompleteComponent implements OnInit, OnChanges, ControlValueAccessor {
 	/**
 	 * Gets reference inputAutoComplete HTML attribute
 	 */
 	@ViewChild('inputAutoComplete') inputAutoComplete!: ElementRef;
 
-	cdRef = inject(ChangeDetectorRef);
+	private destroyRef = inject(DestroyRef);
 
 	/**
 	 * Internal form control for the autocomplete
 	 */
-	control = new FormControl('');
+	control = new FormControl<string | Record<string, string> | null>('');
 
 	/**
 	 * Label of the AutoComplete
@@ -69,7 +55,7 @@ export class AutocompleteComponent implements OnInit, OnChanges, AfterContentChe
 	/**
 	 * Appearance of the AutoComplete, defaults to `fill`
 	 */
-	appearance = input('fill');
+	appearance = input<'fill' | 'outline'>('fill');
 
 	/**
 	 * List of CSS classes that need to applied to autocomplete
@@ -89,7 +75,7 @@ export class AutocompleteComponent implements OnInit, OnChanges, AfterContentChe
 	/**
 	 * Function that maps an option's control value to its display value in the trigger.
 	 */
-	@Input() @Optional() displayWith: ((value: any) => string) | null = null;
+	displayWith = input<((value: string | Record<string, string>) => string) | null>(null);
 
 	/**
 	 * Specifies if the autocomplete is required. Default is not required.
@@ -104,37 +90,48 @@ export class AutocompleteComponent implements OnInit, OnChanges, AfterContentChe
 	/**
 	 * List of Objects that need to be bind and searched for
 	 */
-	data = input<string[] | any[]>();
+	data = input<(string | Record<string, string>)[]>();
 
 	/**
 	 * Emit selected value on selection changes
 	 */
-	onSelectionChange = output<any>();
+	onSelectionChange = output<string | Record<string, string>>();
 
 	/**
-	 * BehaviorSubject that shows the current active arrow icon
+	 * Signal that tracks the current arrow icon state
 	 */
-	arrowIconSubject = new BehaviorSubject('arrow_drop_down');
+	arrowIcon = signal('arrow_drop_down');
 
 	/**
 	 * Filtered options when user types
 	 */
-	filteredOptions: Observable<any[] | undefined> | undefined;
+	filteredOptions: Observable<(string | Record<string, string>)[] | undefined> | undefined;
 
-	writeValue(value: any): void {
+	/**
+	 * Writes a new value to the control
+	 */
+	writeValue(value: string | Record<string, string>): void {
 		this.control.setValue(value, { emitEvent: false });
 	}
 
-	registerOnChange(fn: any): void {
+	/**
+	 * Registers a callback function that is called when the control's value changes
+	 */
+	registerOnChange(fn: (value: string | Record<string, string> | null) => void): void {
 		this.onChange = fn;
-		// Forward value changes from internal control to parent form
-		this.control.valueChanges.subscribe((value) => fn(value));
+		this.control.valueChanges.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((value) => fn(value));
 	}
 
-	registerOnTouched(fn: any): void {
+	/**
+	 * Registers a callback function that is called when the control is touched
+	 */
+	registerOnTouched(fn: () => void): void {
 		this.onTouched = fn;
 	}
 
+	/**
+	 * Sets the disabled state of the control
+	 */
 	setDisabledState(isDisabled: boolean): void {
 		if (isDisabled) {
 			this.control.disable();
@@ -143,11 +140,10 @@ export class AutocompleteComponent implements OnInit, OnChanges, AfterContentChe
 		}
 	}
 
-	ngAfterContentChecked(): void {
-		this.cdRef.detectChanges();
-	}
-
-	ngOnInit() {
+	/**
+	 * Initializes the filtered options observable pipeline
+	 */
+	ngOnInit(): void {
 		this.filteredOptions = this.control.valueChanges.pipe(
 			startWith(''),
 			map((value) => (typeof value === 'string' ? value : '')),
@@ -164,18 +160,27 @@ export class AutocompleteComponent implements OnInit, OnChanges, AfterContentChe
 		);
 	}
 
+	/**
+	 * Binds the displayFn to the component context on input changes
+	 */
 	ngOnChanges(_changes: SimpleChanges): void {
 		this.displayFn = this.displayFn.bind(this);
 	}
 
-	clearInput(evt: any): void {
+	/**
+	 * Clears the input value, resets the control, and re-focuses the input
+	 */
+	clearInput(evt: Event): void {
 		evt.stopPropagation();
 		this.control.reset();
 		this.onChange(null);
 		this.inputAutoComplete?.nativeElement.focus();
 	}
 
-	openOrClosePanel(evt: any, trigger: MatAutocompleteTrigger): void {
+	/**
+	 * Toggles the autocomplete panel open or closed
+	 */
+	openOrClosePanel(evt: Event, trigger: MatAutocompleteTrigger): void {
 		evt.stopPropagation();
 		if (trigger.panelOpen) {
 			trigger.closePanel();
@@ -184,26 +189,44 @@ export class AutocompleteComponent implements OnInit, OnChanges, AfterContentChe
 		}
 	}
 
-	displayFn(object: any): string {
-		if (this.displayWith !== undefined && this.displayWith !== null && typeof this.displayWith === 'function') {
-			this.displayFn = this.displayWith.bind(this);
-			return this.displayWith(object);
-		} else {
-			if (typeof object === 'string') {
-				return object;
-			}
-			return object?.[this.bindLabel()] ? object[this.bindLabel()] : '';
+	/**
+	 * Returns the display value for the given option. Uses custom displayWith function if provided,
+	 * otherwise falls back to the bindLabel property or the string value itself.
+	 */
+	displayFn(object: string | Record<string, string>): string {
+		const customDisplayWith = this.displayWith();
+		if (customDisplayWith) {
+			return customDisplayWith(object);
 		}
+		if (typeof object === 'string') {
+			return object;
+		}
+		return object?.[this.bindLabel()] ? object[this.bindLabel()] : '';
 	}
 
-	emitSelectedValue($event: MatOptionSelectionChange) {
+	/**
+	 * Emits the selected value and notifies the parent form of the selection change
+	 */
+	emitSelectedValue($event: MatOptionSelectionChange): void {
 		this.onSelectionChange.emit($event.source.value);
 		this.onChange($event.source.value);
 		this.onTouched();
 	}
 
-	// ControlValueAccessor implementation
-	private onChange: (value: any) => void = () => {};
+	/**
+	 * Updates the arrow icon to point up when the panel opens
+	 */
+	onPanelOpened(): void {
+		this.arrowIcon.set('arrow_drop_up');
+	}
 
+	/**
+	 * Updates the arrow icon to point down when the panel closes
+	 */
+	onPanelClosed(): void {
+		this.arrowIcon.set('arrow_drop_down');
+	}
+
+	private onChange: (value: string | Record<string, string> | null) => void = () => {};
 	private onTouched: () => void = () => {};
 }
