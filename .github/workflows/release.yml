@@ -5,6 +5,10 @@ on:
     branches:
       - main
 
+permissions:
+  id-token: write   # Required for npm trusted publishing (OIDC)
+  contents: write  # Required for semantic-release to push tags/commits
+
 jobs:
   release:
     runs-on: ${{ matrix.os }}
@@ -39,6 +43,7 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
           cache: 'pnpm'
+          registry-url: 'https://registry.npmjs.org'
 
       - name: Install dependencies
         run: pnpm i --frozen-lockfile
