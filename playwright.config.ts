@@ -4,7 +4,7 @@ import { devices, type PlaywrightTestConfig } from '@playwright/test';
  * See https://playwright.dev/docs/test-configuration.
  */
 const config: PlaywrightTestConfig = {
-	testDir: './projects/ng-kit-docs/e2e',
+	testDir: './projects/ng-kit-demo/e2e',
 	/* Maximum time one test can run for. */
 	timeout: 30000,
 	expect: {
@@ -27,7 +27,7 @@ const config: PlaywrightTestConfig = {
 	/* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
 	use: {
 		/* Base URL to use in actions like `await page.goto('/')`. */
-		baseURL: process.env['URL'],
+		baseURL: process.env['URL'] ?? 'http://localhost:4300',
 
 		/* set data-cy as test attribute */
 		testIdAttribute: 'data-cy',
@@ -51,26 +51,27 @@ const config: PlaywrightTestConfig = {
 			},
 			dependencies: ['setup'],
 		},
-		{
-			name: 'firefox',
-			use: {
-				...devices['Desktop Firefox'],
-			},
-			dependencies: ['setup'],
-		},
-		{
-			name: 'webkit',
-			use: {
-				...devices['Desktop Safari'],
-			},
-			dependencies: ['setup'],
-		},
+		// {
+		// 	name: 'firefox',
+		// 	use: {
+		// 		...devices['Desktop Firefox'],
+		// 	},
+		// 	dependencies: ['setup'],
+		// },
+		// {
+		// 	name: 'webkit',
+		// 	use: {
+		// 		...devices['Desktop Safari'],
+		// 	},
+		// 	dependencies: ['setup'],
+		// },
 	],
 
 	/* Run your local dev server before starting the tests */
 	webServer: {
 		command: 'pnpm start',
 		url: 'http://localhost:4300',
+		reuseExistingServer: !process.env['CI'],
 	},
 };
 

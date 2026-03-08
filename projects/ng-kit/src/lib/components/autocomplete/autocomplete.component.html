@@ -1,34 +1,46 @@
-<div>
-	<mat-form-field appearance="fill" class="{{ classes() }}">
-		<mat-label>{{ label() }}</mat-label>
-		<input
-			#inputAutoComplete
-			#trigger="matAutocompleteTrigger"
-			[formControl]="control"
-			[matAutocomplete]="auto"
-			[placeholder]="placeHolder()"
-			[required]="required()"
-			matInput
-			type="text" />
+<mat-form-field [appearance]="appearance()" [class]="classes()">
+	<mat-label>{{ label() }}</mat-label>
+	<input
+		#inputAutoComplete
+		#trigger="matAutocompleteTrigger"
+		[formControl]="control"
+		[matAutocomplete]="auto"
+		[placeholder]="placeHolder()"
+		[required]="required()"
+		matInput
+		type="text" />
 
+	@if (!control.disabled) {
 		<div matSuffix style="display: flex">
-			@if (control.value) {
-				<button (click)="clearInput($event)" aria-label="Clear" mat-icon-button type="button">
-					<mat-icon>clear</mat-icon>
-				</button>
-			}
-			<button (click)="openOrClosePanel($event, trigger)" aria-label="Clear" mat-icon-button type="button">
-				<mat-icon>{{ arrowIconSubject.getValue() }}</mat-icon>
+			<button
+				(click)="clearInput($event)"
+				[style.visibility]="control.value ? 'visible' : 'hidden'"
+				aria-label="Clear"
+				mat-icon-button
+				type="button">
+				<mat-icon>clear</mat-icon>
+			</button>
+			<button (click)="openOrClosePanel($event, trigger)" aria-label="Toggle dropdown" mat-icon-button type="button">
+				<mat-icon>{{ arrowIcon() }}</mat-icon>
 			</button>
 		</div>
+	}
 
-		<mat-autocomplete
-			#auto="matAutocomplete"
-			(closed)="arrowIconSubject.next('arrow_drop_down')"
-			(opened)="arrowIconSubject.next('arrow_drop_up')"
-			(optionSelected)="arrowIconSubject.next('arrow_drop_down')"
-			[displayWith]="displayFn">
-			@for (option of filteredOptions | async; track option[bindValue()]) {
+	<mat-autocomplete
+		#auto="matAutocomplete"
+		(closed)="onPanelClosed()"
+		(opened)="onPanelOpened()"
+		(optionSelected)="onPanelClosed()"
+		[displayWith]="displayFn">
+		@if (loading()) {
+			<mat-option disabled>
+				<div style="display: flex; align-items: center; gap: 8px">
+					<mat-spinner diameter="20"></mat-spinner>
+					<span>{{ loadingText() }}</span>
+				</div>
+			</mat-option>
+		} @else {
+			@for (option of filteredOptions | async; track typeof option === 'string' ? option : option[bindValue()]) {
 				<mat-option (onSelectionChange)="emitSelectedValue($event)" [value]="option">
 					@if (typeof option === 'string') {
 						<ng-container>{{ option }}</ng-container>
@@ -36,7 +48,9 @@
 						<ng-container>{{ option[bindLabel()] }}</ng-container>
 					}
 				</mat-option>
+			} @empty {
+				<mat-option disabled>{{ noOptionsText() }}</mat-option>
 			}
-		</mat-autocomplete>
-	</mat-form-field>
-</div>
+		}
+	</mat-autocomplete>
+</mat-form-field>

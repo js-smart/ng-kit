@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { expect, test } from '@playwright/test';
 
 test('has success snack bar button', async ({ page }) => {
 	await page.goto('/snack-bar-demo');

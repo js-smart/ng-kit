@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { expect, test } from '@playwright/test';
 
 test('has edit icon button', async ({ page }) => {
 	await page.goto('/edit-svg-icon-demo');

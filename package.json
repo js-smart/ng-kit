@@ -4,15 +4,15 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve ng-kit-demo --port=4300",
-    "start:docs": "ng serve ng-kit-docs  --port=4300",
+    "start:docs": "ng serve ng-kit-docs  --port=4301",
     "build": "ng build ng-kit --configuration=production",
     "build:demo": "ng build ng-kit-demo --configuration=production",
     "build:docs": "ng build ng-kit-docs --configuration=production",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test --watch=false",
+    "test": "ng test ng-kit --watch=false",
     "test:store": "ng test --include='**/store/*.spec.ts'",
     "bundle:report": "ng build --configuration production --source-map=true && source-map-explorer dist/pres/**/*.js",
-    "e2e": "CI=true URL=http://localhost:4300 npx playwright test",
+    "e2e": "CI=true URL=http://localhost:4300 npx playwright test ng-kit-demo",
     "lint": "ng lint ng-kit",
     "serve:ssr:ng-kit-docs": "node dist/ng-kit-docs/server/server.mjs"
   },
