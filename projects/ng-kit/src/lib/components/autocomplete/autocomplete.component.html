@@ -30,7 +30,7 @@
 		(opened)="onPanelOpened()"
 		(optionSelected)="onPanelClosed()"
 		[displayWith]="displayFn">
-		@for (option of filteredOptions | async; track option[bindValue()]) {
+		@for (option of filteredOptions | async; track typeof option === 'string' ? option : option[bindValue()]) {
 			<mat-option (onSelectionChange)="emitSelectedValue($event)" [value]="option">
 				@if (typeof option === 'string') {
 					<ng-container>{{ option }}</ng-container>

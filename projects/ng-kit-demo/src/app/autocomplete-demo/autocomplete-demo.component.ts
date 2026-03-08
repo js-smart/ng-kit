@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormBuilder, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { AutocompleteComponent } from '@js-smart/ng-kit';
 
@@ -6,7 +6,7 @@ import { AutocompleteComponent } from '@js-smart/ng-kit';
 	selector: 'ng-kit-autocomplete-demo',
 	imports: [AutocompleteComponent, ReactiveFormsModule],
 	templateUrl: './autocomplete-demo.component.html',
-	styles: [],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AutocompleteDemoComponent {
 	cities: City[] = [

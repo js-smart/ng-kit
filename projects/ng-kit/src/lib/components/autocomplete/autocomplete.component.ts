@@ -11,6 +11,9 @@ import { MatInputModule } from '@angular/material/input';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type AutocompleteOption = Record<string, any>;
+
 /**
  * Reusable Auto Complete component that extends MatAutoComplete to show Clear icon and Arrow buttons
  *
@@ -40,7 +43,7 @@ export class AutocompleteComponent implements OnInit, OnChanges, ControlValueAcc
 	/**
 	 * Internal form control for the autocomplete
 	 */
-	control = new FormControl<string | Record<string, string> | null>('');
+	control = new FormControl<string | AutocompleteOption | null>('');
 
 	/**
 	 * Label of the AutoComplete
@@ -75,7 +78,7 @@ export class AutocompleteComponent implements OnInit, OnChanges, ControlValueAcc
 	/**
 	 * Function that maps an option's control value to its display value in the trigger.
 	 */
-	displayWith = input<((value: string | Record<string, string>) => string) | null>(null);
+	displayWith = input<((value: string | AutocompleteOption) => string) | null>(null);
 
 	/**
 	 * Specifies if the autocomplete is required. Default is not required.
@@ -90,12 +93,12 @@ export class AutocompleteComponent implements OnInit, OnChanges, ControlValueAcc
 	/**
 	 * List of Objects that need to be bind and searched for
 	 */
-	data = input<(string | Record<string, string>)[]>();
+	data = input<(string | AutocompleteOption)[]>();
 
 	/**
 	 * Emit selected value on selection changes
 	 */
-	onSelectionChange = output<string | Record<string, string>>();
+	onSelectionChange = output<string | AutocompleteOption>();
 
 	/**
 	 * Signal that tracks the current arrow icon state
@@ -105,19 +108,19 @@ export class AutocompleteComponent implements OnInit, OnChanges, ControlValueAcc
 	/**
 	 * Filtered options when user types
 	 */
-	filteredOptions: Observable<(string | Record<string, string>)[] | undefined> | undefined;
+	filteredOptions: Observable<(string | AutocompleteOption)[] | undefined> | undefined;
 
 	/**
 	 * Writes a new value to the control
 	 */
-	writeValue(value: string | Record<string, string>): void {
+	writeValue(value: string | AutocompleteOption): void {
 		this.control.setValue(value, { emitEvent: false });
 	}
 
 	/**
 	 * Registers a callback function that is called when the control's value changes
 	 */
-	registerOnChange(fn: (value: string | Record<string, string> | null) => void): void {
+	registerOnChange(fn: (value: string | AutocompleteOption | null) => void): void {
 		this.onChange = fn;
 		this.control.valueChanges.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((value) => fn(value));
 	}
@@ -147,16 +150,23 @@ export class AutocompleteComponent implements OnInit, OnChanges, ControlValueAcc
 		this.filteredOptions = this.control.valueChanges.pipe(
 			startWith(''),
 			map((value) => (typeof value === 'string' ? value : '')),
-			map(
-				(propertyName) =>
-					propertyName
-						? (this.data()?.filter((option) => {
-								return typeof option === 'string'
-									? option?.toLowerCase().includes(propertyName.toLowerCase())
-									: option[this.bindLabel()]?.toLowerCase().includes(propertyName.toLowerCase());
-							}) ?? this.data()?.slice())
-						: this.data()?.slice(),
-			),
+			map((propertyName) => {
+				if (!propertyName) {
+					return this.data()?.slice();
+				}
+				// If the value exactly matches an existing option, show all options
+				const isSelectedValue = this.data()?.some((option) => typeof option === 'string' && option === propertyName);
+				if (isSelectedValue) {
+					return this.data()?.slice();
+				}
+				return (
+					this.data()?.filter((option) => {
+						return typeof option === 'string'
+							? option?.toLowerCase().includes(propertyName.toLowerCase())
+							: (option[this.bindLabel()] as string)?.toLowerCase().includes(propertyName.toLowerCase());
+					}) ?? this.data()?.slice()
+				);
+			}),
 		);
 	}
 
@@ -193,7 +203,7 @@ export class AutocompleteComponent implements OnInit, OnChanges, ControlValueAcc
 	 * Returns the display value for the given option. Uses custom displayWith function if provided,
 	 * otherwise falls back to the bindLabel property or the string value itself.
 	 */
-	displayFn(object: string | Record<string, string>): string {
+	displayFn(object: string | AutocompleteOption): string {
 		const customDisplayWith = this.displayWith();
 		if (customDisplayWith) {
 			return customDisplayWith(object);
@@ -201,7 +211,7 @@ export class AutocompleteComponent implements OnInit, OnChanges, ControlValueAcc
 		if (typeof object === 'string') {
 			return object;
 		}
-		return object?.[this.bindLabel()] ? object[this.bindLabel()] : '';
+		return object?.[this.bindLabel()] ? (object[this.bindLabel()] as string) : '';
 	}
 
 	/**
@@ -227,6 +237,6 @@ export class AutocompleteComponent implements OnInit, OnChanges, ControlValueAcc
 		this.arrowIcon.set('arrow_drop_down');
 	}
 
-	private onChange: (value: string | Record<string, string> | null) => void = () => {};
+	private onChange: (value: string | AutocompleteOption | null) => void = () => {};
 	private onTouched: () => void = () => {};
 }
