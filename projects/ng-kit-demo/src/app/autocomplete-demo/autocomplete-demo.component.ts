@@ -19,6 +19,10 @@ export class AutocompleteDemoComponent {
 		autocomplete: new FormControl<City | undefined>(undefined),
 	});
 
+	stringFormGroup = this.fb.group({
+		autocomplete: new FormControl<string | undefined>(undefined),
+	});
+
 	loadingFormGroup = this.fb.group({
 		autocomplete: new FormControl<City | undefined>(undefined),
 	});
@@ -38,12 +42,7 @@ export class AutocompleteDemoComponent {
 		}, 3000);
 	}
 
-	displayWith(object: string | Record<string, unknown>): string {
-		if (typeof object === 'string') {
-			return object;
-		}
-		return object && object['location'] ? (object['location'] as string) : '';
-	}
+	displayWith = (item: City) => item?.location ?? '';
 
 	toggleDisabled(): void {
 		const control = this.disabledFormGroup.get('autocomplete');

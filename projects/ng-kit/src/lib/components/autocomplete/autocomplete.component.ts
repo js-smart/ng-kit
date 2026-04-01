@@ -1,19 +1,12 @@
-import { AsyncPipe } from '@angular/common';
-import { Component, DestroyRef, ElementRef, forwardRef, inject, input, OnChanges, OnInit, output, signal, SimpleChanges, ViewChild } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { NgClass } from '@angular/common';
+import { Component, computed, ElementRef, forwardRef, input, output, signal, viewChild } from '@angular/core';
 import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule, MatAutocompleteTrigger } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
-import { MatOptionSelectionChange } from '@angular/material/core';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatFormFieldAppearance, MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { Observable } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type AutocompleteOption = Record<string, any>;
 
 /**
  * Reusable Auto Complete component that extends MatAutoComplete to show Clear icon and Arrow buttons
@@ -23,8 +16,18 @@ export type AutocompleteOption = Record<string, any>;
  */
 @Component({
 	selector: 'autocomplete, lib-autocomplete',
-	imports: [AsyncPipe, ReactiveFormsModule, MatFormFieldModule, MatAutocompleteModule, MatInputModule, MatButtonModule, MatIconModule, MatProgressSpinnerModule],
+	imports: [
+		NgClass,
+		ReactiveFormsModule,
+		MatAutocompleteModule,
+		MatInputModule,
+		MatFormFieldModule,
+		MatIconModule,
+		MatButtonModule,
+		MatProgressSpinnerModule,
+	],
 	templateUrl: './autocomplete.component.html',
+	styleUrls: ['./autocomplete.component.css'],
 	providers: [
 		{
 			provide: NG_VALUE_ACCESSOR,
@@ -33,123 +36,105 @@ export type AutocompleteOption = Record<string, any>;
 		},
 	],
 })
-export class AutocompleteComponent implements OnInit, OnChanges, ControlValueAccessor {
-	/**
-	 * Gets reference inputAutoComplete HTML attribute
-	 */
-	@ViewChild('inputAutoComplete') inputAutoComplete!: ElementRef;
+export class AutocompleteComponent<T = string> implements ControlValueAccessor {
+	/** Gets reference to the MatAutocompleteTrigger to programmatically open/close the panel */
+	autocompleteTrigger = viewChild.required(MatAutocompleteTrigger);
 
-	private destroyRef = inject(DestroyRef);
+	/** Gets reference to the input element for re-focusing after clear */
+	inputElement = viewChild.required<ElementRef<HTMLInputElement>>('inputEl');
 
-	/**
-	 * Internal form control for the autocomplete
-	 */
-	control = new FormControl<string | AutocompleteOption | null>('');
+	/** Label of the autocomplete form field */
+	label = input('Select Value');
 
-	/**
-	 * Label of the AutoComplete
-	 */
-	label = input('');
+	/** Placeholder text displayed inside the input when empty */
+	placeholder = input('');
 
-	/**
-	 * Placeholder of the AutoComplete
-	 */
-	placeHolder = input('');
+	/** Appearance of the form field. Defaults to `outline` */
+	appearance = input<MatFormFieldAppearance>('outline');
 
-	/**
-	 * Appearance of the AutoComplete, defaults to `fill`
-	 */
-	appearance = input<'fill' | 'outline'>('fill');
-
-	/**
-	 * List of CSS classes that need to applied to autocomplete
-	 */
+	/** List of CSS classes to apply to the form field */
 	classes = input('');
 
-	/**
-	 * Attribute of the Object whose value would be shown when searching for data. Defaults to `ID`
-	 */
-	bindLabel = input('');
+	/** List of options to display in the dropdown */
+	options = input<T[]>([]);
 
 	/**
-	 * Attribute of the Object whose value would be used for search
+	 * Function that maps an option to its display string.
+	 * Used for rendering options in the dropdown and showing the selected value in the input.
+	 * Defaults to `String(value)` which works for primitive string options.
 	 */
-	bindValue = input('id');
+	displayWith = input<(value: T) => string>((value: T) => String(value));
 
-	/**
-	 * Function that maps an option's control value to its display value in the trigger.
-	 */
-	displayWith = input<((value: string | AutocompleteOption) => string) | null>(null);
-
-	/**
-	 * Specifies if the autocomplete is required. Default is not required.
-	 */
-	required = input(false);
-
-	/**
-	 * Specifies if the autocomplete is disabled. Default is not required.
-	 */
-	disabled = input(false);
-
-	/**
-	 * Text displayed when no options match the input. Defaults to 'No options'
-	 */
-	noOptionsText = input('No options');
-
-	/**
-	 * Whether the autocomplete is in a loading state. Shows a loading message instead of options
-	 */
+	/** Whether the autocomplete is in a loading state. Shows a spinner instead of options */
 	loading = input(false);
 
-	/**
-	 * Text displayed when the autocomplete is in a loading state. Defaults to 'Loading...'
-	 */
+	/** Text displayed when the autocomplete is in a loading state. Defaults to 'Loading...' */
 	loadingText = input('Loading...');
 
-	/**
-	 * List of Objects that need to be bind and searched for
-	 */
-	data = input<(string | AutocompleteOption)[]>();
+	/** Text displayed when no options match the filter input. Defaults to 'No values found' */
+	noOptionsText = input('No values found');
+
+	/** Emits the selected value when an option is picked from the dropdown */
+	selectionChange = output<T>();
+
+	/** Internal form control for the autocomplete input */
+	control = new FormControl('');
+
+	/** Signal that tracks whether the autocomplete panel is currently open */
+	isExpanded = signal(false);
+
+	/** Signal that tracks the current filter text typed by the user */
+	filterText = signal('');
 
 	/**
-	 * Emit selected value on selection changes
+	 * Computed signal that filters options based on the current filter text.
+	 * Uses the `displayWith` function to extract searchable text from each option.
+	 * Returns all options when filter text is empty.
 	 */
-	onSelectionChange = output<string | AutocompleteOption>();
+	filteredOptions = computed(() => {
+		const filterValue = this.filterText().toLowerCase();
+		const displayFn = this.displayWith();
+		return this.options().filter((option) => displayFn(option).toLowerCase().includes(filterValue));
+	});
 
 	/**
-	 * Signal that tracks the current arrow icon state
+	 * Display function passed to mat-autocomplete's [displayWith] to render the
+	 * selected value in the input field. Returns empty string for null/undefined values.
 	 */
-	arrowIcon = signal('arrow_drop_down');
+	displayFn = (value: T): string => {
+		if (value == null) {
+			return '';
+		}
+		return this.displayWith()(value);
+	};
 
 	/**
-	 * Filtered options when user types
+	 * Writes a new value to the internal control. Called by the parent form
+	 * when the form control value is set programmatically.
 	 */
-	filteredOptions: Observable<(string | AutocompleteOption)[] | undefined> | undefined;
-
-	/**
-	 * Writes a new value to the control
-	 */
-	writeValue(value: string | AutocompleteOption): void {
-		this.control.setValue(value, { emitEvent: false });
+	writeValue(value: T | null): void {
+		this.control.setValue((value as any) ?? '', { emitEvent: false });
 	}
 
 	/**
-	 * Registers a callback function that is called when the control's value changes
+	 * Registers a callback function that is called when the control's value
+	 * changes in the UI (option selected or input cleared).
 	 */
-	registerOnChange(fn: (value: string | AutocompleteOption | null) => void): void {
+	registerOnChange(fn: (value: T | null) => void): void {
 		this.onChange = fn;
-		this.control.valueChanges.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((value) => fn(value));
 	}
 
 	/**
-	 * Registers a callback function that is called when the control is touched
+	 * Registers a callback function that is called when the control is
+	 * first interacted with (blur or selection).
 	 */
 	registerOnTouched(fn: () => void): void {
 		this.onTouched = fn;
 	}
 
 	/**
-	 * Sets the disabled state of the control
+	 * Sets the disabled state of the internal control. Called by the parent form
+	 * when `control.disable()` or `control.enable()` is invoked.
 	 */
 	setDisabledState(isDisabled: boolean): void {
 		if (isDisabled) {
@@ -159,100 +144,48 @@ export class AutocompleteComponent implements OnInit, OnChanges, ControlValueAcc
 		}
 	}
 
-	/**
-	 * Initializes the filtered options observable pipeline
-	 */
-	ngOnInit(): void {
-		this.filteredOptions = this.control.valueChanges.pipe(
-			startWith(''),
-			map((value) => (typeof value === 'string' ? value : '')),
-			map((propertyName) => {
-				if (!propertyName) {
-					return this.data()?.slice();
-				}
-				// If the value exactly matches an existing option, show all options
-				const isSelectedValue = this.data()?.some((option) => typeof option === 'string' && option === propertyName);
-				if (isSelectedValue) {
-					return this.data()?.slice();
-				}
-				return (
-					this.data()?.filter((option) => {
-						return typeof option === 'string'
-							? option?.toLowerCase().includes(propertyName.toLowerCase())
-							: (option[this.bindLabel()] as string)?.toLowerCase().includes(propertyName.toLowerCase());
-					}) ?? this.data()?.slice()
-				);
-			}),
-		);
+	/** Updates the filter text signal as the user types in the input */
+	onInput(event: Event): void {
+		const value = (event.target as HTMLInputElement).value;
+		this.filterText.set(value);
 	}
 
 	/**
-	 * Binds the displayFn to the component context on input changes
+	 * Clears the input value, resets the filter, notifies the parent form,
+	 * and re-focuses the input element.
 	 */
-	ngOnChanges(_changes: SimpleChanges): void {
-		this.displayFn = this.displayFn.bind(this);
-	}
-
-	/**
-	 * Clears the input value, resets the control, and re-focuses the input
-	 */
-	clearInput(evt: Event): void {
-		evt.stopPropagation();
-		this.control.reset();
+	clearInput(event: Event): void {
+		this.control.setValue('');
+		this.filterText.set('');
 		this.onChange(null);
-		this.inputAutoComplete?.nativeElement.focus();
-	}
-
-	/**
-	 * Toggles the autocomplete panel open or closed
-	 */
-	openOrClosePanel(evt: Event, trigger: MatAutocompleteTrigger): void {
-		evt.stopPropagation();
-		if (trigger.panelOpen) {
-			trigger.closePanel();
-		} else {
-			trigger.openPanel();
-		}
-	}
-
-	/**
-	 * Returns the display value for the given option. Uses custom displayWith function if provided,
-	 * otherwise falls back to the bindLabel property or the string value itself.
-	 */
-	displayFn(object: string | AutocompleteOption): string {
-		const customDisplayWith = this.displayWith();
-		if (customDisplayWith) {
-			return customDisplayWith(object);
-		}
-		if (typeof object === 'string') {
-			return object;
-		}
-		return object?.[this.bindLabel()] ? (object[this.bindLabel()] as string) : '';
-	}
-
-	/**
-	 * Emits the selected value and notifies the parent form of the selection change
-	 */
-	emitSelectedValue($event: MatOptionSelectionChange): void {
-		this.onSelectionChange.emit($event.source.value);
-		this.onChange($event.source.value);
 		this.onTouched();
+		event.stopPropagation();
+		this.inputElement().nativeElement.focus();
+	}
+
+	/** Opens the autocomplete panel programmatically */
+	openPanel(): void {
+		this.autocompleteTrigger().openPanel();
 	}
 
 	/**
-	 * Updates the arrow icon to point up when the panel opens
+	 * Handles option selection from the dropdown. Resets the filter text,
+	 * notifies the parent form of the new value, and emits the selectionChange output.
 	 */
-	onPanelOpened(): void {
-		this.arrowIcon.set('arrow_drop_up');
+	onOptionSelected(value: T): void {
+		this.filterText.set('');
+		this.onChange(value);
+		this.onTouched();
+		this.selectionChange.emit(value);
 	}
 
-	/**
-	 * Updates the arrow icon to point down when the panel closes
-	 */
-	onPanelClosed(): void {
-		this.arrowIcon.set('arrow_drop_down');
-	}
+	/** Callback function registered by the parent form to propagate value changes */
+	private onChange: (value: T | null) => void = (_: T | null) => {
+		/* noop */
+	};
 
-	private onChange: (value: string | AutocompleteOption | null) => void = () => {};
-	private onTouched: () => void = () => {};
+	/** Callback function registered by the parent form to propagate touched state */
+	private onTouched: () => void = () => {
+		/* noop */
+	};
 }
