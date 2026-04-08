@@ -3,7 +3,7 @@
 		<h1 style="display: flex; justify-content: center; align-items: center; margin-top: 50px">Autocomplete with Objects</h1>
 		<div style="display: flex; justify-content: center; align-items: center">
 			<form [formGroup]="genericFormGroup">
-				<autocomplete classes="w-100" [displayWith]="displayWith" [options]="cities" formControlName="autocomplete" label="City" placeholder="Select City">
+				<autocomplete [displayWith]="displayWith" [options]="cities" formControlName="autocomplete" label="City" placeholder="Select City">
 				</autocomplete>
 			</form>
 		</div>

@@ -20,7 +20,7 @@
 
 	<div class="autocomplete-suffix" matSuffix>
 		@if (control.value) {
-			<button (click)="clearInput($event)" class="suffix-action-btn" mat-icon-button>
+			<button type="button" (click)="clearInput($event)" class="suffix-action-btn" mat-icon-button>
 				<mat-icon>close</mat-icon>
 			</button>
 		} @else {
