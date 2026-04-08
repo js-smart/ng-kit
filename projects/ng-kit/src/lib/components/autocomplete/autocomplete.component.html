@@ -2,7 +2,6 @@
 	#origin="matAutocompleteOrigin"
 	[appearance]="appearance()"
 	[ngClass]="classes()"
-	class="autocomplete-width"
 	matAutocompleteOrigin
 	subscriptSizing="dynamic">
 	<mat-label>{{ label() }}</mat-label>
@@ -19,17 +18,26 @@
 		matInput
 		type="text" />
 
-	<div matSuffix style="display: flex; align-items: center">
+	<div class="autocomplete-suffix" matSuffix>
 		@if (control.value) {
-			<button (click)="clearInput($event)" mat-icon-button>
+			<button (click)="clearInput($event)" class="suffix-action-btn" mat-icon-button>
 				<mat-icon>close</mat-icon>
 			</button>
-		}
-		@if (isExpanded()) {
-			<mat-icon>arrow_drop_up</mat-icon>
 		} @else {
-			<mat-icon>arrow_drop_down</mat-icon>
+			<span aria-hidden="true" class="suffix-placeholder"></span>
 		}
+		<button
+			(click)="trigger.panelOpen ? trigger.closePanel() : trigger.openPanel(); $event.stopPropagation()"
+			[attr.aria-label]="trigger.panelOpen ? 'Close options' : 'Open options'"
+			class="suffix-action-btn"
+			mat-icon-button
+			type="button">
+			@if (isExpanded()) {
+				<mat-icon>arrow_drop_up</mat-icon>
+			} @else {
+				<mat-icon>arrow_drop_down</mat-icon>
+			}
+		</button>
 	</div>
 
 	<mat-autocomplete

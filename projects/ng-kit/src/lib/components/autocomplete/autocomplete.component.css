@@ -1,4 +1,15 @@
-.autocomplete-width {
-	width: 100%;
-	max-width: 400px;
+.autocomplete-suffix {
+	display: flex;
+	align-items: center;
+}
+
+.suffix-action-btn {
+	width: 40px;
+	height: 40px;
+	padding: 0px;
+}
+
+.suffix-placeholder {
+	display: inline-block;
+	width: 40px;
 }
