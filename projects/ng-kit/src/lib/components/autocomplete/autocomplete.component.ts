@@ -1,7 +1,7 @@
 import { NgClass } from '@angular/common';
 import { Component, computed, ElementRef, forwardRef, input, output, signal, viewChild } from '@angular/core';
 import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
-import { MatAutocompleteModule, MatAutocompleteTrigger } from '@angular/material/autocomplete';
+import { MatAutocomplete, MatAutocompleteModule, MatAutocompleteTrigger } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldAppearance, MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -40,6 +40,9 @@ export class AutocompleteComponent<T = string> implements ControlValueAccessor {
 	/** Gets reference to the MatAutocompleteTrigger to programmatically open/close the panel */
 	autocompleteTrigger = viewChild.required(MatAutocompleteTrigger);
 
+	/** MatAutocomplete instance (used to scroll the selected option into view when the panel opens) */
+	matAutocomplete = viewChild.required(MatAutocomplete);
+
 	/** Gets reference to the input element for re-focusing after clear */
 	inputElement = viewChild.required<ElementRef<HTMLInputElement>>('inputEl');
 
@@ -77,8 +80,11 @@ export class AutocompleteComponent<T = string> implements ControlValueAccessor {
 	/** Emits the selected value when an option is picked from the dropdown */
 	selectionChange = output<T>();
 
+	/** Emits the raw text in the input on each keystroke (filter text while typing) */
+	onInputChange = output<string>();
+
 	/** Internal form control for the autocomplete input */
-	control = new FormControl('');
+	control = new FormControl<T | string | null>(null);
 
 	/** Signal that tracks whether the autocomplete panel is currently open */
 	isExpanded = signal(false);
@@ -102,7 +108,7 @@ export class AutocompleteComponent<T = string> implements ControlValueAccessor {
 	 * selected value in the input field. Returns empty string for null/undefined values.
 	 */
 	displayFn = (value: T): string => {
-		if (value == null) {
+		if (value == null || value === ('' as unknown as T)) {
 			return '';
 		}
 		return this.displayWith()(value);
@@ -113,7 +119,9 @@ export class AutocompleteComponent<T = string> implements ControlValueAccessor {
 	 * when the form control value is set programmatically.
 	 */
 	writeValue(value: T | null): void {
-		this.control.setValue((value as any) ?? '', { emitEvent: false });
+		// Use null (not '') so MatAutocompleteTrigger clears mat-option selection and stays in sync with the parent CVA.
+		const internal = value == null ? null : value;
+		this.control.setValue(internal as T | string | null, { emitEvent: false });
 	}
 
 	/**
@@ -148,6 +156,7 @@ export class AutocompleteComponent<T = string> implements ControlValueAccessor {
 	onInput(event: Event): void {
 		const value = (event.target as HTMLInputElement).value;
 		this.filterText.set(value);
+		this.onInputChange.emit(value);
 	}
 
 	/**
@@ -155,12 +164,33 @@ export class AutocompleteComponent<T = string> implements ControlValueAccessor {
 	 * and re-focuses the input element.
 	 */
 	clearInput(event: Event): void {
-		this.control.setValue('');
+		event.preventDefault();
+		event.stopPropagation();
+		this.autocompleteTrigger().closePanel();
+		this.control.setValue(null, { emitEvent: false });
 		this.filterText.set('');
 		this.onChange(null);
 		this.onTouched();
-		event.stopPropagation();
-		this.inputElement().nativeElement.focus();
+		queueMicrotask(() => this.inputElement().nativeElement.focus());
+	}
+
+	/** Runs when the autocomplete overlay opens: keep expanded state and scroll the selected option into view. */
+	onPanelOpened(): void {
+		this.isExpanded.set(true);
+		this.scrollSelectedOptionIntoView();
+	}
+
+	private scrollSelectedOptionIntoView(): void {
+		requestAnimationFrame(() => {
+			requestAnimationFrame(() => {
+				const panelEl = this.matAutocomplete().panel?.nativeElement as HTMLElement | undefined;
+				if (!panelEl) {
+					return;
+				}
+				const selected = panelEl.querySelector('.mat-mdc-option.mdc-list-item--selected') as HTMLElement | null;
+				selected?.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+			});
+		});
 	}
 
 	/** Opens the autocomplete panel programmatically */

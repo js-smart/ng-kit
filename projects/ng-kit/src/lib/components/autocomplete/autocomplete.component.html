@@ -43,7 +43,7 @@
 	<mat-autocomplete
 		#auto="matAutocomplete"
 		(closed)="isExpanded.set(false)"
-		(opened)="isExpanded.set(true)"
+		(opened)="onPanelOpened()"
 		(optionSelected)="onOptionSelected($event.option.value)"
 		[displayWith]="displayFn">
 		@if (loading()) {
