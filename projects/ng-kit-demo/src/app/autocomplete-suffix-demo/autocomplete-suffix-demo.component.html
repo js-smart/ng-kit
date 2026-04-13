@@ -1,0 +1,61 @@
+<div class="row">
+	<div class="col-6">
+		<h1 style="display: flex; justify-content: center; align-items: center; margin-top: 50px">autocompleteSuffix (objects)</h1>
+		<p style="display: flex; justify-content: center; text-align: center; padding: 0 16px">
+			Single <code>autocompleteSuffix</code> directive on the <code>input</code> — no anchor needed.
+		</p>
+		<div style="display: flex; justify-content: center; align-items: center">
+			<form [formGroup]="objectForm">
+				<mat-form-field appearance="outline" subscriptSizing="dynamic" appearance="fill">
+					<mat-label>City</mat-label>
+					<input
+						matInput
+						type="text"
+						#objTrigger="matAutocompleteTrigger"
+						(click)="objTrigger.openPanel()"
+						formControlName="city"
+						[matAutocomplete]="cityAuto"
+						scrollSelectedOptionIntoView="true"
+						autocompleteSuffix />
+					<mat-autocomplete #cityAuto="matAutocomplete" [displayWith]="displayWith">
+						@for (c of cities; track c.id) {
+							<mat-option [value]="c">{{ c.location }}</mat-option>
+						}
+					</mat-autocomplete>
+				</mat-form-field>
+			</form>
+		</div>
+		<div style="display: flex; justify-content: center; align-items: center; margin-top: 20px">
+			<p>Selected:</p>
+			<h2 style="margin-left: 8px">{{ objectForm.get('city')?.value?.location ?? '—' }}</h2>
+		</div>
+	</div>
+
+	<div class="col-6">
+		<h1 style="display: flex; justify-content: center; align-items: center; margin-top: 50px">autocompleteSuffix (strings)</h1>
+		<div style="display: flex; justify-content: center; align-items: center">
+			<form [formGroup]="stringForm">
+				<mat-form-field appearance="outline" subscriptSizing="dynamic">
+					<mat-label>City</mat-label>
+					<input
+						matInput
+						type="text"
+						#strTrigger="matAutocompleteTrigger"
+						(click)="strTrigger.openPanel()"
+						formControlName="city"
+						[matAutocomplete]="strAuto"
+						autocompleteSuffix />
+					<mat-autocomplete #strAuto="matAutocomplete">
+						@for (name of stringOptions; track name) {
+							<mat-option [value]="name">{{ name }}</mat-option>
+						}
+					</mat-autocomplete>
+				</mat-form-field>
+			</form>
+		</div>
+		<div style="display: flex; justify-content: center; align-items: center; margin-top: 20px">
+			<p>Selected:</p>
+			<h2 style="margin-left: 8px">{{ stringForm.get('city')?.value ?? '—' }}</h2>
+		</div>
+	</div>
+</div>

@@ -1,6 +1,7 @@
 import { Route } from '@angular/router';
 import { AlertDemoComponent } from './alert-demo/alert-demo.component';
 import { AutocompleteDemoComponent } from './autocomplete-demo/autocomplete-demo.component';
+import { AutocompleteSuffixDemoComponent } from './autocomplete-suffix-demo/autocomplete-suffix-demo.component';
 import { ButtonsDemoComponent } from './buttons-demo/buttons-demo.component';
 import { ConfirmDialogDemoComponent } from './confirm-dialog-demo/confirm-dialog-demo.component.html-demo.component';
 import { DirectivesDemoComponent } from './directives-demo/directives-demo.component';
@@ -11,6 +12,7 @@ import { SnackBarDemoComponent } from './snack-bar-demo/snack-bar-demo.component
 
 export const routes: Route[] = [
 { path: 'autocomplete-demo', component: AutocompleteDemoComponent },
+	{ path: 'autocomplete-suffix-demo', component: AutocompleteSuffixDemoComponent },
 	{ path: 'alert-demo', component: AlertDemoComponent },
 	{ path: 'confirm-dialog-demo', component: ConfirmDialogDemoComponent },
 	{ path: 'edit-svg-icon-demo', component: EditSvgIconDemoComponent },
