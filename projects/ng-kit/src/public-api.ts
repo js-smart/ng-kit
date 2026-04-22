@@ -8,13 +8,14 @@ export * from './lib/components/spinner/spinner.component';
 // Export autocomplete component
 export * from './lib/components/autocomplete/autocomplete.component';
 
-// Export autocomplete suffix directive (single directive on input)
+// Export autocomplete suffix directive and its button components
 export * from './lib/directives/autocomplete-suffix/autocomplete-suffix.directive';
+export * from './lib/directives/autocomplete-suffix/autocomplete-clear-button.component';
+export * from './lib/directives/autocomplete-suffix/autocomplete-dropdown-button.component';
 
 // Export directives
 export * from './lib/directives/ngx-print/ngx-print.directive';
 export * from './lib/directives/prevent-multiple-clicks/prevent-multiple-clicks.directive';
-export * from './lib/directives/autocomplete-suffix/autocomplete-suffix.directive';
 
 // Export buttons
 export * from './lib/components/buttons/base-button/base-button.directive';

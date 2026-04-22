@@ -1,7 +1,9 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormBuilder, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { AutocompleteSuffixDirective } from '@js-smart/ng-kit';
 
@@ -11,7 +13,15 @@ import { AutocompleteSuffixDirective } from '@js-smart/ng-kit';
  */
 @Component({
 	selector: 'ng-kit-autocomplete-suffix-demo',
-	imports: [ReactiveFormsModule, MatAutocompleteModule, MatFormFieldModule, MatInputModule, AutocompleteSuffixDirective],
+	imports: [
+		ReactiveFormsModule,
+		MatAutocompleteModule,
+		MatFormFieldModule,
+		MatInputModule,
+		AutocompleteSuffixDirective,
+		MatIconModule,
+		MatButtonModule,
+	],
 	templateUrl: './autocomplete-suffix-demo.component.html',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -43,7 +53,7 @@ export class AutocompleteSuffixDemoComponent {
 
 	constructor(private fb: FormBuilder) {}
 
-	displayWith = (item: City | null) => item?.location ?? '';
+	displayWith = (item: City | null): string => item?.location ?? '';
 }
 
 export interface City {

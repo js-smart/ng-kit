@@ -1,6 +1,8 @@
-import { AfterViewInit, DestroyRef, Directive, ElementRef, inject, Renderer2 } from '@angular/core';
+import { AfterViewInit, ApplicationRef, ComponentRef, createComponent, DestroyRef, Directive, ElementRef, EnvironmentInjector, inject, Renderer2 } from '@angular/core';
 import { NgControl } from '@angular/forms';
 import { MatAutocompleteTrigger } from '@angular/material/autocomplete';
+import { AutocompleteClearButtonComponent } from './autocomplete-clear-button.component';
+import { AutocompleteDropdownButtonComponent } from './autocomplete-dropdown-button.component';
 
 /**
  * Single directive that adds clear and dropdown-toggle icon buttons to a
@@ -30,10 +32,11 @@ export class AutocompleteSuffixDirective implements AfterViewInit {
 	private readonly renderer = inject(Renderer2);
 	private readonly destroyRef = inject(DestroyRef);
 	private readonly ngControl = inject(NgControl, { optional: true, self: true });
+	private readonly appRef = inject(ApplicationRef);
+	private readonly envInjector = inject(EnvironmentInjector);
 
-	private clearBtn: HTMLElement | null = null;
-	private clearPlaceholder: HTMLElement | null = null;
-	private dropdownIconSpan: HTMLElement | null = null;
+	private clearRef: ComponentRef<AutocompleteClearButtonComponent> | null = null;
+	private dropdownRef: ComponentRef<AutocompleteDropdownButtonComponent> | null = null;
 	private isExpanded = false;
 	private readonly unlisten: (() => void)[] = [];
 
@@ -54,7 +57,6 @@ export class AutocompleteSuffixDirective implements AfterViewInit {
 			return;
 		}
 
-		// Find or create the suffix wrapper
 		let suffixWrapper = flexContainer.querySelector('.mat-mdc-form-field-icon-suffix');
 		if (!suffixWrapper) {
 			suffixWrapper = this.renderer.createElement('div');
@@ -67,58 +69,30 @@ export class AutocompleteSuffixDirective implements AfterViewInit {
 		this.renderer.setStyle(container, 'display', 'flex');
 		this.renderer.setStyle(container, 'align-items', 'center');
 
-		// Clear button (hidden when input is empty)
-		this.clearBtn = this.createIconButton('close', 'Clear value', (e) => this.clearInput(e));
-		this.renderer.setStyle(this.clearBtn, 'display', 'none');
+		this.clearRef = createComponent(AutocompleteClearButtonComponent, { environmentInjector: this.envInjector });
+		this.appRef.attachView(this.clearRef.hostView);
+		this.clearRef.instance.clicked.subscribe((e) => this.clearInput(e));
+		this.renderer.setStyle(this.clearRef.location.nativeElement, 'visibility', 'hidden');
 
-		// Placeholder keeps layout stable when clear button is hidden
-		this.clearPlaceholder = this.renderer.createElement('span');
-		this.renderer.setStyle(this.clearPlaceholder, 'display', 'inline-block');
-		this.renderer.setStyle(this.clearPlaceholder, 'width', '35px');
+		this.dropdownRef = createComponent(AutocompleteDropdownButtonComponent, { environmentInjector: this.envInjector });
+		this.appRef.attachView(this.dropdownRef.hostView);
+		this.dropdownRef.instance.clicked.subscribe((e) => this.togglePanel(e));
 
-		// Dropdown toggle button
-		const dropdownBtn = this.createIconButton('arrow_drop_down', 'Open options', (e) => this.togglePanel(e));
-		this.dropdownIconSpan = dropdownBtn.querySelector('.material-icons');
-
-		this.renderer.appendChild(container, this.clearBtn);
-		this.renderer.appendChild(container, this.clearPlaceholder);
-		this.renderer.appendChild(container, dropdownBtn);
+		this.renderer.appendChild(container, this.clearRef.location.nativeElement);
+		this.renderer.appendChild(container, this.dropdownRef.location.nativeElement);
 		this.renderer.appendChild(suffixWrapper, container);
-	}
 
-	private createIconButton(iconName: string, ariaLabel: string, handler: (event: Event) => void): HTMLElement {
-		const button = this.renderer.createElement('button');
-		this.renderer.setAttribute(button, 'type', 'button');
-		this.renderer.setAttribute(button, 'aria-label', ariaLabel);
-		this.renderer.setStyle(button, 'width', '35px');
-		this.renderer.setStyle(button, 'height', '35px');
-		this.renderer.setStyle(button, 'padding', '0');
-		this.renderer.setStyle(button, 'border', 'none');
-		this.renderer.setStyle(button, 'background', 'transparent');
-		this.renderer.setStyle(button, 'cursor', 'pointer');
-		this.renderer.setStyle(button, 'display', 'inline-flex');
-		this.renderer.setStyle(button, 'align-items', 'center');
-		this.renderer.setStyle(button, 'justify-content', 'center');
-		this.renderer.setStyle(button, 'border-radius', '50%');
-		this.renderer.setStyle(button, 'color', 'inherit');
-
-		const icon = this.renderer.createElement('span');
-		this.renderer.addClass(icon, 'material-icons');
-		this.renderer.setStyle(icon, 'font-size', '24px');
-		this.renderer.appendChild(icon, this.renderer.createText(iconName));
-		this.renderer.appendChild(button, icon);
-
-		this.unlisten.push(this.renderer.listen(button, 'click', handler));
-		return button;
+		this.destroyRef.onDestroy(() => {
+			this.clearRef?.destroy();
+			this.dropdownRef?.destroy();
+		});
 	}
 
 	private setupListeners(): void {
-		// Track user typing
 		this.unlisten.push(this.renderer.listen(this.el.nativeElement, 'input', () => this.updateClearButtonVisibility()));
 
 		const autocomplete = this.trigger.autocomplete;
 
-		// Track autocomplete panel open/close
 		const openedSub = autocomplete.opened.subscribe(() => {
 			this.isExpanded = true;
 			this.updateDropdownIcon();
@@ -130,10 +104,8 @@ export class AutocompleteSuffixDirective implements AfterViewInit {
 			this.updateClearButtonVisibility();
 		});
 
-		// Track option selection
 		const selectedSub = autocomplete.optionSelected.subscribe(() => this.updateClearButtonVisibility());
 
-		// Track programmatic value changes via NgControl
 		let valueChangesSub: { unsubscribe(): void } | null = null;
 		if (this.ngControl?.control) {
 			valueChangesSub = this.ngControl.control.valueChanges.subscribe(() => this.updateClearButtonVisibility());
@@ -174,11 +146,8 @@ export class AutocompleteSuffixDirective implements AfterViewInit {
 
 	private updateClearButtonVisibility(): void {
 		const hasValue = !!(this.el.nativeElement.value || this.ngControl?.control?.value);
-		if (this.clearBtn) {
-			this.renderer.setStyle(this.clearBtn, 'display', hasValue ? 'inline-flex' : 'none');
-		}
-		if (this.clearPlaceholder) {
-			this.renderer.setStyle(this.clearPlaceholder, 'display', hasValue ? 'none' : 'inline-block');
+		if (this.clearRef) {
+			this.renderer.setStyle(this.clearRef.location.nativeElement, 'visibility', hasValue ? 'visible' : 'hidden');
 		}
 	}
 
@@ -196,12 +165,8 @@ export class AutocompleteSuffixDirective implements AfterViewInit {
 	}
 
 	private updateDropdownIcon(): void {
-		if (this.dropdownIconSpan) {
-			this.dropdownIconSpan.textContent = this.isExpanded ? 'arrow_drop_up' : 'arrow_drop_down';
-		}
-		const button = this.dropdownIconSpan?.parentElement;
-		if (button) {
-			this.renderer.setAttribute(button, 'aria-label', this.isExpanded ? 'Close options' : 'Open options');
+		if (this.dropdownRef) {
+			this.dropdownRef.instance.expanded.set(this.isExpanded);
 		}
 	}
 }
