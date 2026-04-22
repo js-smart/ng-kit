@@ -14,6 +14,7 @@ export * from './lib/directives/autocomplete-suffix/autocomplete-suffix.directiv
 // Export directives
 export * from './lib/directives/ngx-print/ngx-print.directive';
 export * from './lib/directives/prevent-multiple-clicks/prevent-multiple-clicks.directive';
+export * from './lib/directives/autocomplete-suffix/autocomplete-suffix.directive';
 
 // Export buttons
 export * from './lib/components/buttons/base-button/base-button.directive';
