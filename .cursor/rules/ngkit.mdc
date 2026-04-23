@@ -1,0 +1,8 @@
+---
+description: NG Kit — canonical context lives in AGENTS.md (pointer + critical constraints)
+alwaysApply: true
+---
+
+# NG Kit — Project context
+
+**Canonical instructions:** Read **[`AGENTS.md`](../../AGENTS.md)** at the repository root for application domain, tech stack, folder layout, commands, testing, and conventions. It is the single source of truth for Claude Code, Cursor, Codex, JetBrains AI Assistant, and other agents.
