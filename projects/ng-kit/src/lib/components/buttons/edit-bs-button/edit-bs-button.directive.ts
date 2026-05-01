@@ -13,7 +13,7 @@ export class EditBsButtonDirective implements OnInit {
 
 	ngOnInit(): void {
 		// Add the btn class first
-		this.elementRef.nativeElement.classList.add('btn', 'text-primary');
+		this.elementRef.nativeElement.classList.add('btn', 'text-primary', 'gap-1');
 
 		// Capture original text before creating icon
 		this.originalText.set(this.elementRef.nativeElement.textContent?.trim() || 'Edit');

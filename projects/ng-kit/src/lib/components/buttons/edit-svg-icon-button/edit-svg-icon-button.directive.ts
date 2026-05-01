@@ -14,7 +14,7 @@ export class EditSvgIconButtonDirective implements OnInit {
 
 	ngOnInit(): void {
 		// Add Material Design button classes
-		this.elementRef.nativeElement.classList.add('mat-raised-button', 'primary-button');
+		this.elementRef.nativeElement.classList.add('mat-raised-button', 'primary-button', 'gap-1');
 
 		// Capture original text before creating icon
 		this.originalText.set(this.elementRef.nativeElement.textContent?.trim() || 'Edit');

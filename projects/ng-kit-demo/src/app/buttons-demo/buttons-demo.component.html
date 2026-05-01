@@ -1,9 +1,9 @@
 <div class="m-5">
   <edit-bs-button class="m-3" label="Edit Bootstrap Button"></edit-bs-button>
-  <button editBsButton mat-button class="m-3">Edit BS (Directive)</button>
+  <button editBsButton mat-button>Edit BS (Directive)</button>
   <hr />
 
-  <primary-button (click)="setLoading()" [loading]="loading()" class="m-3" label="Primary Button"></primary-button>
+  <primary-button (click)=" setLoading()" [loading]="loading()" class="m-3" label="Primary Button"></primary-button>
   <button [loading]="loading()" (click)="setLoading()" primaryButton mat-raised-button class="m-3">Primary Button
     (Directive)</button>
   <hr />
