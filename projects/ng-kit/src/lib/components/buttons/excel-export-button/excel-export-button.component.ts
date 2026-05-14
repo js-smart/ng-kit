@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 import { MatButtonModule } from '@angular/material/button';
 
@@ -7,6 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
 	imports: [MatButtonModule],
 	template: ` <button class="excel-export-button" mat-raised-button type="button" data-cy="excel-export-button">Excel</button> `,
 	styleUrls: ['../../../../assets/app-buttons.css'],
+	changeDetection: ChangeDetectionStrategy.Eager,
 	styles: [
 		`
 			.excel-export-button {

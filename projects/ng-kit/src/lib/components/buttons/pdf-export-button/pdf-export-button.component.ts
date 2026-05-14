@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 
 @Component({
 	selector: 'pdf-export-button',
 	imports: [MatButtonModule],
 	template: ` <button class="pdf-export-button" mat-raised-button type="button" data-cy="pdf-export-button">PDF</button> `,
+	changeDetection: ChangeDetectionStrategy.Eager,
 	styles: [
 		`
 			.pdf-export-button {

@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, ChangeDetectionStrategy } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
@@ -6,6 +6,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 	selector: 'spinner,lib-spinner',
 	imports: [MatProgressSpinnerModule],
 	templateUrl: './spinner.component.html',
+	changeDetection: ChangeDetectionStrategy.Eager,
 	styleUrls: ['./spinner.component.scss'],
 })
 export class SpinnerComponent {

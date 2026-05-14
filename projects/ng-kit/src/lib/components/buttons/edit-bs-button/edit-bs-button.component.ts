@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, ChangeDetectionStrategy } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { EditSolidSvgComponent } from '../../../svg-icons/edit-solid-svg/edit-solid-svg.component';
@@ -26,6 +26,7 @@ import { BaseButtonComponent } from '../base-button/base-button.component';
 			{{ label() }}
 		</button>
 	`,
+	changeDetection: ChangeDetectionStrategy.Eager,
 	styleUrls: ['../../../../assets/app-buttons.css'],
 })
 export class EditBsButtonComponent extends BaseButtonComponent {

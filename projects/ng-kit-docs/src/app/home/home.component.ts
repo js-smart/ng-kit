@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 @Component({
@@ -7,6 +7,7 @@ import { RouterLink } from '@angular/router';
 	standalone: true,
 	imports: [CommonModule, RouterLink],
 	templateUrl: './home.component.html',
+	changeDetection: ChangeDetectionStrategy.Eager,
 	styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent {
@@ -19,12 +20,12 @@ export class HomeComponent {
 		{
 			icon: '🚀',
 			title: 'Modern Angular',
-			description: 'Built for Angular\'s latest features including signals, standalone components, and the new control flow',
+			description: "Built for Angular's latest features including signals, standalone components, and the new control flow",
 		},
 		{
 			icon: '⚡',
 			title: 'Performance',
-			description: 'Optimized components that leverage Angular\'s change detection and signals system',
+			description: "Optimized components that leverage Angular's change detection and signals system",
 		},
 		{
 			icon: '🛠️',
@@ -53,4 +54,3 @@ export class HomeComponent {
 		},
 	];
 }
-

@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { MatSnackBarService } from '@js-smart/ng-kit';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatButtonModule } from '@angular/material/button';
@@ -7,6 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
 	selector: 'ng-kit-snack-bar-demo',
 	imports: [MatSnackBarModule, MatButtonModule],
 	providers: [MatSnackBarService],
+	changeDetection: ChangeDetectionStrategy.Eager,
 	template: `
 		<div class="center_div">
 			<button mat-raised-button color="primary" (click)="mdc.success('Update Success')">Show Success Snack Bar</button>
