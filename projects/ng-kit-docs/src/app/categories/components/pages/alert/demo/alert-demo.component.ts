@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { AlertComponent } from '@js-smart/ng-kit';
 
 @Component({
 	selector: 'ng-kit-alert-demo',
 	imports: [AlertComponent],
 	templateUrl: './alert-demo.component.html',
+	changeDetection: ChangeDetectionStrategy.Eager,
 	styles: [``],
 })
 export class AlertDemoComponent {

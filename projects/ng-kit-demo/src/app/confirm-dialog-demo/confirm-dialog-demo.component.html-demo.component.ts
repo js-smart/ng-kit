@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent, PrimaryButtonComponent } from '@js-smart/ng-kit';
 
@@ -6,6 +6,7 @@ import { ConfirmDialogComponent, PrimaryButtonComponent } from '@js-smart/ng-kit
 	selector: 'ng-kit-confirm-dialog-demo',
 	templateUrl: './confirm-dialog-demo.component.html',
 	styles: [``],
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [PrimaryButtonComponent],
 })
 export class ConfirmDialogDemoComponent {

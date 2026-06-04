@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, ChangeDetectionStrategy } from '@angular/core';
 import { BaseButtonComponent } from '../base-button/base-button.component';
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
@@ -6,6 +6,7 @@ import { MatIcon } from '@angular/material/icon';
 @Component({
 	selector: 'success-button',
 	imports: [MatButton, MatIcon],
+	changeDetection: ChangeDetectionStrategy.Eager,
 	template: `
 		<button
 			mat-raised-button

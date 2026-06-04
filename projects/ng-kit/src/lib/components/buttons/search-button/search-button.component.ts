@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, ChangeDetectionStrategy } from '@angular/core';
 
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -27,6 +27,7 @@ import { BaseButtonComponent } from '../base-button/base-button.component';
 			{{ loading() ? loadingLabel() : label() }}
 		</button>
 	`,
+	changeDetection: ChangeDetectionStrategy.Eager,
 	styleUrls: ['../../../../assets/app-buttons.css'],
 })
 export class SearchButtonComponent extends BaseButtonComponent {

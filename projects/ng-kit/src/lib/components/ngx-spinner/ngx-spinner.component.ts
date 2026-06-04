@@ -1,5 +1,5 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { ChangeDetectorRef, Component, HostListener, input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, HostListener, input, OnDestroy, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { DEFAULTS, LOADERS, NgxSpinner, PRIMARY_SPINNER, Size } from './ngx-spinner.enum';
@@ -11,6 +11,7 @@ import { SafeHtmlPipe } from './safe-html.pipe';
 	imports: [SafeHtmlPipe],
 	templateUrl: 'ngx-spinner.component.html',
 	styleUrls: ['ngx-spinner.component.css'],
+	changeDetection: ChangeDetectionStrategy.Eager,
 	animations: [
 		trigger('fadeIn', [
 			state('in', style({ opacity: 1 })),

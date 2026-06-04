@@ -1,4 +1,4 @@
-import { Component, output } from '@angular/core';
+import { Component, output, ChangeDetectionStrategy } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 
@@ -6,6 +6,7 @@ import { MatIcon } from '@angular/material/icon';
 	selector: 'autocomplete-clear-button',
 	standalone: true,
 	imports: [MatIconButton, MatIcon],
+	changeDetection: ChangeDetectionStrategy.Eager,
 	template: `
 		<button
 			mat-icon-button

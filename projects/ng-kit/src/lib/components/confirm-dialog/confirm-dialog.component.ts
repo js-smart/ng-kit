@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, ChangeDetectionStrategy } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
@@ -21,6 +21,7 @@ import { MatDividerModule } from '@angular/material/divider';
 			<button (click)="onConfirm()" class="primary-button" mat-raised-button>Yes</button>
 		</div>
 	`,
+	changeDetection: ChangeDetectionStrategy.Eager,
 	styles: [],
 })
 export class ConfirmDialogComponent {

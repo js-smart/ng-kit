@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { Component, computed, ElementRef, forwardRef, input, output, signal, viewChild } from '@angular/core';
+import { Component, computed, ElementRef, forwardRef, input, output, signal, viewChild, ChangeDetectionStrategy } from '@angular/core';
 import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocomplete, MatAutocompleteModule, MatAutocompleteTrigger } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
@@ -28,6 +28,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 	],
 	templateUrl: './autocomplete.component.html',
 	styleUrls: ['./autocomplete.component.css'],
+	changeDetection: ChangeDetectionStrategy.Eager,
 	providers: [
 		{
 			provide: NG_VALUE_ACCESSOR,
