@@ -11,6 +11,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PreloadAllModules, RouterModule } from '@angular/router';
 import { routes } from './app.routes';
 import { provideHttpClient, withFetch, withXsrfConfiguration } from '@angular/common/http';
+import { provideQueryClient } from '@js-smart/ng-kit';
 
 export const appConfig: ApplicationConfig = {
 	providers: [
@@ -33,6 +34,7 @@ export const appConfig: ApplicationConfig = {
 			MatDatepickerModule,
 		),
 		provideHttpClient(withXsrfConfiguration({ headerName: 'X-XSRF-TOKEN' }), withFetch()),
+		provideQueryClient({ defaultOptions: { queries: { staleTime: 30_000 } } }),
 		Title,
 		DatePipe,
 		{

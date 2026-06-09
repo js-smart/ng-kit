@@ -65,5 +65,10 @@ export * from './lib/store/store';
 // Export progress state
 export * from './lib/util/progress-util';
 
+// Export TanStack Query Angular adapter
+export * from './lib/query/inject-mutation';
+export * from './lib/query/inject-query';
+export * from './lib/query/query-client.token';
+
 // Export the ProgressState type
 export type { ProgressState };

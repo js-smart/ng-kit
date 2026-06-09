@@ -1,0 +1,101 @@
+<div class="m-5">
+
+  <!-- ── injectQuery ──────────────────────────────────────────── -->
+  <mat-card class="mb-4">
+    <mat-card-header>
+      <mat-card-title>injectQuery — Fetch post by ID</mat-card-title>
+      <mat-card-subtitle>
+        <code>staleTime</code> is 30 seconds. Switch IDs and switch back — cached posts load instantly.
+      </mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content class="mt-3">
+      <mat-button-toggle-group [value]="postId()" (change)="postId.set($event.value)" aria-label="Post ID">
+        @for (id of postIds; track id) {
+          <mat-button-toggle [value]="id">Post {{ id }}</mat-button-toggle>
+        }
+      </mat-button-toggle-group>
+
+      <div class="mt-3" style="min-height: 100px;">
+        @if (post().isLoading) {
+          <mat-progress-bar mode="indeterminate" class="mb-2"></mat-progress-bar>
+          <p class="text-muted">Loading post {{ postId() }}…</p>
+        } @else if (post().isError) {
+          <p class="text-danger"><strong>Error:</strong> {{ post().error?.message }}</p>
+        } @else if (post().isSuccess) {
+          <p><strong>ID:</strong> {{ post().data?.id }}</p>
+          <p><strong>Title:</strong> {{ post().data?.title }}</p>
+          <p><strong>Body:</strong> {{ post().data?.body }}</p>
+          <p class="text-muted" style="font-size: 0.85em;">
+            Status: <code>{{ post().status }}</code> &nbsp;|&nbsp;
+            Fetched at: {{ post().dataUpdatedAt | date: 'HH:mm:ss' }}
+          </p>
+        }
+      </div>
+
+      <mat-divider class="mt-3 mb-3"></mat-divider>
+
+      <details>
+        <summary style="cursor: pointer; color: #555;">Raw signal value (JSON)</summary>
+        <pre class="mt-2" style="background: #f4f4f4; padding: 12px; font-size: 0.8em; overflow: auto; border-radius: 4px;">{{ post() | json }}</pre>
+      </details>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- ── injectMutation ──────────────────────────────────────── -->
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>injectMutation — Create a new post</mat-card-title>
+      <mat-card-subtitle>
+        JSONPlaceholder fakes the POST — returns <code>id: 101</code> but does not persist.
+      </mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content class="mt-3">
+      <mat-form-field appearance="outline" style="width: 400px;">
+        <mat-label>Post title</mat-label>
+        <input matInput [ngModel]="newTitle()" (ngModelChange)="newTitle.set($event)" placeholder="Enter a title" />
+      </mat-form-field>
+
+      <div class="mt-2 mb-3" style="display: flex; gap: 12px;">
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="submitPost()"
+          [disabled]="createPost.result().isPending">
+          mutate() — fire &amp; forget
+        </button>
+        <button
+          mat-raised-button
+          color="accent"
+          (click)="submitPostAsync()"
+          [disabled]="createPost.result().isPending">
+          mutateAsync() — awaited
+        </button>
+      </div>
+
+      @if (createPost.result().isPending) {
+        <mat-progress-bar mode="indeterminate" class="mb-2"></mat-progress-bar>
+        <p class="text-muted">Saving…</p>
+      } @else if (createPost.result().isError) {
+        <p class="text-danger"><strong>Error:</strong> {{ createPost.result().error?.message }}</p>
+      } @else if (createPost.result().isSuccess) {
+        <p class="text-success"><strong>Created!</strong></p>
+        <p><strong>ID:</strong> {{ createPost.result().data?.id }}</p>
+        <p><strong>Title:</strong> {{ createPost.result().data?.title }}</p>
+      } @else {
+        <p class="text-muted">Idle — press a button above to run the mutation.</p>
+      }
+
+      <mat-divider class="mt-3 mb-3"></mat-divider>
+
+      <details>
+        <summary style="cursor: pointer; color: #555;">Raw mutation signal value (JSON)</summary>
+        <pre class="mt-2" style="background: #f4f4f4; padding: 12px; font-size: 0.8em; overflow: auto; border-radius: 4px;">{{ createPost.result() | json }}</pre>
+      </details>
+    </mat-card-content>
+  </mat-card>
+
+</div>
+
+<hr />
