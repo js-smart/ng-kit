@@ -28,3 +28,7 @@ minimumReleaseAgeExclude:
   - '@angular/ssr@22.0.0'
   - '@ngtools/webpack@22.0.0'
   - ng-packagr@22.0.0
+  - '@playwright/test@1.61.1'
+  - '@tanstack/query-core@5.101.1'
+  - playwright-core@1.61.1
+  - playwright@1.61.1
