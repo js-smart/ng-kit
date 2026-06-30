@@ -96,6 +96,9 @@ importers:
       '@eslint/js':
         specifier: ^10.0.1
         version: 10.0.1(eslint@10.5.0(jiti@2.6.1))
+      '@netlify/angular-runtime':
+        specifier: ^4.0.0
+        version: 4.0.0
       '@playwright/test':
         specifier: ^1.61.1
         version: 1.61.1
@@ -2481,6 +2484,18 @@ packages:
     peerDependencies:
       '@emnapi/core': ^1.7.1
       '@emnapi/runtime': ^1.7.1
+
+  '@netlify/angular-runtime@4.0.0':
+    resolution: {integrity: sha512-VrFrzw0MbLWLCG853dJM5gHDg2uRMBWuedEb1DfLDNyja/dQnmQTMPE2ke9QTbebFA01T0aynM0aeU7DyinPOQ==}
+    engines: {node: ^22.22.0 || ^24.13.1 || >=26.0.0}
+
+  '@netlify/edge-functions@3.0.8':
+    resolution: {integrity: sha512-ml1oCDsRTTRmZS2nUj8XRD1b6+foEiZT3lPk7qQ4nv/jnxylHJ20ooPzPDH+cJmGjXFrMeR14/91W1o6D2ftBg==}
+    engines: {node: '>=18.0.0'}
+
+  '@netlify/types@2.8.0':
+    resolution: {integrity: sha512-8/g0Pt6y6wXj5Ia5eeYLiXhRfWeqZXGXpGFeCiiQdUOem+FPtXdA4+YdGxqzWc7D0AvptKSO01KGeeVWHSu8Kg==}
+    engines: {node: ^18.14.0 || >=20}
 
   '@ng-doc/app@21.0.5':
     resolution: {integrity: sha512-aqez9C04kmrKAUxnQYjlq06uV4Ygwy9Qm8qbtsjz6dU178FSnR6YQvKn/hYCCseDEMg9GK3X8/V4znGVnAMP6Q==}
@@ -9384,7 +9399,7 @@ snapshots:
     dependencies:
       '@ampproject/remapping': 2.3.0
       '@angular-devkit/architect': 0.2102.8(chokidar@5.0.0)
-      '@angular-devkit/build-webpack': 0.2102.8(chokidar@5.0.0)(webpack-dev-server@5.2.3(webpack@5.105.2))(webpack@5.105.2(esbuild@0.27.3))
+      '@angular-devkit/build-webpack': 0.2102.8(chokidar@5.0.0)(webpack-dev-server@5.2.3(webpack@5.105.2(esbuild@0.27.3)))(webpack@5.105.2(esbuild@0.27.3))
       '@angular-devkit/core': 21.2.8(chokidar@5.0.0)
       '@angular/build': 21.2.8(b6b2e8388a1997949c5df6f1283d5ccc)
       '@angular/compiler-cli': 22.0.4(@angular/compiler@22.0.4)(typescript@6.0.3)
@@ -9434,8 +9449,8 @@ snapshots:
       tslib: 2.8.1
       typescript: 6.0.3
       webpack: 5.105.2(esbuild@0.27.3)
-      webpack-dev-middleware: 7.4.5(webpack@5.105.2)
-      webpack-dev-server: 5.2.3(webpack@5.105.2)
+      webpack-dev-middleware: 7.4.5(webpack@5.105.2(esbuild@0.27.3))
+      webpack-dev-server: 5.2.3(webpack@5.105.2(esbuild@0.27.3))
       webpack-merge: 6.0.1
       webpack-subresource-integrity: 5.1.0(webpack@5.105.2(esbuild@0.27.3))
     optionalDependencies:
@@ -9471,12 +9486,12 @@ snapshots:
       - webpack-cli
       - yaml
 
-  '@angular-devkit/build-webpack@0.2102.8(chokidar@5.0.0)(webpack-dev-server@5.2.3(webpack@5.105.2))(webpack@5.105.2(esbuild@0.27.3))':
+  '@angular-devkit/build-webpack@0.2102.8(chokidar@5.0.0)(webpack-dev-server@5.2.3(webpack@5.105.2(esbuild@0.27.3)))(webpack@5.105.2(esbuild@0.27.3))':
     dependencies:
       '@angular-devkit/architect': 0.2102.8(chokidar@5.0.0)
       rxjs: 7.8.2
       webpack: 5.105.2(esbuild@0.27.3)
-      webpack-dev-server: 5.2.3(webpack@5.105.2)
+      webpack-dev-server: 5.2.3(webpack@5.105.2(esbuild@0.27.3))
     transitivePeerDependencies:
       - chokidar
 
@@ -11472,6 +11487,17 @@ snapshots:
       '@tybys/wasm-util': 0.10.1
     optional: true
 
+  '@netlify/angular-runtime@4.0.0':
+    dependencies:
+      '@netlify/edge-functions': 3.0.8
+      semver: 7.8.5
+
+  '@netlify/edge-functions@3.0.8':
+    dependencies:
+      '@netlify/types': 2.8.0
+
+  '@netlify/types@2.8.0': {}
+
   '@ng-doc/app@21.0.5(e1c1fa64d452cf6614b87fc62278dd89)':
     dependencies:
       '@angular/cdk': 22.0.2(@angular/common@22.0.4(@angular/core@22.0.4(@angular/compiler@22.0.4)(rxjs@7.8.2)(zone.js@0.16.2))(rxjs@7.8.2))(@angular/core@22.0.4(@angular/compiler@22.0.4)(rxjs@7.8.2)(zone.js@0.16.2))(@angular/platform-browser@22.0.4(@angular/animations@22.0.4(@angular/core@22.0.4(@angular/compiler@22.0.4)(rxjs@7.8.2)(zone.js@0.16.2)))(@angular/common@22.0.4(@angular/core@22.0.4(@angular/compiler@22.0.4)(rxjs@7.8.2)(zone.js@0.16.2))(rxjs@7.8.2))(@angular/core@22.0.4(@angular/compiler@22.0.4)(rxjs@7.8.2)(zone.js@0.16.2)))(rxjs@7.8.2)
@@ -12779,7 +12805,7 @@ snapshots:
       '@typescript-eslint/visitor-keys': 8.62.0
       debug: 4.4.3
       minimatch: 10.2.5
-      semver: 7.7.4
+      semver: 7.8.5
       tinyglobby: 0.2.16
       ts-api-utils: 2.5.0(typescript@6.0.3)
       typescript: 6.0.3
@@ -15840,7 +15866,7 @@ snapshots:
 
   is-bun-module@2.0.0:
     dependencies:
-      semver: 7.7.4
+      semver: 7.8.5
 
   is-callable@1.2.7: {}
 
@@ -16920,7 +16946,7 @@ snapshots:
   normalize-package-data@8.0.0:
     dependencies:
       hosted-git-info: 9.0.2
-      semver: 7.7.4
+      semver: 7.8.5
       validate-npm-package-license: 3.0.4
 
   normalize-path@3.0.0: {}
@@ -18711,7 +18737,7 @@ snapshots:
       type-fest: 2.19.0
       unique-string: 3.0.0
 
-  terser-webpack-plugin@5.4.0(esbuild@0.27.3)(webpack@5.105.2):
+  terser-webpack-plugin@5.4.0(esbuild@0.27.3)(webpack@5.105.2(esbuild@0.27.3)):
     dependencies:
       '@jridgewell/trace-mapping': 0.3.29
       jest-worker: 27.5.1
@@ -19268,7 +19294,7 @@ snapshots:
 
   webidl-conversions@8.0.1: {}
 
-  webpack-dev-middleware@7.4.5(webpack@5.105.2):
+  webpack-dev-middleware@7.4.5(webpack@5.105.2(esbuild@0.27.3)):
     dependencies:
       colorette: 2.0.20
       memfs: 4.51.0
@@ -19279,7 +19305,7 @@ snapshots:
     optionalDependencies:
       webpack: 5.105.2(esbuild@0.27.3)
 
-  webpack-dev-server@5.2.3(webpack@5.105.2):
+  webpack-dev-server@5.2.3(webpack@5.105.2(esbuild@0.27.3)):
     dependencies:
       '@types/bonjour': 3.5.13
       '@types/connect-history-api-fallback': 1.5.4
@@ -19307,7 +19333,7 @@ snapshots:
       serve-index: 1.9.1
       sockjs: 0.3.24
       spdy: 4.0.2
-      webpack-dev-middleware: 7.4.5(webpack@5.105.2)
+      webpack-dev-middleware: 7.4.5(webpack@5.105.2(esbuild@0.27.3))
       ws: 8.20.0
     optionalDependencies:
       webpack: 5.105.2(esbuild@0.27.3)
@@ -19354,7 +19380,7 @@ snapshots:
       neo-async: 2.6.2
       schema-utils: 4.3.3
       tapable: 2.3.0
-      terser-webpack-plugin: 5.4.0(esbuild@0.27.3)(webpack@5.105.2)
+      terser-webpack-plugin: 5.4.0(esbuild@0.27.3)(webpack@5.105.2(esbuild@0.27.3))
       watchpack: 2.5.1
       webpack-sources: 3.3.3
     transitivePeerDependencies:

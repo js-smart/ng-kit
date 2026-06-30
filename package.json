@@ -66,6 +66,7 @@
     "@angular/cli": "^22.0.4",
     "@angular/compiler-cli": "^22.0.4",
     "@eslint/js": "^10.0.1",
+    "@netlify/angular-runtime": "^4.0.0",
     "@playwright/test": "^1.61.1",
     "@schematics/angular": "^22.0.4",
     "@semantic-release/exec": "^7.1.0",
