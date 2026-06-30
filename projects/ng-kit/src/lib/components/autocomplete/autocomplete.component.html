@@ -19,25 +19,27 @@
 		type="text" />
 
 	<div class="autocomplete-suffix" matSuffix>
-		@if (control.value) {
-			<button type="button" (click)="clearInput($event)" class="suffix-action-btn" mat-icon-button>
+		@if (control.value && !control.disabled) {
+			<button type="button" (click)="clearInput($event)" aria-label="Clear value" class="suffix-action-btn" mat-icon-button>
 				<mat-icon>close</mat-icon>
 			</button>
-		} @else {
+		} @else if (!control.disabled) {
 			<span aria-hidden="true" class="suffix-placeholder"></span>
 		}
-		<button
-			(click)="trigger.panelOpen ? trigger.closePanel() : trigger.openPanel(); $event.stopPropagation()"
-			[attr.aria-label]="trigger.panelOpen ? 'Close options' : 'Open options'"
-			class="suffix-action-btn"
-			mat-icon-button
-			type="button">
-			@if (isExpanded()) {
-				<mat-icon>arrow_drop_up</mat-icon>
-			} @else {
-				<mat-icon>arrow_drop_down</mat-icon>
-			}
-		</button>
+		@if (!control.disabled) {
+			<button
+				(click)="trigger.panelOpen ? trigger.closePanel() : trigger.openPanel(); $event.stopPropagation()"
+				[attr.aria-label]="trigger.panelOpen ? 'Close options' : 'Open options'"
+				class="suffix-action-btn"
+				mat-icon-button
+				type="button">
+				@if (isExpanded()) {
+					<mat-icon>arrow_drop_up</mat-icon>
+				} @else {
+					<mat-icon>arrow_drop_down</mat-icon>
+				}
+			</button>
+		}
 	</div>
 
 	<mat-autocomplete

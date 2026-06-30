@@ -1,3 +1,14 @@
+[build]
+  command = "pnpm run build:demo"
+  publish = "dist/ng-kit-demo/browser"
+
+[build.environment]
+  NODE_VERSION = "24"
+  ANGULAR_PROJECT = "ng-kit-demo"
+
+[[plugins]]
+  package = "@netlify/angular-runtime"
+
 [[redirects]]
   from = "/*"
   status = 200
