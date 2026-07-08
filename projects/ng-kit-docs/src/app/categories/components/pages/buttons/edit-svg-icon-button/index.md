@@ -1,4 +1,4 @@
-A button for edit actions using a custom SVG icon. The Edit SVG Icon Button extends the Base Button and displays a custom SVG icon for edit actions. Useful for consistent iconography across your app.
+A button for edit actions using the Material `edit_square` icon. The Edit SVG Icon Button extends the Base Button and is useful for consistent edit iconography across your app.
 
 ## Usage
 
@@ -18,5 +18,5 @@ Below are the inputs overridden by the Edit SVG Icon Button.
 | Name      | Type   | Default         | Description                    |
 |-----------|--------|-----------------|--------------------------------|
 | `label`   | string | 'Edit'          | Button label                   |
-| `icon`    | string | 'edit'          | Material icon name to display  |
+| `icon`    | string | 'edit_square'   | Material icon name to display  |
 | `classes` | string | 'primary-button'| CSS classes to apply           |

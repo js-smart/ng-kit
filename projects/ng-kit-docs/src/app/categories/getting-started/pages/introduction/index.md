@@ -41,7 +41,6 @@ Includes powerful utilities for common tasks like progress state management, pri
 |----------------|---------------------------------------------------------------------------------------------------------------------------|
 | **Components** | `alert`, `buttons`, `autocomplete`, `confirm-dialog`, `host-platforms`, `ngx-spinner`, `snack-bar`, `spinner`, `timeline` |
 | **Directives** | `buttons`, `ngx-print`, `preventMultipleClicks`                                                                           |
-| **SVG Icons**  | `EditSolidSvgComponent`                                                                                                   |
 | **Utilities**  | `progress-util`                                                                                                           |
 
 ---

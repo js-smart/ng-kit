@@ -52,9 +52,6 @@ export * from './lib/components/buttons/view-primary-button/view-primary-button.
 // Export dialogs
 export * from './lib/components/confirm-dialog/confirm-dialog.component';
 
-// Export svg icons
-export * from './lib/svg-icons/edit-solid-svg/edit-solid-svg.component';
-
 // Export snackbar service
 export * from './lib/services/mat-snack-bar.service';
 

@@ -1,37 +1,24 @@
-import { ComponentRef, Directive, DOCUMENT, ElementRef, inject, OnInit, signal, ViewContainerRef } from '@angular/core';
-import { EditSolidSvgComponent } from '../../../svg-icons/edit-solid-svg/edit-solid-svg.component';
+import { Directive, input } from '@angular/core';
+import { BaseButtonDirective } from '../base-button/base-button.directive';
 
 @Directive({
 	selector: '[editBsButton]',
 })
-export class EditBsButtonDirective implements OnInit {
-	elementRef = inject(ElementRef);
-	viewContainerRef = inject(ViewContainerRef);
-	document = inject(DOCUMENT);
-	protected originalText = signal('');
-	protected iconComponentRef = signal<ComponentRef<EditSolidSvgComponent> | null>(null);
+export class EditBsButtonDirective extends BaseButtonDirective {
+	override icon = input<string>('edit_square');
+	override loadingLabel = input<string>('Editing...');
 
-	ngOnInit(): void {
-		// Add the btn class first
-		this.elementRef.nativeElement.classList.add('btn', 'text-primary', 'gap-1');
-
-		// Capture original text before creating icon
-		this.originalText.set(this.elementRef.nativeElement.textContent?.trim() || 'Edit');
-
-		// Update content to show icon and text
-		this.updateContent();
+	constructor() {
+		super();
+		this.elementRef.nativeElement.classList.add('text-primary', 'gap-1');
 	}
 
-	private updateContent(): void {
-		// Create the EditSolidSvgComponent properly using Angular's component system
-		const componentRef = this.viewContainerRef.createComponent(EditSolidSvgComponent);
-		this.iconComponentRef.set(componentRef);
-
-		// Clear the original content and append the icon component
-		this.elementRef.nativeElement.textContent = '';
-		this.elementRef.nativeElement.appendChild(componentRef.location.nativeElement);
-
-		// Add text after the icon
-		this.elementRef.nativeElement.appendChild(this.document.createTextNode(' ' + this.originalText()));
+	protected override createIcon(): void {
+		if (this.icon()) {
+			const iconElement = this.document.createElement('mat-icon');
+			iconElement.classList.add('mat-icon', 'edit-square-icon', 'pe-2');
+			iconElement.textContent = this.icon();
+			this.iconSpan.set(iconElement);
+		}
 	}
 }
