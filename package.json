@@ -1,6 +1,6 @@
 {
   "name": "ng-kit",
-  "version": "22.3.1",
+  "version": "22.4.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve ng-kit-demo --port=4300",
