@@ -1,11 +1,12 @@
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { Component, input, ChangeDetectionStrategy } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { EditSolidSvgComponent } from '../../../svg-icons/edit-solid-svg/edit-solid-svg.component';
 import { BaseButtonComponent } from '../base-button/base-button.component';
 
 @Component({
 	selector: 'edit-bs-button',
-	imports: [MatButtonModule, MatIconModule],
+	imports: [MatButtonModule, MatIconModule, EditSolidSvgComponent],
 	template: `
 		<button
 			color="primary"
@@ -21,7 +22,7 @@ import { BaseButtonComponent } from '../base-button/base-button.component';
 			[style]="style()"
 			[attr.data-cy]="'edit-bs-button'"
 			mat-button>
-			<mat-icon>{{ icon() }}</mat-icon>
+			<edit-solid-svg></edit-solid-svg>
 			{{ label() }}
 		</button>
 	`,
@@ -30,7 +31,6 @@ import { BaseButtonComponent } from '../base-button/base-button.component';
 })
 export class EditBsButtonComponent extends BaseButtonComponent {
 	override label = input('Edit');
-	override icon = input('edit_square');
 	override classes = input('text-primary');
 
 	constructor() {

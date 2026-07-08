@@ -31,22 +31,3 @@
 	color: white !important;
 	background-color: var(--delete-color) !important;
 }
-
-.edit-square-icon {
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
-	flex-shrink: 0;
-	min-height: unset;
-	vertical-align: middle;
-	font-family: 'Material Symbols Outlined';
-	font-size: 1rem;
-	height: 1rem;
-	width: 1rem;
-	line-height: 1rem;
-	font-variation-settings:
-		'FILL' 1,
-		'wght' 400,
-		'GRAD' 0,
-		'opsz' 24;
-}
