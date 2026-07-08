@@ -1,4 +1,4 @@
-import { Component, input, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { BaseButtonComponent } from '../base-button/base-button.component';
@@ -21,7 +21,7 @@ import { BaseButtonComponent } from '../base-button/base-button.component';
 			[style]="style()"
 			[attr.data-cy]="'edit-bs-button'"
 			mat-button>
-			<mat-icon class="edit-square-icon">{{ icon() }}</mat-icon>
+			<mat-icon>{{ icon() }}</mat-icon>
 			{{ label() }}
 		</button>
 	`,

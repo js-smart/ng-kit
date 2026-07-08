@@ -10,15 +10,6 @@ export class EditBsButtonDirective extends BaseButtonDirective {
 
 	constructor() {
 		super();
-		this.elementRef.nativeElement.classList.add('text-primary', 'gap-1');
-	}
-
-	protected override createIcon(): void {
-		if (this.icon()) {
-			const iconElement = this.document.createElement('mat-icon');
-			iconElement.classList.add('mat-icon', 'edit-square-icon', 'pe-2');
-			iconElement.textContent = this.icon();
-			this.iconSpan.set(iconElement);
-		}
+		this.elementRef.nativeElement.classList.add('text-primary');
 	}
 }
