@@ -1,17 +1,15 @@
 import { ProgressState } from './lib/types/progress-state';
 
 export * from './lib/components/alert/alert.component';
-export * from './lib/components/ngx-spinner/ngx-spinner.component';
-export * from './lib/components/ngx-spinner/ngx-spinner.service';
 export * from './lib/components/spinner/spinner.component';
 
 // Export autocomplete component
 export * from './lib/components/autocomplete/autocomplete.component';
 
 // Export autocomplete suffix directive and its button components
-export * from './lib/directives/autocomplete-suffix/autocomplete-suffix.directive';
 export * from './lib/directives/autocomplete-suffix/autocomplete-clear-button.component';
 export * from './lib/directives/autocomplete-suffix/autocomplete-dropdown-button.component';
+export * from './lib/directives/autocomplete-suffix/autocomplete-suffix.directive';
 
 // Export directives
 export * from './lib/directives/ngx-print/ngx-print.directive';

@@ -403,7 +403,6 @@ export const routes: Route[] = [
 			'@angular/forms': '^21.0.0',
 			'@angular/material': '^21.0.0',
 			'@angular/platform-browser': '^21.0.0',
-			'@angular/platform-browser-dynamic': '^21.0.0',
 			'@angular/router': '^21.0.0',
 			'@js-smart/ng-kit': '^21.2.0',
 			bootstrap: '^5.3.8',
