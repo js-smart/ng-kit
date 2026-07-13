@@ -1,0 +1,12 @@
+a.app-link-icon {
+	align-items: center;
+	display: inline-flex;
+	gap: 0.125rem;
+}
+
+a.app-link-icon .mat-icon {
+	font-size: 1em;
+	height: 1em;
+	line-height: 1;
+	width: 1em;
+}

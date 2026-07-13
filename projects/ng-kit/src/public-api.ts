@@ -12,6 +12,7 @@ export * from './lib/directives/autocomplete-suffix/autocomplete-dropdown-button
 export * from './lib/directives/autocomplete-suffix/autocomplete-suffix.directive';
 
 // Export directives
+export * from './lib/directives/link-icon/link-icon.directive';
 export * from './lib/directives/ngx-print/ngx-print.directive';
 export * from './lib/directives/prevent-multiple-clicks/prevent-multiple-clicks.directive';
 
