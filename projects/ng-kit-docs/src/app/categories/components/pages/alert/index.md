@@ -2,34 +2,7 @@ Fully customizable, reusable alert component for Angular, uses Bootstrap CSS for
 
 ## Usage
 
-```typescript
-import { Component } from '@angular/core';
-import { AlertComponent } from '@js-smart/ng-kit';
-
-@Component({
-  selector: 'app-alert-demo',
-  standalone: true,
-  imports: [AlertComponent],
-  template: `
-    <alert
-      [type]="'success'"
-      [isOpen]="true"
-      [dismissible]="true"
-      [dismissOnTimeout]="true"
-      [dismissTimeout]="5000"
-      [class]="'my-custom-class'"
-      (closed)="onClosed()"
-    >
-      This is a success alert—check it out!
-    </alert>
-  `
-})
-export class AlertDemoComponent {
-  onClosed() {
-    // Handle alert closed event
-  }
-}
-```
+{{ NgDocActions.demo("AlertDemoComponent") }}
 
 ---
 
