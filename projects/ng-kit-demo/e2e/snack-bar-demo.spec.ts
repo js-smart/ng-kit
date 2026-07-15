@@ -24,3 +24,8 @@ test('should show error snack bar and close it', async ({ page }) => {
 	await page.locator('.mdc-icon-button').click();
 	await expect(page.getByText('Failed to update the record')).toBeHidden();
 });
+
+test('has open in stackblitz button', async ({ page }) => {
+	await page.goto('/snack-bar-demo');
+	await expect(page.getByRole('button', { name: '🚀 Open in StackBlitz' })).toBeVisible();
+});
