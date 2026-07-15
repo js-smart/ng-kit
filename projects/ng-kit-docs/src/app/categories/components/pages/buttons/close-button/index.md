@@ -8,6 +8,8 @@ The Close Button extends the Base Button and includes additional properties for 
 
 ## Usage
 
+{{ NgDocActions.demo("CloseButtonOpenInStackblitzComponent", { container: false }) }}
+
 ### Using Directive
 
 The Close Button is only available as a directive.

@@ -2,6 +2,8 @@ A button styled as a bootstrap link, used for navigation or actions that look li
 
 ## Usage
 
+{{ NgDocActions.demo("BsLinkButtonOpenInStackblitzComponent", { container: false }) }}
+
 ```html group="usage" name="Directive (Preferred)" active
 <a href="/path" ariaLabel="Bootstrap Link Button" bsLinkButton>Bootstrap Link Button</a>
 ```
