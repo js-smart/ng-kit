@@ -1,6 +1,13 @@
 import { Injectable } from '@angular/core';
 import sdk from '@stackblitz/sdk';
 import { DemoConfig } from '../types/demo-config';
+import { getStackBlitzDependencies, getStackBlitzDevDependencies } from './stackblitz-dependencies';
+import {
+	STACKBLITZ_APP_BUTTONS_SCSS,
+	STACKBLITZ_APP_MAT_SNACK_BAR_SCSS,
+	STACKBLITZ_APP_VARIABLES_SCSS,
+	STACKBLITZ_STYLES_SCSS,
+} from './stackblitz-styles';
 
 @Injectable({
 	providedIn: 'root',
@@ -12,15 +19,22 @@ export class StackBlitzService {
 	 */
 	openDemo(demoConfig: DemoConfig): void {
 		const files = this.generateStackBlitzFiles(demoConfig);
-		const dependencies = this.getDependencies();
 
-		sdk.openProject({
-			title: demoConfig.title || 'Angular Demo',
-			description: demoConfig.description || 'Angular demo powered by @js-smart/ng-kit',
-			template: 'angular-cli',
-			files: files,
-			dependencies: dependencies,
-		});
+		// Use the WebContainers `node` template. Angular 22 needs a real `ng serve`
+		// from package.json — the classic `angular-cli` template merges EngineBlock
+		// deps and is a common cause of "Starting dev server" hangs.
+		sdk.openProject(
+			{
+				title: demoConfig.title || 'Angular Demo',
+				description: demoConfig.description || 'Angular demo powered by @js-smart/ng-kit',
+				template: 'node',
+				files: files,
+			},
+			{
+				openFile: `src/app/${demoConfig.componentName}.component.ts`,
+				startScript: 'start',
+			},
+		);
 	}
 
 	/**
@@ -31,11 +45,15 @@ export class StackBlitzService {
 			// Main entry point
 			'src/main.ts': this.getMainTs(),
 			'src/index.html': this.getIndexHtml(),
-			'src/styles.scss': this.getStylesScss(),
+			// Mirror ng-kit-demo/src/styles.scss (+ assets) so demos look the same
+			'src/styles.scss': STACKBLITZ_STYLES_SCSS,
+			'src/assets/app-variables.scss': STACKBLITZ_APP_VARIABLES_SCSS,
+			'src/assets/app-buttons.scss': STACKBLITZ_APP_BUTTONS_SCSS,
+			'src/assets/app-mat-snack-bar.scss': STACKBLITZ_APP_MAT_SNACK_BAR_SCSS,
 
 			// App component
 			'src/app/app.component.ts': this.getAppComponentTs(demoConfig),
-			'src/app/app.component.html': '<router-outlet></router-outlet>',
+			'src/app/app.component.html': '<main class="demo-shell"><router-outlet></router-outlet></main>',
 			'src/app/app.config.ts': this.getAppConfigTs(demoConfig),
 			'src/app/app.routes.ts': this.getAppRoutesTs(demoConfig),
 
@@ -49,6 +67,9 @@ export class StackBlitzService {
 
 			// Package.json
 			'package.json': this.getPackageJson(),
+
+			// Pin WebContainers Node to Angular 22's required range
+			'.nvmrc': '22.22.3',
 
 			// Angular config
 			'angular.json': this.getAngularJson(),
@@ -95,34 +116,11 @@ bootstrapApplication(AppComponent, appConfig).catch((err) =>
 		<link href="https://fonts.gstatic.com" rel="preconnect" />
 		<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet" />
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-		<link
-			href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
-			rel="stylesheet"
-		/>
 	</head>
 	<body class="mat-typography">
 		<app-root></app-root>
 	</body>
 </html>
-`;
-	}
-
-	/**
-	 * Gets the styles.scss file content
-	 */
-	private getStylesScss(): string {
-		return `@import 'bootstrap/dist/css/bootstrap.css';
-@import '@angular/material/prebuilt-themes/indigo-pink.css';
-
-html,
-body {
-	height: 100%;
-}
-
-body {
-	margin: 0;
-	font-family: Roboto, 'Helvetica Neue', sans-serif;
-}
 `;
 	}
 
@@ -245,7 +243,7 @@ export const routes: Route[] = [
 					sourceMap: true,
 					declaration: false,
 					experimentalDecorators: true,
-					moduleResolution: 'node',
+					moduleResolution: 'bundler',
 					importHelpers: true,
 					target: 'ES2022',
 					module: 'ES2022',
@@ -288,7 +286,6 @@ export const routes: Route[] = [
 	 * Gets the package.json file content
 	 */
 	private getPackageJson(): string {
-		const deps = this.getDependencies();
 		return JSON.stringify(
 			{
 				name: 'angular-demo',
@@ -301,13 +298,8 @@ export const routes: Route[] = [
 					test: 'ng test',
 				},
 				private: true,
-				dependencies: deps,
-				devDependencies: {
-					'@angular/build': '^21.0.0',
-					'@angular/cli': '^21.0.0',
-					'@angular/compiler-cli': '^21.0.0',
-					typescript: '~5.9.3',
-				},
+				dependencies: getStackBlitzDependencies(),
+				devDependencies: getStackBlitzDevDependencies(),
 			},
 			null,
 			2,
@@ -388,28 +380,6 @@ export const routes: Route[] = [
 			null,
 			2,
 		);
-	}
-
-	/**
-	 * Gets the dependencies for StackBlitz
-	 */
-	private getDependencies(): Record<string, string> {
-		return {
-			'@angular/animations': '^21.0.0',
-			'@angular/cdk': '^21.0.0',
-			'@angular/common': '^21.0.0',
-			'@angular/compiler': '^21.0.0',
-			'@angular/core': '^21.0.0',
-			'@angular/forms': '^21.0.0',
-			'@angular/material': '^21.0.0',
-			'@angular/platform-browser': '^21.0.0',
-			'@angular/router': '^21.0.0',
-			'@js-smart/ng-kit': '^21.2.0',
-			bootstrap: '^5.3.8',
-			rxjs: '~7.8.2',
-			tslib: '^2.8.1',
-			'zone.js': '^0.15.0',
-		};
 	}
 
 	/**
