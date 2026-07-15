@@ -2,6 +2,8 @@ A Bootstrap-styled button for edit actions, often with a pencil icon. The Edit B
 
 ## Usage
 
+{{ NgDocActions.demo("EditBsButtonOpenInStackblitzComponent", { container: false }) }}
+
 ```html group="usage" name="Directive (Preferred)" active
 <button ariaLabel="Edit item" (click)="onEdit()" editBsButton>Edit</button>
 ```
