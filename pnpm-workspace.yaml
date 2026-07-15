@@ -33,3 +33,6 @@ minimumReleaseAgeExclude:
   - playwright-core@1.61.1
   - playwright@1.61.1
   - '@types/node@26.1.1'
+  - '@ng-doc/builder@21.1.0'
+  - '@ng-doc/core@21.1.0'
+  - '@ng-doc/utils@21.1.0'

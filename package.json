@@ -46,7 +46,7 @@
     "@angular/router": "^22.0.5",
     "@angular/ssr": "22.0.5",
     "@ng-doc/app": "21.0.5",
-    "@ng-doc/builder": "21.0.5",
+    "@ng-doc/builder": "21.1.0",
     "@ng-doc/core": "21.0.5",
     "@ng-doc/ui-kit": "21.0.5",
     "@tanstack/query-core": "^5.101.2",
