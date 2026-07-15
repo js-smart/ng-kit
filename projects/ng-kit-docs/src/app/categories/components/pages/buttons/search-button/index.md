@@ -2,6 +2,8 @@ A button for search actions, often with a magnifier icon. The Search Button exte
 
 ## Usage
 
+{{ NgDocActions.demo("SearchButtonOpenInStackblitzComponent", { container: false }) }}
+
 ### Using Component
 
 The Search Button is only available as a component.

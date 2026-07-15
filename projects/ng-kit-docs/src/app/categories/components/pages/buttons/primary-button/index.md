@@ -2,6 +2,8 @@ A button styled as the primary action button. The Primary Button extends the Bas
 
 ## Usage
 
+{{ NgDocActions.demo("PrimaryButtonOpenInStackblitzComponent", { container: false }) }}
+
 ```html group="usage" name="Directive (Preferred)" active
 <button ariaLabel="Submit" (click)="onSubmit()" primaryButton>Submit</button>
 ```
