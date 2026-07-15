@@ -34,6 +34,10 @@ test.describe('Autocomplete Demo', () => {
 		await expect(inputAt(page, DISABLED_FORM)).toHaveAttribute('placeholder', 'Select City');
 	});
 
+	test('has open in stackblitz button', async ({ page }) => {
+		await expect(page.getByRole('button', { name: '🚀 Open in StackBlitz' })).toBeVisible();
+	});
+
 	test.describe('Autocomplete with Objects', () => {
 		test('opens panel and shows all city options when input is focused', async ({ page }) => {
 			await inputAt(page, OBJECTS_FORM).click();

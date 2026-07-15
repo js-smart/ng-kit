@@ -2,6 +2,8 @@ A button for exporting data to PDF format. The PDF Export Button is a standalone
 
 ## Usage
 
+{{ NgDocActions.demo("PdfExportButtonOpenInStackblitzComponent", { container: false }) }}
+
 ```html group="usage" name="Directive (Preferred)" active
 <button pdfExportButton>PDF</button>
 ```

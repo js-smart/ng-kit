@@ -15,6 +15,9 @@
       "@js-smart/ng-kit": [
         "./projects/ng-kit/src/public-api.ts"
       ],
+      "@ng-kit-demo/*": [
+        "./projects/ng-kit-demo/src/app/*"
+      ],
       "ng-doc/ng-kit-docs": [
         "./ng-doc/ng-kit-docs/index.ts"
       ],

@@ -2,6 +2,8 @@ A button for delete actions, often styled with a danger color and icon. The Dele
 
 ## Usage
 
+{{ NgDocActions.demo("DeleteButtonOpenInStackblitzComponent", { container: false }) }}
+
 ```html group="usage" name="Directive (Preferred)" active
 <button ariaLabel="Delete item" (click)="onDelete()" deleteButton>Delete</button>
 ```

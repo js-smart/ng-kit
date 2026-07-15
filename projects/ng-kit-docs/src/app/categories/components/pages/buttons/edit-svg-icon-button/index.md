@@ -2,6 +2,8 @@ A button for edit actions using a custom SVG icon. The Edit SVG Icon Button exte
 
 ## Usage
 
+{{ NgDocActions.demo("EditSvgIconButtonOpenInStackblitzComponent", { container: false }) }}
+
 ```html group="usage" name="Directive (Preferred)" active
 <button ariaLabel="Edit item" (click)="onEdit()" editSvgIconButton>Edit</button>
 ```

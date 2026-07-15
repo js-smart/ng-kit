@@ -2,6 +2,8 @@ A button for view or details actions, often with an eye icon. The View Button ex
 
 ## Usage
 
+{{ NgDocActions.demo("ViewButtonOpenInStackblitzComponent", { container: false }) }}
+
 This component is not intended to be used directly. Use the directive or extended button components instead.
 
 ```html group="usage" name="Directive (Preferred)" active

@@ -2,6 +2,8 @@ Fully customizable, reusable alert component for Angular, uses Bootstrap CSS for
 
 ## Usage
 
+{{ NgDocActions.demo("AlertOpenInStackblitzComponent", { container: false }) }}
+
 ```typescript
 import { Component } from '@angular/core';
 import { AlertComponent } from '@js-smart/ng-kit';

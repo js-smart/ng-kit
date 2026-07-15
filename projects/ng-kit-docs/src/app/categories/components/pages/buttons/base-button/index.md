@@ -5,6 +5,9 @@ The Base Button is a reusable, accessible button component that supports custom 
 
 
 ## Usage
+
+{{ NgDocActions.demo("BaseButtonOpenInStackblitzComponent", { container: false }) }}
+
 The Base Button is not intended to be used directly. Instead, extend it to create custom button components with specific styles and behaviors.
 
 ## API Reference

@@ -4,6 +4,8 @@ Reusable autocomplete component that extends Angular Material's MatAutocomplete 
 
 ## Usage
 
+{{ NgDocActions.demo("AutocompleteOpenInStackblitzComponent", { container: false }) }}
+
 Import and use `AutocompleteComponent` in your standalone component:
 
 ```typescript
@@ -16,15 +18,12 @@ import { AutocompleteComponent } from '@js-smart/ng-kit';
   template: `
     <autocomplete
       [label]="'Search'"
-      [placeHolder]="'Type to search...'"
+      [placeholder]="'Type to search...'"
       [appearance]="'fill'"
       [classes]="'my-custom-class'"
-      [bindLabel]="'name'"
-      [bindValue]="'id'"
-      [required]="true"
-      [data]="options"
+      [options]="options"
       [displayWith]="displayFn"
-      (onSelectionChange)="onSelected($event)"
+      (selectionChange)="onSelected($event)"
     ></autocomplete>
   `
 })
@@ -35,9 +34,9 @@ export class AutocompleteDemoComponent {
     { id: 3, name: 'Cherry' }
   ];
 
-  displayFn(option: any): string {
+  displayFn = (option: any): string => {
     return option?.name || '';
-  }
+  };
 
   onSelected(value: any) {
     // Handle selected value
@@ -57,20 +56,22 @@ Show a spinner and message while data is being fetched asynchronously:
   imports: [AutocompleteComponent],
   template: `
     <autocomplete
-      [data]="cities()"
+      [options]="cities()"
       [loading]="isLoading()"
       [displayWith]="displayFn"
       loadingText="Fetching cities..."
-      bindLabel="name"
-      bindValue="id"
       label="City"
-      placeHolder="Select City"
+      placeholder="Select City"
     ></autocomplete>
   `
 })
 export class LoadingDemoComponent {
   isLoading = signal(true);
   cities = signal<any[]>([]);
+
+  displayFn = (option: any): string => {
+    return option?.name || '';
+  };
 
   constructor() {
     // Simulate async data loading
@@ -82,10 +83,6 @@ export class LoadingDemoComponent {
       this.isLoading.set(false);
     }, 3000);
   }
-
-  displayFn(option: any): string {
-    return option?.name || '';
-  }
 }
 ```
 
@@ -93,7 +90,7 @@ export class LoadingDemoComponent {
 
 ## Disabled State
 
-Disable the autocomplete via reactive forms. When disabled, the clear and arrow buttons are automatically hidden:
+Disable the autocomplete via reactive forms:
 
 ```typescript
 @Component({
@@ -102,10 +99,8 @@ Disable the autocomplete via reactive forms. When disabled, the clear and arrow 
   template: `
     <form [formGroup]="form">
       <autocomplete
-        [data]="options"
+        [options]="options"
         [displayWith]="displayFn"
-        bindLabel="name"
-        bindValue="id"
         formControlName="city"
         label="City"
       ></autocomplete>
@@ -121,15 +116,15 @@ export class DisabledDemoComponent {
     { id: 2, name: 'Boston' },
   ];
 
+  displayFn = (option: any): string => {
+    return option?.name || '';
+  };
+
   form = this.fb.group({
     city: new FormControl({ value: this.options[0], disabled: true }),
   });
 
   constructor(private fb: FormBuilder) {}
-
-  displayFn(option: any): string {
-    return option?.name || '';
-  }
 
   toggleDisabled(): void {
     const control = this.form.get('city');
@@ -146,7 +141,7 @@ Customize the message shown when no options match the user's input:
 
 ```html
 <autocomplete
-  [data]="options"
+  [options]="options"
   noOptionsText="No results found"
   label="Search"
 ></autocomplete>
@@ -161,31 +156,23 @@ Customize the message shown when no options match the user's input:
 - `lib-autocomplete`
 
 ### Inputs
-| Name             | Type                              | Default        | Description                                                                 |
-|------------------|-----------------------------------|----------------|-----------------------------------------------------------------------------|
-| `label`          | string                            | ''             | Label for the autocomplete input                                            |
-| `placeHolder`    | string                            | ''             | Placeholder text                                                            |
-| `appearance`     | `'fill'` \| `'outline'`          | `'fill'`       | Material appearance style                                                   |
-| `classes`        | string                            | ''             | Additional CSS classes                                                      |
-| `bindLabel`      | string                            | ''             | Object property to display in dropdown                                      |
-| `bindValue`      | string                            | `'id'`         | Object property used for value binding and tracking                         |
-| `displayWith`    | `(value: any) => string`          | `null`         | Custom function to map value to display string                              |
-| `required`       | boolean                           | `false`        | Whether the input is required                                               |
-| `disabled`       | boolean                           | `false`        | Whether the input is disabled                                               |
-| `loading`        | boolean                           | `false`        | Whether to show a loading spinner instead of options                        |
-| `loadingText`    | string                            | `'Loading...'` | Text displayed next to the spinner during loading state                     |
-| `noOptionsText`  | string                            | `'No options'` | Text displayed when no options match the input                              |
-| `data`           | `string[]` \| `any[]`            | `undefined`    | Array of options to display                                                 |
+| Name             | Type                              | Default          | Description                                                                 |
+|------------------|------------------------------------|-------------------|-------------------------------------------------------------------------------|
+| `label`          | string                             | `'Select Value'`  | Label for the autocomplete input                                            |
+| `placeholder`    | string                             | `''`               | Placeholder text                                                            |
+| `appearance`     | `MatFormFieldAppearance`          | `'outline'`        | Material appearance style                                                   |
+| `classes`        | string                             | `''`               | Additional CSS classes                                                      |
+| `options`        | `T[]`                               | `[]`                | Array of options to display in the dropdown                                 |
+| `displayWith`    | `(value: T) => string`             | `String(value)`    | Function that maps an option to its display string                         |
+| `loading`        | boolean                            | `false`            | Whether to show a loading spinner instead of options                        |
+| `loadingText`    | string                             | `'Loading...'`     | Text displayed when the autocomplete is in a loading state                  |
+| `noOptionsText`  | string                             | `'No values found'`| Text displayed when no options match the filter input                       |
 
 ### Outputs
-| Name               | Type    | Description                          |
-|--------------------|---------|--------------------------------------|
-| `onSelectionChange`| any     | Emits selected value on change       |
-
-### Types
-| Name                 | Definition                  | Description                                           |
-|----------------------|-----------------------------|-------------------------------------------------------|
-| `AutocompleteOption` | `Record<string, any>`       | Type for object options, exported for consumer use     |
+| Name               | Type    | Description                                       |
+|--------------------|---------|----------------------------------------------------|
+| `selectionChange`  | `T`     | Emits the selected value when an option is picked   |
+| `onInputChange`    | string  | Emits the raw filter text on each keystroke          |
 
 ---
 
@@ -195,7 +182,7 @@ Customize the message shown when no options match the user's input:
 - All inputs are reactive and support Angular signals.
 - Tree-shakable: only imported features are included in your bundle.
 - Use `classes` input for custom styles.
-- When disabled via reactive forms, clear and arrow buttons are automatically hidden.
+- Implements Angular's `ControlValueAccessor`, so `[disabled]`/`disable()`/`enable()` work through a `FormControl` rather than a `disabled` input.
 - The `loading` state shows a Material spinner with customizable text.
 - The `noOptionsText` is displayed when filtering results in an empty list.
 

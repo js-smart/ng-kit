@@ -2,6 +2,8 @@ A primary-styled button for view or details actions. The View Primary Button ext
 
 ## Usage
 
+{{ NgDocActions.demo("ViewPrimaryButtonOpenInStackblitzComponent", { container: false }) }}
+
 ```html group="usage" name="Directive (Preferred)" active
 <button ariaLabel="View details" (click)="onView()" viewPrimaryButton>View</button>
 ```

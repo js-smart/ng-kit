@@ -2,6 +2,8 @@ A button for exporting data to Excel format. The Excel Export Button is a standa
 
 ## Usage
 
+{{ NgDocActions.demo("ExcelExportButtonOpenInStackblitzComponent", { container: false }) }}
+
 ```html group="usage" name="Directive (Preferred)" active
 <button excelExportButton>Excel</button>
 ```

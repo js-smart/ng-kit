@@ -3,6 +3,8 @@ A reusable confirmation dialog component built on top of Angular Material's dial
 
 ## Usage
 
+{{ NgDocActions.demo("ConfirmDialogOpenInStackblitzComponent", { container: false }) }}
+
 Import and use `ConfirmDialogComponent` with Angular Material's dialog service:
 
 ```typescript

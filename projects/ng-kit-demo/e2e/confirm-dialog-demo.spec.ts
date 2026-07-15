@@ -28,3 +28,8 @@ test('opens confirm dialog and shows Canceled status on No', async ({ page }) =>
 	await expect(page.getByText('Are you sure you want to do this?')).toBeHidden();
 	await expect(page.getByText('Confirm Status:Canceled')).toBeVisible();
 });
+
+test('has open in stackblitz button', async ({ page }) => {
+	await page.goto('/confirm-dialog-demo');
+	await expect(page.getByRole('button', { name: '🚀 Open in StackBlitz' })).toBeVisible();
+});
