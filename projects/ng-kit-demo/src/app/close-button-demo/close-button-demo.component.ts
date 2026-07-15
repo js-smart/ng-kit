@@ -1,11 +1,12 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { CloseButtonDirective } from '@js-smart/ng-kit';
 import { StackBlitzService } from '@ng-kit-demo/services/stackblitz.service';
+import { OpenInStackblitzButtonComponent } from '@ng-kit-demo/shared/open-in-stackblitz-button.component';
 import { getCloseButtonDemoConfig } from '@ng-kit-demo/close-button-demo/close-button-demo.config';
 
 @Component({
 	selector: 'ng-kit-close-button-demo',
-	imports: [CloseButtonDirective],
+	imports: [CloseButtonDirective, OpenInStackblitzButtonComponent],
 	templateUrl: './close-button-demo.component.html',
 	styles: [``],
 	changeDetection: ChangeDetectionStrategy.OnPush,

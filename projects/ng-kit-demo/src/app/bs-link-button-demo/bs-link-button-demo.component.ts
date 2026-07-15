@@ -1,14 +1,15 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { BsLinkButtonComponent, BsLinkButtonDirective } from '@js-smart/ng-kit';
 import { StackBlitzService } from '@ng-kit-demo/services/stackblitz.service';
+import { OpenInStackblitzButtonComponent } from '@ng-kit-demo/shared/open-in-stackblitz-button.component';
 import { getBsLinkButtonDemoConfig } from '@ng-kit-demo/bs-link-button-demo/bs-link-button-demo.config';
 
 @Component({
 	selector: 'ng-kit-bs-link-button-demo',
-	imports: [BsLinkButtonComponent, BsLinkButtonDirective],
+	imports: [BsLinkButtonComponent, BsLinkButtonDirective, OpenInStackblitzButtonComponent],
 	template: `
 		<div style="margin-bottom: 20px;">
-			<button (click)="openInStackBlitz()" class="btn btn-primary">🚀 Open in StackBlitz</button>
+			<ng-kit-open-in-stackblitz-button (open)="openInStackBlitz()" />
 		</div>
 
 		<div class="m-3">

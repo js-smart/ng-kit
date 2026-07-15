@@ -2,11 +2,12 @@ import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/cor
 import { FormBuilder, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { AutocompleteComponent } from '@js-smart/ng-kit';
 import { StackBlitzService } from '../services/stackblitz.service';
+import { OpenInStackblitzButtonComponent } from '../shared/open-in-stackblitz-button.component';
 import { getAutocompleteDemoConfig } from '../utils/demo-config-generator';
 
 @Component({
 	selector: 'ng-kit-autocomplete-demo',
-	imports: [AutocompleteComponent, ReactiveFormsModule],
+	imports: [AutocompleteComponent, ReactiveFormsModule, OpenInStackblitzButtonComponent],
 	templateUrl: './autocomplete-demo.component.html',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })

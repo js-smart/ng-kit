@@ -3,18 +3,17 @@ import { MatSnackBarService } from '@js-smart/ng-kit';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatButtonModule } from '@angular/material/button';
 import { StackBlitzService } from '../services/stackblitz.service';
+import { OpenInStackblitzButtonComponent } from '../shared/open-in-stackblitz-button.component';
 import { getSnackBarDemoConfig } from '../utils/demo-config-generator';
 
 @Component({
 	selector: 'ng-kit-snack-bar-demo',
-	imports: [MatSnackBarModule, MatButtonModule],
+	imports: [MatSnackBarModule, MatButtonModule, OpenInStackblitzButtonComponent],
 	providers: [MatSnackBarService],
 	changeDetection: ChangeDetectionStrategy.Eager,
 	template: `
 		<div style="margin-bottom: 20px;">
-			<button (click)="openInStackBlitz()" class="btn btn-primary">
-				🚀 Open in StackBlitz
-			</button>
+			<ng-kit-open-in-stackblitz-button (open)="openInStackBlitz()" />
 		</div>
 
 		<div class="center_div">

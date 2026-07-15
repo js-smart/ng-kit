@@ -1,15 +1,16 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { PdfExportButtonComponent, PdfExportButtonDirective } from '@js-smart/ng-kit';
 import { StackBlitzService } from '../services/stackblitz.service';
+import { OpenInStackblitzButtonComponent } from '../shared/open-in-stackblitz-button.component';
 import { getPdfExportButtonDemoConfig } from './pdf-export-button-demo.config';
 
 @Component({
 	selector: 'ng-kit-pdf-export-button-demo',
 	standalone: true,
-	imports: [PdfExportButtonComponent, PdfExportButtonDirective],
+	imports: [PdfExportButtonComponent, PdfExportButtonDirective, OpenInStackblitzButtonComponent],
 	template: `
 		<div style="margin-bottom: 20px;">
-			<button (click)="openInStackBlitz()" class="btn btn-primary">🚀 Open in StackBlitz</button>
+			<ng-kit-open-in-stackblitz-button (open)="openInStackBlitz()" />
 		</div>
 
 		<div>

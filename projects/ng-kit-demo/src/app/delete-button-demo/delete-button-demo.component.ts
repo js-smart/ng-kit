@@ -1,15 +1,16 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { DeleteButtonComponent, DeleteButtonDirective } from '@js-smart/ng-kit';
 import { StackBlitzService } from '../services/stackblitz.service';
+import { OpenInStackblitzButtonComponent } from '../shared/open-in-stackblitz-button.component';
 import { getDeleteButtonDemoConfig } from './delete-button-demo.config';
 
 @Component({
 	selector: 'ng-kit-delete-button-demo',
 	standalone: true,
-	imports: [DeleteButtonComponent, DeleteButtonDirective],
+	imports: [DeleteButtonComponent, DeleteButtonDirective, OpenInStackblitzButtonComponent],
 	template: `
 		<div style="margin-bottom: 20px;">
-			<button (click)="openInStackBlitz()" class="btn btn-primary">🚀 Open in StackBlitz</button>
+			<ng-kit-open-in-stackblitz-button (open)="openInStackBlitz()" />
 		</div>
 
 		<div>

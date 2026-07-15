@@ -2,6 +2,7 @@ import { Component, inject, signal, ChangeDetectionStrategy } from '@angular/cor
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent, PrimaryButtonComponent } from '@js-smart/ng-kit';
 import { StackBlitzService } from '../services/stackblitz.service';
+import { OpenInStackblitzButtonComponent } from '../shared/open-in-stackblitz-button.component';
 import { getConfirmDialogDemoConfig } from '../utils/demo-config-generator';
 
 @Component({
@@ -9,7 +10,7 @@ import { getConfirmDialogDemoConfig } from '../utils/demo-config-generator';
 	templateUrl: './confirm-dialog-demo.component.html',
 	styles: [``],
 	changeDetection: ChangeDetectionStrategy.Eager,
-	imports: [PrimaryButtonComponent],
+	imports: [PrimaryButtonComponent, OpenInStackblitzButtonComponent],
 })
 export class ConfirmDialogDemoComponent {
 	dialog = inject(MatDialog);

@@ -1,15 +1,16 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { ManageButtonComponent, ManageButtonDirective } from '@js-smart/ng-kit';
 import { StackBlitzService } from '../services/stackblitz.service';
+import { OpenInStackblitzButtonComponent } from '../shared/open-in-stackblitz-button.component';
 import { getManageButtonDemoConfig } from './manage-button-demo.config';
 
 @Component({
 	selector: 'ng-kit-manage-button-demo',
 	standalone: true,
-	imports: [ManageButtonComponent, ManageButtonDirective],
+	imports: [ManageButtonComponent, ManageButtonDirective, OpenInStackblitzButtonComponent],
 	template: `
 		<div style="margin-bottom: 20px;">
-			<button (click)="openInStackBlitz()" class="btn btn-primary">🚀 Open in StackBlitz</button>
+			<ng-kit-open-in-stackblitz-button (open)="openInStackBlitz()" />
 		</div>
 
 		<div>
