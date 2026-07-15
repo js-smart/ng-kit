@@ -124,3 +124,121 @@ export class SnackBarDemoComponent {
 	};
 }
 
+/**
+ * Generates a DemoConfig for the autocomplete-demo component
+ */
+export function getAutocompleteDemoConfig(): DemoConfig {
+	return {
+		title: 'Autocomplete Demo',
+		description: 'Demo showcasing the AutocompleteComponent from @js-smart/ng-kit',
+		componentName: 'autocomplete-demo',
+		requiredImports: ['BrowserAnimationsModule'],
+		componentTs: `import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { FormBuilder, FormControl, ReactiveFormsModule } from '@angular/forms';
+import { AutocompleteComponent } from '@js-smart/ng-kit';
+
+@Component({
+	selector: 'app-autocomplete-demo',
+	standalone: true,
+	imports: [AutocompleteComponent, ReactiveFormsModule],
+	templateUrl: './autocomplete-demo.component.html',
+	changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class AutocompleteDemoComponent {
+	cities: City[] = [
+		{ id: 1001, location: 'New York', state: 'NY' },
+		{ id: 1002, location: 'Boston', state: 'MA' },
+		{ id: 1003, location: 'Washington DC', state: 'DC' },
+		{ id: 1004, location: 'Los Angeles', state: 'CA' },
+	];
+
+	genericFormGroup = this.fb.group({
+		autocomplete: new FormControl<City | undefined>(undefined),
+	});
+
+	stringFormGroup = this.fb.group({
+		autocomplete: new FormControl<string | undefined>(undefined),
+	});
+
+	loadingFormGroup = this.fb.group({
+		autocomplete: new FormControl<City | undefined>(undefined),
+	});
+
+	disabledFormGroup = this.fb.group({
+		autocomplete: new FormControl<City | undefined>({ value: this.cities[0], disabled: true }),
+	});
+
+	isLoading = signal(true);
+	loadingCities = signal<City[]>([]);
+
+	constructor(private fb: FormBuilder) {
+		setTimeout(() => {
+			this.loadingCities.set(this.cities);
+			this.isLoading.set(false);
+		}, 3000);
+	}
+
+	displayWith = (item: City) => item?.location ?? '';
+
+	toggleDisabled(): void {
+		const control = this.disabledFormGroup.get('autocomplete');
+		if (control?.disabled) {
+			control.enable();
+		} else {
+			control?.disable();
+		}
+	}
+}
+
+export interface City {
+	id: number;
+	location: string;
+	state: string;
+}`,
+		componentHtml: `<div class="row">
+	<div class="col-6">
+		<h1>Autocomplete with Objects</h1>
+		<form [formGroup]="genericFormGroup">
+			<autocomplete [displayWith]="displayWith" [options]="cities" formControlName="autocomplete" label="City" placeholder="Select City">
+			</autocomplete>
+		</form>
+	</div>
+	<div class="col-6">
+		<h1>Autocomplete with Strings</h1>
+		<form [formGroup]="stringFormGroup">
+			<autocomplete
+				[options]="['New York', 'Boston', 'Washington DC']"
+				formControlName="autocomplete"
+				label="City"
+				placeholder="Select City">
+			</autocomplete>
+		</form>
+	</div>
+	<div class="col-6">
+		<h2>Autocomplete with Loading State</h2>
+		<form [formGroup]="loadingFormGroup">
+			<autocomplete
+				[displayWith]="displayWith"
+				[loading]="isLoading()"
+				[options]="loadingCities()"
+				formControlName="autocomplete"
+				label="City"
+				loadingText="Fetching cities..."
+				placeholder="Select City">
+			</autocomplete>
+		</form>
+	</div>
+	<div class="col-6">
+		<h2>Autocomplete with Disabled State</h2>
+		<form [formGroup]="disabledFormGroup">
+			<autocomplete [displayWith]="displayWith" [options]="cities" formControlName="autocomplete" label="City" placeholder="Select City">
+			</autocomplete>
+		</form>
+		<button (click)="toggleDisabled()">
+			{{ disabledFormGroup.get('autocomplete')?.disabled ? 'Enable' : 'Disable' }}
+		</button>
+	</div>
+</div>`,
+	};
+}
+
