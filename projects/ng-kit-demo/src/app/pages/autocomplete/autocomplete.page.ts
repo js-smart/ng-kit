@@ -2,6 +2,7 @@ import { NgComponentOutlet } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Type } from '@angular/core';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { DocPage } from '../../shared/doc-page.component';
+import { CodeBlock } from '../../shared/code-block.component';
 import { AsyncExample } from './examples/async.example';
 import { ComboBoxExample } from './examples/combo-box.example';
 import { ControlledExample } from './examples/controlled.example';
@@ -36,7 +37,7 @@ interface ExampleGroup {
  */
 @Component({
 	selector: 'ng-kit-autocomplete-page',
-	imports: [DocPage, NgComponentOutlet, MatExpansionModule],
+	imports: [DocPage, CodeBlock, NgComponentOutlet, MatExpansionModule],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<doc-page title="Autocomplete">
@@ -60,7 +61,7 @@ interface ExampleGroup {
 					<code>getOptionLabel</code>, and bind the selection with <code>[(value)]</code>. Options can be strings or objects; when an option
 					object has a <code>label</code> property it is used automatically.
 				</p>
-				<pre class="code-block"><code>{{ basicCode }}</code></pre>
+				<code-block [code]="basicCode" language="typescript" />
 
 				<h3>Combo box</h3>
 				<p>

@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { CodeBlock } from '../../../shared/code-block.component';
 import { AutocompleteComponent, NgOptionDef } from '@js-smart/ng-kit';
 
 interface Country {
@@ -16,7 +17,7 @@ function flagEmoji(code: string): string {
 @Component({
 	selector: 'ng-kit-country-select-example',
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	imports: [AutocompleteComponent, NgOptionDef],
+	imports: [CodeBlock, AutocompleteComponent, NgOptionDef],
 	template: `
 		<autocomplete
 			[options]="countries"
@@ -38,7 +39,7 @@ function flagEmoji(code: string): string {
 
 		<details class="example-source">
 			<summary>View source</summary>
-			<pre class="example-code"><code>{{ code }}</code></pre>
+			<code-block [code]="code" language="typescript" />
 		</details>
 	`,
 	styles: [`

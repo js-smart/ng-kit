@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { CodeBlock } from '../../../shared/code-block.component';
 import {
 	AutocompleteComponent,
 	createFilterOptions,
@@ -24,7 +25,7 @@ const baseFilmFilter = createFilterOptions<string>();
 @Component({
 	selector: 'ng-kit-free-solo-example',
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	imports: [AutocompleteComponent],
+	imports: [CodeBlock, AutocompleteComponent],
 	template: `
 		<div class="demo-row">
 			<div class="demo-block">
@@ -55,7 +56,7 @@ const baseFilmFilter = createFilterOptions<string>();
 
 		<details class="example-source">
 			<summary>View source</summary>
-			<pre class="example-code"><code>{{ code }}</code></pre>
+			<code-block [code]="code" language="typescript" />
 		</details>
 	`,
 	styles: [`

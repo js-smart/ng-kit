@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { CodeBlock } from '../../../shared/code-block.component';
 import { AutocompleteComponent } from '@js-smart/ng-kit';
 
 interface Combo {
@@ -11,7 +12,7 @@ interface Combo {
 @Component({
 	selector: 'ng-kit-sizes-appearances-example',
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	imports: [AutocompleteComponent],
+	imports: [CodeBlock, AutocompleteComponent],
 	template: `
 		<div class="grid">
 			@for (c of combos; track c.label) {
@@ -41,7 +42,7 @@ interface Combo {
 
 		<details class="example-source">
 			<summary>View source</summary>
-			<pre class="example-code"><code>{{ code }}</code></pre>
+			<code-block [code]="code" language="typescript" />
 		</details>
 	`,
 	styles: `

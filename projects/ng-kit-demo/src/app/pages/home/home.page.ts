@@ -1,8 +1,9 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
+import { CodeBlock } from '../../shared/code-block.component';
 import { groupedPages } from '../../gallery/gallery-registry';
 
 const INSTALL_SNIPPET = 'pnpm add @js-smart/ng-kit @angular/material @angular/cdk';
@@ -21,11 +22,11 @@ const FEATURES: readonly string[] = [
  */
 @Component({
 	selector: 'ng-kit-home-page',
-	imports: [RouterLink, MatButtonModule, MatCardModule, MatIconModule],
+	imports: [RouterLink, MatButtonModule, MatCardModule, MatIconModule, CodeBlock],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<section class="hero">
-			<h1>ng-kit</h1>
+			<h1>NG Kit</h1>
 			<p class="pitch">A component library for Angular — standalone components, directives, and utilities built on Angular Material with a signals-first API.</p>
 		</section>
 
@@ -34,12 +35,7 @@ const FEATURES: readonly string[] = [
 				<mat-card-title>Install</mat-card-title>
 			</mat-card-header>
 			<mat-card-content>
-				<div class="install-row">
-					<pre class="code-block"><code>{{ installSnippet }}</code></pre>
-					<button mat-icon-button color="primary" type="button" (click)="copyInstall()" [attr.aria-label]="installCopied() ? 'Copied' : 'Copy install command'">
-						<mat-icon>{{ installCopied() ? 'check' : 'content_copy' }}</mat-icon>
-					</button>
-				</div>
+				<code-block [code]="installSnippet" language="bash" />
 			</mat-card-content>
 		</mat-card>
 
@@ -77,26 +73,8 @@ const FEATURES: readonly string[] = [
 			display: block;
 		}
 
-		.install-row {
-			display: flex;
-			align-items: center;
-			gap: 0.5rem;
-		}
 
-		.install-row .code-block {
-			flex: 1;
-			margin: 0;
-		}
 
-		.code-block {
-			padding: 1rem;
-			overflow-x: auto;
-			border-radius: 8px;
-			background: rgba(0, 0, 0, 0.04);
-			font-family: 'Roboto Mono', ui-monospace, monospace;
-			font-size: 0.8125rem;
-			line-height: 1.5;
-		}
 
 		.install-card,
 		.features-card {
@@ -143,17 +121,6 @@ export class HomePage {
 	protected readonly groups = groupedPages();
 	protected readonly features = FEATURES;
 	protected readonly installSnippet = INSTALL_SNIPPET;
-	protected readonly installCopied = signal(false);
 
-	private installCopyResetHandle?: ReturnType<typeof setTimeout>;
 
-	protected copyInstall(): void {
-		void navigator.clipboard.writeText(this.installSnippet).then(() => {
-			this.installCopied.set(true);
-			if (this.installCopyResetHandle !== undefined) {
-				clearTimeout(this.installCopyResetHandle);
-			}
-			this.installCopyResetHandle = setTimeout(() => this.installCopied.set(false), 2000);
-		});
-	}
 }

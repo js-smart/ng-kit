@@ -1,10 +1,11 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { CodeBlock } from '../../../shared/code-block.component';
 import { AutocompleteComponent } from '@js-smart/ng-kit';
 
 @Component({
 	selector: 'ng-kit-disabled-options-example',
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	imports: [AutocompleteComponent],
+	imports: [CodeBlock, AutocompleteComponent],
 	template: `
 		<autocomplete
 			[options]="films"
@@ -36,7 +37,7 @@ import { AutocompleteComponent } from '@js-smart/ng-kit';
 
 		<details class="example-source">
 			<summary>View source</summary>
-			<pre class="example-code"><code>{{ code }}</code></pre>
+			<code-block [code]="code" language="typescript" />
 		</details>
 	`,
 	styles: [`

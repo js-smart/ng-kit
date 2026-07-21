@@ -87,6 +87,7 @@
     "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-jsdoc": "^63.0.12",
     "eslint-plugin-prefer-arrow": "^1.2.3",
+    "highlight.js": "^11.11.1",
     "istanbul-lib-instrument": "^6.0.3",
     "jsdom": "^29.1.1",
     "ng-packagr": "^22.0.1",

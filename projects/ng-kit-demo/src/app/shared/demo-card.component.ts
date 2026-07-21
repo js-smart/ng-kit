@@ -3,6 +3,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
+import { CodeBlock } from './code-block.component';
 
 /**
  * Shared shell for every gallery example: an outlined Material card with a
@@ -13,7 +14,7 @@ import { MatIconModule } from '@angular/material/icon';
  */
 @Component({
 	selector: 'demo-card',
-	imports: [MatCardModule, MatChipsModule, MatIconModule, MatButtonModule],
+	imports: [MatCardModule, MatChipsModule, MatIconModule, MatButtonModule, CodeBlock],
 	template: `
 		<mat-card appearance="outlined" class="demo-card">
 			<mat-card-header>
@@ -42,16 +43,10 @@ import { MatIconModule } from '@angular/material/icon';
 							<mat-icon>{{ showCode() ? 'expand_less' : 'code' }}</mat-icon>
 							{{ showCode() ? 'Hide source' : 'View source' }}
 						</button>
-
-						@if (showCode()) {
-							<button mat-icon-button color="primary" type="button" (click)="copyCode()" [attr.aria-label]="copied() ? 'Copied' : 'Copy code'">
-								<mat-icon>{{ copied() ? 'check' : 'content_copy' }}</mat-icon>
-							</button>
-						}
 					</div>
 
 					@if (showCode()) {
-						<pre class="code-block"><code>{{ code() }}</code></pre>
+						<code-block [code]="code()" [language]="language()" />
 					}
 				}
 			</mat-card-content>
@@ -95,18 +90,7 @@ export class DemoCard {
 	readonly description = input<string>('');
 	readonly props = input<string[]>([]);
 	readonly code = input<string>('');
+	readonly language = input<'typescript' | 'html' | 'bash' | 'scss' | 'json'>('typescript');
 
 	protected readonly showCode = signal(false);
-	protected readonly copied = signal(false);
-	private copiedResetHandle?: ReturnType<typeof setTimeout>;
-
-	protected copyCode(): void {
-		void navigator.clipboard.writeText(this.code()).then(() => {
-			this.copied.set(true);
-			if (this.copiedResetHandle !== undefined) {
-				clearTimeout(this.copiedResetHandle);
-			}
-			this.copiedResetHandle = setTimeout(() => this.copied.set(false), 2000);
-		});
-	}
 }

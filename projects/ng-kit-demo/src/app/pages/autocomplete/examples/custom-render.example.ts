@@ -1,5 +1,6 @@
 import { NgTemplateOutlet } from '@angular/common';
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { CodeBlock } from '../../../shared/code-block.component';
 import {
 	AutocompleteComponent,
 	NgClearIconDef,
@@ -21,7 +22,7 @@ interface TitleSegment {
 @Component({
 	selector: 'ng-kit-custom-render-example',
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	imports: [
+	imports: [CodeBlock, 
 		AutocompleteComponent,
 		NgOptionDef,
 		NgPopupIconDef,
@@ -56,7 +57,7 @@ interface TitleSegment {
 
 		<details class="example-source">
 			<summary>View source</summary>
-			<pre class="example-code"><code>{{ code }}</code></pre>
+			<code-block [code]="code" language="typescript" />
 		</details>
 	`,
 	styles: [`

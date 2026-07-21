@@ -2,6 +2,7 @@ import { NgComponentOutlet } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Type } from '@angular/core';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { DocPage } from '../../shared/doc-page.component';
+import { CodeBlock } from '../../shared/code-block.component';
 import { PrimaryButtonDemoComponent } from '../../primary-button-demo/primary-button-demo.component';
 import { SuccessButtonDemoComponent } from '../../success-button-demo/success-button-demo.component';
 import { SavePrimaryButtonDemoComponent } from '../../save-primary-button-demo/save-primary-button-demo.component';
@@ -19,6 +20,12 @@ import { PdfExportButtonDemoComponent } from '../../pdf-export-button-demo/pdf-e
 import { BsLinkButtonDemoComponent } from '../../bs-link-button-demo/bs-link-button-demo.component';
 import { BaseButtonDemoComponent } from '../../base-button-demo/base-button-demo.component';
 import { ButtonsDemoComponent } from '../../buttons-demo/buttons-demo.component';
+
+const OVERVIEW_CODE = `<!-- Directive (preferred) -->
+<button ariaLabel="Submit" (click)="onSubmit()" primaryButton>Submit</button>
+
+<!-- Component -->
+<primary-button ariaLabel="Submit" (click)="onSubmit()">Submit</primary-button>`;
 
 const PRIMARY_CODE = `<!-- Directive (preferred) -->
 <button ariaLabel="Submit" (click)="onSubmit()" primaryButton>Submit</button>
@@ -61,7 +68,7 @@ interface ButtonGroup {
  */
 @Component({
 	selector: 'ng-kit-buttons-page',
-	imports: [DocPage, NgComponentOutlet, MatExpansionModule],
+	imports: [DocPage, CodeBlock, NgComponentOutlet, MatExpansionModule],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<doc-page title="Buttons">
@@ -80,11 +87,7 @@ interface ButtonGroup {
 					<li><strong>Components (legacy)</strong> — dedicated Angular components that wrap Angular Material buttons. Still supported, but the directive approach is preferred for new implementations.</li>
 				</ul>
 				<p>The two styles are interchangeable:</p>
-				<pre class="code-block"><code>&lt;!-- Directive (preferred) --&gt;
-&lt;button ariaLabel="Submit" (click)="onSubmit()" primaryButton&gt;Submit&lt;/button&gt;
-
-&lt;!-- Component --&gt;
-&lt;primary-button ariaLabel="Submit" (click)="onSubmit()"&gt;Submit&lt;/primary-button&gt;</code></pre>
+				<code-block [code]="overviewCode" language="html" />
 			</div>
 
 			<div docExamples>
@@ -293,6 +296,8 @@ interface ButtonGroup {
 	`,
 })
 export class ButtonsPage {
+	protected readonly overviewCode = OVERVIEW_CODE;
+
 	protected readonly groups: ButtonGroup[] = [
 		{
 			label: 'Primary & action',

@@ -1,10 +1,11 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { CodeBlock } from '../../../shared/code-block.component';
 import { AutocompleteComponent, NgGroupHeaderDef } from '@js-smart/ng-kit';
 
 @Component({
 	selector: 'ng-kit-grouped-example',
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	imports: [AutocompleteComponent, NgGroupHeaderDef],
+	imports: [CodeBlock, AutocompleteComponent, NgGroupHeaderDef],
 	template: `
 		<autocomplete
 			[options]="films"
@@ -23,7 +24,7 @@ import { AutocompleteComponent, NgGroupHeaderDef } from '@js-smart/ng-kit';
 
 		<details class="example-source">
 			<summary>View source</summary>
-			<pre class="example-code"><code>{{ code }}</code></pre>
+			<code-block [code]="code" language="typescript" />
 		</details>
 	`,
 	styles: [`

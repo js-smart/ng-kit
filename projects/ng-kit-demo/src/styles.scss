@@ -1,5 +1,6 @@
 @import 'bootstrap/dist/css/bootstrap.css';
 @import '@angular/material/prebuilt-themes/indigo-pink.css';
+@import 'highlight.js/styles/github-dark.css';
 @import 'assets/app-variables';
 @import 'assets/app-buttons';
 @import 'assets/app-mat-snack-bar';
@@ -12,6 +13,47 @@ body {
 body {
 	margin: 0;
 	font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+
+/* ── Docs content typography (matches the ng-kit docs headers/code style,
+   applied within the gallery's Material theme) ───────────────────────────── */
+.content {
+	h1 {
+		font-size: 2rem;
+		font-weight: 500;
+		line-height: 1.2;
+		margin: 0 0 0.5rem;
+	}
+
+	h2 {
+		font-size: 1.5rem;
+		font-weight: 500;
+		line-height: 1.3;
+		margin: 2.25rem 0 0.75rem;
+		padding-block-end: 0.35rem;
+		border-block-end: 1px solid rgba(0, 0, 0, 0.08);
+	}
+
+	h3 {
+		font-size: 1.15rem;
+		font-weight: 500;
+		line-height: 1.3;
+		margin: 1.75rem 0 0.5rem;
+	}
+
+	p,
+	li {
+		line-height: 1.65;
+	}
+
+	/* Inline code — subtle pill (excludes highlighted code blocks). */
+	:where(p, li, td, h1, h2, h3, .doc-lead, .page-lead) code:not(.hljs) {
+		padding: 0.12em 0.38em;
+		border-radius: 4px;
+		background: rgba(101, 84, 192, 0.1);
+		color: #5b45b0;
+		font-size: 0.85em;
+	}
 }
 
 .center_div {

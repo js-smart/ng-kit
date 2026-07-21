@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, signal, type WritableSignal } from '@angular/core';
+import { CodeBlock } from '../../../shared/code-block.component';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatCheckboxModule, type MatCheckboxChange } from '@angular/material/checkbox';
 import { AutocompleteComponent } from '@js-smart/ng-kit';
@@ -55,7 +56,7 @@ export class PlaygroundExample {
 @Component({
 	selector: 'ng-kit-playground-example',
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	imports: [AutocompleteComponent, MatCheckboxModule, MatButtonToggleModule],
+	imports: [CodeBlock, AutocompleteComponent, MatCheckboxModule, MatButtonToggleModule],
 	template: `
 		<autocomplete
 			[options]="films"
@@ -127,7 +128,7 @@ export class PlaygroundExample {
 
 		<details class="example-source">
 			<summary>View source</summary>
-			<pre class="example-code"><code>{{ code }}</code></pre>
+			<code-block [code]="code" language="typescript" />
 		</details>
 	`,
 	styles: [

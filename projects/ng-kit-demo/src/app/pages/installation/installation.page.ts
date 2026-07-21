@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { DemoCard } from '../../shared/demo-card.component';
+import { CodeBlock } from '../../shared/code-block.component';
 
 const INSTALL_CODE = `# npm
 npm i @js-smart/ng-kit
@@ -45,7 +45,7 @@ npm install`;
  */
 @Component({
 	selector: 'ng-kit-installation-page',
-	imports: [DemoCard],
+	imports: [CodeBlock],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<h1 class="page-title">Installation</h1>
@@ -59,12 +59,7 @@ npm install`;
 			<p>Install <code>&#64;js-smart/ng-kit</code> using your preferred package manager.</p>
 		</section>
 
-		<demo-card
-			title="Install"
-			description="Add the package with npm, pnpm, yarn, or bun."
-			[code]="installCode">
-			<pre class="code-block"><code>{{ installCode }}</code></pre>
-		</demo-card>
+		<code-block [code]="installCode" language="bash" />
 
 		<section class="page-section">
 			<h2>Prerequisites</h2>
@@ -119,13 +114,7 @@ npm install`;
 			</p>
 		</section>
 
-		<demo-card
-			title="Primary button directive"
-			description="A standalone component importing PrimaryButtonDirective alongside Angular Material."
-			[props]="['primaryButton']"
-			[code]="usageCode">
-			<pre class="code-block"><code>{{ usageCode }}</code></pre>
-		</demo-card>
+		<code-block [code]="usageCode" language="typescript" />
 
 		<section class="page-section">
 			<h2>Troubleshooting</h2>
@@ -139,7 +128,7 @@ npm install`;
 				<li><strong>TypeScript errors</strong>: Ensure you're using a compatible TypeScript version (check Angular requirements).</li>
 				<li><strong>Update guide</strong>: Review the Angular Update Guide for breaking changes between versions.</li>
 			</ol>
-			<pre class="code-block"><code>{{ cleanInstallCode }}</code></pre>
+			<code-block [code]="cleanInstallCode" language="bash" />
 		</section>
 
 		<section class="page-section">

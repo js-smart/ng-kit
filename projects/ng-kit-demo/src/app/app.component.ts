@@ -1,6 +1,6 @@
+import { BreakpointObserver } from '@angular/cdk/layout';
 import { ChangeDetectionStrategy, Component, computed, effect, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { BreakpointObserver } from '@angular/cdk/layout';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
@@ -42,7 +42,7 @@ import { GALLERY_PAGES, GalleryPage, groupedPages } from './gallery/gallery-regi
 				<mat-icon>menu</mat-icon>
 			</button>
 
-			<a routerLink="/" class="brand">ng-kit</a>
+			<a routerLink="/" class="brand">NG Kit</a>
 
 			<span class="spacer"></span>
 

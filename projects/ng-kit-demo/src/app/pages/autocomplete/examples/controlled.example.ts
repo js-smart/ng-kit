@@ -1,11 +1,12 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { CodeBlock } from '../../../shared/code-block.component';
 import { MatButtonModule } from '@angular/material/button';
 import { AutocompleteComponent } from '@js-smart/ng-kit';
 
 @Component({
 	selector: 'ng-kit-controlled-example',
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	imports: [AutocompleteComponent, MatButtonModule],
+	imports: [CodeBlock, AutocompleteComponent, MatButtonModule],
 	template: `
 		<autocomplete
 			[options]="films"
@@ -36,7 +37,7 @@ import { AutocompleteComponent } from '@js-smart/ng-kit';
 
 		<details class="example-source">
 			<summary>View source</summary>
-			<pre class="example-code"><code>{{ code }}</code></pre>
+			<code-block [code]="code" language="typescript" />
 		</details>
 	`,
 	styles: `
