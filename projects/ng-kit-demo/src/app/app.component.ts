@@ -43,12 +43,12 @@ import { GALLERY_PAGES, GalleryPage, groupedPages } from './gallery/gallery-regi
 				<span>NG Kit</span>
 			</a>
 
+			<span class="spacer"></span>
+
 			<div class="header-search">
 				<mat-icon aria-hidden="true">search</mat-icon>
-				<input type="text" placeholder="Filter pages" aria-label="Filter pages" [value]="searchTerm()" (input)="onSearch($event)" />
+				<input type="text" placeholder="Search" aria-label="Search" [value]="searchTerm()" (input)="onSearch($event)" />
 			</div>
-
-			<span class="spacer"></span>
 
 			<a mat-icon-button href="https://github.com/js-smart/ng-kit" target="_blank" rel="noopener" aria-label="ng-kit on GitHub">
 				<mat-icon svgIcon="github" />
@@ -178,9 +178,9 @@ import { GALLERY_PAGES, GalleryPage, groupedPages } from './gallery/gallery-regi
 			display: flex;
 			align-items: center;
 			gap: 0.4rem;
-			flex: 0 1 340px;
+			flex: 0 1 320px;
 			min-width: 0;
-			margin-inline-start: 1rem;
+			margin-inline-end: 0.75rem;
 			padding: 0 0.7rem;
 			height: 38px;
 			border-radius: 8px;
