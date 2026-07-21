@@ -1,11 +1,17 @@
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { MatTabsModule } from '@angular/material/tabs';
+import { ActivatedRoute, Router } from '@angular/router';
 
 /**
  * Shared documentation page shell, modelled on material.angular.dev: a title +
- * lead header followed by an Overview / API / Examples tab group. Pages project
- * their content into the [docLead], [docOverview], [docApi] and [docExamples]
- * slots. Projected content keeps the page component's own encapsulated styles.
+ * lead header followed by an Overview / Examples tab group (the API reference
+ * lives inside Overview). Pages project content into the [docLead],
+ * [docOverview], [docApi] and [docExamples] slots; projected content keeps the
+ * page component's own encapsulated styles.
+ *
+ * The active tab is synced to the URL fragment (e.g. `/autocomplete#examples`)
+ * so tabs are linkable and survive reloads.
  */
 @Component({
 	selector: 'doc-page',
@@ -17,12 +23,18 @@ import { MatTabsModule } from '@angular/material/tabs';
 			<div class="doc-lead"><ng-content select="[docLead]" /></div>
 		</header>
 
-		<mat-tab-group class="doc-tabs" [mat-stretch-tabs]="false" animationDuration="0ms">
+		<mat-tab-group
+			class="doc-tabs"
+			[mat-stretch-tabs]="false"
+			animationDuration="0ms"
+			[selectedIndex]="selectedIndex()"
+			(selectedIndexChange)="selectTab($event)">
 			<mat-tab label="Overview">
-				<div class="doc-tab-body"><ng-content select="[docOverview]" /></div>
-			</mat-tab>
-			<mat-tab label="API">
-				<div class="doc-tab-body"><ng-content select="[docApi]" /></div>
+				<div class="doc-tab-body">
+					<ng-content select="[docOverview]" />
+					<h2 class="doc-api-heading">API</h2>
+					<ng-content select="[docApi]" />
+				</div>
 			</mat-tab>
 			<mat-tab label="Examples">
 				<div class="doc-tab-body"><ng-content select="[docExamples]" /></div>
@@ -55,6 +67,13 @@ import { MatTabsModule } from '@angular/material/tabs';
 			padding-block-start: 1.5rem;
 		}
 
+		/* Separate the API reference from the overview prose. */
+		.doc-api-heading {
+			margin-block-start: 3.5rem;
+			padding-block-start: 1.5rem;
+			border-block-start: 2px solid rgba(0, 0, 0, 0.08);
+		}
+
 		/* Material-docs-style tabs: uppercase labels. */
 		.doc-tabs ::ng-deep .mdc-tab__text-label {
 			text-transform: uppercase;
@@ -64,5 +83,25 @@ import { MatTabsModule } from '@angular/material/tabs';
 	`,
 })
 export class DocPage {
+	private readonly route = inject(ActivatedRoute);
+	private readonly router = inject(Router);
+
 	readonly title = input.required<string>();
+
+	/** Tab order; the label is also the URL fragment. */
+	private readonly tabs: string[] = ['overview', 'examples'];
+	private readonly fragment = toSignal(this.route.fragment, { initialValue: null });
+
+	protected readonly selectedIndex = computed(() => {
+		const index = this.tabs.indexOf(this.fragment() ?? 'overview');
+		return index < 0 ? 0 : index;
+	});
+
+	protected selectTab(index: number): void {
+		const fragment = this.tabs[index] ?? 'overview';
+		if (fragment === (this.fragment() ?? 'overview')) {
+			return;
+		}
+		void this.router.navigate([], { relativeTo: this.route, fragment });
+	}
 }

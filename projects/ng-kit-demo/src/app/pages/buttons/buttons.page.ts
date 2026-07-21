@@ -95,13 +95,13 @@ interface ButtonGroup {
 					<h3 class="group-heading">{{ group.label }}</h3>
 					<mat-accordion class="example-accordion" multi>
 						@for (b of group.buttons; track b.title) {
-							<mat-expansion-panel>
+							<mat-expansion-panel expanded>
 								<mat-expansion-panel-header>
 									<mat-panel-title>{{ b.title }}</mat-panel-title>
 									<mat-panel-description>{{ b.description }}</mat-panel-description>
 								</mat-expansion-panel-header>
 								<ng-template matExpansionPanelContent>
-									<ng-container *ngComponentOutlet="b.component" />
+									<div class="example-body"><ng-container *ngComponentOutlet="b.component" /></div>
 									@if (b.code) {
 										<details class="example-source">
 											<summary>View source</summary>
@@ -246,6 +246,14 @@ interface ButtonGroup {
 		.example-accordion {
 			display: block;
 			margin-block-end: 0.5rem;
+		}
+
+		.example-body {
+			padding: 0.75rem 0.25rem 1.25rem;
+		}
+
+		.example-accordion ::ng-deep .mat-expansion-panel-body {
+			padding: 0 1.5rem 0.5rem;
 		}
 
 		.example-source {
