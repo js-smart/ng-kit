@@ -110,3 +110,14 @@ strong {
 .primary-color-text {
 	color: var(--primary-color);
 }
+
+/* Give single-field autocomplete demos a comfortable width (the field defaults
+   to ~256px); leave the fullWidth demo alone. */
+.example-body autocomplete:not(.ng-fullwidth) {
+	display: block;
+	width: min(100%, 460px);
+}
+
+.example-body autocomplete:not(.ng-fullwidth) .ng-field {
+	width: 100%;
+}

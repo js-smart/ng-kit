@@ -129,6 +129,11 @@
   width: 28px;
   height: 28px;
   padding: 0;
+  // Align the clear/dropdown affordances to each other and to the field: the
+  // suffix wrapper lays them out inline, and their icons have different heights
+  // (18px vs 24px), so baseline alignment leaves them a few px apart. Centre
+  // both — matching MUI's vertically-centred end-adornment indicators.
+  vertical-align: middle;
   --mdc-icon-button-state-layer-size: 28px;
   --mat-icon-button-touch-target-display: none;
 }
@@ -158,6 +163,7 @@
 .ng-spinner {
   width: 14px;
   height: 14px;
+  vertical-align: middle;
   border: 2px solid var(--ng-border, rgba(0, 0, 0, 0.12));
   border-top-color: var(--ng-border-focus, #3f51b5);
   border-radius: 50%;
