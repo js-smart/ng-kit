@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { DocPage } from '../../shared/doc-page.component';
 import { DemoCard } from '../../shared/demo-card.component';
 import { QueryDemoComponent } from '../../query-demo/query-demo.component';
 
@@ -63,149 +64,150 @@ await this.createPost.mutateAsync({ title: 'Hello', userId: 1 });`;
  */
 @Component({
 	selector: 'ng-kit-query-page',
-	imports: [DemoCard, QueryDemoComponent],
+	imports: [DocPage, DemoCard, QueryDemoComponent],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		<h1 class="page-title">TanStack Query</h1>
-		<p class="page-lead">
-			A thin Angular adapter for <a href="https://tanstack.com/query" rel="noopener">TanStack Query</a>. Wrap the framework-agnostic
-			<code>QueryObserver</code> and <code>MutationObserver</code> in signals so query and mutation state flows through Angular's
-			reactivity — no <code>RxJS</code> subscriptions to manage, no manual change detection.
-		</p>
-
-		<section class="page-section">
-			<h2>Overview</h2>
-			<p>
-				The adapter exposes three primitives. Register a <code>QueryClient</code> once with <code>provideQueryClient()</code>, then call
-				<code>injectQuery()</code> to read cached server state and <code>injectMutation()</code> to write it. Both return signals, so
-				templates can read <code>query().data</code>, <code>query().isPending</code>, and <code>query().isError</code> directly.
+		<doc-page title="TanStack Query">
+			<p docLead>
+				A thin Angular adapter for <a href="https://tanstack.com/query" rel="noopener">TanStack Query</a>. Wrap the framework-agnostic
+				<code>QueryObserver</code> and <code>MutationObserver</code> in signals so query and mutation state flows through Angular's
+				reactivity — no <code>RxJS</code> subscriptions to manage, no manual change detection.
 			</p>
-			<p>
-				Each accepts an <em>options function</em> that is re-evaluated inside an Angular <code>effect</code>. Any signal read inside that
-				function becomes a dependency: reading a signal-based <code>queryKey</code> makes the query re-fetch automatically when the signal
-				changes, while previously loaded keys resolve instantly from cache (subject to <code>staleTime</code>).
-			</p>
-			<ul>
-				<li><code>provideQueryClient()</code> — registers a <code>QueryClient</code> (or config) with Angular DI.</li>
-				<li><code>injectQuery()</code> — subscribes to a query and returns a reactive result signal.</li>
-				<li><code>injectMutation()</code> — creates a mutation with <code>mutate</code>, <code>mutateAsync</code>, and <code>reset</code>.</li>
-			</ul>
-			<p>
-				Both hooks must run in an injection context (a component field initializer or inside <code>inject()</code>), and clean up their
-				observer subscriptions automatically via <code>DestroyRef</code>.
-			</p>
-		</section>
 
-		<demo-card
-			title="Setup"
-			description="Provide a QueryClient at the application root before using injectQuery or injectMutation."
-			[props]="['provideQueryClient']"
-			[code]="provideCode" />
+			<div docOverview>
+				<p>
+					The adapter exposes three primitives. Register a <code>QueryClient</code> once with <code>provideQueryClient()</code>, then call
+					<code>injectQuery()</code> to read cached server state and <code>injectMutation()</code> to write it. Both return signals, so
+					templates can read <code>query().data</code>, <code>query().isPending</code>, and <code>query().isError</code> directly.
+				</p>
+				<p>
+					Each accepts an <em>options function</em> that is re-evaluated inside an Angular <code>effect</code>. Any signal read inside that
+					function becomes a dependency: reading a signal-based <code>queryKey</code> makes the query re-fetch automatically when the signal
+					changes, while previously loaded keys resolve instantly from cache (subject to <code>staleTime</code>).
+				</p>
+				<ul>
+					<li><code>provideQueryClient()</code> — registers a <code>QueryClient</code> (or config) with Angular DI.</li>
+					<li><code>injectQuery()</code> — subscribes to a query and returns a reactive result signal.</li>
+					<li><code>injectMutation()</code> — creates a mutation with <code>mutate</code>, <code>mutateAsync</code>, and <code>reset</code>.</li>
+				</ul>
+				<p>
+					Both hooks must run in an injection context (a component field initializer or inside <code>inject()</code>), and clean up their
+					observer subscriptions automatically via <code>DestroyRef</code>.
+				</p>
+			</div>
 
-		<demo-card
-			title="injectQuery — reactive queryKey &amp; caching"
-			description="A signal-based queryKey re-fetches on change; switching back to a cached post ID is instant. injectMutation creates a post via mutate and mutateAsync."
-			[props]="['injectQuery', 'injectMutation', 'mutate', 'mutateAsync']"
-			[code]="queryCode">
-			<ng-kit-query-demo />
-		</demo-card>
+			<div docApi>
+				<h3>Exports</h3>
+				<p><code>provideQueryClient</code>, <code>injectQuery</code>, <code>injectMutation</code>, <code>QUERY_CLIENT</code></p>
 
-		<demo-card
-			title="injectMutation — mutate &amp; mutateAsync"
-			description="Fire-and-forget writes with mutate, or await the outcome with mutateAsync."
-			[props]="['mutationFn', 'mutate', 'mutateAsync', 'reset']"
-			[code]="mutationCode" />
+				<h3>provideQueryClient(clientOrConfig?)</h3>
+				<table class="api-table">
+					<thead>
+						<tr>
+							<th>Parameter</th>
+							<th>Type</th>
+							<th>Description</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><code>clientOrConfig</code></td>
+							<td><code>QueryClient | QueryClientConfig</code> (optional)</td>
+							<td>An existing client or a config to build one. Omit for defaults.</td>
+						</tr>
+						<tr>
+							<td><em>returns</em></td>
+							<td><code>EnvironmentProviders</code></td>
+							<td>Pass to <code>bootstrapApplication</code> or a route's providers.</td>
+						</tr>
+					</tbody>
+				</table>
 
-		<section class="page-section api">
-			<h2>API reference</h2>
-			<h3>Exports</h3>
-			<p><code>provideQueryClient</code>, <code>injectQuery</code>, <code>injectMutation</code>, <code>QUERY_CLIENT</code></p>
+				<h3>injectQuery(optionsFn)</h3>
+				<table class="api-table">
+					<thead>
+						<tr>
+							<th>Name</th>
+							<th>Type</th>
+							<th>Description</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><code>optionsFn</code></td>
+							<td><code>() =&gt; QueryObserverOptions</code></td>
+							<td>Returns query options; may read signals (e.g. a reactive <code>queryKey</code>).</td>
+						</tr>
+						<tr>
+							<td><em>returns</em></td>
+							<td><code>Signal&lt;QueryObserverResult&gt;</code></td>
+							<td>Reactive result: <code>data</code>, <code>isPending</code>, <code>isError</code>, <code>error</code>, etc.</td>
+						</tr>
+					</tbody>
+				</table>
 
-			<h3>provideQueryClient(clientOrConfig?)</h3>
-			<table class="api-table">
-				<thead>
-					<tr>
-						<th>Parameter</th>
-						<th>Type</th>
-						<th>Description</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td><code>clientOrConfig</code></td>
-						<td><code>QueryClient | QueryClientConfig</code> (optional)</td>
-						<td>An existing client or a config to build one. Omit for defaults.</td>
-					</tr>
-					<tr>
-						<td><em>returns</em></td>
-						<td><code>EnvironmentProviders</code></td>
-						<td>Pass to <code>bootstrapApplication</code> or a route's providers.</td>
-					</tr>
-				</tbody>
-			</table>
+				<h3>injectMutation(optionsFn)</h3>
+				<table class="api-table">
+					<thead>
+						<tr>
+							<th>Member</th>
+							<th>Type</th>
+							<th>Description</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><code>result</code></td>
+							<td><code>Signal&lt;MutationObserverResult&gt;</code></td>
+							<td>Reactive mutation state (idle, pending, success, error).</td>
+						</tr>
+						<tr>
+							<td><code>mutate</code></td>
+							<td><code>(variables, options?) =&gt; void</code></td>
+							<td>Fire-and-forget trigger; outcome is reflected through <code>result</code>.</td>
+						</tr>
+						<tr>
+							<td><code>mutateAsync</code></td>
+							<td><code>(variables, options?) =&gt; Promise&lt;TData&gt;</code></td>
+							<td>Triggers and returns a promise that resolves or rejects with the outcome.</td>
+						</tr>
+						<tr>
+							<td><code>reset</code></td>
+							<td><code>() =&gt; void</code></td>
+							<td>Resets the mutation observer back to idle.</td>
+						</tr>
+					</tbody>
+				</table>
 
-			<h3>injectQuery(optionsFn)</h3>
-			<table class="api-table">
-				<thead>
-					<tr>
-						<th>Name</th>
-						<th>Type</th>
-						<th>Description</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td><code>optionsFn</code></td>
-						<td><code>() =&gt; QueryObserverOptions</code></td>
-						<td>Returns query options; may read signals (e.g. a reactive <code>queryKey</code>).</td>
-					</tr>
-					<tr>
-						<td><em>returns</em></td>
-						<td><code>Signal&lt;QueryObserverResult&gt;</code></td>
-						<td>Reactive result: <code>data</code>, <code>isPending</code>, <code>isError</code>, <code>error</code>, etc.</td>
-					</tr>
-				</tbody>
-			</table>
+				<p class="api-note">
+					Both hooks must run in an injection context and require a <code>QUERY_CLIENT</code> to be provided via
+					<code>provideQueryClient()</code>. Generic parameters mirror TanStack Query: <code>injectQuery&lt;TQueryFnData, TError, TData&gt;</code>
+					and <code>injectMutation&lt;TData, TError, TVariables, TContext&gt;</code>.
+				</p>
+			</div>
 
-			<h3>injectMutation(optionsFn)</h3>
-			<table class="api-table">
-				<thead>
-					<tr>
-						<th>Member</th>
-						<th>Type</th>
-						<th>Description</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td><code>result</code></td>
-						<td><code>Signal&lt;MutationObserverResult&gt;</code></td>
-						<td>Reactive mutation state (idle, pending, success, error).</td>
-					</tr>
-					<tr>
-						<td><code>mutate</code></td>
-						<td><code>(variables, options?) =&gt; void</code></td>
-						<td>Fire-and-forget trigger; outcome is reflected through <code>result</code>.</td>
-					</tr>
-					<tr>
-						<td><code>mutateAsync</code></td>
-						<td><code>(variables, options?) =&gt; Promise&lt;TData&gt;</code></td>
-						<td>Triggers and returns a promise that resolves or rejects with the outcome.</td>
-					</tr>
-					<tr>
-						<td><code>reset</code></td>
-						<td><code>() =&gt; void</code></td>
-						<td>Resets the mutation observer back to idle.</td>
-					</tr>
-				</tbody>
-			</table>
+			<div docExamples>
+				<demo-card
+					title="Setup"
+					description="Provide a QueryClient at the application root before using injectQuery or injectMutation."
+					[props]="['provideQueryClient']"
+					[code]="provideCode" />
 
-			<p class="api-note">
-				Both hooks must run in an injection context and require a <code>QUERY_CLIENT</code> to be provided via
-				<code>provideQueryClient()</code>. Generic parameters mirror TanStack Query: <code>injectQuery&lt;TQueryFnData, TError, TData&gt;</code>
-				and <code>injectMutation&lt;TData, TError, TVariables, TContext&gt;</code>.
-			</p>
-		</section>
+				<demo-card
+					title="injectQuery — reactive queryKey &amp; caching"
+					description="A signal-based queryKey re-fetches on change; switching back to a cached post ID is instant. injectMutation creates a post via mutate and mutateAsync."
+					[props]="['injectQuery', 'injectMutation', 'mutate', 'mutateAsync']"
+					[code]="queryCode">
+					<ng-kit-query-demo />
+				</demo-card>
+
+				<demo-card
+					title="injectMutation — mutate &amp; mutateAsync"
+					description="Fire-and-forget writes with mutate, or await the outcome with mutateAsync."
+					[props]="['mutationFn', 'mutate', 'mutateAsync', 'reset']"
+					[code]="mutationCode" />
+			</div>
+		</doc-page>
 	`,
 	styles: `
 		:host {

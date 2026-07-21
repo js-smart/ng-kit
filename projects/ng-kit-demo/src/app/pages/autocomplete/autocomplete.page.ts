@@ -1,6 +1,7 @@
 import { NgComponentOutlet } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Type } from '@angular/core';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { DocPage } from '../../shared/doc-page.component';
 import { AsyncExample } from './examples/async.example';
 import { ComboBoxExample } from './examples/combo-box.example';
 import { ControlledExample } from './examples/controlled.example';
@@ -27,160 +28,141 @@ interface ExampleGroup {
 }
 
 /**
- * Autocomplete reference page. Every example ported from the ng-autocomplete
- * gallery is shown in a category-grouped accordion — expand a panel to view the
- * live demo (rendered lazily via matExpansionPanelContent) and its source.
+ * Autocomplete reference page. Overview / API / Examples tabs (via DocPage);
+ * the Examples tab groups every ported example into a Material accordion — expand
+ * a panel to view the live demo (rendered lazily) and its source.
  */
 @Component({
 	selector: 'ng-kit-autocomplete-page',
-	imports: [NgComponentOutlet, MatExpansionModule],
+	imports: [DocPage, NgComponentOutlet, MatExpansionModule],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		<h1 class="page-title">Autocomplete</h1>
-		<p class="page-lead">
-			Accessible, signal-based autocomplete/combobox composed with Angular Material. The field chrome is Material; filtering, keyboard
-			navigation, ARIA, and single/multiple/free-solo selection are driven by a headless signal state machine. Implements
-			<code>ControlValueAccessor</code>, so it plugs into reactive forms.
-		</p>
-
-		<section class="page-section">
-			<h2>Overview</h2>
-			<p>
-				Import <code>AutocompleteComponent</code> and pass an <code>options</code> array. Use <code>getOptionLabel</code> to map an option to
-				its display string, bind the selection with <code>[(value)]</code>, and listen to <code>valueChanged</code> for selection events.
-				Every capability below has a live example — expand a panel to try it and read its source.
+		<doc-page title="Autocomplete">
+			<p docLead>
+				Accessible, signal-based autocomplete/combobox composed with Angular Material. The field chrome is Material; filtering, keyboard
+				navigation, ARIA, and single/multiple/free-solo selection are driven by a headless signal state machine. Implements
+				<code>ControlValueAccessor</code>, so it plugs into reactive forms.
 			</p>
-		</section>
 
-		<h2 class="examples-heading">Examples</h2>
-		@for (group of groups; track group.label) {
-			<h3 class="group-heading">{{ group.label }}</h3>
-			<mat-accordion class="example-accordion" multi>
-				@for (ex of group.examples; track ex.title) {
-					<mat-expansion-panel>
-						<mat-expansion-panel-header>
-							<mat-panel-title>{{ ex.title }}</mat-panel-title>
-							<mat-panel-description>{{ ex.description }}</mat-panel-description>
-						</mat-expansion-panel-header>
-						<ng-template matExpansionPanelContent>
-							<ng-container *ngComponentOutlet="ex.component" />
-						</ng-template>
-					</mat-expansion-panel>
+			<div docOverview>
+				<p>
+					Import <code>AutocompleteComponent</code> and pass an <code>options</code> array. Use <code>getOptionLabel</code> to map an option
+					to its display string, bind the selection with <code>[(value)]</code>, and listen to <code>valueChanged</code> for selection
+					events. Every capability has a live example in the <strong>Examples</strong> tab — expand a panel to try it and read its source.
+				</p>
+			</div>
+
+			<div docApi>
+				<h3>Selectors</h3>
+				<p><code>autocomplete</code>, <code>lib-autocomplete</code></p>
+
+				<h3>Key inputs</h3>
+				<table class="api-table">
+					<thead>
+						<tr>
+							<th>Name</th>
+							<th>Type</th>
+							<th>Default</th>
+							<th>Description</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><code>options</code></td>
+							<td><code>readonly T[]</code> (required)</td>
+							<td>—</td>
+							<td>Options to display in the dropdown</td>
+						</tr>
+						<tr>
+							<td><code>value</code></td>
+							<td><code>T | T[] | null</code> (model)</td>
+							<td><code>null</code></td>
+							<td>Two-way selected value (<code>T[]</code> when multiple)</td>
+						</tr>
+						<tr>
+							<td><code>getOptionLabel</code></td>
+							<td><code>(option: T) =&gt; string</code></td>
+							<td>label / <code>String</code></td>
+							<td>Maps an option to its display string</td>
+						</tr>
+						<tr>
+							<td><code>multiple</code></td>
+							<td><code>boolean</code></td>
+							<td><code>false</code></td>
+							<td>Render selected values as removable chips</td>
+						</tr>
+						<tr>
+							<td><code>loading</code></td>
+							<td><code>boolean</code></td>
+							<td><code>false</code></td>
+							<td>Show a loading indicator instead of options</td>
+						</tr>
+						<tr>
+							<td><code>appearance</code></td>
+							<td><code>'fill' | 'outline'</code></td>
+							<td><code>'fill'</code></td>
+							<td>Material form-field appearance</td>
+						</tr>
+					</tbody>
+				</table>
+				<p class="api-note">
+					Plus many MUI-parity flags (<code>freeSolo</code>, <code>groupBy</code>, <code>virtualize</code>, <code>autoHighlight</code>,
+					<code>disableClearable</code>, …) and content-projection template directives
+					(<code>*ngOption</code>, <code>*ngValue</code>, <code>*ngGroupHeader</code>, <code>*ngEmpty</code>, …). See the exported types.
+				</p>
+
+				<h3>Outputs</h3>
+				<table class="api-table">
+					<thead>
+						<tr>
+							<th>Name</th>
+							<th>Payload</th>
+							<th>Description</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><code>valueChanged</code></td>
+							<td><code>{{ '{' }} value; reason; option? {{ '}' }}</code></td>
+							<td>Selected value changed</td>
+						</tr>
+						<tr>
+							<td><code>inputChanged</code></td>
+							<td><code>{{ '{' }} value: string; reason {{ '}' }}</code></td>
+							<td>Input text changed</td>
+						</tr>
+						<tr>
+							<td><code>opened</code> / <code>closed</code></td>
+							<td><code>OpenReason</code> / <code>CloseReason</code></td>
+							<td>Popup opened / closed</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<div docExamples>
+				@for (group of groups; track group.label) {
+					<h3 class="group-heading">{{ group.label }}</h3>
+					<mat-accordion class="example-accordion" multi>
+						@for (ex of group.examples; track ex.title) {
+							<mat-expansion-panel>
+								<mat-expansion-panel-header>
+									<mat-panel-title>{{ ex.title }}</mat-panel-title>
+									<mat-panel-description>{{ ex.description }}</mat-panel-description>
+								</mat-expansion-panel-header>
+								<ng-template matExpansionPanelContent>
+									<ng-container *ngComponentOutlet="ex.component" />
+								</ng-template>
+							</mat-expansion-panel>
+						}
+					</mat-accordion>
 				}
-			</mat-accordion>
-		}
-
-		<section class="page-section api">
-			<h2>API reference</h2>
-			<h3>Selectors</h3>
-			<p><code>autocomplete</code>, <code>lib-autocomplete</code></p>
-
-			<h3>Key inputs</h3>
-			<table class="api-table">
-				<thead>
-					<tr>
-						<th>Name</th>
-						<th>Type</th>
-						<th>Default</th>
-						<th>Description</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td><code>options</code></td>
-						<td><code>readonly T[]</code> (required)</td>
-						<td>—</td>
-						<td>Options to display in the dropdown</td>
-					</tr>
-					<tr>
-						<td><code>value</code></td>
-						<td><code>T | T[] | null</code> (model)</td>
-						<td><code>null</code></td>
-						<td>Two-way selected value (<code>T[]</code> when multiple)</td>
-					</tr>
-					<tr>
-						<td><code>getOptionLabel</code></td>
-						<td><code>(option: T) =&gt; string</code></td>
-						<td>label / <code>String</code></td>
-						<td>Maps an option to its display string</td>
-					</tr>
-					<tr>
-						<td><code>multiple</code></td>
-						<td><code>boolean</code></td>
-						<td><code>false</code></td>
-						<td>Render selected values as removable chips</td>
-					</tr>
-					<tr>
-						<td><code>loading</code></td>
-						<td><code>boolean</code></td>
-						<td><code>false</code></td>
-						<td>Show a loading indicator instead of options</td>
-					</tr>
-					<tr>
-						<td><code>appearance</code></td>
-						<td><code>'fill' | 'outline'</code></td>
-						<td><code>'fill'</code></td>
-						<td>Material form-field appearance</td>
-					</tr>
-				</tbody>
-			</table>
-			<p class="api-note">
-				Plus many MUI-parity flags (<code>freeSolo</code>, <code>groupBy</code>, <code>virtualize</code>, <code>autoHighlight</code>,
-				<code>disableClearable</code>, …) and content-projection template directives
-				(<code>*ngOption</code>, <code>*ngValue</code>, <code>*ngGroupHeader</code>, <code>*ngEmpty</code>, …). See the exported types.
-			</p>
-
-			<h3>Outputs</h3>
-			<table class="api-table">
-				<thead>
-					<tr>
-						<th>Name</th>
-						<th>Payload</th>
-						<th>Description</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td><code>valueChanged</code></td>
-						<td><code>{{ '{' }} value; reason; option? {{ '}' }}</code></td>
-						<td>Selected value changed</td>
-					</tr>
-					<tr>
-						<td><code>inputChanged</code></td>
-						<td><code>{{ '{' }} value: string; reason {{ '}' }}</code></td>
-						<td>Input text changed</td>
-					</tr>
-					<tr>
-						<td><code>opened</code> / <code>closed</code></td>
-						<td><code>OpenReason</code> / <code>CloseReason</code></td>
-						<td>Popup opened / closed</td>
-					</tr>
-				</tbody>
-			</table>
-		</section>
+			</div>
+		</doc-page>
 	`,
 	styles: `
 		:host {
 			display: block;
-		}
-
-		.page-title {
-			margin-block-end: 0.5rem;
-		}
-
-		.page-lead {
-			max-width: 70ch;
-			color: rgba(0, 0, 0, 0.7);
-			margin-block-end: 2rem;
-		}
-
-		.page-section {
-			margin-block: 2rem;
-			max-width: 70ch;
-		}
-
-		.examples-heading {
-			margin-block: 2rem 0.5rem;
 		}
 
 		.group-heading {
@@ -190,6 +172,10 @@ interface ExampleGroup {
 			letter-spacing: 0.06em;
 			text-transform: uppercase;
 			color: rgba(0, 0, 0, 0.6);
+		}
+
+		.group-heading:first-child {
+			margin-block-start: 0;
 		}
 
 		.example-accordion {

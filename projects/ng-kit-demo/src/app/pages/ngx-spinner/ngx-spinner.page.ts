@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { SpinnerComponent } from '@js-smart/ng-kit';
 import { DemoCard } from '../../shared/demo-card.component';
+import { DocPage } from '../../shared/doc-page.component';
 
 const OVERLAY_CODE = `import { Component, signal } from '@angular/core';
 import { SpinnerComponent } from '@js-smart/ng-kit';
@@ -36,133 +37,137 @@ export class OverlayExample {
  */
 @Component({
 	selector: 'ng-kit-ngx-spinner-page',
-	imports: [SpinnerComponent, DemoCard, MatButtonModule],
+	imports: [SpinnerComponent, DemoCard, MatButtonModule, DocPage],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		<h1 class="page-title">Ngx Spinner</h1>
-		<p class="page-lead">
-			Full-page overlay spinner for Angular applications. Display a loading indicator during async operations with a customizable
-			backdrop, size, color, and z-index, controlled programmatically for a smooth loading experience.
-		</p>
-
-		<section class="page-section">
-			<h2>Overview</h2>
-			<p>
-				Import the spinner component into your standalone component and toggle it around async work. The overlay covers the viewport
-				with a semi-transparent backdrop while the spinner animates in the center, then hides once the work resolves.
+		<doc-page title="Ngx Spinner">
+			<p docLead>
+				Full-page overlay spinner for Angular applications. Display a loading indicator during async operations with a customizable
+				backdrop, size, color, and z-index, controlled programmatically for a smooth loading experience.
 			</p>
-			<ul>
-				<li>Multiple spinner sizes and colors are supported.</li>
-				<li>The backdrop color and <code>z-index</code> are configurable for layering over any UI.</li>
-				<li>Tree-shakable: only the features you import are included in your bundle.</li>
-				<li>Integrates with a spinner service for programmatic <code>show</code> / <code>hide</code> control.</li>
-			</ul>
-			<p class="api-note">
-				This build exports <code>SpinnerComponent</code> (selectors <code>spinner</code>, <code>lib-spinner</code>). The example below
-				renders it inside a full-page overlay driven by a signal; the API table documents the overlay inputs described in the docs.
-			</p>
-		</section>
 
-		<demo-card
-			title="Overlay spinner"
-			description="Toggle a full-page overlay spinner around a simulated async operation."
-			[props]="['bootstrapSpinner', 'diameter', 'color']"
-			[code]="overlayCode">
-			<button mat-flat-button color="primary" type="button" (click)="run()" [disabled]="loading()">
-				{{ loading() ? 'Loading…' : 'Load data' }}
-			</button>
-			<p class="readout">Status: {{ loading() ? 'busy' : 'idle' }}</p>
+			<div docOverview>
+				<section class="page-section">
+					<p>
+						Import the spinner component into your standalone component and toggle it around async work. The overlay covers the
+						viewport with a semi-transparent backdrop while the spinner animates in the center, then hides once the work resolves.
+					</p>
+					<ul>
+						<li>Multiple spinner sizes and colors are supported.</li>
+						<li>The backdrop color and <code>z-index</code> are configurable for layering over any UI.</li>
+						<li>Tree-shakable: only the features you import are included in your bundle.</li>
+						<li>Integrates with a spinner service for programmatic <code>show</code> / <code>hide</code> control.</li>
+					</ul>
+					<p class="api-note">
+						This build exports <code>SpinnerComponent</code> (selectors <code>spinner</code>, <code>lib-spinner</code>). The example
+						below renders it inside a full-page overlay driven by a signal; the API table documents the overlay inputs described in
+						the docs.
+					</p>
+				</section>
+			</div>
 
-			@if (loading()) {
-				<div class="spinner-overlay" role="status" aria-live="polite" aria-label="Loading">
-					<spinner [bootstrapSpinner]="false" [diameter]="64" />
-				</div>
-			}
-		</demo-card>
+			<div docApi>
+				<h3>Selector</h3>
+				<p><code>ngx-spinner</code></p>
 
-		<section class="page-section api">
-			<h2>API reference</h2>
-			<h3>Selector</h3>
-			<p><code>ngx-spinner</code></p>
+				<h3>Inputs</h3>
+				<table class="api-table">
+					<thead>
+						<tr>
+							<th>Name</th>
+							<th>Type</th>
+							<th>Default</th>
+							<th>Description</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><code>name</code></td>
+							<td><code>string</code></td>
+							<td><code>'primary-spinner'</code></td>
+							<td>Spinner name (for service control)</td>
+						</tr>
+						<tr>
+							<td><code>bdColor</code></td>
+							<td><code>string</code></td>
+							<td><code>'rgba(51,51,51,0.8)'</code></td>
+							<td>Backdrop color (RGBA format)</td>
+						</tr>
+						<tr>
+							<td><code>size</code></td>
+							<td><code>string</code></td>
+							<td><code>'large'</code></td>
+							<td>Spinner size: <code>'small'</code>, <code>'medium'</code>, <code>'large'</code></td>
+						</tr>
+						<tr>
+							<td><code>color</code></td>
+							<td><code>string</code></td>
+							<td><code>'#fff'</code></td>
+							<td>Spinner color</td>
+						</tr>
+						<tr>
+							<td><code>type</code></td>
+							<td><code>string</code></td>
+							<td><code>'ball-spin-clockwise'</code></td>
+							<td>Spinner type (see enum for options)</td>
+						</tr>
+						<tr>
+							<td><code>fullScreen</code></td>
+							<td><code>boolean</code></td>
+							<td><code>true</code></td>
+							<td>Show spinner fullscreen</td>
+						</tr>
+						<tr>
+							<td><code>zIndex</code></td>
+							<td><code>number</code></td>
+							<td><code>9999</code></td>
+							<td>z-index value</td>
+						</tr>
+						<tr>
+							<td><code>template</code></td>
+							<td><code>string</code></td>
+							<td><code>''</code></td>
+							<td>Custom HTML template for spinner</td>
+						</tr>
+						<tr>
+							<td><code>showSpinner</code></td>
+							<td><code>boolean</code></td>
+							<td><code>false</code></td>
+							<td>Show / hide spinner</td>
+						</tr>
+						<tr>
+							<td><code>disableAnimation</code></td>
+							<td><code>boolean</code></td>
+							<td><code>false</code></td>
+							<td>Disable spinner animation</td>
+						</tr>
+					</tbody>
+				</table>
+				<p class="api-note">
+					Integrates with a spinner service for programmatic control. See the exported <code>SpinnerComponent</code> for the inputs
+					available in this build (<code>bootstrapSpinner</code>, <code>diameter</code>, <code>color</code>, <code>strokeWidth</code>).
+				</p>
+			</div>
 
-			<h3>Inputs</h3>
-			<table class="api-table">
-				<thead>
-					<tr>
-						<th>Name</th>
-						<th>Type</th>
-						<th>Default</th>
-						<th>Description</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td><code>name</code></td>
-						<td><code>string</code></td>
-						<td><code>'primary-spinner'</code></td>
-						<td>Spinner name (for service control)</td>
-					</tr>
-					<tr>
-						<td><code>bdColor</code></td>
-						<td><code>string</code></td>
-						<td><code>'rgba(51,51,51,0.8)'</code></td>
-						<td>Backdrop color (RGBA format)</td>
-					</tr>
-					<tr>
-						<td><code>size</code></td>
-						<td><code>string</code></td>
-						<td><code>'large'</code></td>
-						<td>Spinner size: <code>'small'</code>, <code>'medium'</code>, <code>'large'</code></td>
-					</tr>
-					<tr>
-						<td><code>color</code></td>
-						<td><code>string</code></td>
-						<td><code>'#fff'</code></td>
-						<td>Spinner color</td>
-					</tr>
-					<tr>
-						<td><code>type</code></td>
-						<td><code>string</code></td>
-						<td><code>'ball-spin-clockwise'</code></td>
-						<td>Spinner type (see enum for options)</td>
-					</tr>
-					<tr>
-						<td><code>fullScreen</code></td>
-						<td><code>boolean</code></td>
-						<td><code>true</code></td>
-						<td>Show spinner fullscreen</td>
-					</tr>
-					<tr>
-						<td><code>zIndex</code></td>
-						<td><code>number</code></td>
-						<td><code>9999</code></td>
-						<td>z-index value</td>
-					</tr>
-					<tr>
-						<td><code>template</code></td>
-						<td><code>string</code></td>
-						<td><code>''</code></td>
-						<td>Custom HTML template for spinner</td>
-					</tr>
-					<tr>
-						<td><code>showSpinner</code></td>
-						<td><code>boolean</code></td>
-						<td><code>false</code></td>
-						<td>Show / hide spinner</td>
-					</tr>
-					<tr>
-						<td><code>disableAnimation</code></td>
-						<td><code>boolean</code></td>
-						<td><code>false</code></td>
-						<td>Disable spinner animation</td>
-					</tr>
-				</tbody>
-			</table>
-			<p class="api-note">
-				Integrates with a spinner service for programmatic control. See the exported <code>SpinnerComponent</code> for the inputs
-				available in this build (<code>bootstrapSpinner</code>, <code>diameter</code>, <code>color</code>, <code>strokeWidth</code>).
-			</p>
-		</section>
+			<div docExamples>
+				<demo-card
+					title="Overlay spinner"
+					description="Toggle a full-page overlay spinner around a simulated async operation."
+					[props]="['bootstrapSpinner', 'diameter', 'color']"
+					[code]="overlayCode">
+					<button mat-flat-button color="primary" type="button" (click)="run()" [disabled]="loading()">
+						{{ loading() ? 'Loading…' : 'Load data' }}
+					</button>
+					<p class="readout">Status: {{ loading() ? 'busy' : 'idle' }}</p>
+
+					@if (loading()) {
+						<div class="spinner-overlay" role="status" aria-live="polite" aria-label="Loading">
+							<spinner [bootstrapSpinner]="false" [diameter]="64" />
+						</div>
+					}
+				</demo-card>
+			</div>
+		</doc-page>
 	`,
 	styles: `
 		:host {

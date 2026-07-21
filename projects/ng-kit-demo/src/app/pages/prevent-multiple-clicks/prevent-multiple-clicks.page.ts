@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { PreventMultipleClicksDirective } from '@js-smart/ng-kit';
+import { DocPage } from '../../shared/doc-page.component';
 import { DemoCard } from '../../shared/demo-card.component';
 import { DirectivesDemoComponent } from '../../directives-demo/directives-demo.component';
 
@@ -49,101 +50,102 @@ export class ThrottleViewButtonExample {
  */
 @Component({
 	selector: 'ng-kit-prevent-multiple-clicks-page',
-	imports: [MatButtonModule, PreventMultipleClicksDirective, DemoCard, DirectivesDemoComponent],
+	imports: [DocPage, MatButtonModule, PreventMultipleClicksDirective, DemoCard, DirectivesDemoComponent],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		<h1 class="page-title">Prevent Multiple Clicks</h1>
-		<p class="page-lead">
-			<code>preventMultipleClicks</code> is an Angular directive that debounces rapid repeated clicks on any interactive element. It uses
-			RxJS throttling so only one click is processed within a configurable time window &mdash; ideal for guarding form submissions, API
-			calls, and navigation against duplicate actions.
-		</p>
-
-		<section class="page-section">
-			<h2>Overview</h2>
-			<p>
-				Apply the <code>preventMultipleClicks</code> attribute to any clickable element, then listen to the
-				<code>throttleClick</code> output instead of the native <code>click</code> event. The directive intercepts the click, calls
-				<code>preventDefault()</code> and <code>stopPropagation()</code>, buffers the event through an RxJS
-				<code>Subject</code>, and re-emits it only once per throttle period.
+		<doc-page title="Prevent Multiple Clicks">
+			<p docLead>
+				<code>preventMultipleClicks</code> is an Angular directive that debounces rapid repeated clicks on any interactive element. It uses
+				RxJS throttling so only one click is processed within a configurable time window &mdash; ideal for guarding form submissions, API
+				calls, and navigation against duplicate actions.
 			</p>
-			<p>Common use cases include:</p>
-			<ul>
-				<li><strong>Form submissions</strong> &mdash; preventing duplicate submissions.</li>
-				<li><strong>API calls</strong> &mdash; avoiding multiple simultaneous requests.</li>
-				<li><strong>Navigation</strong> &mdash; preventing multiple navigation triggers.</li>
-				<li><strong>Button actions</strong> &mdash; ensuring actions run once per time period.</li>
-			</ul>
-			<p>
-				The default throttle window is <code>2000</code>ms. Override it with <code>[throttleTime]</code>. The directive works with any
-				element (buttons, links, custom button components) and cleans up its subscription on destroy.
-			</p>
-		</section>
 
-		<demo-card
-			title="Basic"
-			description="Throttled button with a 2 second window. Click rapidly — only the first click within each window is processed."
-			[props]="['preventMultipleClicks', 'throttleTime', 'throttleClick']"
-			[code]="basicCode">
-			<button mat-raised-button preventMultipleClicks [throttleTime]="2000" (throttleClick)="onProcessedClick()">Submit</button>
-			<p class="readout">Processed clicks: {{ processedCount() }}</p>
-		</demo-card>
+			<div docOverview>
+				<p>
+					Apply the <code>preventMultipleClicks</code> attribute to any clickable element, then listen to the
+					<code>throttleClick</code> output instead of the native <code>click</code> event. The directive intercepts the click, calls
+					<code>preventDefault()</code> and <code>stopPropagation()</code>, buffers the event through an RxJS
+					<code>Subject</code>, and re-emits it only once per throttle period.
+				</p>
+				<p>Common use cases include:</p>
+				<ul>
+					<li><strong>Form submissions</strong> &mdash; preventing duplicate submissions.</li>
+					<li><strong>API calls</strong> &mdash; avoiding multiple simultaneous requests.</li>
+					<li><strong>Navigation</strong> &mdash; preventing multiple navigation triggers.</li>
+					<li><strong>Button actions</strong> &mdash; ensuring actions run once per time period.</li>
+				</ul>
+				<p>
+					The default throttle window is <code>2000</code>ms. Override it with <code>[throttleTime]</code>. The directive works with any
+					element (buttons, links, custom button components) and cleans up its subscription on destroy.
+				</p>
+			</div>
 
-		<demo-card
-			title="With a button component"
-			description="The directive applied to the library's view-button. Open the console to see the throttled output fire."
-			[props]="['preventMultipleClicks', 'throttleClick']"
-			[code]="viewButtonCode">
-			<ng-kit-directives-demo />
-		</demo-card>
+			<div docApi>
+				<h3>Selector</h3>
+				<p><code>[preventMultipleClicks]</code></p>
 
-		<section class="page-section api">
-			<h2>API reference</h2>
-			<h3>Selector</h3>
-			<p><code>[preventMultipleClicks]</code></p>
+				<h3>Inputs</h3>
+				<table class="api-table">
+					<thead>
+						<tr>
+							<th>Name</th>
+							<th>Type</th>
+							<th>Default</th>
+							<th>Description</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><code>throttleTime</code></td>
+							<td><code>number</code></td>
+							<td><code>2000</code></td>
+							<td>Time in milliseconds to throttle clicks. Only one click is processed within this period.</td>
+						</tr>
+					</tbody>
+				</table>
 
-			<h3>Inputs</h3>
-			<table class="api-table">
-				<thead>
-					<tr>
-						<th>Name</th>
-						<th>Type</th>
-						<th>Default</th>
-						<th>Description</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td><code>throttleTime</code></td>
-						<td><code>number</code></td>
-						<td><code>2000</code></td>
-						<td>Time in milliseconds to throttle clicks. Only one click is processed within this period.</td>
-					</tr>
-				</tbody>
-			</table>
+				<h3>Outputs</h3>
+				<table class="api-table">
+					<thead>
+						<tr>
+							<th>Name</th>
+							<th>Payload</th>
+							<th>Description</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><code>throttleClick</code></td>
+							<td><code>Event</code></td>
+							<td>Emits the original click event after the throttle period expires, once per period.</td>
+						</tr>
+					</tbody>
+				</table>
+				<p class="api-note">
+					The emitted <code>throttleClick</code> event carries the original DOM event, so all event properties remain accessible. Works
+					with template-driven and reactive forms and is compatible with Angular Material and custom button components.
+				</p>
+			</div>
 
-			<h3>Outputs</h3>
-			<table class="api-table">
-				<thead>
-					<tr>
-						<th>Name</th>
-						<th>Payload</th>
-						<th>Description</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td><code>throttleClick</code></td>
-						<td><code>Event</code></td>
-						<td>Emits the original click event after the throttle period expires, once per period.</td>
-					</tr>
-				</tbody>
-			</table>
-			<p class="api-note">
-				The emitted <code>throttleClick</code> event carries the original DOM event, so all event properties remain accessible. Works
-				with template-driven and reactive forms and is compatible with Angular Material and custom button components.
-			</p>
-		</section>
+			<div docExamples>
+				<demo-card
+					title="Basic"
+					description="Throttled button with a 2 second window. Click rapidly — only the first click within each window is processed."
+					[props]="['preventMultipleClicks', 'throttleTime', 'throttleClick']"
+					[code]="basicCode">
+					<button mat-raised-button preventMultipleClicks [throttleTime]="2000" (throttleClick)="onProcessedClick()">Submit</button>
+					<p class="readout">Processed clicks: {{ processedCount() }}</p>
+				</demo-card>
+
+				<demo-card
+					title="With a button component"
+					description="The directive applied to the library's view-button. Open the console to see the throttled output fire."
+					[props]="['preventMultipleClicks', 'throttleClick']"
+					[code]="viewButtonCode">
+					<ng-kit-directives-demo />
+				</demo-card>
+			</div>
+		</doc-page>
 	`,
 	styles: `
 		:host {

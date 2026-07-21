@@ -167,7 +167,7 @@ import { GALLERY_PAGES, GalleryPage, groupedPages } from './gallery/gallery-regi
 
 		main {
 			outline: none;
-			max-width: 960px;
+			width: 100%;
 		}
 
 		.active-link {
@@ -180,7 +180,6 @@ import { GALLERY_PAGES, GalleryPage, groupedPages } from './gallery/gallery-regi
 			margin-block-start: 2rem;
 			padding-block-start: 1rem;
 			border-block-start: 1px solid rgba(0, 0, 0, 0.12);
-			max-width: 960px;
 		}
 
 		@media (max-width: 720px) {

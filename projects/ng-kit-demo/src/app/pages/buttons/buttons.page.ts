@@ -1,6 +1,7 @@
 import { NgComponentOutlet } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Type } from '@angular/core';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { DocPage } from '../../shared/doc-page.component';
 import { PrimaryButtonDemoComponent } from '../../primary-button-demo/primary-button-demo.component';
 import { SuccessButtonDemoComponent } from '../../success-button-demo/success-button-demo.component';
 import { SavePrimaryButtonDemoComponent } from '../../save-primary-button-demo/save-primary-button-demo.component';
@@ -60,60 +61,59 @@ interface ButtonGroup {
  */
 @Component({
 	selector: 'ng-kit-buttons-page',
-	imports: [NgComponentOutlet, MatExpansionModule],
+	imports: [DocPage, NgComponentOutlet, MatExpansionModule],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
-		<h1 class="page-title">Buttons</h1>
-		<p class="page-lead">
-			Custom button components built on top of Angular Material buttons. ng-kit adds ready-made button types — primary, success, edit,
-			delete, export and more — each with additional styling, icons and loading state on top of the shared <code>BaseButtonDirective</code>.
-		</p>
-
-		<section class="page-section">
-			<h2>Overview</h2>
-			<p>
-				A <code>BaseButtonDirective</code> provides common functionality and styling for all button types; every ng-kit button extends
-				this base. Buttons can be consumed in two ways:
+		<doc-page title="Buttons">
+			<p docLead>
+				Custom button components built on top of Angular Material buttons. ng-kit adds ready-made button types — primary, success, edit,
+				delete, export and more — each with additional styling, icons and loading state on top of the shared <code>BaseButtonDirective</code>.
 			</p>
-			<ul>
-				<li><strong>Directives (preferred)</strong> — apply button styling and behaviour to any existing HTML element for cleaner markup and more flexibility.</li>
-				<li><strong>Components (legacy)</strong> — dedicated Angular components that wrap Angular Material buttons. Still supported, but the directive approach is preferred for new implementations.</li>
-			</ul>
-			<p>The two styles are interchangeable:</p>
-			<pre class="code-block"><code>&lt;!-- Directive (preferred) --&gt;
+
+			<div docOverview>
+				<p>
+					A <code>BaseButtonDirective</code> provides common functionality and styling for all button types; every ng-kit button extends
+					this base. Buttons can be consumed in two ways:
+				</p>
+				<ul>
+					<li><strong>Directives (preferred)</strong> — apply button styling and behaviour to any existing HTML element for cleaner markup and more flexibility.</li>
+					<li><strong>Components (legacy)</strong> — dedicated Angular components that wrap Angular Material buttons. Still supported, but the directive approach is preferred for new implementations.</li>
+				</ul>
+				<p>The two styles are interchangeable:</p>
+				<pre class="code-block"><code>&lt;!-- Directive (preferred) --&gt;
 &lt;button ariaLabel="Submit" (click)="onSubmit()" primaryButton&gt;Submit&lt;/button&gt;
 
 &lt;!-- Component --&gt;
 &lt;primary-button ariaLabel="Submit" (click)="onSubmit()"&gt;Submit&lt;/primary-button&gt;</code></pre>
-		</section>
+			</div>
 
-		<h2 class="examples-heading">Buttons</h2>
-		@for (group of groups; track group.label) {
-			<h3 class="group-heading">{{ group.label }}</h3>
-			<mat-accordion class="example-accordion" multi>
-				@for (b of group.buttons; track b.title) {
-					<mat-expansion-panel>
-						<mat-expansion-panel-header>
-							<mat-panel-title>{{ b.title }}</mat-panel-title>
-							<mat-panel-description>{{ b.description }}</mat-panel-description>
-						</mat-expansion-panel-header>
-						<ng-template matExpansionPanelContent>
-							<ng-container *ngComponentOutlet="b.component" />
-							@if (b.code) {
-								<details class="example-source">
-									<summary>View source</summary>
-									<pre class="example-code"><code>{{ b.code }}</code></pre>
-								</details>
-							}
-						</ng-template>
-					</mat-expansion-panel>
+			<div docExamples>
+				@for (group of groups; track group.label) {
+					<h3 class="group-heading">{{ group.label }}</h3>
+					<mat-accordion class="example-accordion" multi>
+						@for (b of group.buttons; track b.title) {
+							<mat-expansion-panel>
+								<mat-expansion-panel-header>
+									<mat-panel-title>{{ b.title }}</mat-panel-title>
+									<mat-panel-description>{{ b.description }}</mat-panel-description>
+								</mat-expansion-panel-header>
+								<ng-template matExpansionPanelContent>
+									<ng-container *ngComponentOutlet="b.component" />
+									@if (b.code) {
+										<details class="example-source">
+											<summary>View source</summary>
+											<pre class="example-code"><code>{{ b.code }}</code></pre>
+										</details>
+									}
+								</ng-template>
+							</mat-expansion-panel>
+						}
+					</mat-accordion>
 				}
-			</mat-accordion>
-		}
+			</div>
 
-		<section class="page-section api">
-			<h2>API reference</h2>
-			<p>
+			<div docApi>
+				<p>
 				All buttons share the inputs and outputs of the base button. Directive selectors are attribute-based
 				(e.g. <code>primaryButton</code>); component selectors are elements (e.g. <code>&lt;primary-button&gt;</code>).
 			</p>
@@ -205,8 +205,9 @@ interface ButtonGroup {
 						<td>Key pressed / released while focused</td>
 					</tr>
 				</tbody>
-			</table>
-		</section>
+				</table>
+			</div>
+		</doc-page>
 	`,
 	styles: `
 		:host {
