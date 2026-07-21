@@ -26,47 +26,16 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 		<section class="page-section">
 			<h2>Key features</h2>
-
-			<h3>Low dependencies</h3>
-			<p>
-				<strong>ng-kit</strong> has only one third-party dependency: Bootstrap. Minimal dependencies reduce security risks, simplify updates,
-				and prevent version conflicts.
-			</p>
-
-			<h3>Built for modern Angular</h3>
-			<p>
-				Designed with <strong>Angular Signals</strong> and <strong>Standalone Components</strong> in mind. This isn't a legacy port—it's built
-				for the current and future state of Angular, leveraging the latest features and best practices.
-			</p>
-
-			<h3>Modular &amp; tree-shakable</h3>
-			<p>
-				Import only what you use. The library is fully tree-shakable, so adding one utility or component doesn't bloat your bundle with the rest
-				of the library.
-			</p>
-
-			<h3>Flexible component architecture</h3>
-			<p>
-				Components are available in two ways: as <strong>directives</strong> (recommended) for maximum flexibility, or as
-				<strong>components</strong> (legacy) for backward compatibility. This dual approach allows you to apply functionality directly to
-				existing elements or use dedicated components.
-			</p>
-
-			<h3>Type-safe &amp; well-documented</h3>
-			<p>
-				Full TypeScript support with comprehensive type definitions. All components, directives, and utilities are fully typed, providing
-				excellent IDE support and compile-time safety.
-			</p>
-
-			<h3>Angular Material integration</h3>
-			<p>Seamlessly integrates with Angular Material components, providing consistent styling and behavior across your application.</p>
-
-			<h3>Comprehensive utilities</h3>
-			<p>
-				Includes powerful utilities for common tasks like progress state management, print functionality, and click throttling, all built with
-				Angular Signals for reactive state management.
-			</p>
-		</section>
+				<ul class="feature-list">
+					<li><strong>Low dependencies</strong> — only one third-party dependency (Bootstrap). Fewer dependencies reduce security risk, simplify updates, and prevent version conflicts.</li>
+					<li><strong>Built for modern Angular</strong> — designed around Angular Signals and standalone components. Not a legacy port — built for the current and future state of Angular.</li>
+					<li><strong>Modular &amp; tree-shakable</strong> — import only what you use; adding one utility or component doesn't pull in the rest of the library.</li>
+					<li><strong>Flexible component architecture</strong> — most features ship as directives (recommended) for maximum flexibility, and as components (legacy) for backward compatibility.</li>
+					<li><strong>Type-safe &amp; well-documented</strong> — full TypeScript support with comprehensive type definitions for great IDE support and compile-time safety.</li>
+					<li><strong>Angular Material integration</strong> — integrates seamlessly with Angular Material for consistent styling and behaviour.</li>
+					<li><strong>Comprehensive utilities</strong> — helpers for progress-state management, printing, and click throttling, all built with Angular Signals.</li>
+				</ul>
+			</section>
 
 		<section class="page-section api">
 			<h2>Available components and utilities</h2>
@@ -126,6 +95,15 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 		.page-section {
 			margin-block: 2rem;
+		}
+
+		.feature-list {
+			margin: 0;
+			padding-inline-start: 1.25rem;
+		}
+
+		.feature-list li {
+			margin-block-end: 0.6rem;
 		}
 
 		.readout {

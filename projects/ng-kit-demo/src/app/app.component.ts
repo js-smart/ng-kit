@@ -165,11 +165,16 @@ import { GALLERY_PAGES, GalleryPage, groupedPages } from './gallery/gallery-regi
 		.content {
 			padding: 2rem clamp(1rem, 4vw, 3rem);
 			background: #fff;
+			display: flex;
+			flex-direction: column;
+			min-height: 100%;
+			box-sizing: border-box;
 		}
 
 		main {
 			outline: none;
 			width: 100%;
+			flex: 1 0 auto;
 		}
 
 		.active-link {
@@ -178,6 +183,8 @@ import { GALLERY_PAGES, GalleryPage, groupedPages } from './gallery/gallery-regi
 
 		.prev-next {
 			display: flex;
+			flex-wrap: wrap;
+			gap: 1rem;
 			justify-content: space-between;
 			margin-block-start: 2rem;
 			padding-block-start: 1rem;

@@ -35,7 +35,7 @@ const FEATURES: readonly string[] = [
 			</mat-card-header>
 			<mat-card-content>
 				<div class="install-row">
-					<code>{{ installSnippet }}</code>
+					<pre class="code-block"><code>{{ installSnippet }}</code></pre>
 					<button mat-icon-button color="primary" type="button" (click)="copyInstall()" [attr.aria-label]="installCopied() ? 'Copied' : 'Copy install command'">
 						<mat-icon>{{ installCopied() ? 'check' : 'content_copy' }}</mat-icon>
 					</button>
@@ -77,20 +77,25 @@ const FEATURES: readonly string[] = [
 			display: block;
 		}
 
-		.pitch {
-			max-width: 60ch;
-		}
-
 		.install-row {
 			display: flex;
 			align-items: center;
-			justify-content: space-between;
-			gap: 1rem;
+			gap: 0.5rem;
 		}
 
-		.install-row code {
-			font-family: 'Roboto Mono', ui-monospace, monospace;
+		.install-row .code-block {
+			flex: 1;
+			margin: 0;
+		}
+
+		.code-block {
+			padding: 1rem;
 			overflow-x: auto;
+			border-radius: 8px;
+			background: rgba(0, 0, 0, 0.04);
+			font-family: 'Roboto Mono', ui-monospace, monospace;
+			font-size: 0.8125rem;
+			line-height: 1.5;
 		}
 
 		.install-card,
