@@ -1,6 +1,6 @@
 {
   "name": "@js-smart/ng-kit",
-  "version": "21.13.0",
+  "version": "22.6.0",
   "license": "MIT",
   "author": "Pavan Kumar Jadda",
   "private": false,
@@ -12,7 +12,8 @@
     "angular-18",
     "angular-19",
     "angular-20",
-    "angular-21"
+    "angular-21",
+    "angular-22"
   ],
   "contributors": [
     {
@@ -27,8 +28,9 @@
     "url": "https://github.com/js-smart/ng-kit/issues"
   },
   "peerDependencies": {
-    "@angular/common": "^21.0.0",
-    "@angular/core": "^21.0.0"
+    "@angular/common": "^22.0.0",
+    "@angular/core": "^22.0.0",
+    "@tanstack/query-core": "^5.101.0"
   },
   "dependencies": {
     "tslib": "^2.8.1"

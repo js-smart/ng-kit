@@ -1,7 +1,10 @@
 A custom snack bar service that is built on top of Angular Material's snack bar component. 
 
 ## Usage
-Inject `SnackBarService` in your component. Call its methods to show snack bars:
+
+{{ NgDocActions.demo("SnackBarOpenInStackblitzComponent", { container: false }) }}
+
+Inject `MatSnackBarService` in your component. Call its methods to show snack bars:
 - `mdc.success("YOUR MESSAGE")`: Show a success snack bar.
 - `mdc.error("YOUR MESSAGE")`: Show an error snack bar.
 

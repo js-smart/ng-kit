@@ -1,16 +1,14 @@
-import { Component, input, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
 import { EditSolidSvgComponent } from '../../../svg-icons/edit-solid-svg/edit-solid-svg.component';
 import { BaseButtonComponent } from '../base-button/base-button.component';
 
 @Component({
 	selector: 'edit-bs-button',
-	imports: [MatButtonModule, MatIconModule, EditSolidSvgComponent],
+	imports: [MatButtonModule, EditSolidSvgComponent],
 	template: `
 		<button
 			color="primary"
-			type="{{ type() }}"
 			class="{{ classes() }}"
 			(click)="onClick.emit($event)"
 			(focus)="onFocus.emit($event)"

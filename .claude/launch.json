@@ -1,0 +1,17 @@
+{
+	"version": "0.0.1",
+	"configurations": [
+		{
+			"name": "ng-kit-docs",
+			"runtimeExecutable": "pnpm",
+			"runtimeArgs": ["run", "start:docs"],
+			"port": 4301
+		},
+		{
+			"name": "ng-kit-demo",
+			"runtimeExecutable": "pnpm",
+			"runtimeArgs": ["run", "start"],
+			"port": 4300
+		}
+	]
+}

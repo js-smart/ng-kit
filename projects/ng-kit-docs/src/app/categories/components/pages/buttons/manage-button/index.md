@@ -2,6 +2,8 @@ A button for management actions, such as opening settings or admin panels. The M
 
 ## Usage
 
+{{ NgDocActions.demo("ManageButtonOpenInStackblitzComponent", { container: false }) }}
+
 ```html group="usage" name="Directive (Preferred)" active
 <button ariaLabel="Manage settings" (click)="onManage()" manageButton>Manage</button>
 ```

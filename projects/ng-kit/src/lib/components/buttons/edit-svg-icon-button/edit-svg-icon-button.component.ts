@@ -8,7 +8,6 @@ import { BaseButtonComponent } from '../base-button/base-button.component';
 	imports: [MatButton, EditSolidSvgComponent],
 	template: `
 		<button
-			type="{{ type() }}"
 			class="{{ classes() }}"
 			(click)="onClick.emit($event)"
 			(focus)="onFocus.emit($event)"
@@ -29,7 +28,6 @@ import { BaseButtonComponent } from '../base-button/base-button.component';
 })
 export class EditSvgIconButtonComponent extends BaseButtonComponent {
 	override label = input('Edit');
-	override icon = input('edit');
 	override classes = input('primary-button');
 
 	constructor() {

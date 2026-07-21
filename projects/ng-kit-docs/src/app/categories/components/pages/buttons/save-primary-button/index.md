@@ -2,6 +2,8 @@ A primary button for save actions, styled to indicate importance. The Save Prima
 
 ## Usage
 
+{{ NgDocActions.demo("SavePrimaryButtonOpenInStackblitzComponent", { container: false }) }}
+
 ```html group="usage" name="Directive (Preferred)" active
 <button ariaLabel="Save" (click)="onSave()" savePrimaryButton>Save</button>
 ```

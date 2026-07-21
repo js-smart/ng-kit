@@ -1,11 +1,12 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { AlertComponent } from '@js-smart/ng-kit';
 import { StackBlitzService } from '../services/stackblitz.service';
+import { OpenInStackblitzButtonComponent } from '../shared/open-in-stackblitz-button.component';
 import { getAlertDemoConfig } from '../utils/demo-config-generator';
 
 @Component({
 	selector: 'ng-kit-alert-demo',
-	imports: [AlertComponent],
+	imports: [AlertComponent, OpenInStackblitzButtonComponent],
 	templateUrl: './alert-demo.component.html',
 	styles: [``],
 	changeDetection: ChangeDetectionStrategy.OnPush,

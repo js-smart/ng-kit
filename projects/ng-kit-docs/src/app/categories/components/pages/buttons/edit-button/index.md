@@ -2,6 +2,8 @@ A button for edit actions, typically with a pencil or edit icon. The Edit Button
 
 ## Usage
 
+{{ NgDocActions.demo("EditButtonOpenInStackblitzComponent", { container: false }) }}
+
 ```html group="usage" name="Directive (Preferred)" active
 <button ariaLabel="Edit item" (click)="onEdit()" editButton>Edit</button>
 ```

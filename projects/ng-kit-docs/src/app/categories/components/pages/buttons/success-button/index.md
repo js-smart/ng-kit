@@ -2,6 +2,8 @@ A button styled to indicate a successful or positive action. The Success Button 
 
 ## Usage
 
+{{ NgDocActions.demo("SuccessButtonOpenInStackblitzComponent", { container: false }) }}
+
 ```html group="usage" name="Directive (Preferred)" active
 <button ariaLabel="Success" (click)="onSuccess()" successButton>Success</button>
 ```
