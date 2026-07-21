@@ -93,8 +93,11 @@ export class DocPage {
 	private readonly fragment = toSignal(this.route.fragment, { initialValue: null });
 
 	protected readonly selectedIndex = computed(() => {
-		const index = this.tabs.indexOf(this.fragment() ?? 'overview');
-		return index < 0 ? 0 : index;
+		const fragment = this.fragment() ?? 'overview';
+		// Any non-overview fragment (including a per-example anchor like
+		// `#combo-box`) resolves to the Examples tab, since example anchors only
+		// live there. This keeps both tab links and example deep links working.
+		return fragment === 'overview' ? 0 : 1;
 	});
 
 	protected selectTab(index: number): void {

@@ -1,28 +1,31 @@
 import { NgComponentOutlet } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Type, inject } from '@angular/core';
-import { MatExpansionModule } from '@angular/material/expansion';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { DocPage } from '../../shared/doc-page.component';
 import { DemoSettings } from '../../shared/demo-settings';
 import { CodeBlock } from '../../shared/code-block.component';
-import { AsyncExample } from './examples/async.example';
-import { ComboBoxExample } from './examples/combo-box.example';
-import { ControlledExample } from './examples/controlled.example';
-import { CountrySelectExample } from './examples/country-select.example';
-import { CustomRenderExample } from './examples/custom-render.example';
-import { DisabledOptionsExample } from './examples/disabled-options.example';
-import { FixedTagsExample } from './examples/fixed-tags.example';
-import { FreeSoloExample } from './examples/free-solo.example';
-import { GroupedExample } from './examples/grouped.example';
-import { MultipleCheckboxesExample } from './examples/multiple-checkboxes.example';
-import { PlaygroundExample } from './examples/playground.example';
-import { SizesAppearancesExample } from './examples/sizes-appearances.example';
-import { VirtualizedExample } from './examples/virtualized.example';
+import { ExampleViewer } from '../../shared/example-viewer.component';
+import { StackBlitzService } from '../../services/stackblitz.service';
+import { DemoConfig } from '../../types/demo-config';
+import { AsyncExample, asyncConfig } from './examples/async.example';
+import { ComboBoxExample, comboBoxConfig } from './examples/combo-box.example';
+import { ControlledExample, controlledConfig } from './examples/controlled.example';
+import { CountrySelectExample, countrySelectConfig } from './examples/country-select.example';
+import { CustomRenderExample, customRenderConfig } from './examples/custom-render.example';
+import { DisabledOptionsExample, disabledOptionsConfig } from './examples/disabled-options.example';
+import { FixedTagsExample, fixedTagsConfig } from './examples/fixed-tags.example';
+import { FreeSoloExample, freeSoloConfig } from './examples/free-solo.example';
+import { GroupedExample, groupedConfig } from './examples/grouped.example';
+import { MultipleCheckboxesExample, multipleCheckboxesConfig } from './examples/multiple-checkboxes.example';
+import { PlaygroundExample, playgroundConfig } from './examples/playground.example';
+import { SizesAppearancesExample, sizesAppearancesConfig } from './examples/sizes-appearances.example';
+import { VirtualizedExample, virtualizedConfig } from './examples/virtualized.example';
 
 interface ExampleEntry {
 	title: string;
 	description: string;
 	component: Type<unknown>;
+	config: DemoConfig;
 }
 
 interface ExampleGroup {
@@ -39,7 +42,7 @@ interface ExampleGroup {
  */
 @Component({
 	selector: 'ng-kit-autocomplete-page',
-	imports: [DocPage, CodeBlock, NgComponentOutlet, MatExpansionModule, MatButtonToggleModule],
+	imports: [DocPage, CodeBlock, NgComponentOutlet, MatButtonToggleModule, ExampleViewer],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<doc-page title="Autocomplete">
@@ -278,19 +281,16 @@ interface ExampleGroup {
 				</div>
 				@for (group of groups; track group.label) {
 					<h3 class="group-heading">{{ group.label }}</h3>
-					<mat-accordion class="example-accordion" multi>
-						@for (ex of group.examples; track ex.title) {
-							<mat-expansion-panel expanded>
-								<mat-expansion-panel-header>
-									<mat-panel-title>{{ ex.title }}</mat-panel-title>
-									<mat-panel-description>{{ ex.description }}</mat-panel-description>
-								</mat-expansion-panel-header>
-								<ng-template matExpansionPanelContent>
-									<div class="example-body"><ng-container *ngComponentOutlet="ex.component" /></div>
-								</ng-template>
-							</mat-expansion-panel>
-						}
-					</mat-accordion>
+					@for (ex of group.examples; track ex.title) {
+						<example-viewer
+							[title]="ex.title"
+							[description]="ex.description"
+							[anchorId]="ex.config.componentName"
+							[code]="ex.config.componentTs"
+							(openInStackBlitz)="openInStackBlitz(ex.config)">
+							<ng-container *ngComponentOutlet="ex.component" />
+						</example-viewer>
+					}
 				}
 			</div>
 		</doc-page>
@@ -326,19 +326,6 @@ interface ExampleGroup {
 			letter-spacing: 0.04em;
 			text-transform: uppercase;
 			color: rgba(0, 0, 0, 0.6);
-		}
-
-		.example-accordion {
-			display: block;
-			margin-block-end: 0.5rem;
-		}
-
-		.example-body {
-			padding: 0.75rem 0.25rem 1.25rem;
-		}
-
-		.example-accordion ::ng-deep .mat-expansion-panel-body {
-			padding: 0 1.5rem 0.5rem;
 		}
 
 		h3 {
@@ -387,6 +374,11 @@ interface ExampleGroup {
 })
 export class AutocompletePage {
 	protected readonly settings = inject(DemoSettings);
+	private readonly stackBlitzService = inject(StackBlitzService);
+
+	protected openInStackBlitz(config: DemoConfig): void {
+		this.stackBlitzService.openDemo(config);
+	}
 
 	protected readonly basicCode = `import { Component, signal } from '@angular/core';
 import { AutocompleteComponent } from '@js-smart/ng-kit';
@@ -493,34 +485,34 @@ export class DemoComponent {
 		{
 			label: 'Single-select',
 			examples: [
-				{ title: 'Combo box', description: 'Basic single-select with a filtered list of options.', component: ComboBoxExample },
-				{ title: 'Country select', description: 'Custom option template with a flag and dial code.', component: CountrySelectExample },
-				{ title: 'Disabled options', description: 'Every 3rd option is disabled and cannot be selected.', component: DisabledOptionsExample },
-				{ title: 'Sizes & appearances', description: 'Every combination of size and appearance.', component: SizesAppearancesExample },
+				{ title: 'Combo box', description: 'Basic single-select with a filtered list of options.', component: ComboBoxExample, config: comboBoxConfig },
+				{ title: 'Country select', description: 'Custom option template with a flag and dial code.', component: CountrySelectExample, config: countrySelectConfig },
+				{ title: 'Disabled options', description: 'Every 3rd option is disabled and cannot be selected.', component: DisabledOptionsExample, config: disabledOptionsConfig },
+				{ title: 'Sizes & appearances', description: 'Every combination of size and appearance.', component: SizesAppearancesExample, config: sizesAppearancesConfig },
 			],
 		},
 		{
 			label: 'Multiple',
 			examples: [
-				{ title: 'Checkboxes', description: 'Multi-select with checkboxes; popup stays open after each pick.', component: MultipleCheckboxesExample },
-				{ title: 'Fixed tags', description: "Multi-select with fixed chips that can't be removed, plus a “+n more” summary.", component: FixedTagsExample },
+				{ title: 'Checkboxes', description: 'Multi-select with checkboxes; popup stays open after each pick.', component: MultipleCheckboxesExample, config: multipleCheckboxesConfig },
+				{ title: 'Fixed tags', description: "Multi-select with fixed chips that can't be removed, plus a “+n more” summary.", component: FixedTagsExample, config: fixedTagsConfig },
 			],
 		},
 		{
 			label: 'Behaviour',
 			examples: [
-				{ title: 'Free solo', description: "Type anything — the raw text becomes the value, even if it isn't in the list.", component: FreeSoloExample },
-				{ title: 'Controlled', description: 'Every piece of state is owned by external signals and outside buttons.', component: ControlledExample },
-				{ title: 'Asynchronous requests', description: 'Simulates a server-side search: options load after each keystroke.', component: AsyncExample },
-				{ title: 'Grouped', description: 'Options grouped by their first letter via a pre-sorted group key.', component: GroupedExample },
+				{ title: 'Free solo', description: "Type anything — the raw text becomes the value, even if it isn't in the list.", component: FreeSoloExample, config: freeSoloConfig },
+				{ title: 'Controlled', description: 'Every piece of state is owned by external signals and outside buttons.', component: ControlledExample, config: controlledConfig },
+				{ title: 'Asynchronous requests', description: 'Simulates a server-side search: options load after each keystroke.', component: AsyncExample, config: asyncConfig },
+				{ title: 'Grouped', description: 'Options grouped by their first letter via a pre-sorted group key.', component: GroupedExample, config: groupedConfig },
 			],
 		},
 		{
 			label: 'Advanced',
 			examples: [
-				{ title: 'Virtualized (10,000 options)', description: 'Single-select over 10,000 options, rendered virtually.', component: VirtualizedExample },
-				{ title: 'Custom rendering', description: 'Custom option markup with query highlighting, custom icons, and a custom paper surface.', component: CustomRenderExample },
-				{ title: 'Playground', description: 'Flip every input live to see how the autocomplete reacts.', component: PlaygroundExample },
+				{ title: 'Virtualized (10,000 options)', description: 'Single-select over 10,000 options, rendered virtually.', component: VirtualizedExample, config: virtualizedConfig },
+				{ title: 'Custom rendering', description: 'Custom option markup with query highlighting, custom icons, and a custom paper surface.', component: CustomRenderExample, config: customRenderConfig },
+				{ title: 'Playground', description: 'Flip every input live to see how the autocomplete reacts.', component: PlaygroundExample, config: playgroundConfig },
 			],
 		},
 	];

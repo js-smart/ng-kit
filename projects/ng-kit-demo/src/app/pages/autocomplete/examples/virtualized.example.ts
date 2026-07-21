@@ -1,47 +1,13 @@
 import { ChangeDetectionStrategy, Component, signal, inject } from '@angular/core';
-import { CodeBlock } from '../../../shared/code-block.component';
 import { DemoSettings } from '../../../shared/demo-settings';
 import { AutocompleteComponent } from '@js-smart/ng-kit';
+import { buildAutocompleteExampleConfig } from './example-stackblitz';
 
-@Component({
-	selector: 'ng-kit-virtualized-example',
-	changeDetection: ChangeDetectionStrategy.OnPush,
-	imports: [CodeBlock, AutocompleteComponent],
-	template: `
-		<autocomplete
-			[options]="options"
-			[(value)]="value"
-			[virtualize]="true"
-			[itemSize]="48"
-			[appearance]="settings.appearance()"
-			label="Option"
-			placeholder="Search 10,000 options"
-		/>
-		<p class="readout">Selected: {{ value() ?? '—' }}</p>
-
-		<details class="example-source">
-			<summary>View source</summary>
-			<code-block [code]="code" language="typescript" />
-		</details>
-	`,
-	styles: `
-		.readout { margin-top: 12px; color: var(--ng-muted, #6b7280); font-size: 14px; }
-		.example-source { margin-top: 1rem; }
-		.example-source summary { cursor: pointer; color: #3f51b5; font-size: 0.875rem; }
-		.example-code { margin: 0.5rem 0 0; padding: 1rem; overflow-x: auto; border-radius: 8px; background: rgba(0,0,0,0.04); font-family: 'Roboto Mono', ui-monospace, monospace; font-size: 0.8125rem; line-height: 1.5; }
-	`,
-})
-export class VirtualizedExample {
-	protected readonly settings = inject(DemoSettings);
-
-	protected readonly options = Array.from({ length: 10000 }, (_, i) => `Option ${i + 1}`);
-	protected readonly value = signal<string | null>(null);
-
-	protected readonly code = `import { Component, signal } from '@angular/core';
+const CODE = `import { Component, signal } from '@angular/core';
 import { AutocompleteComponent } from '@js-smart/ng-kit';
 
 @Component({
-  selector: 'app-virtualized-example',
+  selector: 'app-virtualized',
   imports: [AutocompleteComponent],
   template: \`
     <autocomplete
@@ -56,8 +22,36 @@ import { AutocompleteComponent } from '@js-smart/ng-kit';
     <p>Selected: {{ value() ?? '—' }}</p>
   \`,
 })
-export class VirtualizedExample {
+export class VirtualizedComponent {
   protected readonly options = Array.from({ length: 10000 }, (_, i) => \`Option \${i + 1}\`);
   protected readonly value = signal<string | null>(null);
 }`;
+
+export const virtualizedConfig = buildAutocompleteExampleConfig({ title: 'Virtualized', componentName: 'virtualized', code: CODE });
+
+@Component({
+	selector: 'ng-kit-virtualized-example',
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	imports: [AutocompleteComponent],
+	template: `
+		<autocomplete
+			[options]="options"
+			[(value)]="value"
+			[virtualize]="true"
+			[itemSize]="48"
+			[appearance]="settings.appearance()"
+			label="Option"
+			placeholder="Search 10,000 options"
+		/>
+		<p class="readout">Selected: {{ value() ?? '—' }}</p>
+	`,
+	styles: `
+		.readout { margin-top: 12px; color: var(--ng-muted, #6b7280); font-size: 14px; }
+	`,
+})
+export class VirtualizedExample {
+	protected readonly settings = inject(DemoSettings);
+
+	protected readonly options = Array.from({ length: 10000 }, (_, i) => `Option ${i + 1}`);
+	protected readonly value = signal<string | null>(null);
 }

@@ -1,14 +1,14 @@
 import { ChangeDetectionStrategy, Component, signal, type WritableSignal } from '@angular/core';
-import { CodeBlock } from '../../../shared/code-block.component';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatCheckboxModule, type MatCheckboxChange } from '@angular/material/checkbox';
 import { AutocompleteComponent } from '@js-smart/ng-kit';
+import { buildAutocompleteExampleConfig } from './example-stackblitz';
 
 const CODE = `import { Component, signal } from '@angular/core';
 import { AutocompleteComponent } from '@js-smart/ng-kit';
 
 @Component({
-  selector: 'app-playground-example',
+  selector: 'app-playground',
   imports: [AutocompleteComponent],
   template: \`
     <autocomplete
@@ -33,8 +33,19 @@ import { AutocompleteComponent } from '@js-smart/ng-kit';
     />
   \`,
 })
-export class PlaygroundExample {
-  protected readonly films = [/* ... */];
+export class PlaygroundComponent {
+  protected readonly films = [
+    'The Shawshank Redemption',
+    'The Godfather',
+    'The Dark Knight',
+    'Pulp Fiction',
+    'Inception',
+    'Interstellar',
+    'Parasite',
+    'Fight Club',
+    'Forrest Gump',
+    'The Matrix',
+  ];
   protected readonly value = signal<string | readonly string[] | null>(null);
   protected readonly inputValue = signal('');
 
@@ -53,10 +64,16 @@ export class PlaygroundExample {
   protected readonly size = signal<'small' | 'medium'>('medium');
 }`;
 
+export const playgroundConfig = buildAutocompleteExampleConfig({
+	title: 'Playground',
+	componentName: 'playground',
+	code: CODE,
+});
+
 @Component({
 	selector: 'ng-kit-playground-example',
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	imports: [CodeBlock, AutocompleteComponent, MatCheckboxModule, MatButtonToggleModule],
+	imports: [AutocompleteComponent, MatCheckboxModule, MatButtonToggleModule],
 	template: `
 		<autocomplete
 			[options]="films"
@@ -125,11 +142,6 @@ export class PlaygroundExample {
 
 		<p class="readout">Value: {{ value() ?? '—' }}</p>
 		<p class="readout">Input value: {{ inputValue() || '—' }}</p>
-
-		<details class="example-source">
-			<summary>View source</summary>
-			<code-block [code]="code" language="typescript" />
-		</details>
 	`,
 	styles: [
 		`
@@ -158,30 +170,10 @@ export class PlaygroundExample {
 				color: var(--ng-muted, #6b7280);
 				font-size: 14px;
 			}
-			.example-source {
-				margin-top: 1rem;
-			}
-			.example-source summary {
-				cursor: pointer;
-				color: #3f51b5;
-				font-size: 0.875rem;
-			}
-			.example-code {
-				margin: 0.5rem 0 0;
-				padding: 1rem;
-				overflow-x: auto;
-				border-radius: 8px;
-				background: rgba(0, 0, 0, 0.04);
-				font-family: 'Roboto Mono', ui-monospace, monospace;
-				font-size: 0.8125rem;
-				line-height: 1.5;
-			}
 		`,
 	],
 })
 export class PlaygroundExample {
-	protected readonly code = CODE;
-
 	protected readonly films = [
 		'The Shawshank Redemption',
 		'The Godfather',

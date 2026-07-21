@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, signal, inject } from '@angular/core';
-import { CodeBlock } from '../../../shared/code-block.component';
 import { DemoSettings } from '../../../shared/demo-settings';
 import { AutocompleteComponent, NgOptionDef } from '@js-smart/ng-kit';
+import { buildAutocompleteExampleConfig } from './example-stackblitz';
 
 interface Country {
 	code: string;
@@ -15,48 +15,7 @@ function flagEmoji(code: string): string {
 		.replace(/./g, (char) => String.fromCodePoint(127397 + char.charCodeAt(0)));
 }
 
-@Component({
-	selector: 'ng-kit-country-select-example',
-	changeDetection: ChangeDetectionStrategy.OnPush,
-	imports: [CodeBlock, AutocompleteComponent, NgOptionDef],
-	template: `
-		<autocomplete
-			[options]="countries"
-			[(value)]="value"
-			[getOptionLabel]="getOptionLabel"
-			[getOptionKey]="getOptionKey"
-			[isOptionEqualToValue]="isOptionEqualToValue"
-			[appearance]="settings.appearance()"
-			label="Country"
-			placeholder="Select a country"
-		>
-			<div *ngOption="let o" class="country-option">
-				<span class="flag" aria-hidden="true">{{ flagEmoji(asCountry(o).code) }}</span>
-				<span class="label">{{ asCountry(o).label }}</span>
-				<span class="phone">+{{ asCountry(o).phone }}</span>
-			</div>
-		</autocomplete>
-		<p class="readout">Selected: {{ value()?.label ?? '—' }}</p>
-
-		<details class="example-source">
-			<summary>View source</summary>
-			<code-block [code]="code" language="typescript" />
-		</details>
-	`,
-	styles: [`
-		.readout { margin-top: 12px; color: var(--ng-muted, #6b7280); font-size: 14px; }
-		.country-option { display: flex; align-items: center; gap: 8px; width: 100%; }
-		.country-option .label { flex: 1 1 auto; }
-		.country-option .phone { color: var(--ng-muted, #6b7280); font-size: 13px; }
-		.example-source { margin-top: 1rem; }
-		.example-source summary { cursor: pointer; color: #3f51b5; font-size: 0.875rem; }
-		.example-code { margin: 0.5rem 0 0; padding: 1rem; overflow-x: auto; border-radius: 8px; background: rgba(0,0,0,0.04); font-family: 'Roboto Mono', ui-monospace, monospace; font-size: 0.8125rem; line-height: 1.5; }
-	`],
-})
-export class CountrySelectExample {
-	protected readonly settings = inject(DemoSettings);
-
-	protected readonly code = `import { Component, signal } from '@angular/core';
+const CODE = `import { Component, signal } from '@angular/core';
 import { AutocompleteComponent, NgOptionDef } from '@js-smart/ng-kit';
 
 interface Country {
@@ -72,7 +31,7 @@ function flagEmoji(code: string): string {
 }
 
 @Component({
-	selector: 'app-country-select-example',
+	selector: 'app-country-select',
 	imports: [AutocompleteComponent, NgOptionDef],
 	template: \`
 		<autocomplete
@@ -93,8 +52,21 @@ function flagEmoji(code: string): string {
 		<p>Selected: {{ value()?.label ?? '—' }}</p>
 	\`,
 })
-export class CountrySelectExample {
-	protected readonly countries: Country[] = [/* ... */];
+export class CountrySelectComponent {
+	protected readonly countries: Country[] = [
+		{ code: 'US', label: 'United States', phone: '1' },
+		{ code: 'GB', label: 'United Kingdom', phone: '44' },
+		{ code: 'CA', label: 'Canada', phone: '1' },
+		{ code: 'AU', label: 'Australia', phone: '61' },
+		{ code: 'DE', label: 'Germany', phone: '49' },
+		{ code: 'FR', label: 'France', phone: '33' },
+		{ code: 'JP', label: 'Japan', phone: '81' },
+		{ code: 'IN', label: 'India', phone: '91' },
+		{ code: 'BR', label: 'Brazil', phone: '55' },
+		{ code: 'MX', label: 'Mexico', phone: '52' },
+		{ code: 'ZA', label: 'South Africa', phone: '27' },
+		{ code: 'KR', label: 'South Korea', phone: '82' },
+	];
 	protected readonly value = signal<Country | null>(null);
 
 	protected readonly getOptionLabel = (c: Country) => c.label;
@@ -108,6 +80,45 @@ export class CountrySelectExample {
 		return o as Country;
 	}
 }`;
+
+export const countrySelectConfig = buildAutocompleteExampleConfig({
+	title: 'Country select',
+	componentName: 'country-select',
+	code: CODE,
+});
+
+@Component({
+	selector: 'ng-kit-country-select-example',
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	imports: [AutocompleteComponent, NgOptionDef],
+	template: `
+		<autocomplete
+			[options]="countries"
+			[(value)]="value"
+			[getOptionLabel]="getOptionLabel"
+			[getOptionKey]="getOptionKey"
+			[isOptionEqualToValue]="isOptionEqualToValue"
+			[appearance]="settings.appearance()"
+			label="Country"
+			placeholder="Select a country"
+		>
+			<div *ngOption="let o" class="country-option">
+				<span class="flag" aria-hidden="true">{{ flagEmoji(asCountry(o).code) }}</span>
+				<span class="label">{{ asCountry(o).label }}</span>
+				<span class="phone">+{{ asCountry(o).phone }}</span>
+			</div>
+		</autocomplete>
+		<p class="readout">Selected: {{ value()?.label ?? '—' }}</p>
+	`,
+	styles: [`
+		.readout { margin-top: 12px; color: var(--ng-muted, #6b7280); font-size: 14px; }
+		.country-option { display: flex; align-items: center; gap: 8px; width: 100%; }
+		.country-option .label { flex: 1 1 auto; }
+		.country-option .phone { color: var(--ng-muted, #6b7280); font-size: 13px; }
+	`],
+})
+export class CountrySelectExample {
+	protected readonly settings = inject(DemoSettings);
 
 	protected readonly countries: Country[] = [
 		{ code: 'US', label: 'United States', phone: '1' },
