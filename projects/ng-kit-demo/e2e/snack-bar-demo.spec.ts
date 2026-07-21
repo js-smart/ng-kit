@@ -11,7 +11,7 @@ test('should show success snack bar and close it', async ({ page }) => {
 	await page.waitForSelector('app-success-snack-bar', { state: 'visible' });
 	await expect(page.getByText('Update Success')).toBeVisible();
 
-	await page.locator('.mdc-icon-button').click();
+	await page.locator('app-success-snack-bar .mdc-icon-button').click();
 	await expect(page.getByText('Update Success')).toBeHidden();
 });
 
@@ -21,7 +21,7 @@ test('should show error snack bar and close it', async ({ page }) => {
 	await page.waitForSelector('app-error-snack-bar', { state: 'visible' });
 	await expect(page.getByText('Failed to update the record')).toBeVisible();
 
-	await page.locator('.mdc-icon-button').click();
+	await page.locator('app-error-snack-bar .mdc-icon-button').click();
 	await expect(page.getByText('Failed to update the record')).toBeHidden();
 });
 

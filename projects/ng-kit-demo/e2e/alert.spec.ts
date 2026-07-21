@@ -10,10 +10,9 @@ test('has title', async ({ page }) => {
 test('has links', async ({ page }) => {
 	await page.goto('/');
 
-	// Expect all links to be visible.
-	await expect(page.getByRole('link', { name: 'Auto Complete Demo' })).toBeVisible();
-	await expect(page.getByRole('link', { name: 'Alert Demo' })).toBeVisible();
-	await expect(page.getByRole('link', { name: 'Edit Svg Icon Demo' })).toBeVisible();
-	await expect(page.getByRole('link', { name: 'Buttons Demo' })).toBeVisible();
-	await expect(page.getByRole('link', { name: 'Directives Demo' })).toBeVisible();
+	// The home is now the gallery overview; assert its nav/card links render.
+	await expect(page.getByRole('link', { name: 'Autocomplete' }).first()).toBeVisible();
+	await expect(page.getByRole('link', { name: 'Alert' }).first()).toBeVisible();
+	await expect(page.getByRole('link', { name: 'Buttons' }).first()).toBeVisible();
+	await expect(page.getByRole('link', { name: 'Introduction' }).first()).toBeVisible();
 });

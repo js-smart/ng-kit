@@ -1,0 +1,164 @@
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+
+/**
+ * Getting-started introduction page. Prose migrated from the docs markdown:
+ * what @js-smart/ng-kit is, its key features, and the catalog of available
+ * components, directives, icons, and utilities.
+ */
+@Component({
+	selector: 'ng-kit-introduction-page',
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: `
+		<h1 class="page-title">Introduction</h1>
+		<p class="page-lead">
+			<strong>&#64;js-smart/ng-kit</strong> is a comprehensive collection of reusable Angular components, directives, and utilities built with
+			Angular Material and Bootstrap 5.x.
+		</p>
+
+		<section class="page-section">
+			<h2>Overview</h2>
+			<p>
+				The library provides a rich set of UI components, powerful directives for common interactions, and utility functions for state
+				management and other common tasks. Designed with modern Angular best practices, <code>&#64;js-smart/ng-kit</code> offers a flexible,
+				type-safe, and well-documented solution for building Angular applications.
+			</p>
+		</section>
+
+		<section class="page-section">
+			<h2>Key features</h2>
+
+			<h3>Low dependencies</h3>
+			<p>
+				<strong>ng-kit</strong> has only one third-party dependency: Bootstrap. Minimal dependencies reduce security risks, simplify updates,
+				and prevent version conflicts.
+			</p>
+
+			<h3>Built for modern Angular</h3>
+			<p>
+				Designed with <strong>Angular Signals</strong> and <strong>Standalone Components</strong> in mind. This isn't a legacy port—it's built
+				for the current and future state of Angular, leveraging the latest features and best practices.
+			</p>
+
+			<h3>Modular &amp; tree-shakable</h3>
+			<p>
+				Import only what you use. The library is fully tree-shakable, so adding one utility or component doesn't bloat your bundle with the rest
+				of the library.
+			</p>
+
+			<h3>Flexible component architecture</h3>
+			<p>
+				Components are available in two ways: as <strong>directives</strong> (recommended) for maximum flexibility, or as
+				<strong>components</strong> (legacy) for backward compatibility. This dual approach allows you to apply functionality directly to
+				existing elements or use dedicated components.
+			</p>
+
+			<h3>Type-safe &amp; well-documented</h3>
+			<p>
+				Full TypeScript support with comprehensive type definitions. All components, directives, and utilities are fully typed, providing
+				excellent IDE support and compile-time safety.
+			</p>
+
+			<h3>Angular Material integration</h3>
+			<p>Seamlessly integrates with Angular Material components, providing consistent styling and behavior across your application.</p>
+
+			<h3>Comprehensive utilities</h3>
+			<p>
+				Includes powerful utilities for common tasks like progress state management, print functionality, and click throttling, all built with
+				Angular Signals for reactive state management.
+			</p>
+		</section>
+
+		<section class="page-section api">
+			<h2>Available components and utilities</h2>
+			<table class="api-table">
+				<thead>
+					<tr>
+						<th>Category</th>
+						<th>Name</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><strong>Components</strong></td>
+						<td>
+							<code>alert</code>, <code>buttons</code>, <code>autocomplete</code>, <code>confirm-dialog</code>,
+							<code>host-platforms</code>, <code>ngx-spinner</code>, <code>snack-bar</code>, <code>spinner</code>, <code>timeline</code>
+						</td>
+					</tr>
+					<tr>
+						<td><strong>Directives</strong></td>
+						<td><code>buttons</code>, <code>ngx-print</code>, <code>preventMultipleClicks</code></td>
+					</tr>
+					<tr>
+						<td><strong>SVG Icons</strong></td>
+						<td><code>EditSolidSvgComponent</code></td>
+					</tr>
+					<tr>
+						<td><strong>Utilities</strong></td>
+						<td><code>progress-util</code></td>
+					</tr>
+				</tbody>
+			</table>
+		</section>
+
+		<section class="page-section">
+			<h2>Issues &amp; feature requests</h2>
+			<p>Found a bug or edge case? Have an idea for a new utility? We'd love to hear from you!</p>
+			<ul>
+				<li><strong>Report Issues</strong>: If you encounter any bugs or unexpected behavior, please open an issue on GitHub.</li>
+				<li><strong>Feature Requests</strong>: Have a utility in mind that would benefit the community? Submit a feature request via GitHub Issues.</li>
+			</ul>
+		</section>
+	`,
+	styles: `
+		:host {
+			display: block;
+		}
+
+		.page-title {
+			margin-block-end: 0.5rem;
+		}
+
+		.page-lead {
+			max-width: 70ch;
+			color: rgba(0, 0, 0, 0.7);
+			margin-block-end: 2rem;
+		}
+
+		.page-section {
+			margin-block: 2rem;
+			max-width: 70ch;
+		}
+
+		.readout {
+			margin-top: 12px;
+			color: rgba(0, 0, 0, 0.6);
+			font-size: 14px;
+		}
+
+		.api-table {
+			width: 100%;
+			border-collapse: collapse;
+			font-size: 0.875rem;
+		}
+
+		.api-table th,
+		.api-table td {
+			text-align: left;
+			padding: 0.5rem 0.75rem;
+			border-block-end: 1px solid rgba(0, 0, 0, 0.12);
+			vertical-align: top;
+		}
+
+		.api-note {
+			margin-block-start: 0.75rem;
+			color: rgba(0, 0, 0, 0.7);
+		}
+
+		code {
+			font-family: 'Roboto Mono', ui-monospace, monospace;
+			font-size: 0.85em;
+		}
+	`,
+})
+export class IntroductionPage {}
