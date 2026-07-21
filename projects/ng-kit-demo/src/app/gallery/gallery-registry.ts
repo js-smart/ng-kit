@@ -99,13 +99,6 @@ export const GALLERY_PAGES: readonly GalleryPage[] = [
 		blurb: 'Loading spinner component.',
 		load: () => import('../pages/spinner/spinner.page').then((m) => m.SpinnerPage),
 	},
-	{
-		slug: 'ngx-spinner',
-		title: 'Ngx Spinner',
-		category: 'components',
-		blurb: 'Full-page overlay spinner with a service.',
-		load: () => import('../pages/ngx-spinner/ngx-spinner.page').then((m) => m.NgxSpinnerPage),
-	},
 
 	// Directives
 	{

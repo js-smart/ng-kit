@@ -51,7 +51,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 						<td><strong>Components</strong></td>
 						<td>
 							<code>alert</code>, <code>buttons</code>, <code>autocomplete</code>, <code>confirm-dialog</code>,
-							<code>host-platforms</code>, <code>ngx-spinner</code>, <code>snack-bar</code>, <code>spinner</code>, <code>timeline</code>
+							<code>host-platforms</code>, <code>snack-bar</code>, <code>spinner</code>, <code>timeline</code>
 						</td>
 					</tr>
 					<tr>
