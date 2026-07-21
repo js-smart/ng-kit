@@ -7,7 +7,7 @@
 		<h1 style="display: flex; justify-content: center; align-items: center; margin-top: 50px">Autocomplete with Objects</h1>
 		<div style="display: flex; justify-content: center; align-items: center">
 			<form [formGroup]="genericFormGroup">
-				<autocomplete [displayWith]="displayWith" [options]="cities" formControlName="autocomplete" label="City" placeholder="Select City">
+				<autocomplete [getOptionLabel]="displayWith" [options]="cities" formControlName="autocomplete" label="City" placeholder="Select City">
 				</autocomplete>
 			</form>
 		</div>
@@ -39,7 +39,7 @@
 		<div style="display: flex; justify-content: center; align-items: center">
 			<form [formGroup]="loadingFormGroup">
 				<autocomplete
-					[displayWith]="displayWith"
+					[getOptionLabel]="displayWith"
 					[loading]="isLoading()"
 					[options]="loadingCities()"
 					formControlName="autocomplete"
@@ -59,7 +59,7 @@
 		<h2 style="display: flex; justify-content: center; align-items: center; margin-top: 50px">Autocomplete with Disabled State</h2>
 		<div style="display: flex; flex-direction: column; justify-content: center; align-items: center">
 			<form [formGroup]="disabledFormGroup">
-				<autocomplete [displayWith]="displayWith" [options]="cities" formControlName="autocomplete" label="City" placeholder="Select City">
+				<autocomplete [getOptionLabel]="displayWith" [options]="cities" formControlName="autocomplete" label="City" placeholder="Select City">
 				</autocomplete>
 			</form>
 			<button (click)="toggleDisabled()" style="margin-top: 10px">

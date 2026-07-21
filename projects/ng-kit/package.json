@@ -28,8 +28,11 @@
     "url": "https://github.com/js-smart/ng-kit/issues"
   },
   "peerDependencies": {
+    "@angular/cdk": "^22.0.0",
     "@angular/common": "^22.0.0",
     "@angular/core": "^22.0.0",
+    "@angular/forms": "^22.0.0",
+    "@angular/material": "^22.0.0",
     "@tanstack/query-core": "^5.101.0"
   },
   "dependencies": {

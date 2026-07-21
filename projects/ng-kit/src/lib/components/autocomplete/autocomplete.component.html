@@ -1,66 +1,331 @@
-<mat-form-field
-	#origin="matAutocompleteOrigin"
-	[appearance]="appearance()"
-	[ngClass]="classes()"
-	matAutocompleteOrigin
-	subscriptSizing="dynamic">
-	<mat-label>{{ label() }}</mat-label>
+<!--
+  The field renders with Angular Material (M2) components: a `mat-form-field`
+  hosts either a plain `matInput` (single) or a `mat-chip-grid` (multiple /
+  single-chip). The headless behaviour (state machine, keyboard, ARIA) is
+  unchanged — only the field chrome is Material now. The wrapper `div` carries
+  `cdkOverlayOrigin` (root-scoped so the overlay template below can reference
+  it) and the field mousedown-to-focus/open behaviour.
+-->
+<div
+  #origin="cdkOverlayOrigin"
+  (mousedown)="onFieldMouseDown($event)"
+  cdkOverlayOrigin
+  class="ng-field-origin"
+>
+  @if (!multiple() && !showSingleChip()) {
+    <!-- Single-select: a plain input as the form-field control. -->
+    <mat-form-field [appearance]="appearance()" class="ng-field" subscriptSizing="dynamic">
+      @if (label(); as text) {
+        <mat-label>{{ text }}</mat-label>
+      }
 
-	<input
-		#inputEl
-		#trigger="matAutocompleteTrigger"
-		(click)="trigger.openPanel()"
-		(input)="onInput($event)"
-		[formControl]="control"
-		[matAutocompleteConnectedTo]="origin"
-		[matAutocomplete]="auto"
-		[placeholder]="placeholder()"
-		matInput
-		type="text" />
+      <input
+        #inputEl
+        (blur)="onBlur()"
+        (focus)="onFocus()"
+        (input)="onInput($event)"
+        (keydown)="onKeyDown($event)"
+        [attr.aria-activedescendant]="activeDescendant()"
+        [attr.aria-autocomplete]="freeSolo() ? 'both' : 'list'"
+        [attr.aria-controls]="state.open() ? listboxId : null"
+        [attr.aria-expanded]="state.open()"
+        [attr.aria-invalid]="invalid() || null"
+        [attr.aria-label]="ariaLabel()"
+        [attr.aria-required]="required() || null"
+        [attr.placeholder]="placeholder()"
+        [disabled]="disabled()"
+        [id]="inputId"
+        [readOnly]="readOnly()"
+        [value]="inputValue()"
+        autocomplete="new-password"
+        class="ng-input"
+        matInput
+        role="combobox"
+        spellcheck="false"
+        type="text"
+      />
 
-	<div class="autocomplete-suffix" matSuffix>
-		@if (control.value && !control.disabled) {
-			<button type="button" (click)="clearInput($event)" aria-label="Clear value" class="suffix-action-btn" mat-icon-button>
-				<mat-icon>close</mat-icon>
-			</button>
-		} @else if (!control.disabled) {
-			<span aria-hidden="true" class="suffix-placeholder"></span>
-		}
-		@if (!control.disabled) {
-			<button
-				(click)="trigger.panelOpen ? trigger.closePanel() : trigger.openPanel(); $event.stopPropagation()"
-				[attr.aria-label]="trigger.panelOpen ? 'Close options' : 'Open options'"
-				class="suffix-action-btn"
-				mat-icon-button
-				type="button">
-				@if (isExpanded()) {
-					<mat-icon>arrow_drop_up</mat-icon>
-				} @else {
-					<mat-icon>arrow_drop_down</mat-icon>
-				}
-			</button>
-		}
-	</div>
+      @if (loading()) {
+        <span aria-hidden="true" class="ng-spinner" matSuffix></span>
+      }
+      <!-- Always rendered (kept in the suffix slot) and only hidden when not
+           applicable, so the input doesn't resize/reflow as the clear button
+           appears and disappears. -->
+      <button
+        (click)="state.clear(); focusInput()"
+        [attr.aria-hidden]="!state.clearVisible() || null"
+        [attr.aria-label]="clearText()"
+        [attr.title]="clearText()"
+        [class.ng-hidden]="!state.clearVisible()"
+        class="ng-clear"
+        mat-icon-button
+        matSuffix
+        tabindex="-1"
+        type="button"
+      >
+        <ng-container [ngTemplateOutlet]="clearIconTpl()?.template ?? defaultClearIcon" />
+      </button>
+      @if (hasPopupIcon()) {
+        <button
+          (click)="state.togglePopup(); focusInput()"
+          [attr.aria-label]="state.open() ? closeText() : openText()"
+          [attr.title]="state.open() ? closeText() : openText()"
+          [class.ng-open]="state.open()"
+          [disabled]="disabled() || readOnly()"
+          class="ng-toggle"
+          mat-icon-button
+          matSuffix
+          tabindex="-1"
+          type="button"
+        >
+          <ng-container [ngTemplateOutlet]="popupIconTpl()?.template ?? defaultPopupIcon" />
+        </button>
+      }
+    </mat-form-field>
+  } @else {
+    <!-- Multiple (chips) or single-chip: a mat-chip-grid as the control. -->
+    <mat-form-field [appearance]="appearance()" class="ng-field" subscriptSizing="dynamic">
+      @if (label(); as text) {
+        <mat-label>{{ text }}</mat-label>
+      }
 
-	<mat-autocomplete
-		#auto="matAutocomplete"
-		(closed)="isExpanded.set(false)"
-		(opened)="onPanelOpened()"
-		(optionSelected)="onOptionSelected($event.option.value)"
-		[displayWith]="displayFn">
-		@if (loading()) {
-			<mat-option disabled>
-				<div style="display: flex; align-items: center; gap: 8px">
-					<mat-spinner diameter="20"></mat-spinner>
-					<span>{{ loadingText() }}</span>
-				</div>
-			</mat-option>
-		} @else {
-			@for (option of filteredOptions(); track option) {
-				<mat-option [value]="option">{{ displayWith()(option) }}</mat-option>
-			} @empty {
-				<mat-option disabled>{{ noOptionsText() }}</mat-option>
-			}
-		}
-	</mat-autocomplete>
-</mat-form-field>
+      <mat-chip-grid #chipGrid [disabled]="disabled()" [required]="required()">
+        @for (item of visibleValues(); track item.key) {
+          <mat-chip-row
+            (removed)="item.context.remove()"
+            [editable]="false"
+            [removable]="!item.context.fixed && !readOnly() && !disabled()"
+            class="ng-chip"
+          >
+            @if (valueTpl(); as vt) {
+              <ng-container
+                [ngTemplateOutletContext]="item.context"
+                [ngTemplateOutlet]="vt.template"
+              />
+            } @else {
+              {{ item.context.label }}
+              @if (!item.context.fixed && !readOnly() && !disabled()) {
+                <button
+                  [attr.aria-label]="'Remove ' + item.context.label"
+                  matChipRemove
+                  type="button"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              }
+            }
+          </mat-chip-row>
+        }
+        @if (multiple() && hiddenCount() > 0) {
+          <span class="ng-more">{{ getLimitTagsText()(hiddenCount()) }}</span>
+        }
+      </mat-chip-grid>
+
+      <input
+        #inputEl
+        (blur)="onBlur()"
+        (focus)="onFocus()"
+        (input)="onInput($event)"
+        (keydown)="onKeyDown($event)"
+        [attr.aria-activedescendant]="activeDescendant()"
+        [attr.aria-autocomplete]="freeSolo() ? 'both' : 'list'"
+        [attr.aria-controls]="state.open() ? listboxId : null"
+        [attr.aria-expanded]="state.open()"
+        [attr.aria-invalid]="invalid() || null"
+        [attr.aria-label]="ariaLabel()"
+        [attr.aria-required]="required() || null"
+        [attr.placeholder]="placeholder()"
+        [disabled]="disabled()"
+        [id]="inputId"
+        [matChipInputFor]="chipGrid"
+        [readOnly]="readOnly()"
+        [value]="showSingleChip() ? '' : inputValue()"
+        autocomplete="new-password"
+        class="ng-input"
+        role="combobox"
+        spellcheck="false"
+        type="text"
+      />
+
+      @if (loading()) {
+        <span aria-hidden="true" class="ng-spinner" matSuffix></span>
+      }
+      <!-- Always rendered (kept in the suffix slot) and only hidden when not
+           applicable, so the input doesn't resize/reflow as the clear button
+           appears and disappears. -->
+      <button
+        (click)="state.clear(); focusInput()"
+        [attr.aria-hidden]="!state.clearVisible() || null"
+        [attr.aria-label]="clearText()"
+        [attr.title]="clearText()"
+        [class.ng-hidden]="!state.clearVisible()"
+        class="ng-clear"
+        mat-icon-button
+        matSuffix
+        tabindex="-1"
+        type="button"
+      >
+        <ng-container [ngTemplateOutlet]="clearIconTpl()?.template ?? defaultClearIcon" />
+      </button>
+      @if (hasPopupIcon()) {
+        <button
+          (click)="state.togglePopup(); focusInput()"
+          [attr.aria-label]="state.open() ? closeText() : openText()"
+          [attr.title]="state.open() ? closeText() : openText()"
+          [class.ng-open]="state.open()"
+          [disabled]="disabled() || readOnly()"
+          class="ng-toggle"
+          mat-icon-button
+          matSuffix
+          tabindex="-1"
+          type="button"
+        >
+          <ng-container [ngTemplateOutlet]="popupIconTpl()?.template ?? defaultPopupIcon" />
+        </button>
+      }
+    </mat-form-field>
+  }
+</div>
+
+<!-- Listbox, rendered either inline (disablePortal) or in an overlay. -->
+<ng-template #listbox>
+  @if (paperTpl(); as paper) {
+    <ng-container
+      [ngTemplateOutletContext]="{ $implicit: surfaceBody }"
+      [ngTemplateOutlet]="paper.template"
+    />
+  } @else {
+    <div
+      (mousedown)="$event.preventDefault()"
+      [style.width.px]="disablePortal() ? null : fieldWidth()"
+      class="ng-popup"
+    >
+      <ng-container [ngTemplateOutlet]="surfaceBody" />
+    </div>
+  }
+</ng-template>
+
+<ng-template #surfaceBody>
+  @if (loading() && state.isEmpty()) {
+    <div class="ng-status" role="status">
+      <ng-container [ngTemplateOutlet]="loadingTpl()?.template ?? defaultLoading" />
+    </div>
+  } @else if (state.isEmpty()) {
+    <div class="ng-status" role="status">
+      <ng-container [ngTemplateOutlet]="emptyTpl()?.template ?? defaultEmpty" />
+    </div>
+  } @else if (virtualize() && !groupBy()) {
+    <cdk-virtual-scroll-viewport
+      (scroll)="state.notifyScroll()"
+      [attr.aria-multiselectable]="multiple() || null"
+      [id]="listboxId"
+      [itemSize]="itemSize()"
+      [style.height.px]="viewportHeight()"
+      class="ng-listbox"
+      role="listbox"
+    >
+      <ng-container *cdkVirtualFor="let item of state.flatOptions(); trackBy: trackOption">
+        <ng-container [ngTemplateOutletContext]="{ item }" [ngTemplateOutlet]="optionRow" />
+      </ng-container>
+    </cdk-virtual-scroll-viewport>
+  } @else {
+    <ul
+      #listEl
+      (mouseleave)="onListMouseLeave()"
+      (scroll)="state.notifyScroll()"
+      [attr.aria-multiselectable]="multiple() || null"
+      [id]="listboxId"
+      class="ng-listbox"
+      role="listbox"
+    >
+      @if (groupBy()) {
+        @for (group of state.groups(); track group.key) {
+          <li class="ng-group" role="presentation">
+            <div class="ng-group-header" role="presentation">
+              <ng-container
+                [ngTemplateOutletContext]="{
+                  $implicit: group.group,
+                  count: group.options.length
+                }"
+                [ngTemplateOutlet]="groupTpl()?.template ?? defaultGroup"
+              />
+            </div>
+            <ul class="ng-group-items" role="group">
+              @for (item of group.options; track item.key) {
+                <ng-container
+                  [ngTemplateOutletContext]="{ item }"
+                  [ngTemplateOutlet]="optionRow"
+                />
+              }
+            </ul>
+          </li>
+        }
+      } @else {
+        @for (item of state.flatOptions(); track item.key) {
+          <ng-container
+            [ngTemplateOutletContext]="{ item }"
+            [ngTemplateOutlet]="optionRow"
+          />
+        }
+      }
+    </ul>
+  }
+</ng-template>
+
+<ng-template #optionRow let-item="item">
+  <li
+    (click)="onOptionClick(item, $event)"
+    (mousemove)="onOptionHover(item)"
+    (touchstart)="state.handleOptionTouchStart(item.index)"
+    [attr.aria-disabled]="item.disabled || null"
+    [attr.aria-selected]="item.selected"
+    [attr.data-index]="item.index"
+    [class.ng-highlighted]="state.highlightedIndex() === item.index"
+    [class.ng-selected]="item.selected"
+    [id]="optionId(item.index)"
+    class="ng-option"
+    role="option"
+  >
+    <ng-container
+      [ngTemplateOutletContext]="{
+        $implicit: item.option,
+        option: item,
+        highlighted: state.highlightedIndex() === item.index,
+        selected: item.selected,
+        query: inputValue()
+      }"
+      [ngTemplateOutlet]="optionTpl()?.template ?? defaultOption"
+    />
+  </li>
+</ng-template>
+
+<!-- Defaults, all overridable via the *ng… template directives. -->
+<ng-template #defaultOption let-item="option">
+  @if (multiple() && showCheckboxes()) {
+    <span [class.ng-checked]="item.selected" aria-hidden="true" class="ng-check"></span>
+  }
+  <span class="ng-option-label">{{ item.label }}</span>
+</ng-template>
+
+<ng-template #defaultGroup let-name>{{ name }}</ng-template>
+<ng-template #defaultEmpty>{{ noOptionsText() }}</ng-template>
+<ng-template #defaultLoading>{{ loadingText() }}</ng-template>
+<ng-template #defaultPopupIcon><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z" /></svg></ng-template>
+<ng-template #defaultClearIcon><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" /></svg></ng-template>
+
+@if (state.listboxVisible()) {
+  @if (disablePortal()) {
+    <ng-container [ngTemplateOutlet]="listboxRef()!" />
+  } @else {
+    <ng-template
+      (overlayOutsideClick)="onOutsideClick($event)"
+      [cdkConnectedOverlayOpen]="true"
+      [cdkConnectedOverlayOrigin]="origin"
+      [cdkConnectedOverlayPositions]="overlayPositions"
+      [cdkConnectedOverlayViewportMargin]="8"
+      cdkConnectedOverlay
+    >
+      <ng-container [ngTemplateOutlet]="listboxRef()!" />
+    </ng-template>
+  }
+}

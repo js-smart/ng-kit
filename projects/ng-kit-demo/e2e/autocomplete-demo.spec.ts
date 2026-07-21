@@ -11,9 +11,10 @@ const DISABLED_FORM = 3;
 const cityOption = (page: Page, name: string): Locator => page.getByRole('option', { name });
 const formAt = (page: Page, index: number): Locator => page.locator('form').nth(index);
 const inputAt = (page: Page, index: number): Locator => formAt(page, index).locator('input').first();
-const clearButtonAt = (page: Page, index: number): Locator => formAt(page, index).getByRole('button', { name: 'Clear value' });
-const toggleButtonAt = (page: Page, index: number): Locator =>
-	formAt(page, index).getByRole('button', { name: /open options|close options/i });
+// The ported component labels its clear button "Clear" (clearText) and its
+// dropdown toggle "Open"/"Close" (openText/closeText) by default.
+const clearButtonAt = (page: Page, index: number): Locator => formAt(page, index).getByRole('button', { name: 'Clear', exact: true });
+const toggleButtonAt = (page: Page, index: number): Locator => formAt(page, index).getByRole('button', { name: /^(open|close)$/i });
 const selectedValueAt = (page: Page, index: number): Locator => page.locator('div:has(> p:text-is("Selected Option Is:")) h2').nth(index);
 
 test.describe('Autocomplete Demo', () => {
@@ -90,7 +91,8 @@ test.describe('Autocomplete Demo', () => {
 			const input = inputAt(page, OBJECTS_FORM);
 			await input.click();
 			await input.pressSequentially('xyz', { delay: 50 });
-			await expect(page.getByRole('option', { name: 'No values found' })).toBeVisible();
+			// The ported component renders the empty message as a status region (not a disabled option).
+			await expect(page.getByText('No options')).toBeVisible();
 		});
 
 		test('clear button is not shown when no value is selected', async ({ page }) => {
@@ -156,9 +158,11 @@ test.describe('Autocomplete Demo', () => {
 			await expect(page.getByRole('button', { name: 'Disable' })).toBeVisible();
 		});
 
-		test('clear and dropdown buttons are not visible when disabled', async ({ page }) => {
+		test('clear button is hidden and dropdown toggle is disabled when the field is disabled', async ({ page }) => {
+			// Clear affordance leaves the a11y tree (aria-hidden + visibility:hidden) when there is nothing to clear.
 			await expect(clearButtonAt(page, DISABLED_FORM)).toHaveCount(0);
-			await expect(toggleButtonAt(page, DISABLED_FORM)).toHaveCount(0);
+			// The dropdown toggle stays in the DOM but is disabled alongside the field.
+			await expect(toggleButtonAt(page, DISABLED_FORM)).toBeDisabled();
 		});
 	});
 });

@@ -199,7 +199,7 @@ export interface City {
 	<div class="col-6">
 		<h1>Autocomplete with Objects</h1>
 		<form [formGroup]="genericFormGroup">
-			<autocomplete [displayWith]="displayWith" [options]="cities" formControlName="autocomplete" label="City" placeholder="Select City">
+			<autocomplete [getOptionLabel]="displayWith" [options]="cities" formControlName="autocomplete" label="City" placeholder="Select City">
 			</autocomplete>
 		</form>
 	</div>
@@ -218,7 +218,7 @@ export interface City {
 		<h2>Autocomplete with Loading State</h2>
 		<form [formGroup]="loadingFormGroup">
 			<autocomplete
-				[displayWith]="displayWith"
+				[getOptionLabel]="displayWith"
 				[loading]="isLoading()"
 				[options]="loadingCities()"
 				formControlName="autocomplete"
@@ -231,7 +231,7 @@ export interface City {
 	<div class="col-6">
 		<h2>Autocomplete with Disabled State</h2>
 		<form [formGroup]="disabledFormGroup">
-			<autocomplete [displayWith]="displayWith" [options]="cities" formControlName="autocomplete" label="City" placeholder="Select City">
+			<autocomplete [getOptionLabel]="displayWith" [options]="cities" formControlName="autocomplete" label="City" placeholder="Select City">
 			</autocomplete>
 		</form>
 		<button (click)="toggleDisabled()">

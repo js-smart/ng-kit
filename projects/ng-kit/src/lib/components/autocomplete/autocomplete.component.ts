@@ -1,222 +1,471 @@
-import { NgClass } from '@angular/common';
-import { Component, computed, ElementRef, forwardRef, input, output, signal, viewChild, ChangeDetectionStrategy } from '@angular/core';
-import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
-import { MatAutocomplete, MatAutocompleteModule, MatAutocompleteTrigger } from '@angular/material/autocomplete';
-import { MatButtonModule } from '@angular/material/button';
-import { MatFormFieldAppearance, MatFormFieldModule } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
+import { NgTemplateOutlet } from '@angular/common';
+import { CdkVirtualScrollViewport, ScrollingModule } from '@angular/cdk/scrolling';
+import { OverlayModule } from '@angular/cdk/overlay';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import {
+  Component,
+  DestroyRef,
+  ElementRef,
+  TemplateRef,
+  computed,
+  contentChild,
+  effect,
+  forwardRef,
+  inject,
+  input,
+  model,
+  output,
+  signal,
+  untracked,
+  viewChild,
+} from '@angular/core';
+import type { ConnectedPosition } from '@angular/cdk/overlay';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { NgAutocompleteState } from './autocomplete-state';
+import { defaultFilterOptions } from './create-filter-options';
+import {
+  NgClearIconDef,
+  NgEmptyDef,
+  NgGroupHeaderDef,
+  NgLoadingDef,
+  NgOptionDef,
+  NgPaperDef,
+  NgPopupIconDef,
+  NgValueDef,
+} from './autocomplete-templates';
+import {
+  DEFAULT_CONFIG,
+  type NgAutocompleteConfig,
+  type ChangeReason,
+  type CloseReason,
+  type FilterOptionsFn,
+  type HighlightChangeReason,
+  type InputChangeReason,
+  type NgAutocompleteAppearance,
+  type NgAutocompleteSlotProps,
+  type OpenReason,
+  type RenderedOption,
+} from './autocomplete.types';
 
-/**
- * Reusable Auto Complete component that extends MatAutoComplete to show Clear icon and Arrow buttons
- *
- * @author Pavan Kumar Jadda
- * @since 12.0.0
- */
+let nextId = 0;
+
 @Component({
-	selector: 'autocomplete, lib-autocomplete',
-	imports: [
-		NgClass,
-		ReactiveFormsModule,
-		MatAutocompleteModule,
-		MatInputModule,
-		MatFormFieldModule,
-		MatIconModule,
-		MatButtonModule,
-		MatProgressSpinnerModule,
-	],
-	templateUrl: './autocomplete.component.html',
-	styleUrls: ['./autocomplete.component.css'],
-	changeDetection: ChangeDetectionStrategy.Eager,
-	providers: [
-		{
-			provide: NG_VALUE_ACCESSOR,
-			useExisting: forwardRef(() => AutocompleteComponent),
-			multi: true,
-		},
-	],
+  selector: 'autocomplete, lib-autocomplete',
+  imports: [
+    NgTemplateOutlet,
+    OverlayModule,
+    ScrollingModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatChipsModule,
+    MatIconModule,
+    MatButtonModule,
+  ],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => AutocompleteComponent),
+      multi: true,
+    },
+  ],
+  host: {
+    class: 'ng-autocomplete',
+    '[class.ng-disabled]': 'disabled()',
+    '[class.ng-readonly]': 'readOnly()',
+    '[class.ng-fullwidth]': 'fullWidth()',
+    '[attr.data-size]': 'size()',
+  },
+  styleUrl: './autocomplete.component.scss',
+  templateUrl: './autocomplete.component.html',
 })
-export class AutocompleteComponent<T = string> implements ControlValueAccessor {
-	/** Gets reference to the MatAutocompleteTrigger to programmatically open/close the panel */
-	autocompleteTrigger = viewChild.required(MatAutocompleteTrigger);
+export class AutocompleteComponent<T> implements ControlValueAccessor {
+  private readonly uid = nextId++;
+  readonly id = input<string | null>(null);
+  private base(): string {
+    return this.id() ?? `ng-${this.uid}`;
+  }
+  get inputId(): string {
+    return this.base();
+  }
+  get listboxId(): string {
+    return `${this.base()}-listbox`;
+  }
+  optionId = (index: number): string => `${this.base()}-option-${index}`;
 
-	/** MatAutocomplete instance (used to scroll the selected option into view when the panel opens) */
-	matAutocomplete = viewChild.required(MatAutocomplete);
+  // ── data ─────────────────────────────────────────────────────────────────
+  readonly options = input.required<readonly T[]>();
+  readonly value = model<T | readonly T[] | null>(null);
+  readonly inputValue = model<string>('');
+  readonly open = model<boolean>(false);
 
-	/** Gets reference to the input element for re-focusing after clear */
-	inputElement = viewChild.required<ElementRef<HTMLInputElement>>('inputEl');
+  // ── identity & labels ────────────────────────────────────────────────────
+  readonly getOptionLabel = input<(option: T) => string>(
+    DEFAULT_CONFIG.getOptionLabel as (option: T) => string,
+  );
+  readonly getOptionKey = input<(option: T) => string | number>(
+    (option: T) => this.getOptionLabel()(option),
+  );
+  readonly getOptionDisabled = input<(option: T) => boolean>(() => false);
+  readonly isOptionEqualToValue = input<(option: T, value: T) => boolean>(
+    (a, b) => a === b,
+  );
+  readonly groupBy = input<((option: T) => string) | null>(null);
+  readonly filterOptions = input<FilterOptionsFn<T>>(
+    defaultFilterOptions as unknown as FilterOptionsFn<T>,
+  );
 
-	/** Label of the autocomplete form field */
-	label = input('Select Value');
+  // ── modes ────────────────────────────────────────────────────────────────
+  readonly multiple = input(false);
+  readonly freeSolo = input(false);
+  readonly disabled = model(false);
+  readonly readOnly = input(false);
+  readonly loading = input(false);
+  readonly required = input(false);
+  readonly invalid = input(false);
 
-	/** Placeholder text displayed inside the input when empty */
-	placeholder = input('');
+  // ── behaviour flags ──────────────────────────────────────────────────────
+  readonly autoComplete = input(false);
+  readonly autoHighlight = input(false);
+  readonly autoSelect = input(false);
+  readonly blurOnSelect = input<boolean | 'mouse' | 'touch'>(false);
+  readonly clearOnBlur = input<boolean | undefined>(undefined); // default: !freeSolo
+  readonly clearOnEscape = input(false);
+  readonly disableClearable = input(false);
+  readonly disableCloseOnSelect = input(false);
+  readonly disabledItemsFocusable = input(false);
+  readonly disableListWrap = input(false);
+  readonly disablePortal = input(false);
+  readonly filterSelectedOptions = input(false);
+  readonly handleHomeEndKeys = input<boolean | undefined>(undefined); // default: !freeSolo
+  readonly includeInputInList = input(false);
+  readonly openOnFocus = input(false);
+  readonly resetHighlightOnMouseLeave = input(false);
+  readonly selectOnFocus = input<boolean | undefined>(undefined); // default: !freeSolo (useAutocomplete:125)
+  readonly fixedOptions = input<readonly T[]>([]);
 
-	/** Appearance of the form field. Defaults to `outline` */
-	appearance = input<MatFormFieldAppearance>('outline');
+  // ── presentation ─────────────────────────────────────────────────────────
+  readonly label = input<string | null>(null);
+  readonly ariaLabel = input<string | null>(null);
+  readonly placeholder = input<string | null>(null);
+  readonly size = input<'small' | 'medium'>('medium');
+  readonly limitTags = input<number>(-1);
+  readonly showCheckboxes = input(false);
+  readonly noOptionsText = input('No options');
+  readonly loadingText = input('Loading…');
+  readonly virtualize = input(false);
+  readonly itemSize = input(40);
+  readonly maxVisibleItems = input(8);
+  readonly forcePopupIcon = input<boolean | 'auto'>('auto');
+  readonly openText = input('Open');
+  readonly closeText = input('Close');
+  readonly clearText = input('Clear');
+  readonly getLimitTagsText = input<(more: number) => string>((more) => `+${more}`);
+  readonly fullWidth = input(false);
+  readonly appearance = input<NgAutocompleteAppearance>('fill');
 
-	/** List of CSS classes to apply to the form field */
-	classes = input('');
+  /** Per-element class/attribute pass-through, mirroring MUI's `slotProps`. */
+  readonly slotProps = input<NgAutocompleteSlotProps>({});
 
-	/** List of options to display in the dropdown */
-	options = input<T[]>([]);
+  private slotClass(key: keyof NgAutocompleteSlotProps): string {
+    return this.slotProps()[key]?.class ?? '';
+  }
+  private slotAttrs(key: keyof NgAutocompleteSlotProps): Record<string, string | number | boolean> {
+    const { class: _class, ...rest } = this.slotProps()[key] ?? {};
+    return rest;
+  }
 
-	/**
-	 * Function that maps an option to its display string.
-	 * Used for rendering options in the dropdown and showing the selected value in the input.
-	 * Defaults to `String(value)` which works for primitive string options.
-	 */
-	displayWith = input<(value: T) => string>((value: T) => String(value));
+  // ── outputs ──────────────────────────────────────────────────────────────
+  readonly valueChanged = output<{ value: T | readonly T[] | null; reason: ChangeReason; option?: T }>();
+  readonly inputChanged = output<{ value: string; reason: InputChangeReason }>();
+  readonly opened = output<OpenReason>();
+  readonly closed = output<CloseReason>();
+  readonly highlightChanged = output<{ option: T | null; reason: HighlightChangeReason }>();
 
-	/** Whether the autocomplete is in a loading state. Shows a spinner instead of options */
-	loading = input(false);
+  // ── content templates ────────────────────────────────────────────────────
+  readonly optionTpl = contentChild(NgOptionDef<T>);
+  readonly groupTpl = contentChild(NgGroupHeaderDef);
+  readonly valueTpl = contentChild(NgValueDef<T>);
+  readonly emptyTpl = contentChild(NgEmptyDef);
+  readonly loadingTpl = contentChild(NgLoadingDef);
+  readonly popupIconTpl = contentChild(NgPopupIconDef);
+  readonly clearIconTpl = contentChild(NgClearIconDef);
+  readonly paperTpl = contentChild(NgPaperDef);
 
-	/** Text displayed when the autocomplete is in a loading state. Defaults to 'Loading...' */
-	loadingText = input('Loading...');
+  private readonly inputEl = viewChild<ElementRef<HTMLInputElement>>('inputEl');
+  private readonly listEl = viewChild<ElementRef<HTMLElement>>('listEl');
+  private readonly viewport = viewChild(CdkVirtualScrollViewport);
+  protected readonly listboxRef = viewChild<TemplateRef<unknown>>('listbox');
+  private readonly host = inject(ElementRef<HTMLElement>);
 
-	/** Text displayed when no options match the filter input. Defaults to 'No values found' */
-	noOptionsText = input('No values found');
+  protected readonly overlayPositions: ConnectedPosition[] = [
+    { originX: 'start', originY: 'bottom', overlayX: 'start', overlayY: 'top', offsetY: 0 },
+    { originX: 'start', originY: 'top', overlayX: 'start', overlayY: 'bottom', offsetY: 0 },
+  ];
 
-	/** Emits the selected value when an option is picked from the dropdown */
-	selectionChange = output<T>();
+  // ── the headless core ────────────────────────────────────────────────────
+  private readonly config = computed<NgAutocompleteConfig<T>>(() => ({
+    getOptionLabel: this.getOptionLabel(),
+    getOptionKey: this.getOptionKey(),
+    getOptionDisabled: this.getOptionDisabled(),
+    isOptionEqualToValue: this.isOptionEqualToValue(),
+    groupBy: this.groupBy(),
+    filterOptions: this.filterOptions(),
+    multiple: this.multiple(),
+    freeSolo: this.freeSolo(),
+    disabled: this.disabled(),
+    readOnly: this.readOnly(),
+    loading: this.loading(),
+    autoComplete: this.autoComplete(),
+    autoHighlight: this.autoHighlight(),
+    autoSelect: this.autoSelect(),
+    blurOnSelect: this.blurOnSelect(),
+    clearOnBlur: this.clearOnBlur() ?? !this.freeSolo(),
+    clearOnEscape: this.clearOnEscape(),
+    disableClearable: this.disableClearable(),
+    disableCloseOnSelect: this.disableCloseOnSelect(),
+    disabledItemsFocusable: this.disabledItemsFocusable(),
+    disableListWrap: this.disableListWrap(),
+    filterSelectedOptions: this.filterSelectedOptions(),
+    handleHomeEndKeys: this.handleHomeEndKeys() ?? !this.freeSolo(),
+    includeInputInList: this.includeInputInList(),
+    openOnFocus: this.openOnFocus(),
+    resetHighlightOnMouseLeave: this.resetHighlightOnMouseLeave(),
+    selectOnFocus: this.selectOnFocus() ?? !this.freeSolo(),
+    fixedOptions: this.fixedOptions(),
+    singleChip: !this.multiple() && !!this.valueTpl(),
+  }));
 
-	/** Emits the raw text in the input on each keystroke (filter text while typing) */
-	onInputChange = output<string>();
+  readonly state = new NgAutocompleteState<T>({
+    options: this.options,
+    value: this.value,
+    inputValue: this.inputValue,
+    open: this.open,
+    config: this.config,
+    events: {
+      change: (value, reason, option) => {
+        this.onChangeFn(value);
+        this.valueChanged.emit({ value, reason, option });
+      },
+      inputChange: (value, reason) => this.inputChanged.emit({ value, reason }),
+      opened: (reason) => this.opened.emit(reason),
+      closed: (reason) => this.closed.emit(reason),
+      highlightChange: (option, reason) => this.highlightChanged.emit({ option, reason }),
+      requestBlur: () => this.inputEl()?.nativeElement.blur(),
+    },
+  });
 
-	/** Internal form control for the autocomplete input */
-	control = new FormControl<T | string | null>(null);
+  // ── derived view data ────────────────────────────────────────────────────
+  protected readonly activeDescendant = computed(() => {
+    const i = this.state.highlightedIndex();
+    return this.state.open() && i >= 0 ? this.optionId(i) : null;
+  });
 
-	/** Signal that tracks whether the autocomplete panel is currently open */
-	isExpanded = signal(false);
+  // Autocomplete:557
+  protected readonly hasPopupIcon = computed(
+    () => (!this.freeSolo() || this.forcePopupIcon() === true) && this.forcePopupIcon() !== false,
+  );
 
-	/** Signal that tracks the current filter text typed by the user */
-	filterText = signal('');
+  /** Single mode + a projected `ngValue` template + a value -> render a chip, not text. */
+  protected readonly showSingleChip = computed(
+    () => !this.multiple() && !!this.valueTpl() && this.state.hasValue(),
+  );
 
-	/**
-	 * Computed signal that filters options based on the current filter text.
-	 * Uses the `displayWith` function to extract searchable text from each option.
-	 * Returns all options when filter text is empty.
-	 */
-	filteredOptions = computed(() => {
-		const filterValue = this.filterText().toLowerCase();
-		const displayFn = this.displayWith();
-		return this.options().filter((option) => displayFn(option).toLowerCase().includes(filterValue));
-	});
+  private readonly valueContexts = computed(() =>
+    this.state.selectedValues().map((item, index) => ({
+      key: this.getOptionKey()(item),
+      context: {
+        $implicit: item,
+        index,
+        label: this.getOptionLabel()(item),
+        disabled: this.disabled(),
+        fixed: this.state.isFixed(item),
+        focused: this.state.focusedItemIndex() === index,
+        remove: () => this.state.removeValueAt(index),
+      },
+    })),
+  );
 
-	/**
-	 * Display function passed to mat-autocomplete's [displayWith] to render the
-	 * selected value in the input field. Returns empty string for null/undefined values.
-	 */
-	displayFn = (value: T): string => {
-		if (value == null || value === ('' as unknown as T)) {
-			return '';
-		}
-		return this.displayWith()(value);
-	};
+  protected readonly visibleValues = computed(() => {
+    const all = this.valueContexts();
+    const limit = this.limitTags();
+    if (limit < 0 || this.state.focused()) return all;
+    return all.slice(0, limit);
+  });
 
-	/**
-	 * Writes a new value to the internal control. Called by the parent form
-	 * when the form control value is set programmatically.
-	 */
-	writeValue(value: T | null): void {
-		// Use null (not '') so MatAutocompleteTrigger clears mat-option selection and stays in sync with the parent CVA.
-		const internal = value == null ? null : value;
-		this.control.setValue(internal as T | string | null, { emitEvent: false });
-	}
+  protected readonly hiddenCount = computed(
+    () => this.valueContexts().length - this.visibleValues().length,
+  );
 
-	/**
-	 * Registers a callback function that is called when the control's value
-	 * changes in the UI (option selected or input cleared).
-	 */
-	registerOnChange(fn: (value: T | null) => void): void {
-		this.onChange = fn;
-	}
+  protected readonly viewportHeight = computed(() =>
+    Math.min(this.state.flatOptions().length, this.maxVisibleItems()) * this.itemSize(),
+  );
 
-	/**
-	 * Registers a callback function that is called when the control is
-	 * first interacted with (blur or selection).
-	 */
-	registerOnTouched(fn: () => void): void {
-		this.onTouched = fn;
-	}
+  protected readonly fieldWidth = signal<number | null>(null);
 
-	/**
-	 * Sets the disabled state of the internal control. Called by the parent form
-	 * when `control.disable()` or `control.enable()` is invoked.
-	 */
-	setDisabledState(isDisabled: boolean): void {
-		if (isDisabled) {
-			this.control.disable();
-		} else {
-			this.control.enable();
-		}
-	}
+  constructor() {
+    // Window losing focus (e.g. alt-tab) is not a user-initiated focus of
+    // this control; note it so the next `focus` event skips `openOnFocus`.
+    const onWindowBlur = () => this.state.noteWindowBlur();
+    window.addEventListener('blur', onWindowBlur);
+    inject(DestroyRef).onDestroy(() => window.removeEventListener('blur', onWindowBlur));
 
-	/** Updates the filter text signal as the user types in the input */
-	onInput(event: Event): void {
-		const value = (event.target as HTMLInputElement).value;
-		this.filterText.set(value);
-		this.onInputChange.emit(value);
-	}
+    // Apply `slotProps` class/attribute pass-through to the input and host root.
+    // (listbox/paper/indicator classes bind directly in their templates.)
+    effect(() => {
+      const targets: Array<[keyof NgAutocompleteSlotProps, HTMLElement | null | undefined]> = [
+        ['input', this.inputEl()?.nativeElement],
+        ['root', this.host.nativeElement],
+      ];
+      for (const [key, el] of targets) {
+        if (!el) continue;
+        for (const [name, val] of Object.entries(this.slotAttrs(key))) {
+          el.setAttribute(name, String(val));
+        }
+        const cls = this.slotClass(key);
+        if (cls) el.classList.add(...cls.split(/\s+/).filter(Boolean));
+      }
+    });
 
-	/**
-	 * Clears the input value, resets the filter, notifies the parent form,
-	 * and re-focuses the input element.
-	 */
-	clearInput(event: Event): void {
-		event.preventDefault();
-		event.stopPropagation();
-		this.autocompleteTrigger().closePanel();
-		this.control.setValue(null, { emitEvent: false });
-		this.filterText.set('');
-		this.onChange(null);
-		this.onTouched();
-		queueMicrotask(() => this.inputElement().nativeElement.focus());
-	}
+    // Keep the text box in sync when the value is changed from the outside
+    // (patchValue, another component, a reset).
+    effect(() => {
+      const selected = this.state.selectedValues();
+      untracked(() => {
+        if (this.state.focused()) return;
+        if (this.multiple()) return;
+        if (this.showSingleChip()) return;
+        const current = this.inputValue();
+        const expected = selected[0] === undefined ? '' : this.getOptionLabel()(selected[0]);
+        if (current !== expected && !this.freeSolo()) {
+          this.state.setInputValue(expected, 'reset');
+        }
+      });
+    });
 
-	/** Runs when the autocomplete overlay opens: keep expanded state and scroll the selected option into view. */
-	onPanelOpened(): void {
-		this.isExpanded.set(true);
-		this.scrollSelectedOptionIntoView();
-	}
+    // Scroll the highlighted option into view — plain list or virtual.
+    effect(() => {
+      const index = this.state.highlightedIndex();
+      if (index < 0 || !this.state.open()) return;
+      const viewport = this.viewport();
+      if (viewport) {
+        const range = viewport.getRenderedRange();
+        if (index < range.start || index >= range.end) viewport.scrollToIndex(index, 'smooth');
+        return;
+      }
+      const list = this.listEl()?.nativeElement;
+      queueMicrotask(() => {
+        const option = list?.querySelector(`[data-index="${index}"]`) as HTMLElement | null;
+        option?.scrollIntoView?.({ block: 'nearest' });
+      });
+    });
 
-	private scrollSelectedOptionIntoView(): void {
-		requestAnimationFrame(() => {
-			requestAnimationFrame(() => {
-				const panelEl = this.matAutocomplete().panel?.nativeElement as HTMLElement | undefined;
-				if (!panelEl) {
-					return;
-				}
-				const selected = panelEl.querySelector('.mat-mdc-option.mdc-list-item--selected') as HTMLElement | null;
-				selected?.scrollIntoView({ block: 'nearest', inline: 'nearest' });
-			});
-		});
-	}
+    // Inline completion (`autoComplete`): write the full label into the input
+    // and select the part the user has not typed yet.
+    effect(() => {
+      const completion = this.state.inlineCompletion();
+      const el = this.inputEl()?.nativeElement;
+      if (!el || completion == null) return;
+      const typedLength = untracked(this.inputValue).length;
+      queueMicrotask(() => {
+        el.value = completion;
+        el.setSelectionRange(typedLength, completion.length);
+      });
+    });
 
-	/** Opens the autocomplete panel programmatically */
-	openPanel(): void {
-		this.autocompleteTrigger().openPanel();
-	}
+    // Track the field width so the overlay matches it.
+    effect(() => {
+      if (!this.state.open()) return;
+      const field = this.host.nativeElement.querySelector('.ng-field') as HTMLElement | null;
+      if (field) this.fieldWidth.set(field.getBoundingClientRect().width);
+    });
+  }
 
-	/**
-	 * Handles option selection from the dropdown. Resets the filter text,
-	 * notifies the parent form of the new value, and emits the selectionChange output.
-	 */
-	onOptionSelected(value: T): void {
-		this.filterText.set('');
-		this.onChange(value);
-		this.onTouched();
-		this.selectionChange.emit(value);
-	}
+  // ── event handlers ───────────────────────────────────────────────────────
+  protected onInput(event: Event): void {
+    this.state.handleInput((event.target as HTMLInputElement).value);
+  }
 
-	/** Callback function registered by the parent form to propagate value changes */
-	private onChange: (value: T | null) => void = (_: T | null) => {
-		/* noop */
-	};
+  protected onFocus(): void {
+    this.state.handleFocus();
+    const selectOnFocus = this.selectOnFocus() ?? !this.freeSolo();
+    if (selectOnFocus) {
+      queueMicrotask(() => this.inputEl()?.nativeElement.select());
+    }
+  }
 
-	/** Callback function registered by the parent form to propagate touched state */
-	private onTouched: () => void = () => {
-		/* noop */
-	};
+  protected onBlur(): void {
+    this.state.handleBlur();
+    this.onTouchedFn();
+  }
+
+  protected onKeyDown(event: KeyboardEvent): void {
+    if (this.state.handleKeyDown(event)) event.preventDefault();
+  }
+
+  protected onFieldMouseDown(event: MouseEvent): void {
+    if ((event.target as HTMLElement).closest('button')) return;
+    if (event.target !== this.inputEl()?.nativeElement) {
+      event.preventDefault();
+      this.focusInput();
+    }
+    if (!this.state.open() && !this.readOnly()) this.state.openPopup('toggleInput');
+  }
+
+  protected onOptionHover(item: RenderedOption<T>): void {
+    if (item.disabled && !this.disabledItemsFocusable()) return;
+    if (this.state.highlightedIndex() !== item.index) {
+      this.state.setHighlight(item.index, 'mouse');
+    }
+  }
+
+  protected onListMouseLeave(): void {
+    if (this.resetHighlightOnMouseLeave()) this.state.moveHighlight('reset');
+  }
+
+  protected onOptionClick(item: RenderedOption<T>, event: MouseEvent): void {
+    event.preventDefault();
+    if (item.disabled) return;
+    // `selectOption` now owns the blurOnSelect decision (touch/mouse resolved
+    // against `state.isTouch`) and fires `requestBlur` synchronously when a
+    // blur is due, which re-enters `onBlur()` -> `state.handleBlur()` before
+    // `selectOption` returns. So `state.focused()` already reflects whether
+    // that happened, and re-focusing here only when it did NOT keeps a plain
+    // click's "stay focused" behaviour without fighting an intentional blur.
+    this.state.selectOption(item.option, 'selectOption');
+    this.state.isTouch.set(false);
+    if (this.state.focused()) this.focusInput();
+  }
+
+  protected onOutsideClick(event: MouseEvent): void {
+    if (this.host.nativeElement.contains(event.target as Node)) return;
+    this.state.closePopup('blur');
+  }
+
+  protected trackOption = (_: number, item: RenderedOption<T>) => item.key;
+
+  focusInput(): void {
+    this.inputEl()?.nativeElement.focus();
+  }
+
+  // ── ControlValueAccessor ─────────────────────────────────────────────────
+  private onChangeFn: (value: unknown) => void = () => {};
+  private onTouchedFn: () => void = () => {};
+
+  writeValue(value: T | readonly T[] | null): void {
+    this.value.set(value ?? (this.multiple() ? [] : null));
+    this.state.resetInputValue('reset');
+  }
+  registerOnChange(fn: (value: unknown) => void): void {
+    this.onChangeFn = fn;
+  }
+  registerOnTouched(fn: () => void): void {
+    this.onTouchedFn = fn;
+  }
+  setDisabledState(isDisabled: boolean): void {
+    this.disabled.set(isDisabled);
+  }
 }

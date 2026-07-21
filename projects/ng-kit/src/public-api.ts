@@ -3,8 +3,13 @@ import { ProgressState } from './lib/types/progress-state';
 export * from './lib/components/alert/alert.component';
 export * from './lib/components/spinner/spinner.component';
 
-// Export autocomplete component
+// Export autocomplete component, its composable template directives,
+// headless state, filter helpers, and public types
 export * from './lib/components/autocomplete/autocomplete.component';
+export * from './lib/components/autocomplete/autocomplete-templates';
+export * from './lib/components/autocomplete/autocomplete-state';
+export * from './lib/components/autocomplete/autocomplete.types';
+export * from './lib/components/autocomplete/create-filter-options';
 
 // Export autocomplete suffix directive and its button components
 export * from './lib/directives/autocomplete-suffix/autocomplete-clear-button.component';

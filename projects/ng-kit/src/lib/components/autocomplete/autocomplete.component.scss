@@ -1,0 +1,179 @@
+// The field chrome (label, input, chips, indicators, appearance/density) is
+// now owned by Angular Material's `mat-form-field` / `mat-input` / `mat-chips`
+// / `mat-icon-button`. This file only styles what Material does NOT provide:
+// the CDK-portaled options panel and the popup/clear indicator SVGs.
+//
+// The panel is rendered from this component's own overlay template, so it
+// still carries this component's view-encapsulation attributes and these
+// `.ng-*` rules apply. It is portaled to `body`, so its `var(--ng-*)` tokens
+// resolve against whatever the consumer set on `body`/`:root` (e.g. via the
+// public `ng-autocomplete.theme(...)` mixin) — falling back to the M2
+// indigo/pink defaults baked in below when the consumer sets nothing.
+@use '@angular/material' as mat;
+
+:host {
+  display: inline-block;
+}
+
+// Full-width: stretch the field (and its origin wrapper) to the container.
+:host(.ng-fullwidth) {
+  display: block;
+}
+.ng-field-origin {
+  display: block;
+}
+:host(.ng-fullwidth) .ng-field {
+  width: 100%;
+}
+
+// `size="small"` → Material form-field density -3 (compact rows/height),
+// scoped to this component's fields only.
+:host([data-size='small']) .ng-field {
+  @include mat.form-field-density(-3);
+}
+
+// ── popup / listbox / options (MDC menu look) ───────────────────────────────
+
+.ng-popup {
+  border-radius: var(--ng-radius, 4px);
+  background: var(--ng-bg, #fff);
+  box-shadow: var(
+    --ng-shadow,
+    0 2px 4px -1px rgba(0, 0, 0, 0.2),
+    0 4px 5px 0 rgba(0, 0, 0, 0.14),
+    0 1px 10px 0 rgba(0, 0, 0, 0.12)
+  );
+  color: var(--ng-fg, rgba(0, 0, 0, 0.87));
+  overflow: hidden;
+}
+
+.ng-listbox {
+  margin: 0;
+  padding: 8px 0;
+  max-height: 256px;
+  overflow-y: auto;
+  list-style: none;
+}
+
+.ng-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: var(--ng-row, 48px);
+  padding: var(--ng-option-pad, 0 16px);
+  cursor: pointer;
+}
+
+.ng-option[aria-disabled='true'] {
+  opacity: 0.38;
+  cursor: default;
+}
+.ng-option.ng-highlighted {
+  background: var(--ng-hover, rgba(0, 0, 0, 0.04));
+}
+.ng-option.ng-selected {
+  background: var(--ng-selected, rgba(63, 81, 181, 0.12));
+}
+.ng-option-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ng-check {
+  width: 16px;
+  height: 16px;
+  border: 1.5px solid var(--ng-border, rgba(0, 0, 0, 0.38));
+  border-radius: 4px;
+  flex: none;
+}
+.ng-check.ng-checked {
+  border-color: var(--ng-border-focus, #3f51b5);
+  background: var(--ng-border-focus, #3f51b5);
+  box-shadow: inset 0 0 0 3px var(--ng-bg, #fff);
+}
+
+.ng-group {
+  list-style: none;
+}
+.ng-group-items {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.ng-group-header {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  padding: var(--ng-option-pad, 0 16px);
+  background: var(--ng-bg, #fff);
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ng-muted, rgba(0, 0, 0, 0.54));
+}
+
+.ng-status {
+  padding: 12px 16px;
+  color: var(--ng-muted, rgba(0, 0, 0, 0.54));
+  font-size: 0.875rem;
+}
+
+// ── indicators (inside Material's suffix icon buttons) ──────────────────────
+
+// Material's mat-icon-button is a 48px touch target — far larger than MUI's
+// end-adornment icons. Shrink the suffix buttons to ~28px so they read like
+// MUI's clear/dropdown affordances.
+.ng-clear.mat-mdc-icon-button,
+.ng-toggle.mat-mdc-icon-button {
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  --mdc-icon-button-state-layer-size: 28px;
+  --mat-icon-button-touch-target-display: none;
+}
+
+// Keep the clear button's slot reserved when it isn't applicable, so the input
+// width doesn't jump as the clear affordance appears/disappears.
+.ng-clear.ng-hidden {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.ng-clear svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+.ng-toggle svg {
+  width: 24px;
+  height: 24px;
+  fill: currentColor;
+  transition: transform 120ms ease;
+}
+.ng-toggle.ng-open svg {
+  transform: rotate(180deg);
+}
+
+.ng-spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--ng-border, rgba(0, 0, 0, 0.12));
+  border-top-color: var(--ng-border-focus, #3f51b5);
+  border-radius: 50%;
+  animation: ng-spin 700ms linear infinite;
+}
+@keyframes ng-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ng-toggle svg {
+    transition: none;
+  }
+  .ng-spinner {
+    animation-duration: 2s;
+  }
+}
