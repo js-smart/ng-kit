@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal, inject } from '@angular/core';
 import { CodeBlock } from '../../../shared/code-block.component';
+import { DemoSettings } from '../../../shared/demo-settings';
 import { AutocompleteComponent } from '@js-smart/ng-kit';
 
 @Component({
@@ -11,7 +12,7 @@ import { AutocompleteComponent } from '@js-smart/ng-kit';
 			[options]="films"
 			[(value)]="optionDisabledValue"
 			[getOptionDisabled]="isEveryThird"
-			appearance="outline"
+			[appearance]="settings.appearance()"
 			label="Movie"
 			placeholder="Pick a film"
 		/>
@@ -21,7 +22,7 @@ import { AutocompleteComponent } from '@js-smart/ng-kit';
 			[options]="films"
 			[(value)]="disabledFieldValue"
 			[disabled]="true"
-			appearance="outline"
+			[appearance]="settings.appearance()"
 			label="Movie"
 		/>
 		<p class="readout">Selected: {{ disabledFieldValue() ?? '—' }}</p>
@@ -30,7 +31,7 @@ import { AutocompleteComponent } from '@js-smart/ng-kit';
 			[options]="films"
 			[(value)]="readOnlyFieldValue"
 			[readOnly]="true"
-			appearance="outline"
+			[appearance]="settings.appearance()"
 			label="Movie"
 		/>
 		<p class="readout">Selected: {{ readOnlyFieldValue() ?? '—' }}</p>
@@ -48,6 +49,8 @@ import { AutocompleteComponent } from '@js-smart/ng-kit';
 	`],
 })
 export class DisabledOptionsExample {
+	protected readonly settings = inject(DemoSettings);
+
 	protected readonly films = [
 		'The Shawshank Redemption', 'The Godfather', 'The Dark Knight',
 		'Pulp Fiction', 'Inception', 'Interstellar', 'Parasite',

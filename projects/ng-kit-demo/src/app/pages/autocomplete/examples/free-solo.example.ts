@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal, inject } from '@angular/core';
 import { CodeBlock } from '../../../shared/code-block.component';
+import { DemoSettings } from '../../../shared/demo-settings';
 import {
 	AutocompleteComponent,
 	createFilterOptions,
@@ -33,7 +34,7 @@ const baseFilmFilter = createFilterOptions<string>();
 					[options]="films"
 					[(value)]="freeSoloValue"
 					[freeSolo]="true"
-					appearance="outline"
+					[appearance]="settings.appearance()"
 					label="Film"
 					placeholder="Type any film"
 				/>
@@ -46,7 +47,7 @@ const baseFilmFilter = createFilterOptions<string>();
 					[value]="createValue()"
 					(valueChanged)="onCreateChange($event)"
 					[filterOptions]="filterOptions"
-					appearance="outline"
+					[appearance]="settings.appearance()"
 					label="Film"
 					placeholder="Search or add a film"
 				/>
@@ -69,6 +70,8 @@ const baseFilmFilter = createFilterOptions<string>();
 	`],
 })
 export class FreeSoloExample {
+	protected readonly settings = inject(DemoSettings);
+
 	protected readonly films = FILMS;
 
 	protected readonly freeSoloValue = signal<string | null>(null);
@@ -123,7 +126,7 @@ const baseFilmFilter = createFilterOptions<string>();
 			[options]="films"
 			[(value)]="freeSoloValue"
 			[freeSolo]="true"
-			appearance="outline"
+			[appearance]="settings.appearance()"
 			label="Film"
 			placeholder="Type any film"
 		/>
@@ -134,7 +137,7 @@ const baseFilmFilter = createFilterOptions<string>();
 			[value]="createValue()"
 			(valueChanged)="onCreateChange($event)"
 			[filterOptions]="filterOptions"
-			appearance="outline"
+			[appearance]="settings.appearance()"
 			label="Film"
 			placeholder="Search or add a film"
 		/>

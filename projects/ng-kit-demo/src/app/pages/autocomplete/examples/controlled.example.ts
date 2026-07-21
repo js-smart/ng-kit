@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal, inject } from '@angular/core';
 import { CodeBlock } from '../../../shared/code-block.component';
+import { DemoSettings } from '../../../shared/demo-settings';
 import { MatButtonModule } from '@angular/material/button';
 import { AutocompleteComponent } from '@js-smart/ng-kit';
 
@@ -13,7 +14,7 @@ import { AutocompleteComponent } from '@js-smart/ng-kit';
 			[(value)]="value"
 			[(inputValue)]="inputValue"
 			[(open)]="open"
-			appearance="outline"
+			[appearance]="settings.appearance()"
 			label="Movie"
 			placeholder="Pick a film"
 		/>
@@ -58,6 +59,8 @@ import { AutocompleteComponent } from '@js-smart/ng-kit';
 	`,
 })
 export class ControlledExample {
+	protected readonly settings = inject(DemoSettings);
+
 	protected readonly code = `import { Component, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { AutocompleteComponent } from '@js-smart/ng-kit';

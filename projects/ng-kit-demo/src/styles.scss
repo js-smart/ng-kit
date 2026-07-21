@@ -18,27 +18,29 @@ body {
 /* ── Docs content typography (matches the ng-kit docs headers/code style,
    applied within the gallery's Material theme) ───────────────────────────── */
 .content {
+	/* Header sizing/weight matched to the ng-kit (@ng-doc) docs. */
 	h1 {
-		font-size: 2rem;
-		font-weight: 500;
-		line-height: 1.2;
-		margin: 0 0 0.5rem;
+		font-size: 36px;
+		font-weight: 600;
+		line-height: 1.15;
+		color: #111;
+		margin: 0 0 0.75rem;
 	}
 
 	h2 {
-		font-size: 1.5rem;
-		font-weight: 500;
-		line-height: 1.3;
-		margin: 2.25rem 0 0.75rem;
-		padding-block-end: 0.35rem;
-		border-block-end: 1px solid rgba(0, 0, 0, 0.08);
+		font-size: 26px;
+		font-weight: 600;
+		line-height: 1.25;
+		color: #111;
+		margin: 2.75rem 0 0.75rem;
 	}
 
 	h3 {
-		font-size: 1.15rem;
-		font-weight: 500;
+		font-size: 20px;
+		font-weight: 600;
 		line-height: 1.3;
-		margin: 1.75rem 0 0.5rem;
+		color: #111;
+		margin: 2rem 0 0.5rem;
 	}
 
 	p,

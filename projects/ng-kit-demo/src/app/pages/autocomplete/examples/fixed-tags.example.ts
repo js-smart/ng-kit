@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal, inject } from '@angular/core';
 import { CodeBlock } from '../../../shared/code-block.component';
+import { DemoSettings } from '../../../shared/demo-settings';
 import { AutocompleteComponent } from '@js-smart/ng-kit';
 
 @Component({
@@ -15,7 +16,7 @@ import { AutocompleteComponent } from '@js-smart/ng-kit';
 			[limitTags]="limitTags()"
 			[getLimitTagsText]="getLimitTagsText"
 			[isOptionEqualToValue]="isOptionEqualToValue"
-			appearance="outline"
+			[appearance]="settings.appearance()"
 			label="Favorite films"
 			placeholder="Add a film"
 		/>
@@ -34,6 +35,8 @@ import { AutocompleteComponent } from '@js-smart/ng-kit';
 	`,
 })
 export class FixedTagsExample {
+	protected readonly settings = inject(DemoSettings);
+
 	protected readonly films = [
 		'The Shawshank Redemption',
 		'The Godfather',

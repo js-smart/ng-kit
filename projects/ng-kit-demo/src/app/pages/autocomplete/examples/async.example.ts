@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal, inject } from '@angular/core';
 import { CodeBlock } from '../../../shared/code-block.component';
+import { DemoSettings } from '../../../shared/demo-settings';
 import { AutocompleteComponent, passThroughFilter } from '@js-smart/ng-kit';
 
 @Component({
@@ -14,7 +15,7 @@ import { AutocompleteComponent, passThroughFilter } from '@js-smart/ng-kit';
 			[loading]="loading()"
 			[loadingText]="'Searching…'"
 			(inputChanged)="onInputChanged($event.value)"
-			appearance="outline"
+			[appearance]="settings.appearance()"
 			label="Country"
 			placeholder="Search for a country"
 		/>
@@ -33,6 +34,8 @@ import { AutocompleteComponent, passThroughFilter } from '@js-smart/ng-kit';
 	`,
 })
 export class AsyncExample {
+	protected readonly settings = inject(DemoSettings);
+
 	protected readonly passThroughFilter = passThroughFilter;
 
 	protected readonly value = signal<string | null>(null);

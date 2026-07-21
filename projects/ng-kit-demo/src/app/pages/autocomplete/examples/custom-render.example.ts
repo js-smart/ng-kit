@@ -1,6 +1,7 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal, inject } from '@angular/core';
 import { CodeBlock } from '../../../shared/code-block.component';
+import { DemoSettings } from '../../../shared/demo-settings';
 import {
 	AutocompleteComponent,
 	NgClearIconDef,
@@ -31,7 +32,7 @@ interface TitleSegment {
 		NgTemplateOutlet,
 	],
 	template: `
-		<autocomplete [options]="films" [(value)]="value" [getOptionLabel]="getOptionLabel" appearance="outline" label="Film" placeholder="Search films">
+		<autocomplete [options]="films" [(value)]="value" [getOptionLabel]="getOptionLabel" [appearance]="settings.appearance()" label="Film" placeholder="Search films">
 			<div *ngOption="let opt; query as q" class="film-option">
 				<span class="film-title">
 					@for (seg of splitTitle(asFilm(opt).title, q); track $index) {
@@ -81,6 +82,8 @@ interface TitleSegment {
 	`],
 })
 export class CustomRenderExample {
+	protected readonly settings = inject(DemoSettings);
+
 	protected readonly code = `import { NgTemplateOutlet } from '@angular/common';
 import { Component, signal } from '@angular/core';
 import { AutocompleteComponent, NgClearIconDef, NgOptionDef, NgPaperDef, NgPopupIconDef } from '@js-smart/ng-kit';

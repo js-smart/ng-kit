@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal, inject } from '@angular/core';
 import { CodeBlock } from '../../../shared/code-block.component';
+import { DemoSettings } from '../../../shared/demo-settings';
 import { AutocompleteComponent, NgOptionDef } from '@js-smart/ng-kit';
 
 interface Country {
@@ -25,7 +26,7 @@ function flagEmoji(code: string): string {
 			[getOptionLabel]="getOptionLabel"
 			[getOptionKey]="getOptionKey"
 			[isOptionEqualToValue]="isOptionEqualToValue"
-			appearance="outline"
+			[appearance]="settings.appearance()"
 			label="Country"
 			placeholder="Select a country"
 		>
@@ -53,6 +54,8 @@ function flagEmoji(code: string): string {
 	`],
 })
 export class CountrySelectExample {
+	protected readonly settings = inject(DemoSettings);
+
 	protected readonly code = `import { Component, signal } from '@angular/core';
 import { AutocompleteComponent, NgOptionDef } from '@js-smart/ng-kit';
 

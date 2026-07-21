@@ -42,7 +42,10 @@ import { GALLERY_PAGES, GalleryPage, groupedPages } from './gallery/gallery-regi
 				<mat-icon>menu</mat-icon>
 			</button>
 
-			<a routerLink="/" class="brand">NG Kit</a>
+			<a routerLink="/" class="brand">
+				<img src="ng-kit-logo.png" alt="" class="brand-logo" />
+				<span>NG Kit</span>
+			</a>
 
 			<span class="spacer"></span>
 
@@ -133,10 +136,27 @@ import { GALLERY_PAGES, GalleryPage, groupedPages } from './gallery/gallery-regi
 		}
 
 		.brand {
+			display: inline-flex;
+			align-items: center;
+			gap: 0.5rem;
 			font-weight: 700;
 			letter-spacing: -0.01em;
 			color: inherit;
 			text-decoration: none;
+		}
+
+		.brand-logo {
+			height: 32px;
+			width: auto;
+			display: block;
+		}
+
+		/* Bold, readable category subheaders in the sidenav. */
+		.sidenav ::ng-deep .mat-mdc-subheader {
+			font-weight: 700;
+			color: rgba(0, 0, 0, 0.82);
+			text-transform: none;
+			letter-spacing: 0;
 		}
 
 		.spacer {

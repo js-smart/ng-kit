@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal, inject } from '@angular/core';
 import { CodeBlock } from '../../../shared/code-block.component';
+import { DemoSettings } from '../../../shared/demo-settings';
 import { AutocompleteComponent, NgGroupHeaderDef } from '@js-smart/ng-kit';
 
 @Component({
@@ -11,7 +12,7 @@ import { AutocompleteComponent, NgGroupHeaderDef } from '@js-smart/ng-kit';
 			[options]="films"
 			[(value)]="value"
 			[groupBy]="groupByLetter"
-			appearance="outline"
+			[appearance]="settings.appearance()"
 			label="Movie"
 			placeholder="Pick a film"
 		>
@@ -46,6 +47,8 @@ import { AutocompleteComponent, NgGroupHeaderDef } from '@js-smart/ng-kit';
 	`],
 })
 export class GroupedExample {
+	protected readonly settings = inject(DemoSettings);
+
 	protected readonly code = `import { Component, signal } from '@angular/core';
 import { AutocompleteComponent, NgGroupHeaderDef } from '@js-smart/ng-kit';
 

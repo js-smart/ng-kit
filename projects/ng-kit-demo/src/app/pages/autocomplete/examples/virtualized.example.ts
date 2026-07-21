@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal, inject } from '@angular/core';
 import { CodeBlock } from '../../../shared/code-block.component';
+import { DemoSettings } from '../../../shared/demo-settings';
 import { AutocompleteComponent } from '@js-smart/ng-kit';
 
 @Component({
@@ -12,7 +13,7 @@ import { AutocompleteComponent } from '@js-smart/ng-kit';
 			[(value)]="value"
 			[virtualize]="true"
 			[itemSize]="48"
-			appearance="outline"
+			[appearance]="settings.appearance()"
 			label="Option"
 			placeholder="Search 10,000 options"
 		/>
@@ -31,6 +32,8 @@ import { AutocompleteComponent } from '@js-smart/ng-kit';
 	`,
 })
 export class VirtualizedExample {
+	protected readonly settings = inject(DemoSettings);
+
 	protected readonly options = Array.from({ length: 10000 }, (_, i) => `Option ${i + 1}`);
 	protected readonly value = signal<string | null>(null);
 

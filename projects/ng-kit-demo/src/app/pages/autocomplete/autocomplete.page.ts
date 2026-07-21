@@ -1,7 +1,9 @@
 import { NgComponentOutlet } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Type } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Type, inject } from '@angular/core';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { DocPage } from '../../shared/doc-page.component';
+import { DemoSettings } from '../../shared/demo-settings';
 import { CodeBlock } from '../../shared/code-block.component';
 import { AsyncExample } from './examples/async.example';
 import { ComboBoxExample } from './examples/combo-box.example';
@@ -37,7 +39,7 @@ interface ExampleGroup {
  */
 @Component({
 	selector: 'ng-kit-autocomplete-page',
-	imports: [DocPage, CodeBlock, NgComponentOutlet, MatExpansionModule],
+	imports: [DocPage, CodeBlock, NgComponentOutlet, MatExpansionModule, MatButtonToggleModule],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<doc-page title="Autocomplete">
@@ -267,6 +269,13 @@ interface ExampleGroup {
 			</div>
 
 			<div docExamples>
+				<div class="appearance-row">
+					<span class="appearance-label">Field appearance</span>
+					<mat-button-toggle-group class="appearance-toggle" [value]="settings.appearance()" (change)="settings.appearance.set($event.value)" aria-label="Field appearance">
+						<mat-button-toggle value="fill">Fill</mat-button-toggle>
+						<mat-button-toggle value="outline">Outline</mat-button-toggle>
+					</mat-button-toggle-group>
+				</div>
 				@for (group of groups; track group.label) {
 					<h3 class="group-heading">{{ group.label }}</h3>
 					<mat-accordion class="example-accordion" multi>
@@ -300,8 +309,23 @@ interface ExampleGroup {
 			color: rgba(0, 0, 0, 0.6);
 		}
 
-		.group-heading:first-child {
+				.group-heading:first-child {
 			margin-block-start: 0;
+		}
+
+		.appearance-row {
+			display: flex;
+			align-items: center;
+			gap: 0.75rem;
+			margin-block-end: 1.25rem;
+		}
+
+		.appearance-label {
+			font-size: 0.8125rem;
+			font-weight: 600;
+			letter-spacing: 0.04em;
+			text-transform: uppercase;
+			color: rgba(0, 0, 0, 0.6);
 		}
 
 		.example-accordion {
@@ -354,6 +378,8 @@ interface ExampleGroup {
 	`,
 })
 export class AutocompletePage {
+	protected readonly settings = inject(DemoSettings);
+
 	protected readonly basicCode = `import { Component, signal } from '@angular/core';
 import { AutocompleteComponent } from '@js-smart/ng-kit';
 

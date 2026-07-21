@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, signal, inject } from '@angular/core';
 import { CodeBlock } from '../../../shared/code-block.component';
+import { DemoSettings } from '../../../shared/demo-settings';
 import { AutocompleteComponent } from '@js-smart/ng-kit';
 
 @Component({
@@ -13,7 +14,7 @@ import { AutocompleteComponent } from '@js-smart/ng-kit';
 			[multiple]="true"
 			[showCheckboxes]="true"
 			[disableCloseOnSelect]="true"
-			appearance="outline"
+			[appearance]="settings.appearance()"
 			label="Movies"
 			placeholder="Pick some films"
 		/>
@@ -27,7 +28,7 @@ import { AutocompleteComponent } from '@js-smart/ng-kit';
 			[showCheckboxes]="true"
 			[disableCloseOnSelect]="true"
 			[filterSelectedOptions]="true"
-			appearance="outline"
+			[appearance]="settings.appearance()"
 			label="Movies (selected hidden)"
 			placeholder="Pick some films"
 		/>
@@ -47,6 +48,8 @@ import { AutocompleteComponent } from '@js-smart/ng-kit';
 	`],
 })
 export class MultipleCheckboxesExample {
+	protected readonly settings = inject(DemoSettings);
+
 	protected readonly films = [
 		'The Shawshank Redemption', 'The Godfather', 'The Dark Knight',
 		'Pulp Fiction', 'Inception', 'Interstellar', 'Parasite',
