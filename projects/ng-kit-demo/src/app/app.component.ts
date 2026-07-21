@@ -2,9 +2,7 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { ChangeDetectionStrategy, Component, computed, effect, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -29,8 +27,6 @@ import { GALLERY_PAGES, GalleryPage, groupedPages } from './gallery/gallery-regi
 		MatListModule,
 		MatIconModule,
 		MatButtonModule,
-		MatFormFieldModule,
-		MatInputModule,
 	],
 	host: { class: 'shell' },
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -47,6 +43,11 @@ import { GALLERY_PAGES, GalleryPage, groupedPages } from './gallery/gallery-regi
 				<span>NG Kit</span>
 			</a>
 
+			<div class="header-search">
+				<mat-icon aria-hidden="true">search</mat-icon>
+				<input type="text" placeholder="Filter pages" aria-label="Filter pages" [value]="searchTerm()" (input)="onSearch($event)" />
+			</div>
+
 			<span class="spacer"></span>
 
 			<a mat-icon-button href="https://github.com/js-smart/ng-kit" target="_blank" rel="noopener" aria-label="ng-kit on GitHub">
@@ -59,11 +60,6 @@ import { GALLERY_PAGES, GalleryPage, groupedPages } from './gallery/gallery-regi
 
 		<mat-sidenav-container class="shell-body">
 			<mat-sidenav [mode]="sidenavMode()" [opened]="sidenavOpened()" (openedChange)="sidenavOpened.set($event)" class="sidenav">
-				<mat-form-field appearance="outline" class="search-field">
-					<mat-icon matPrefix>search</mat-icon>
-					<input matInput type="text" placeholder="Filter" aria-label="Filter pages" [value]="searchTerm()" (input)="onSearch($event)" />
-				</mat-form-field>
-
 				<mat-nav-list>
 					<a mat-list-item routerLink="/" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">Overview</a>
 
@@ -178,8 +174,50 @@ import { GALLERY_PAGES, GalleryPage, groupedPages } from './gallery/gallery-regi
 			padding: 1rem;
 		}
 
-		.search-field {
-			width: 100%;
+		.header-search {
+			display: flex;
+			align-items: center;
+			gap: 0.4rem;
+			flex: 0 1 340px;
+			min-width: 0;
+			margin-inline-start: 1rem;
+			padding: 0 0.7rem;
+			height: 38px;
+			border-radius: 8px;
+			background: rgba(255, 255, 255, 0.15);
+			transition: background 120ms ease;
+		}
+
+		.header-search:focus-within {
+			background: rgba(255, 255, 255, 0.25);
+		}
+
+		.header-search mat-icon {
+			flex: none;
+			color: rgba(255, 255, 255, 0.85);
+			font-size: 20px;
+			width: 20px;
+			height: 20px;
+		}
+
+		.header-search input {
+			flex: 1;
+			min-width: 0;
+			border: none;
+			background: transparent;
+			color: #fff;
+			font: inherit;
+			outline: none;
+		}
+
+		.header-search input::placeholder {
+			color: rgba(255, 255, 255, 0.7);
+		}
+
+		@media (max-width: 599px) {
+			.header-search {
+				flex-basis: 140px;
+			}
 		}
 
 		.content {
