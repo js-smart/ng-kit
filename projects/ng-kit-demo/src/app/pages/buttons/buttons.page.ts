@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { DemoCard } from '../../shared/demo-card.component';
+import { NgComponentOutlet } from '@angular/common';
+import { ChangeDetectionStrategy, Component, Type } from '@angular/core';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { PrimaryButtonDemoComponent } from '../../primary-button-demo/primary-button-demo.component';
 import { SuccessButtonDemoComponent } from '../../success-button-demo/success-button-demo.component';
 import { SavePrimaryButtonDemoComponent } from '../../save-primary-button-demo/save-primary-button-demo.component';
@@ -30,45 +31,36 @@ const EDIT_CODE = `<!-- Directive (preferred) -->
 <!-- Component -->
 <edit-button ariaLabel="Edit item" (click)="onEdit()"></edit-button>`;
 
-const EXPORT_CODE = `<!-- Excel export -->
-<button excelExportButton (click)="exportExcel()">Export to Excel</button>
-
-<!-- PDF export -->
-<button pdfExportButton (click)="exportPdf()">Export to PDF</button>`;
-
 const DELETE_CODE = `<!-- Directive (preferred) -->
 <button ariaLabel="Delete item" (click)="onDelete()" deleteButton>Delete</button>
 
 <!-- Component -->
 <delete-button ariaLabel="Delete item" (click)="onDelete()"></delete-button>`;
 
+const EXCEL_CODE = `<button excelExportButton (click)="exportExcel()">Export to Excel</button>`;
+const PDF_CODE = `<button pdfExportButton (click)="exportPdf()">Export to PDF</button>`;
+
+interface ButtonEntry {
+	title: string;
+	description: string;
+	component: Type<unknown>;
+	code?: string;
+}
+
+interface ButtonGroup {
+	label: string;
+	buttons: ButtonEntry[];
+}
+
 /**
- * Combined Buttons gallery page: an overview migrated from the buttons intro
- * docs plus a live demo-card per button family, each reusing an existing demo
- * component, and a shared base-button API reference.
+ * Combined Buttons gallery page. Every button family is shown in a
+ * category-grouped accordion — expand a panel to view the live demo (rendered
+ * lazily) and, where relevant, its source — plus a shared base-button API
+ * reference migrated from the docs.
  */
 @Component({
 	selector: 'ng-kit-buttons-page',
-	imports: [
-		DemoCard,
-		PrimaryButtonDemoComponent,
-		SuccessButtonDemoComponent,
-		SavePrimaryButtonDemoComponent,
-		SearchButtonDemoComponent,
-		ManageButtonDemoComponent,
-		ViewButtonDemoComponent,
-		ViewPrimaryButtonDemoComponent,
-		EditButtonDemoComponent,
-		EditBsButtonDemoComponent,
-		EditSvgIconButtonDemoComponent,
-		DeleteButtonDemoComponent,
-		CloseButtonDemoComponent,
-		ExcelExportButtonDemoComponent,
-		PdfExportButtonDemoComponent,
-		BsLinkButtonDemoComponent,
-		BaseButtonDemoComponent,
-		ButtonsDemoComponent,
-	],
+	imports: [NgComponentOutlet, MatExpansionModule],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<h1 class="page-title">Buttons</h1>
@@ -95,145 +87,29 @@ const DELETE_CODE = `<!-- Directive (preferred) -->
 &lt;primary-button ariaLabel="Submit" (click)="onSubmit()"&gt;Submit&lt;/primary-button&gt;</code></pre>
 		</section>
 
-		<section class="page-section">
-			<h2>Primary &amp; action buttons</h2>
-			<p>Call-to-action buttons for the common save / submit / confirm flows.</p>
-		</section>
-
-		<demo-card
-			title="Primary button"
-			description="The default call-to-action. Available as the primaryButton directive and the <primary-button> component."
-			[props]="['ariaLabel', 'disabled', 'loading']"
-			[code]="primaryCode">
-			<ng-kit-primary-button-demo />
-		</demo-card>
-
-		<demo-card
-			title="Success button"
-			description="A green, positive-affirmation button for confirming actions.">
-			<ng-kit-success-button-demo />
-		</demo-card>
-
-		<demo-card
-			title="Save primary button"
-			description="A primary button pre-configured with a save icon and 'Saving…' loading label.">
-			<ng-kit-save-primary-button-demo />
-		</demo-card>
-
-		<demo-card
-			title="Search button"
-			description="A button styled for search / filter triggers.">
-			<ng-kit-search-button-demo />
-		</demo-card>
-
-		<demo-card
-			title="Manage button"
-			description="A button for management / settings entry points.">
-			<ng-kit-manage-button-demo />
-		</demo-card>
-
-		<section class="page-section">
-			<h2>View buttons</h2>
-			<p>Read-only, non-destructive buttons for opening or previewing a record.</p>
-		</section>
-
-		<demo-card
-			title="View button"
-			description="A subtle view / details button.">
-			<ng-kit-view-button-demo />
-		</demo-card>
-
-		<demo-card
-			title="View primary button"
-			description="A view button with primary emphasis for the main view action on a row.">
-			<ng-kit-view-primary-button-demo />
-		</demo-card>
-
-		<section class="page-section">
-			<h2>Edit buttons</h2>
-			<p>Variants for triggering edit flows, including Bootstrap-styled and SVG-icon options.</p>
-		</section>
-
-		<demo-card
-			title="Edit button"
-			description="The default edit button. Available as the editButton directive and the <edit-button> component."
-			[props]="['ariaLabel', 'disabled', 'loading']"
-			[code]="editCode">
-			<ng-kit-edit-button-demo />
-		</demo-card>
-
-		<demo-card
-			title="Edit Bootstrap button"
-			description="An edit button rendered with Bootstrap button styling.">
-			<ng-kit-edit-bs-button-demo />
-		</demo-card>
-
-		<demo-card
-			title="Edit SVG icon button"
-			description="An icon-only edit button that renders an inline SVG pencil icon.">
-			<ng-kit-edit-svg-icon-button-demo />
-		</demo-card>
-
-		<section class="page-section">
-			<h2>Destructive &amp; dismiss buttons</h2>
-			<p>Buttons for deleting records and closing dialogs or panels.</p>
-		</section>
-
-		<demo-card
-			title="Delete button"
-			description="A destructive delete button. Available as the deleteButton directive and the <delete-button> component."
-			[props]="['ariaLabel', 'disabled', 'loading']"
-			[code]="deleteCode">
-			<ng-kit-delete-button-demo />
-		</demo-card>
-
-		<demo-card
-			title="Close button"
-			description="A dismiss button, applied via the closeButton directive, for dialogs, alerts and panels.">
-			<ng-kit-close-button-demo />
-		</demo-card>
-
-		<section class="page-section">
-			<h2>Export buttons</h2>
-			<p>Purpose-built buttons for exporting tabular data to spreadsheet and document formats.</p>
-		</section>
-
-		<demo-card
-			title="Excel &amp; PDF export"
-			description="Excel and PDF export buttons, each available as a directive and a component."
-			[props]="['ariaLabel', 'disabled', 'loading']"
-			[code]="exportCode">
-			<ng-kit-excel-export-button-demo />
-			<ng-kit-pdf-export-button-demo />
-		</demo-card>
-
-		<section class="page-section">
-			<h2>Link &amp; base buttons</h2>
-			<p>A Bootstrap-styled link button and the shared base button that every other button extends.</p>
-		</section>
-
-		<demo-card
-			title="Bootstrap link button"
-			description="An anchor styled as a Bootstrap button via the bsLinkButton directive or the <bs-link-button> component.">
-			<ng-kit-bs-link-button-demo />
-		</demo-card>
-
-		<demo-card
-			title="Base button"
-			description="The shared base button that supplies icon, label and loading behaviour to every ng-kit button.">
-			<ng-kit-base-button-demo />
-		</demo-card>
-
-		<section class="page-section">
-			<h2>All buttons</h2>
-			<p>Every button family shown together for quick visual comparison.</p>
-		</section>
-
-		<demo-card
-			title="Button showcase"
-			description="A combined gallery of all ng-kit button types.">
-			<ng-kit-buttons-demo />
-		</demo-card>
+		<h2 class="examples-heading">Buttons</h2>
+		@for (group of groups; track group.label) {
+			<h3 class="group-heading">{{ group.label }}</h3>
+			<mat-accordion class="example-accordion" multi>
+				@for (b of group.buttons; track b.title) {
+					<mat-expansion-panel>
+						<mat-expansion-panel-header>
+							<mat-panel-title>{{ b.title }}</mat-panel-title>
+							<mat-panel-description>{{ b.description }}</mat-panel-description>
+						</mat-expansion-panel-header>
+						<ng-template matExpansionPanelContent>
+							<ng-container *ngComponentOutlet="b.component" />
+							@if (b.code) {
+								<details class="example-source">
+									<summary>View source</summary>
+									<pre class="example-code"><code>{{ b.code }}</code></pre>
+								</details>
+							}
+						</ng-template>
+					</mat-expansion-panel>
+				}
+			</mat-accordion>
+		}
 
 		<section class="page-section api">
 			<h2>API reference</h2>
@@ -295,30 +171,12 @@ const DELETE_CODE = `<!-- Directive (preferred) -->
 						<td><code>'button'</code></td>
 						<td>Native button type</td>
 					</tr>
-					<tr>
-						<td><code>classes</code></td>
-						<td><code>string</code></td>
-						<td>per button</td>
-						<td>Extra CSS classes applied to the rendered button</td>
-					</tr>
-					<tr>
-						<td><code>style</code></td>
-						<td><code>string | object | null</code></td>
-						<td>—</td>
-						<td>Inline styles applied to the button</td>
-					</tr>
-					<tr>
-						<td><code>dataCy</code></td>
-						<td><code>string</code></td>
-						<td>per button</td>
-						<td>Value for the <code>data-cy</code> test attribute</td>
-					</tr>
 				</tbody>
 			</table>
 			<p class="api-note">
 				The base <em>directive</em> exposes <code>icon</code>, <code>label</code>, <code>loading</code> and
-				<code>loadingLabel</code>. Component buttons additionally provide the <code>style</code>, <code>classes</code> and
-				<code>dataCy</code> inputs listed above.
+				<code>loadingLabel</code>. Component buttons additionally provide <code>style</code>, <code>classes</code> and
+				<code>dataCy</code> inputs.
 			</p>
 
 			<h3>Outputs</h3>
@@ -337,107 +195,14 @@ const DELETE_CODE = `<!-- Directive (preferred) -->
 						<td>Button was clicked</td>
 					</tr>
 					<tr>
-						<td><code>onFocus</code></td>
+						<td><code>onFocus</code> / <code>onBlur</code></td>
 						<td><code>FocusEvent</code></td>
-						<td>Button gained focus</td>
-					</tr>
-					<tr>
-						<td><code>onBlur</code></td>
-						<td><code>FocusEvent</code></td>
-						<td>Button lost focus</td>
+						<td>Button gained / lost focus</td>
 					</tr>
 					<tr>
 						<td><code>onKeyDown</code> / <code>onKeyUp</code></td>
 						<td><code>KeyboardEvent</code></td>
 						<td>Key pressed / released while focused</td>
-					</tr>
-				</tbody>
-			</table>
-
-			<h3>Selectors</h3>
-			<table class="api-table">
-				<thead>
-					<tr>
-						<th>Family</th>
-						<th>Directive</th>
-						<th>Component</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td>Primary</td>
-						<td><code>primaryButton</code></td>
-						<td><code>&lt;primary-button&gt;</code></td>
-					</tr>
-					<tr>
-						<td>Success</td>
-						<td><code>successButton</code></td>
-						<td><code>&lt;success-button&gt;</code></td>
-					</tr>
-					<tr>
-						<td>Save primary</td>
-						<td><code>savePrimaryButton</code></td>
-						<td><code>&lt;save-primary-button&gt;</code></td>
-					</tr>
-					<tr>
-						<td>Search</td>
-						<td>—</td>
-						<td><code>&lt;search-button&gt;</code></td>
-					</tr>
-					<tr>
-						<td>Manage</td>
-						<td><code>manageButton</code></td>
-						<td><code>&lt;manage-button&gt;</code></td>
-					</tr>
-					<tr>
-						<td>View</td>
-						<td><code>viewButton</code></td>
-						<td><code>&lt;view-button&gt;</code></td>
-					</tr>
-					<tr>
-						<td>View primary</td>
-						<td><code>viewPrimaryButton</code></td>
-						<td><code>&lt;view-primary-button&gt;</code></td>
-					</tr>
-					<tr>
-						<td>Edit</td>
-						<td><code>editButton</code></td>
-						<td><code>&lt;edit-button&gt;</code></td>
-					</tr>
-					<tr>
-						<td>Edit Bootstrap</td>
-						<td><code>editBsButton</code></td>
-						<td><code>&lt;edit-bs-button&gt;</code></td>
-					</tr>
-					<tr>
-						<td>Edit SVG icon</td>
-						<td><code>editSvgIconButton</code></td>
-						<td><code>&lt;edit-svg-icon-button&gt;</code></td>
-					</tr>
-					<tr>
-						<td>Delete</td>
-						<td><code>deleteButton</code></td>
-						<td><code>&lt;delete-button&gt;</code></td>
-					</tr>
-					<tr>
-						<td>Close</td>
-						<td><code>closeButton</code></td>
-						<td>—</td>
-					</tr>
-					<tr>
-						<td>Excel export</td>
-						<td><code>excelExportButton</code></td>
-						<td><code>&lt;excel-export-button&gt;</code></td>
-					</tr>
-					<tr>
-						<td>PDF export</td>
-						<td><code>pdfExportButton</code></td>
-						<td><code>&lt;pdf-export-button&gt;</code></td>
-					</tr>
-					<tr>
-						<td>Bootstrap link</td>
-						<td><code>bsLinkButton</code></td>
-						<td><code>&lt;bs-link-button&gt;</code></td>
 					</tr>
 				</tbody>
 			</table>
@@ -463,13 +228,36 @@ const DELETE_CODE = `<!-- Directive (preferred) -->
 			max-width: 70ch;
 		}
 
-		.readout {
-			margin-top: 12px;
-			color: rgba(0, 0, 0, 0.6);
-			font-size: 14px;
+		.examples-heading {
+			margin-block: 2rem 0.5rem;
 		}
 
-		.code-block {
+		.group-heading {
+			margin-block: 1.5rem 0.5rem;
+			font-size: 0.8125rem;
+			font-weight: 600;
+			letter-spacing: 0.06em;
+			text-transform: uppercase;
+			color: rgba(0, 0, 0, 0.6);
+		}
+
+		.example-accordion {
+			display: block;
+			margin-block-end: 0.5rem;
+		}
+
+		.example-source {
+			margin-top: 1rem;
+		}
+
+		.example-source summary {
+			cursor: pointer;
+			color: #3f51b5;
+			font-size: 0.875rem;
+		}
+
+		.code-block,
+		.example-code {
 			margin: 0.5rem 0 0;
 			padding: 1rem;
 			overflow-x: auto;
@@ -506,8 +294,56 @@ const DELETE_CODE = `<!-- Directive (preferred) -->
 	`,
 })
 export class ButtonsPage {
-	protected readonly primaryCode = PRIMARY_CODE;
-	protected readonly editCode = EDIT_CODE;
-	protected readonly exportCode = EXPORT_CODE;
-	protected readonly deleteCode = DELETE_CODE;
+	protected readonly groups: ButtonGroup[] = [
+		{
+			label: 'Primary & action',
+			buttons: [
+				{ title: 'Primary button', description: 'The default call-to-action (primaryButton directive / <primary-button>).', component: PrimaryButtonDemoComponent, code: PRIMARY_CODE },
+				{ title: 'Success button', description: 'A green, positive-affirmation button for confirming actions.', component: SuccessButtonDemoComponent },
+				{ title: 'Save primary button', description: "A primary button with a save icon and 'Saving…' loading label.", component: SavePrimaryButtonDemoComponent },
+				{ title: 'Search button', description: 'A button styled for search / filter triggers.', component: SearchButtonDemoComponent },
+				{ title: 'Manage button', description: 'A button for management / settings entry points.', component: ManageButtonDemoComponent },
+			],
+		},
+		{
+			label: 'View',
+			buttons: [
+				{ title: 'View button', description: 'A subtle view / details button.', component: ViewButtonDemoComponent },
+				{ title: 'View primary button', description: 'A view button with primary emphasis for the main row action.', component: ViewPrimaryButtonDemoComponent },
+			],
+		},
+		{
+			label: 'Edit',
+			buttons: [
+				{ title: 'Edit button', description: 'The default edit button (editButton directive / <edit-button>).', component: EditButtonDemoComponent, code: EDIT_CODE },
+				{ title: 'Edit Bootstrap button', description: 'An edit button rendered with Bootstrap button styling.', component: EditBsButtonDemoComponent },
+				{ title: 'Edit SVG icon button', description: 'An icon-only edit button rendering an inline SVG pencil.', component: EditSvgIconButtonDemoComponent },
+			],
+		},
+		{
+			label: 'Destructive & dismiss',
+			buttons: [
+				{ title: 'Delete button', description: 'A destructive delete button (deleteButton directive / <delete-button>).', component: DeleteButtonDemoComponent, code: DELETE_CODE },
+				{ title: 'Close button', description: 'A dismiss button (closeButton directive) for dialogs, alerts and panels.', component: CloseButtonDemoComponent },
+			],
+		},
+		{
+			label: 'Export',
+			buttons: [
+				{ title: 'Excel export button', description: 'Exports tabular data to a spreadsheet.', component: ExcelExportButtonDemoComponent, code: EXCEL_CODE },
+				{ title: 'PDF export button', description: 'Exports tabular data to a PDF document.', component: PdfExportButtonDemoComponent, code: PDF_CODE },
+			],
+		},
+		{
+			label: 'Link & base',
+			buttons: [
+				{ title: 'Bootstrap link button', description: 'An anchor styled as a Bootstrap button (bsLinkButton / <bs-link-button>).', component: BsLinkButtonDemoComponent },
+				{ title: 'Base button', description: 'The shared base button supplying icon, label and loading behaviour to every ng-kit button.', component: BaseButtonDemoComponent },
+			],
+		},
+		{
+			label: 'Showcase',
+			buttons: [{ title: 'All buttons', description: 'Every button family shown together for quick comparison.', component: ButtonsDemoComponent }],
+		},
+	];
 }

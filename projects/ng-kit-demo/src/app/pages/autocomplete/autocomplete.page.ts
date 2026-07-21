@@ -1,32 +1,39 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
-import { AutocompleteComponent } from '@js-smart/ng-kit';
-import { DemoCard } from '../../shared/demo-card.component';
-import { AutocompleteDemoComponent } from '../../autocomplete-demo/autocomplete-demo.component';
+import { NgComponentOutlet } from '@angular/common';
+import { ChangeDetectionStrategy, Component, Type } from '@angular/core';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { AsyncExample } from './examples/async.example';
+import { ComboBoxExample } from './examples/combo-box.example';
+import { ControlledExample } from './examples/controlled.example';
+import { CountrySelectExample } from './examples/country-select.example';
+import { CustomRenderExample } from './examples/custom-render.example';
+import { DisabledOptionsExample } from './examples/disabled-options.example';
+import { FixedTagsExample } from './examples/fixed-tags.example';
+import { FreeSoloExample } from './examples/free-solo.example';
+import { GroupedExample } from './examples/grouped.example';
+import { MultipleCheckboxesExample } from './examples/multiple-checkboxes.example';
+import { PlaygroundExample } from './examples/playground.example';
+import { SizesAppearancesExample } from './examples/sizes-appearances.example';
+import { VirtualizedExample } from './examples/virtualized.example';
 
-const BASIC_CODE = `import { Component, signal } from '@angular/core';
-import { AutocompleteComponent } from '@js-smart/ng-kit';
+interface ExampleEntry {
+	title: string;
+	description: string;
+	component: Type<unknown>;
+}
 
-@Component({
-	selector: 'app-basic',
-	imports: [AutocompleteComponent],
-	template: \`
-		<autocomplete [options]="fruits" [(value)]="value" label="Fruit" placeholder="Pick one" />
-		<p>Selected: {{ value() ?? '—' }}</p>
-	\`,
-})
-export class BasicExample {
-	protected readonly fruits = ['Apple', 'Banana', 'Cherry', 'Date', 'Elderberry'];
-	protected readonly value = signal<string | null>(null);
-}`;
+interface ExampleGroup {
+	label: string;
+	examples: ExampleEntry[];
+}
 
 /**
- * Reference page for the gallery pattern: a lead paragraph, an overview
- * section, one or more live examples wrapped in <demo-card>, and an API
- * reference. Fan-out agents mirror this structure for every other page.
+ * Autocomplete reference page. Every example ported from the ng-autocomplete
+ * gallery is shown in a category-grouped accordion — expand a panel to view the
+ * live demo (rendered lazily via matExpansionPanelContent) and its source.
  */
 @Component({
 	selector: 'ng-kit-autocomplete-page',
-	imports: [AutocompleteComponent, DemoCard, AutocompleteDemoComponent],
+	imports: [NgComponentOutlet, MatExpansionModule],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
 		<h1 class="page-title">Autocomplete</h1>
@@ -41,23 +48,27 @@ export class BasicExample {
 			<p>
 				Import <code>AutocompleteComponent</code> and pass an <code>options</code> array. Use <code>getOptionLabel</code> to map an option to
 				its display string, bind the selection with <code>[(value)]</code>, and listen to <code>valueChanged</code> for selection events.
+				Every capability below has a live example — expand a panel to try it and read its source.
 			</p>
 		</section>
 
-		<demo-card
-			title="Basic"
-			description="Single-select combo box over a list of strings."
-			[props]="['options', 'value', 'label', 'placeholder']"
-			[code]="basicCode">
-			<autocomplete [options]="fruits" [(value)]="basicValue" label="Fruit" placeholder="Pick one" />
-			<p class="readout">Selected: {{ basicValue() ?? '—' }}</p>
-		</demo-card>
-
-		<demo-card
-			title="Objects, loading &amp; disabled"
-			description="Object options with a custom label, an async loading state, and a reactive-forms disabled control.">
-			<ng-kit-autocomplete-demo />
-		</demo-card>
+		<h2 class="examples-heading">Examples</h2>
+		@for (group of groups; track group.label) {
+			<h3 class="group-heading">{{ group.label }}</h3>
+			<mat-accordion class="example-accordion" multi>
+				@for (ex of group.examples; track ex.title) {
+					<mat-expansion-panel>
+						<mat-expansion-panel-header>
+							<mat-panel-title>{{ ex.title }}</mat-panel-title>
+							<mat-panel-description>{{ ex.description }}</mat-panel-description>
+						</mat-expansion-panel-header>
+						<ng-template matExpansionPanelContent>
+							<ng-container *ngComponentOutlet="ex.component" />
+						</ng-template>
+					</mat-expansion-panel>
+				}
+			</mat-accordion>
+		}
 
 		<section class="page-section api">
 			<h2>API reference</h2>
@@ -168,10 +179,22 @@ export class BasicExample {
 			max-width: 70ch;
 		}
 
-		.readout {
-			margin-top: 12px;
+		.examples-heading {
+			margin-block: 2rem 0.5rem;
+		}
+
+		.group-heading {
+			margin-block: 1.5rem 0.5rem;
+			font-size: 0.8125rem;
+			font-weight: 600;
+			letter-spacing: 0.06em;
+			text-transform: uppercase;
 			color: rgba(0, 0, 0, 0.6);
-			font-size: 14px;
+		}
+
+		.example-accordion {
+			display: block;
+			margin-block-end: 0.5rem;
 		}
 
 		.api-table {
@@ -200,7 +223,39 @@ export class BasicExample {
 	`,
 })
 export class AutocompletePage {
-	protected readonly basicCode = BASIC_CODE;
-	protected readonly fruits = ['Apple', 'Banana', 'Cherry', 'Date', 'Elderberry'];
-	protected readonly basicValue = signal<string | null>(null);
+	protected readonly groups: ExampleGroup[] = [
+		{
+			label: 'Single-select',
+			examples: [
+				{ title: 'Combo box', description: 'Basic single-select with a filtered list of options.', component: ComboBoxExample },
+				{ title: 'Country select', description: 'Custom option template with a flag and dial code.', component: CountrySelectExample },
+				{ title: 'Disabled options', description: 'Every 3rd option is disabled and cannot be selected.', component: DisabledOptionsExample },
+				{ title: 'Sizes & appearances', description: 'Every combination of size and appearance.', component: SizesAppearancesExample },
+			],
+		},
+		{
+			label: 'Multiple',
+			examples: [
+				{ title: 'Checkboxes', description: 'Multi-select with checkboxes; popup stays open after each pick.', component: MultipleCheckboxesExample },
+				{ title: 'Fixed tags', description: "Multi-select with fixed chips that can't be removed, plus a “+n more” summary.", component: FixedTagsExample },
+			],
+		},
+		{
+			label: 'Behaviour',
+			examples: [
+				{ title: 'Free solo', description: "Type anything — the raw text becomes the value, even if it isn't in the list.", component: FreeSoloExample },
+				{ title: 'Controlled', description: 'Every piece of state is owned by external signals and outside buttons.', component: ControlledExample },
+				{ title: 'Asynchronous requests', description: 'Simulates a server-side search: options load after each keystroke.', component: AsyncExample },
+				{ title: 'Grouped', description: 'Options grouped by their first letter via a pre-sorted group key.', component: GroupedExample },
+			],
+		},
+		{
+			label: 'Advanced',
+			examples: [
+				{ title: 'Virtualized (10,000 options)', description: 'Single-select over 10,000 options, rendered virtually.', component: VirtualizedExample },
+				{ title: 'Custom rendering', description: 'Custom option markup with query highlighting, custom icons, and a custom paper surface.', component: CustomRenderExample },
+				{ title: 'Playground', description: 'Flip every input live to see how the autocomplete reacts.', component: PlaygroundExample },
+			],
+		},
+	];
 }
