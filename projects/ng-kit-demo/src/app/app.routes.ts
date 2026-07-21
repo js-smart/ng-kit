@@ -1,4 +1,8 @@
 import { Route } from '@angular/router';
+import { GALLERY_PAGES } from './gallery/gallery-registry';
+// Legacy standalone demo components — kept routable at their original
+// `/<name>-demo` paths so existing e2e specs continue to pass while the
+// gallery pages become the primary navigation.
 import { AlertDemoComponent } from './alert-demo/alert-demo.component';
 import { QueryDemoComponent } from './query-demo/query-demo.component';
 import { AutocompleteDemoComponent } from './autocomplete-demo/autocomplete-demo.component';
@@ -12,7 +16,13 @@ import { ProgressStateDemoComponent } from './progress-state-demo/progress-state
 import { SnackBarDemoComponent } from './snack-bar-demo/snack-bar-demo.component';
 
 export const routes: Route[] = [
-{ path: 'autocomplete-demo', component: AutocompleteDemoComponent },
+	{ path: '', pathMatch: 'full', loadComponent: () => import('./pages/home/home.page').then((m) => m.HomePage) },
+
+	// Gallery pages (primary navigation), generated from the registry.
+	...GALLERY_PAGES.map((page) => ({ path: page.slug, loadComponent: page.load })),
+
+	// Legacy demo routes (kept for backward compatibility / existing e2e specs).
+	{ path: 'autocomplete-demo', component: AutocompleteDemoComponent },
 	{ path: 'autocomplete-suffix-demo', component: AutocompleteSuffixDemoComponent },
 	{ path: 'alert-demo', component: AlertDemoComponent },
 	{ path: 'confirm-dialog-demo', component: ConfirmDialogDemoComponent },
@@ -23,4 +33,6 @@ export const routes: Route[] = [
 	{ path: 'progress-state-demo', component: ProgressStateDemoComponent },
 	{ path: 'ngx-print-demo', component: NgxPrintDemoComponent },
 	{ path: 'query-demo', component: QueryDemoComponent },
+
+	{ path: '**', redirectTo: '' },
 ];
