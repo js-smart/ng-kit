@@ -150,6 +150,7 @@ import { GALLERY_PAGES, GalleryPage, groupedPages } from './gallery/gallery-regi
 		.shell-body {
 			flex: 1 1 auto;
 			min-height: 0;
+			background: #fff;
 		}
 
 		.sidenav {
@@ -163,6 +164,7 @@ import { GALLERY_PAGES, GalleryPage, groupedPages } from './gallery/gallery-regi
 
 		.content {
 			padding: 2rem clamp(1rem, 4vw, 3rem);
+			background: #fff;
 		}
 
 		main {

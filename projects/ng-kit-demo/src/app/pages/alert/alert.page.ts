@@ -165,14 +165,12 @@ export class BasicExample {
 		}
 
 		.page-lead {
-			max-width: 70ch;
 			color: rgba(0, 0, 0, 0.7);
 			margin-block-end: 2rem;
 		}
 
 		.page-section {
 			margin-block: 2rem;
-			max-width: 70ch;
 		}
 
 		.readout {

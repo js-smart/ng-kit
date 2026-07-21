@@ -44,7 +44,6 @@ import { MatTabsModule } from '@angular/material/tabs';
 		}
 
 		.doc-lead {
-			max-width: 80ch;
 			color: rgba(0, 0, 0, 0.7);
 		}
 
@@ -54,6 +53,13 @@ import { MatTabsModule } from '@angular/material/tabs';
 
 		.doc-tab-body {
 			padding-block-start: 1.5rem;
+		}
+
+		/* Material-docs-style tabs: uppercase labels. */
+		.doc-tabs ::ng-deep .mdc-tab__text-label {
+			text-transform: uppercase;
+			letter-spacing: 0.05em;
+			font-weight: 500;
 		}
 	`,
 })
