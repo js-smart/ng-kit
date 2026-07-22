@@ -2,22 +2,10 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { DocPage } from '../../shared/doc-page.component';
 import { DemoCard } from '../../shared/demo-card.component';
 import { SnackBarDemoComponent } from '../../snack-bar-demo/snack-bar-demo.component';
+import { getSnackBarDemoConfig } from '../../utils/demo-config-generator';
 
-const BASIC_CODE = `import { Component, inject } from '@angular/core';
-import { MatSnackBarService } from '@js-smart/ng-kit';
-import { MatButtonModule } from '@angular/material/button';
-
-@Component({
-	selector: 'app-snack-bar-example',
-	imports: [MatButtonModule],
-	template: \`
-		<button mat-raised-button color="primary" (click)="mdc.success('Update Success')">Show Success</button>
-		<button mat-raised-button color="warn" (click)="mdc.error('Failed to update the record')">Show Error</button>
-	\`,
-})
-export class SnackBarExample {
-	protected readonly mdc = inject(MatSnackBarService);
-}`;
+/** StackBlitz config for the Snack bar card — reuses the shared snack-bar-demo project. */
+const snackBarConfig = getSnackBarDemoConfig();
 
 /**
  * Snack Bar gallery page: overview, a live example reusing the shared
@@ -58,9 +46,11 @@ export class SnackBarExample {
 			<div docExamples>
 				<demo-card
 					title="Success &amp; error"
+					anchorId="success-and-error"
 					description="Trigger a themed success or error snack bar from a button click."
 					[props]="['success()', 'error()']"
-					[code]="basicCode">
+					[code]="snackBarConfig.componentTs"
+					[stackblitz]="snackBarConfig">
 					<ng-kit-snack-bar-demo />
 				</demo-card>
 			</div>
@@ -221,5 +211,5 @@ export class SnackBarExample {
 	`,
 })
 export class SnackBarPage {
-	protected readonly basicCode = BASIC_CODE;
+	protected readonly snackBarConfig = snackBarConfig;
 }

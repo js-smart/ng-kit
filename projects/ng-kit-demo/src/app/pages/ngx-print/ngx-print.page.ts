@@ -2,44 +2,113 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { DocPage } from '../../shared/doc-page.component';
 import { DemoCard } from '../../shared/demo-card.component';
 import { NgxPrintDemoComponent } from '../../ngx-print-demo/ngx-print-demo';
+import { buildDemoConfig } from '../../shared/build-demo-config';
 
-const BASIC_CODE = `<div id="print-section">
-	<h1>Document Title</h1>
-	<p>Content to be printed...</p>
-</div>
-
-<button ngxPrint printSectionId="print-section">Print</button>`;
-
-const MAT_TABLE_CODE = `import { Component, ViewChild } from '@angular/core';
-import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+const BASIC_CODE = `import { Component } from '@angular/core';
 import { NgxPrintDirective } from '@js-smart/ng-kit';
 
 @Component({
-	selector: 'app-table-print',
-	imports: [MatTableModule, MatPaginatorModule, NgxPrintDirective],
+	selector: 'app-basic-print',
+	imports: [NgxPrintDirective],
 	template: \`
 		<div id="print-section">
-			<mat-table [dataSource]="dataSource"><!-- columns --></mat-table>
-			<mat-paginator #paginator [pageSizeOptions]="[5, 10, 20]" />
+			<h1>Document Title</h1>
+			<p>Content to be printed...</p>
 		</div>
 
-		<button
-			ngxPrint
-			printSectionId="print-section"
-			[isMatTable]="true"
-			[matTableDataSource]="dataSource"
-			[paginator]="paginator"
-			paginatorId="paginator-id"
-			[hideMatTablePaginator]="true">
-			Print Table
-		</button>
+		<button ngxPrint printSectionId="print-section" printTitle="My Document">Print</button>
 	\`,
 })
-export class TablePrintExample {
+export class BasicPrintComponent {}`;
+
+const MAT_TABLE_CODE = `import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatSort, MatSortModule } from '@angular/material/sort';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { NgxPrintDirective } from '@js-smart/ng-kit';
+
+interface User {
+	name: string;
+	email: string;
+	phone: string;
+	website: string;
+}
+
+const USERS: User[] = [
+	{ name: 'Leanne Graham', email: 'leanne@example.com', phone: '1-770-736-8031', website: 'hildegard.org' },
+	{ name: 'Ervin Howell', email: 'ervin@example.com', phone: '010-692-6593', website: 'anastasia.net' },
+	{ name: 'Clementine Bauch', email: 'clementine@example.com', phone: '1-463-123-4447', website: 'ramiro.info' },
+	{ name: 'Patricia Lebsack', email: 'patricia@example.com', phone: '493-170-9623', website: 'kale.biz' },
+	{ name: 'Chelsey Dietrich', email: 'chelsey@example.com', phone: '254-954-1289', website: 'demarco.info' },
+	{ name: 'Dennis Schulist', email: 'dennis@example.com', phone: '1-477-935-8478', website: 'ola.org' },
+];
+
+@Component({
+	selector: 'app-table-print',
+	imports: [MatTableModule, MatPaginatorModule, MatSortModule, NgxPrintDirective],
+	template: \`
+		<div class="text-center">
+			<button
+				ngxPrint
+				printSectionId="print-section"
+				[isMatTable]="true"
+				[matTableDataSource]="dataSource"
+				[paginator]="paginator"
+				paginatorId="mat-paginator"
+				[hideMatTablePaginator]="true"
+				[useExistingCss]="true"
+				type="button">
+				Export to PDF
+			</button>
+		</div>
+
+		<table mat-table id="print-section" [dataSource]="dataSource" matSort matSortActive="name" matSortDirection="asc">
+			<ng-container matColumnDef="name">
+				<mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
+				<mat-cell *matCellDef="let element">{{ element.name }}</mat-cell>
+			</ng-container>
+			<ng-container matColumnDef="email">
+				<mat-header-cell *matHeaderCellDef mat-sort-header>Email</mat-header-cell>
+				<mat-cell *matCellDef="let element">{{ element.email }}</mat-cell>
+			</ng-container>
+			<ng-container matColumnDef="phone">
+				<mat-header-cell *matHeaderCellDef mat-sort-header>Phone</mat-header-cell>
+				<mat-cell *matCellDef="let element">{{ element.phone }}</mat-cell>
+			</ng-container>
+			<ng-container matColumnDef="website">
+				<mat-header-cell *matHeaderCellDef mat-sort-header>Website</mat-header-cell>
+				<mat-cell *matCellDef="let element">{{ element.website }}</mat-cell>
+			</ng-container>
+			<mat-header-row *matHeaderRowDef="displayedColumns" />
+			<mat-row *matRowDef="let row; columns: displayedColumns" />
+		</table>
+		<mat-paginator id="mat-paginator" [pageSize]="5" [pageSizeOptions]="[5, 10, 20]" [length]="USERS.length" />
+	\`,
+})
+export class TablePrintComponent implements AfterViewInit {
 	@ViewChild(MatPaginator) paginator!: MatPaginator;
-	dataSource = new MatTableDataSource<User>();
+	@ViewChild(MatSort) sort!: MatSort;
+
+	protected readonly displayedColumns = ['name', 'email', 'phone', 'website'];
+	protected readonly USERS = USERS;
+	dataSource = new MatTableDataSource<User>(USERS);
+
+	ngAfterViewInit(): void {
+		this.dataSource.paginator = this.paginator;
+		this.dataSource.sort = this.sort;
+	}
 }`;
+
+/** StackBlitz config for the Material table card — class name matches PascalCase(componentName). */
+const tablePrintConfig = buildDemoConfig({
+	title: 'Material table print',
+	componentName: 'table-print',
+	code: MAT_TABLE_CODE,
+	requiredImports: ['BrowserAnimationsModule'],
+});
+
+/** StackBlitz config for the Basic usage card — class name matches PascalCase(componentName). */
+const basicPrintConfig = buildDemoConfig({ title: 'Basic print', componentName: 'basic-print', code: BASIC_CODE });
 
 /**
  * Documentation page for the ngxPrint directive: prints a chosen DOM section,
@@ -78,17 +147,21 @@ export class TablePrintExample {
 			<div docExamples>
 				<demo-card
 					title="Material table"
+					anchorId="material-table"
 					description="Print a paginated Material table: bind the data source and paginator, and optionally hide the paginator in the printout."
 					[props]="['printSectionId', 'isMatTable', 'matTableDataSource', 'paginator', 'hideMatTablePaginator']"
-					[code]="matTableCode">
+					[code]="matTableCode"
+					[stackblitz]="tablePrintConfig">
 					<ngx-print-demo />
 				</demo-card>
 
 				<demo-card
 					title="Basic usage"
+					anchorId="basic-usage"
 					description="Print a plain DOM section by its id."
 					[props]="['printSectionId', 'printTitle']"
-					[code]="basicCode" />
+					[code]="basicCode"
+					[stackblitz]="basicPrintConfig" />
 			</div>
 
 			<div docApi>
@@ -261,4 +334,6 @@ export class TablePrintExample {
 export class NgxPrintPage {
 	protected readonly basicCode = BASIC_CODE;
 	protected readonly matTableCode = MAT_TABLE_CODE;
+	protected readonly tablePrintConfig = tablePrintConfig;
+	protected readonly basicPrintConfig = basicPrintConfig;
 }

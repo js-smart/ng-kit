@@ -2,35 +2,10 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { DemoCard } from '../../shared/demo-card.component';
 import { DocPage } from '../../shared/doc-page.component';
 import { ConfirmDialogDemoComponent } from '../../confirm-dialog-demo/confirm-dialog-demo.component.html-demo.component';
+import { getConfirmDialogDemoConfig } from '../../utils/demo-config-generator';
 
-const BASIC_CODE = `import { Component, inject } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { ConfirmDialogComponent } from '@js-smart/ng-kit';
-
-@Component({
-	selector: 'app-delete',
-	template: \`<button (click)="confirmDelete()">Delete</button>\`,
-})
-export class DeleteExample {
-	private readonly dialog = inject(MatDialog);
-
-	confirmDelete() {
-		const ref = this.dialog.open(ConfirmDialogComponent, {
-			data: {
-				title: 'Delete Item',
-				message: 'Are you sure you want to delete this item?',
-			},
-		});
-
-		ref.afterClosed().subscribe((confirmed: boolean) => {
-			if (confirmed) {
-				// User confirmed
-			} else {
-				// User cancelled
-			}
-		});
-	}
-}`;
+/** StackBlitz config for the Confirm Dialog card — reuses the shared confirm-dialog-demo project. */
+const confirmDialogConfig = getConfirmDialogDemoConfig();
 
 /**
  * Gallery page for the Confirm Dialog component. Mirrors the reference
@@ -102,9 +77,12 @@ export class DeleteExample {
 			<div docExamples>
 				<demo-card
 					title="Basic"
+					anchorId="basic"
 					description="Open a modal confirmation and react to the confirmed / cancelled result."
+					language="html"
 					[props]="['title', 'message']"
-					[code]="basicCode">
+					[code]="confirmDialogConfig.componentHtml"
+					[stackblitz]="confirmDialogConfig">
 					<ng-kit-confirm-dialog-demo />
 				</demo-card>
 			</div>
@@ -160,5 +138,5 @@ export class DeleteExample {
 	`,
 })
 export class ConfirmDialogPage {
-	protected readonly basicCode = BASIC_CODE;
+	protected readonly confirmDialogConfig = confirmDialogConfig;
 }

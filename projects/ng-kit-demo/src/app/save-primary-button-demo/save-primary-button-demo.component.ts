@@ -1,18 +1,11 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { SavePrimaryButtonComponent, SavePrimaryButtonDirective } from '@js-smart/ng-kit';
-import { StackBlitzService } from '../services/stackblitz.service';
-import { OpenInStackblitzButtonComponent } from '../shared/open-in-stackblitz-button.component';
-import { getSavePrimaryButtonDemoConfig } from './save-primary-button-demo.config';
 
 @Component({
 	selector: 'ng-kit-save-primary-button-demo',
 	standalone: true,
-	imports: [SavePrimaryButtonComponent, SavePrimaryButtonDirective, OpenInStackblitzButtonComponent],
+	imports: [SavePrimaryButtonComponent, SavePrimaryButtonDirective],
 	template: `
-		<div style="margin-bottom: 20px;">
-			<ng-kit-open-in-stackblitz-button (open)="openInStackBlitz()" />
-		</div>
-
 		<div>
 			<h2>Directive (Preferred)</h2>
 			<button ariaLabel="Save" (click)="onSave()" savePrimaryButton>Save</button>
@@ -29,12 +22,6 @@ import { getSavePrimaryButtonDemoConfig } from './save-primary-button-demo.confi
 })
 export class SavePrimaryButtonDemoComponent {
 	status = signal('');
-
-	private readonly stackBlitzService = inject(StackBlitzService);
-
-	openInStackBlitz(): void {
-		this.stackBlitzService.openDemo(getSavePrimaryButtonDemoConfig());
-	}
 
 	onSave(): void {
 		this.status.set('Save clicked!');

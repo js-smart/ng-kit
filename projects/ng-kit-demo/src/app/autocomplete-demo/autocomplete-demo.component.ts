@@ -1,13 +1,10 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { FormBuilder, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { AutocompleteComponent } from '@js-smart/ng-kit';
-import { StackBlitzService } from '../services/stackblitz.service';
-import { OpenInStackblitzButtonComponent } from '../shared/open-in-stackblitz-button.component';
-import { getAutocompleteDemoConfig } from '../utils/demo-config-generator';
 
 @Component({
 	selector: 'ng-kit-autocomplete-demo',
-	imports: [AutocompleteComponent, ReactiveFormsModule, OpenInStackblitzButtonComponent],
+	imports: [AutocompleteComponent, ReactiveFormsModule],
 	templateUrl: './autocomplete-demo.component.html',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -49,8 +46,6 @@ export class AutocompleteDemoComponent {
 	isLoading = signal(true);
 	loadingCities = signal<City[]>([]);
 
-	private readonly stackBlitzService = inject(StackBlitzService);
-
 	constructor(private fb: FormBuilder) {
 		// Simulate async data loading
 		setTimeout(() => {
@@ -68,10 +63,6 @@ export class AutocompleteDemoComponent {
 		} else {
 			control?.disable();
 		}
-	}
-
-	openInStackBlitz(): void {
-		this.stackBlitzService.openDemo(getAutocompleteDemoConfig());
 	}
 }
 

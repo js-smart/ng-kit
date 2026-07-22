@@ -2,12 +2,13 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { DemoCard } from '../../shared/demo-card.component';
 import { DocPage } from '../../shared/doc-page.component';
 import { ProgressStateDemoComponent } from '../../progress-state-demo/progress-state-demo.component';
+import { buildDemoConfig } from '../../shared/build-demo-config';
 
 const BASIC_CODE = `import { Component } from '@angular/core';
 import { initializeState, markLoading, markSuccess, markError } from '@js-smart/ng-kit';
 
 @Component({
-	selector: 'app-example',
+	selector: 'app-save-lifecycle',
 	template: \`
 		<button (click)="saveData()" [disabled]="progressState().isLoading">
 			{{ progressState().isLoading ? 'Saving...' : 'Save' }}
@@ -22,7 +23,7 @@ import { initializeState, markLoading, markSuccess, markError } from '@js-smart/
 		}
 	\`,
 })
-export class ExampleComponent {
+export class SaveLifecycleComponent {
 	progressState = initializeState();
 
 	saveData() {
@@ -34,6 +35,13 @@ export class ExampleComponent {
 		}, 2000);
 	}
 }`;
+
+/** StackBlitz config for the Save-button-lifecycle card — class matches PascalCase(componentName). */
+const saveLifecycleConfig = buildDemoConfig({
+	title: 'Save button lifecycle',
+	componentName: 'save-lifecycle',
+	code: BASIC_CODE,
+});
 
 /**
  * Gallery page for the progress-util helpers: initializeState, markLoading,
@@ -77,9 +85,11 @@ export class ExampleComponent {
 			<div docExamples>
 				<demo-card
 					title="Save button lifecycle"
+					anchorId="save-button-lifecycle"
 					description="A save button that transitions through loading, success, then error using the progress-util helpers."
 					[props]="['initializeState', 'markLoading', 'markSuccess', 'markError']"
-					[code]="basicCode">
+					[code]="basicCode"
+					[stackblitz]="saveLifecycleConfig">
 					<app-progress-state-demo />
 				</demo-card>
 			</div>
@@ -218,4 +228,5 @@ export class ExampleComponent {
 })
 export class ProgressUtilPage {
 	protected readonly basicCode = BASIC_CODE;
+	protected readonly saveLifecycleConfig = saveLifecycleConfig;
 }

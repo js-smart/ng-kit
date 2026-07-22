@@ -4,13 +4,14 @@ import { PreventMultipleClicksDirective } from '@js-smart/ng-kit';
 import { DocPage } from '../../shared/doc-page.component';
 import { DemoCard } from '../../shared/demo-card.component';
 import { DirectivesDemoComponent } from '../../directives-demo/directives-demo.component';
+import { buildDemoConfig } from '../../shared/build-demo-config';
 
 const BASIC_CODE = `import { Component, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { PreventMultipleClicksDirective } from '@js-smart/ng-kit';
 
 @Component({
-	selector: 'app-basic',
+	selector: 'app-basic-prevent-clicks',
 	imports: [MatButtonModule, PreventMultipleClicksDirective],
 	template: \`
 		<button mat-raised-button preventMultipleClicks [throttleTime]="2000" (throttleClick)="onClick()">
@@ -19,7 +20,7 @@ import { PreventMultipleClicksDirective } from '@js-smart/ng-kit';
 		<p>Processed clicks: {{ count() }}</p>
 	\`,
 })
-export class BasicExample {
+export class BasicPreventClicksComponent {
 	protected readonly count = signal(0);
 
 	protected onClick(): void {
@@ -37,11 +38,17 @@ import { PreventMultipleClicksDirective, ViewButtonComponent } from '@js-smart/n
 		<view-button label="Throttle Button" preventMultipleClicks (throttleClick)="click()" />
 	\`,
 })
-export class ThrottleViewButtonExample {
+export class ThrottleViewButtonComponent {
 	click(): void {
 		console.log('Clicked');
 	}
 }`;
+
+/** StackBlitz config for the Basic card — class name matches PascalCase(componentName). */
+const basicConfig = buildDemoConfig({ title: 'Basic', componentName: 'basic-prevent-clicks', code: BASIC_CODE });
+
+/** StackBlitz config for the button-component card — class name matches PascalCase(componentName). */
+const viewButtonConfig = buildDemoConfig({ title: 'With a button component', componentName: 'throttle-view-button', code: VIEW_BUTTON_CODE });
 
 /**
  * Gallery page for the preventMultipleClicks directive: an overview, a live
@@ -130,18 +137,22 @@ export class ThrottleViewButtonExample {
 			<div docExamples>
 				<demo-card
 					title="Basic"
+					anchorId="basic"
 					description="Throttled button with a 2 second window. Click rapidly — only the first click within each window is processed."
 					[props]="['preventMultipleClicks', 'throttleTime', 'throttleClick']"
-					[code]="basicCode">
+					[code]="basicCode"
+					[stackblitz]="basicConfig">
 					<button mat-raised-button preventMultipleClicks [throttleTime]="2000" (throttleClick)="onProcessedClick()">Submit</button>
 					<p class="readout">Processed clicks: {{ processedCount() }}</p>
 				</demo-card>
 
 				<demo-card
 					title="With a button component"
+					anchorId="with-a-button-component"
 					description="The directive applied to the library's view-button. Open the console to see the throttled output fire."
 					[props]="['preventMultipleClicks', 'throttleClick']"
-					[code]="viewButtonCode">
+					[code]="viewButtonCode"
+					[stackblitz]="viewButtonConfig">
 					<ng-kit-directives-demo />
 				</demo-card>
 			</div>
@@ -199,6 +210,8 @@ export class ThrottleViewButtonExample {
 export class PreventMultipleClicksPage {
 	protected readonly basicCode = BASIC_CODE;
 	protected readonly viewButtonCode = VIEW_BUTTON_CODE;
+	protected readonly basicConfig = basicConfig;
+	protected readonly viewButtonConfig = viewButtonConfig;
 	protected readonly processedCount = signal(0);
 
 	protected onProcessedClick(): void {

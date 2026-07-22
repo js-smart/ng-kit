@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { SpinnerComponent } from '@js-smart/ng-kit';
 import { DocPage } from '../../shared/doc-page.component';
 import { DemoCard } from '../../shared/demo-card.component';
+import { buildDemoConfig } from '../../shared/build-demo-config';
 
 const MATERIAL_CODE = `import { Component } from '@angular/core';
 import { SpinnerComponent } from '@js-smart/ng-kit';
@@ -26,6 +27,22 @@ import { SpinnerComponent } from '@js-smart/ng-kit';
 	\`,
 })
 export class SpinnerDefaultComponent {}`;
+
+/** StackBlitz config for the Material spinner card — class name matches PascalCase(componentName). */
+const defaultConfig = buildDemoConfig({
+	title: 'Material spinner',
+	componentName: 'spinner-default',
+	code: DEFAULT_CODE,
+	requiredImports: ['BrowserAnimationsModule'],
+});
+
+/** StackBlitz config for the custom size/color/stroke card — class name matches PascalCase(componentName). */
+const materialConfig = buildDemoConfig({
+	title: 'Custom size, color & stroke',
+	componentName: 'spinner-demo',
+	code: MATERIAL_CODE,
+	requiredImports: ['BrowserAnimationsModule'],
+});
 
 /**
  * Gallery page for the Spinner component: a lead paragraph, an overview
@@ -62,17 +79,21 @@ export class SpinnerDefaultComponent {}`;
 			<div docExamples>
 				<demo-card
 					title="Material spinner"
+					anchorId="material-spinner"
 					description="The Angular Material spinner with default diameter, primary color, and default stroke width."
 					[props]="['bootstrapSpinner']"
-					[code]="defaultCode">
+					[code]="defaultCode"
+					[stackblitz]="defaultConfig">
 					<spinner [bootstrapSpinner]="false" />
 				</demo-card>
 
 				<demo-card
 					title="Custom size, color &amp; stroke"
+					anchorId="custom-size-color-stroke"
 					description="Tune the Material spinner with a smaller diameter, an accent color, and a thinner stroke."
 					[props]="['bootstrapSpinner', 'diameter', 'color', 'strokeWidth']"
-					[code]="materialCode">
+					[code]="materialCode"
+					[stackblitz]="materialConfig">
 					<spinner [bootstrapSpinner]="false" [diameter]="40" color="accent" [strokeWidth]="4" />
 				</demo-card>
 			</div>
@@ -177,4 +198,6 @@ export class SpinnerDefaultComponent {}`;
 export class SpinnerPage {
 	protected readonly materialCode = MATERIAL_CODE;
 	protected readonly defaultCode = DEFAULT_CODE;
+	protected readonly defaultConfig = defaultConfig;
+	protected readonly materialConfig = materialConfig;
 }

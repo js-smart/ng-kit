@@ -2,60 +2,233 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { DocPage } from '../../shared/doc-page.component';
 import { DemoCard } from '../../shared/demo-card.component';
 import { QueryDemoComponent } from '../../query-demo/query-demo.component';
+import { buildDemoConfig } from '../../shared/build-demo-config';
 
-const PROVIDE_CODE = `import { bootstrapApplication } from '@angular/platform-browser';
+/**
+ * Full StackBlitz `app.config.ts` for every Query example. The generic
+ * `additionalProviders` path inlines provider expressions but does NOT emit the
+ * corresponding import statements, so `provideHttpClient()` / `provideQueryClient()`
+ * would be referenced without imports. Overriding the whole file via
+ * `additionalFiles` keeps the launched project compilable and mirrors the app's
+ * own root providers (an HTTP client plus a QueryClient with a 30s staleTime).
+ */
+const QUERY_APP_CONFIG = `import { ApplicationConfig } from '@angular/core';
+import { provideHttpClient } from '@angular/common/http';
 import { provideQueryClient } from '@js-smart/ng-kit';
-import { AppComponent } from './app/app.component';
+import {
+	PreloadAllModules,
+	provideRouter,
+	withComponentInputBinding,
+	withInMemoryScrolling,
+	withPreloading,
+	withRouterConfig,
+} from '@angular/router';
+import { routes } from './app.routes';
 
-bootstrapApplication(AppComponent, {
+export const appConfig: ApplicationConfig = {
 	providers: [
+		provideRouter(
+			routes,
+			withComponentInputBinding(),
+			withInMemoryScrolling(),
+			withPreloading(PreloadAllModules),
+			withRouterConfig({ onSameUrlNavigation: 'reload' }),
+		),
+		provideHttpClient(),
 		provideQueryClient({
 			defaultOptions: { queries: { staleTime: 30_000 } },
 		}),
 	],
-});`;
+};
+`;
 
-const QUERY_CODE = `import { Component, inject, signal } from '@angular/core';
+/** Extra StackBlitz files shared by every Query example (correct app.config). */
+const QUERY_STACKBLITZ_FILES = { 'src/app/app.config.ts': QUERY_APP_CONFIG };
+
+const SETUP_CODE = `import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 import { injectQuery } from '@js-smart/ng-kit';
 
+// Register the QueryClient once at the application root, e.g. in app.config.ts:
+//
+//   export const appConfig: ApplicationConfig = {
+//     providers: [
+//       provideHttpClient(),
+//       provideQueryClient({ defaultOptions: { queries: { staleTime: 30_000 } } }),
+//     ],
+//   };
+//
+// Once provided, any component can call injectQuery / injectMutation.
+
+interface Post {
+	id: number;
+	title: string;
+}
+
 @Component({
-	selector: 'app-post',
+	selector: 'app-query-setup',
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: \`
+		@if (post().isPending) {
+			<p>Connecting to the query client…</p>
+		} @else if (post().isError) {
+			<p>Error: {{ post().error?.message }}</p>
+		} @else {
+			<p>QueryClient is wired — first post: {{ post().data?.title }}</p>
+		}
+	\`,
+})
+export class QuerySetupComponent {
+	private http = inject(HttpClient);
+
+	// Resolves as soon as the provided QueryClient serves the request.
+	post = injectQuery<Post>(() => ({
+		queryKey: ['setup-check'],
+		queryFn: () => firstValueFrom(this.http.get<Post>('https://jsonplaceholder.typicode.com/posts/1')),
+		staleTime: 30_000,
+	}));
+}`;
+
+const REACTIVE_QUERY_CODE = `import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { firstValueFrom } from 'rxjs';
+import { injectMutation, injectQuery } from '@js-smart/ng-kit';
+
+interface Post {
+	id: number;
+	userId: number;
+	title: string;
+	body: string;
+}
+
+@Component({
+	selector: 'app-reactive-query',
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: \`
+		<div class="ids">
+			@for (id of postIds; track id) {
+				<button type="button" (click)="postId.set(id)">Post {{ id }}</button>
+			}
+		</div>
+
 		@if (post().isPending) {
 			<p>Loading…</p>
 		} @else if (post().isError) {
 			<p>Error: {{ post().error?.message }}</p>
 		} @else {
 			<h3>{{ post().data?.title }}</h3>
+			<p>{{ post().data?.body }}</p>
+		}
+
+		<button type="button" (click)="submitPost()">Create post</button>
+		@if (createPost.result().isSuccess) {
+			<p>Created post #{{ createPost.result().data?.id }}</p>
 		}
 	\`,
 })
-export class PostComponent {
+export class ReactiveQueryComponent {
 	private http = inject(HttpClient);
+
+	readonly postIds = [1, 2, 3, 4, 5];
 	postId = signal(1);
 
 	// Reading postId() inside the options function makes the query reactive:
-	// changing the signal re-runs the query, and cached IDs resolve instantly.
-	post = injectQuery(() => ({
+	// changing the signal re-runs the query, and cached IDs resolve instantly
+	// from cache (subject to staleTime).
+	post = injectQuery<Post>(() => ({
 		queryKey: ['post', this.postId()],
-		queryFn: () => firstValueFrom(this.http.get(\`/api/posts/\${this.postId()}\`)),
+		queryFn: () =>
+			firstValueFrom(this.http.get<Post>(\`https://jsonplaceholder.typicode.com/posts/\${this.postId()}\`)),
 		staleTime: 30_000,
 	}));
+
+	createPost = injectMutation<Post, Error, Partial<Post>>(() => ({
+		mutationFn: (data) => firstValueFrom(this.http.post<Post>('https://jsonplaceholder.typicode.com/posts', data)),
+	}));
+
+	submitPost(): void {
+		this.createPost.mutate({ title: 'Hello', body: 'Created from ng-kit query demo', userId: 1 });
+	}
 }`;
 
-const MUTATION_CODE = `import { injectMutation } from '@js-smart/ng-kit';
+const MUTATION_CODE = `import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { firstValueFrom } from 'rxjs';
+import { injectMutation } from '@js-smart/ng-kit';
 
-createPost = injectMutation<Post, Error, Partial<Post>>(() => ({
-	mutationFn: (data) => firstValueFrom(this.http.post<Post>('/api/posts', data)),
-}));
+interface Post {
+	id: number;
+	userId: number;
+	title: string;
+	body: string;
+}
 
-// Fire-and-forget — state is reflected through createPost.result()
-this.createPost.mutate({ title: 'Hello', userId: 1 });
+@Component({
+	selector: 'app-mutation-example',
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	template: \`
+		<input [value]="title()" (input)="title.set($any($event.target).value)" />
 
-// Imperative flow — await success / catch errors
-await this.createPost.mutateAsync({ title: 'Hello', userId: 1 });`;
+		<button type="button" (click)="submit()">mutate</button>
+		<button type="button" (click)="submitAsync()">mutateAsync</button>
+		<button type="button" (click)="createPost.reset()">reset</button>
+
+		@if (createPost.result().isPending) {
+			<p>Saving…</p>
+		} @else if (createPost.result().isError) {
+			<p>Error: {{ createPost.result().error?.message }}</p>
+		} @else if (createPost.result().isSuccess) {
+			<p>Created post #{{ createPost.result().data?.id }}</p>
+		}
+	\`,
+})
+export class MutationExampleComponent {
+	private http = inject(HttpClient);
+
+	title = signal('Hello');
+
+	createPost = injectMutation<Post, Error, Partial<Post>>(() => ({
+		mutationFn: (data) => firstValueFrom(this.http.post<Post>('https://jsonplaceholder.typicode.com/posts', data)),
+	}));
+
+	// Fire-and-forget — state is reflected through createPost.result()
+	submit(): void {
+		this.createPost.mutate({ title: this.title(), userId: 1 });
+	}
+
+	// Imperative flow — await success / catch errors
+	async submitAsync(): Promise<void> {
+		await this.createPost.mutateAsync({ title: this.title(), userId: 1 });
+	}
+}`;
+
+/** StackBlitz config — QuerySetupComponent from componentName 'query-setup'. */
+const setupConfig = buildDemoConfig({
+	title: 'Setup',
+	componentName: 'query-setup',
+	code: SETUP_CODE,
+	requiredImports: [],
+	additionalFiles: QUERY_STACKBLITZ_FILES,
+});
+
+/** StackBlitz config — ReactiveQueryComponent from componentName 'reactive-query'. */
+const reactiveQueryConfig = buildDemoConfig({
+	title: 'injectQuery — reactive queryKey & caching',
+	componentName: 'reactive-query',
+	code: REACTIVE_QUERY_CODE,
+	requiredImports: [],
+	additionalFiles: QUERY_STACKBLITZ_FILES,
+});
+
+/** StackBlitz config — MutationExampleComponent from componentName 'mutation-example'. */
+const mutationConfig = buildDemoConfig({
+	title: 'injectMutation — mutate & mutateAsync',
+	componentName: 'mutation-example',
+	code: MUTATION_CODE,
+	requiredImports: [],
+	additionalFiles: QUERY_STACKBLITZ_FILES,
+});
 
 /**
  * Gallery page for the TanStack Query Angular adapter. Documents
@@ -189,23 +362,29 @@ await this.createPost.mutateAsync({ title: 'Hello', userId: 1 });`;
 			<div docExamples>
 				<demo-card
 					title="Setup"
+					anchorId="setup"
 					description="Provide a QueryClient at the application root before using injectQuery or injectMutation."
 					[props]="['provideQueryClient']"
-					[code]="provideCode" />
+					[code]="setupCode"
+					[stackblitz]="setupConfig" />
 
 				<demo-card
 					title="injectQuery — reactive queryKey &amp; caching"
+					anchorId="reactive-query"
 					description="A signal-based queryKey re-fetches on change; switching back to a cached post ID is instant. injectMutation creates a post via mutate and mutateAsync."
 					[props]="['injectQuery', 'injectMutation', 'mutate', 'mutateAsync']"
-					[code]="queryCode">
+					[code]="reactiveQueryCode"
+					[stackblitz]="reactiveQueryConfig">
 					<ng-kit-query-demo />
 				</demo-card>
 
 				<demo-card
 					title="injectMutation — mutate &amp; mutateAsync"
+					anchorId="mutation"
 					description="Fire-and-forget writes with mutate, or await the outcome with mutateAsync."
 					[props]="['mutationFn', 'mutate', 'mutateAsync', 'reset']"
-					[code]="mutationCode" />
+					[code]="mutationCode"
+					[stackblitz]="mutationConfig" />
 			</div>
 		</doc-page>
 	`,
@@ -259,7 +438,11 @@ await this.createPost.mutateAsync({ title: 'Hello', userId: 1 });`;
 	`,
 })
 export class QueryPage {
-	protected readonly provideCode = PROVIDE_CODE;
-	protected readonly queryCode = QUERY_CODE;
+	protected readonly setupCode = SETUP_CODE;
+	protected readonly reactiveQueryCode = REACTIVE_QUERY_CODE;
 	protected readonly mutationCode = MUTATION_CODE;
+
+	protected readonly setupConfig = setupConfig;
+	protected readonly reactiveQueryConfig = reactiveQueryConfig;
+	protected readonly mutationConfig = mutationConfig;
 }

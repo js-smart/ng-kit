@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { DocPage } from '../../shared/doc-page.component';
 import { DemoCard } from '../../shared/demo-card.component';
 import { AutocompleteSuffixDemoComponent } from '../../autocomplete-suffix-demo/autocomplete-suffix-demo.component';
+import { buildDemoConfig } from '../../shared/build-demo-config';
 
 const SUFFIX_CODE = `import { Component } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
@@ -11,7 +12,7 @@ import { MatInputModule } from '@angular/material/input';
 import { AutocompleteSuffixDirective } from '@js-smart/ng-kit';
 
 @Component({
-	selector: 'app-city',
+	selector: 'app-clear-dropdown-suffix',
 	imports: [ReactiveFormsModule, MatAutocompleteModule, MatFormFieldModule, MatInputModule, AutocompleteSuffixDirective],
 	template: \`
 		<mat-form-field appearance="outline">
@@ -25,10 +26,18 @@ import { AutocompleteSuffixDirective } from '@js-smart/ng-kit';
 		</mat-form-field>
 	\`,
 })
-export class CityExample {
+export class ClearDropdownSuffixComponent {
 	protected readonly cities = ['New York', 'Boston', 'Washington DC'];
 	protected readonly city = new FormControl<string | null>(null);
 }`;
+
+/** StackBlitz config for the Clear + dropdown suffix card — class name matches PascalCase(componentName). */
+const suffixConfig = buildDemoConfig({
+	title: 'Clear + dropdown suffix',
+	componentName: 'clear-dropdown-suffix',
+	code: SUFFIX_CODE,
+	requiredImports: ['BrowserAnimationsModule'],
+});
 
 /**
  * Gallery page for the {@link AutocompleteSuffixDirective}: documents the single
@@ -77,9 +86,11 @@ export class CityExample {
 			<div docExamples>
 				<demo-card
 					title="Clear + dropdown suffix"
+					anchorId="clear-dropdown-suffix"
 					description="A single autocompleteSuffix directive on the input adds clear and dropdown-toggle icons, shown over object and string options."
 					[props]="['autocompleteSuffix', 'matAutocomplete', 'formControlName']"
-					[code]="suffixCode">
+					[code]="suffixCode"
+					[stackblitz]="suffixConfig">
 					<ng-kit-autocomplete-suffix-demo />
 				</demo-card>
 			</div>
@@ -195,4 +206,5 @@ export class CityExample {
 })
 export class AutocompleteSuffixPage {
 	protected readonly suffixCode = SUFFIX_CODE;
+	protected readonly suffixConfig = suffixConfig;
 }

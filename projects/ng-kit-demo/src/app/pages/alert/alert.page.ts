@@ -3,12 +3,14 @@ import { AlertComponent } from '@js-smart/ng-kit';
 import { DocPage } from '../../shared/doc-page.component';
 import { DemoCard } from '../../shared/demo-card.component';
 import { AlertDemoComponent } from '../../alert-demo/alert-demo.component';
+import { buildDemoConfig } from '../../shared/build-demo-config';
+import { getAlertDemoConfig } from '../../utils/demo-config-generator';
 
 const BASIC_CODE = `import { Component } from '@angular/core';
 import { AlertComponent } from '@js-smart/ng-kit';
 
 @Component({
-	selector: 'app-basic',
+	selector: 'app-basic-alert',
 	imports: [AlertComponent],
 	template: \`
 		<alert
@@ -21,11 +23,17 @@ import { AlertComponent } from '@js-smart/ng-kit';
 		</alert>
 	\`,
 })
-export class BasicExample {
+export class BasicAlertComponent {
 	onClosed() {
 		// Handle alert closed event
 	}
 }`;
+
+/** StackBlitz config for the Basic card — class name matches PascalCase(componentName). */
+const basicConfig = buildDemoConfig({ title: 'Basic Alert', componentName: 'basic-alert', code: BASIC_CODE });
+
+/** StackBlitz config for the Alert types card — reuses the shared alert-demo project. */
+const alertTypesConfig = getAlertDemoConfig();
 
 /**
  * Gallery page for the Alert component: a lead paragraph, an overview
@@ -62,9 +70,11 @@ export class BasicExample {
 			<div docExamples>
 				<demo-card
 					title="Basic"
+					anchorId="basic"
 					description="A dismissible success alert that stays open until closed."
 					[props]="['type', 'isOpen', 'dismissible', 'dismissOnTimeout', 'closed']"
-					[code]="basicCode">
+					[code]="basicCode"
+					[stackblitz]="basicConfig">
 					<alert type="success" [isOpen]="true" [dismissible]="true" [dismissOnTimeout]="false">
 						This is a success alert—check it out!
 					</alert>
@@ -72,7 +82,11 @@ export class BasicExample {
 
 				<demo-card
 					title="Alert types"
-					description="Success and error alerts with an Open in StackBlitz launcher.">
+					anchorId="alert-types"
+					description="Success and error alerts."
+					language="html"
+					[code]="alertTypesConfig.componentHtml"
+					[stackblitz]="alertTypesConfig">
 					<ng-kit-alert-demo />
 				</demo-card>
 			</div>
@@ -206,4 +220,6 @@ export class BasicExample {
 })
 export class AlertPage {
 	protected readonly basicCode = BASIC_CODE;
+	protected readonly basicConfig = basicConfig;
+	protected readonly alertTypesConfig = alertTypesConfig;
 }
