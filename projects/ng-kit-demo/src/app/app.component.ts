@@ -1,15 +1,26 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { ChangeDetectionStrategy, Component, computed, effect, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, effect, inject, signal, viewChildren } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
-import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatTree, MatTreeModule } from '@angular/material/tree';
 import { DomSanitizer } from '@angular/platform-browser';
 import { NavigationEnd, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { filter, map } from 'rxjs';
-import { GALLERY_PAGES, GalleryPage, groupedPages } from './gallery/gallery-registry';
+import { GALLERY_GROUPS, GALLERY_PAGES, GalleryPage, navTree } from './gallery/gallery-registry';
+
+/** A node in the sidenav Material tree: a navigable page, or an expandable group. */
+interface SidenavNode {
+	readonly title: string;
+	/** Present on navigable leaf pages (full route path). */
+	readonly slug?: string;
+	/** Present on expandable group nodes (e.g. `buttons`). */
+	readonly groupKey?: string;
+	/** Child pages, present on group nodes. */
+	readonly children?: SidenavNode[];
+}
 
 /**
  * App shell: a Material toolbar + sidenav gallery, modelled on
@@ -24,7 +35,7 @@ import { GALLERY_PAGES, GalleryPage, groupedPages } from './gallery/gallery-regi
 		RouterOutlet,
 		MatToolbarModule,
 		MatSidenavModule,
-		MatListModule,
+		MatTreeModule,
 		MatIconModule,
 		MatButtonModule,
 	],
@@ -60,18 +71,34 @@ import { GALLERY_PAGES, GalleryPage, groupedPages } from './gallery/gallery-regi
 
 		<mat-sidenav-container class="shell-body">
 			<mat-sidenav [mode]="sidenavMode()" [opened]="sidenavOpened()" (openedChange)="sidenavOpened.set($event)" class="sidenav">
-				<mat-nav-list>
-					<a mat-list-item routerLink="/" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">Overview</a>
+				<nav class="nav" aria-label="Components">
+					<a class="nav-link nav-link--top" routerLink="/" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">Overview</a>
 
-					@for (group of filteredGroups(); track group.category) {
-						<h3 matSubheader>{{ group.label }}</h3>
-						@for (page of group.pages; track page.slug) {
-							<a mat-list-item [routerLink]="['/', page.slug]" routerLinkActive="active-link" (click)="onNavLinkClick()">
-								{{ page.title }}
-							</a>
-						}
+					@for (section of sections(); track section.category) {
+						<h3 class="nav-subheader">{{ section.label }}</h3>
+						<mat-tree #tree="matTree" [dataSource]="section.nodes" [childrenAccessor]="childrenAccessor" [expansionKey]="expansionKey" class="nav-tree">
+							<!-- Navigable leaf page -->
+							<mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding [matTreeNodePaddingIndent]="16" class="nav-node">
+								<a class="nav-link" [routerLink]="'/' + node.slug" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }" (click)="onNavLinkClick()">
+									{{ node.title }}
+								</a>
+							</mat-tree-node>
+
+							<!-- Expandable group (e.g. Buttons, Autocomplete) -->
+							<mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding [matTreeNodePaddingIndent]="16" class="nav-node">
+								<button
+									type="button"
+									class="nav-group"
+									matTreeNodeToggle
+									[attr.aria-label]="'Toggle ' + node.title"
+									[class.nav-group--active]="isGroupActive(node.groupKey)">
+									<mat-icon class="nav-group__chevron">{{ tree.isExpanded(node) ? 'expand_more' : 'chevron_right' }}</mat-icon>
+									<span class="nav-group__label">{{ node.title }}</span>
+								</button>
+							</mat-tree-node>
+						</mat-tree>
 					}
-				</mat-nav-list>
+				</nav>
 			</mat-sidenav>
 
 			<mat-sidenav-content class="content">
@@ -82,7 +109,7 @@ import { GALLERY_PAGES, GalleryPage, groupedPages } from './gallery/gallery-regi
 				@if (!isHome()) {
 					<nav class="prev-next" aria-label="Page navigation">
 						@if (prevPage(); as prev) {
-							<a mat-button color="primary" [routerLink]="['/', prev.slug]">
+							<a mat-button color="primary" [routerLink]="'/' + prev.slug">
 								<mat-icon>chevron_left</mat-icon>
 								{{ prev.title }}
 							</a>
@@ -91,7 +118,7 @@ import { GALLERY_PAGES, GalleryPage, groupedPages } from './gallery/gallery-regi
 						}
 
 						@if (nextPage(); as next) {
-							<a mat-button color="primary" [routerLink]="['/', next.slug]">
+							<a mat-button color="primary" [routerLink]="'/' + next.slug">
 								{{ next.title }}
 								<mat-icon>chevron_right</mat-icon>
 							</a>
@@ -148,11 +175,12 @@ import { GALLERY_PAGES, GalleryPage, groupedPages } from './gallery/gallery-regi
 		}
 
 		/* Bold, readable category subheaders in the sidenav. */
-		.sidenav ::ng-deep .mat-mdc-subheader {
+		.nav-subheader {
+			margin: 1rem 0 0.25rem;
+			padding-inline: 0.75rem;
+			font-size: 0.9375rem;
 			font-weight: 700;
 			color: rgba(0, 0, 0, 0.82);
-			text-transform: none;
-			letter-spacing: 0;
 		}
 
 		.spacer {
@@ -235,8 +263,80 @@ import { GALLERY_PAGES, GalleryPage, groupedPages } from './gallery/gallery-regi
 			flex: 1 0 auto;
 		}
 
-		.active-link {
+		/* ── Sidenav Material tree ────────────────────────────────────────── */
+		.nav {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.nav-tree {
+			background: transparent;
+		}
+
+		/* Collapse the default 48px node height for a denser nav list. */
+		.nav-node {
+			min-height: 40px;
+		}
+
+		/* Shared row: navigable page link (leaf) and group toggle button. */
+		.nav-link,
+		.nav-group {
+			display: flex;
+			align-items: center;
+			gap: 0.35rem;
+			flex: 1;
+			min-height: 36px;
+			padding: 0.375rem 0.75rem;
+			border-radius: 8px;
+			color: rgba(0, 0, 0, 0.75);
+			text-decoration: none;
+			font: inherit;
+			font-size: 0.9375rem;
+			line-height: 1.2;
+		}
+
+		.nav-link--top {
+			margin-block-end: 0.25rem;
+		}
+
+		.nav-link:hover,
+		.nav-group:hover {
+			background: rgba(0, 0, 0, 0.04);
+		}
+
+		/* Active page: light-blue pill + emphasised blue text (matches docs nav). */
+		.nav-link.active-link {
+			background: rgba(63, 81, 181, 0.1);
+			color: #3f51b5;
 			font-weight: 600;
+		}
+
+		/* Group toggle button. */
+		.nav-group {
+			width: 100%;
+			background: none;
+			border: none;
+			cursor: pointer;
+			text-align: start;
+			font-weight: 700;
+			color: rgba(0, 0, 0, 0.82);
+		}
+
+		.nav-group--active .nav-group__label {
+			color: #3f51b5;
+		}
+
+		.nav-group__label {
+			flex: 1;
+			min-width: 0;
+		}
+
+		.nav-group__chevron {
+			flex: none;
+			color: rgba(0, 0, 0, 0.45);
+			font-size: 20px;
+			width: 20px;
+			height: 20px;
 		}
 
 		.prev-next {
@@ -262,19 +362,49 @@ export class AppComponent {
 	private readonly iconRegistry = inject(MatIconRegistry);
 	private readonly sanitizer = inject(DomSanitizer);
 
-	protected readonly pages = GALLERY_PAGES;
-
 	protected readonly searchTerm = signal('');
 
-	protected readonly filteredGroups = computed(() => {
+	/** The Material trees rendered per category — driven for auto-expansion. */
+	private readonly trees = viewChildren<MatTree<SidenavNode>>('tree');
+
+	/**
+	 * The sidenav data, filtered by the search term and shaped into
+	 * {@link SidenavNode}s for the Material tree. Standalone pages are kept when
+	 * they match; a group is kept if its title matches (all children shown) or
+	 * any child matches (only matching children shown).
+	 */
+	protected readonly sections = computed<{ category: string; label: string; nodes: SidenavNode[] }[]>(() => {
 		const term = this.searchTerm().trim().toLowerCase();
-		return groupedPages()
-			.map((group) => ({
-				...group,
-				pages: term ? group.pages.filter((p) => p.title.toLowerCase().includes(term) || p.blurb.toLowerCase().includes(term)) : group.pages,
+		return navTree()
+			.map((section) => ({
+				category: section.category,
+				label: section.label,
+				nodes: section.nodes
+					.map<SidenavNode | null>((node) => {
+						if (node.kind === 'page') {
+							const match = !term || node.page.title.toLowerCase().includes(term) || node.page.blurb.toLowerCase().includes(term);
+							return match ? { title: node.page.title, slug: node.page.slug } : null;
+						}
+						const groupMatches = !term || node.title.toLowerCase().includes(term);
+						const pages = groupMatches ? node.pages : node.pages.filter((p) => p.title.toLowerCase().includes(term) || p.blurb.toLowerCase().includes(term));
+						if (pages.length === 0) {
+							return null;
+						}
+						return { title: node.title, groupKey: node.key, children: pages.map((p) => ({ title: p.title, slug: p.slug })) };
+					})
+					.filter((node): node is SidenavNode => node !== null),
 			}))
-			.filter((group) => group.pages.length > 0);
+			.filter((section) => section.nodes.length > 0);
 	});
+
+	/** MatTree children accessor — group nodes expose their child pages. */
+	protected readonly childrenAccessor = (node: SidenavNode): SidenavNode[] => node.children ?? [];
+
+	/** Predicate selecting the expandable (group) node template. */
+	protected readonly hasChild = (_: number, node: SidenavNode): boolean => (node.children?.length ?? 0) > 0;
+
+	/** Stable expansion key so expand state survives dataSource rebuilds (filtering). */
+	protected readonly expansionKey = (node: SidenavNode): string => node.groupKey ?? node.slug ?? node.title;
 
 	private readonly isHandset = toSignal(this.breakpointObserver.observe('(max-width: 720px)').pipe(map((state) => state.matches)), {
 		initialValue: false,
@@ -291,8 +421,10 @@ export class AppComponent {
 		{ initialValue: this.router.url },
 	);
 
-	private readonly currentSlug = computed(() => this.currentUrl().replace(/^\/+/, '').split('?')[0]);
+	private readonly currentSlug = computed(() => this.currentUrl().replace(/^\/+/, '').split(/[?#]/)[0]);
 	protected readonly isHome = computed(() => this.currentSlug() === '');
+
+	private readonly groupKeys = new Set(GALLERY_GROUPS.map((g) => g.key));
 
 	private readonly currentIndex = computed(() => GALLERY_PAGES.findIndex((p) => p.slug === this.currentSlug()));
 	protected readonly prevPage = computed<GalleryPage | null>(() => {
@@ -324,6 +456,37 @@ export class AppComponent {
 		effect(() => {
 			this.sidenavOpened.set(!this.isHandset());
 		});
+
+		// Auto-expand the group that owns the active route (so the current page is
+		// visible after navigation/reload); expand everything while searching so
+		// matching children are never hidden behind a collapsed group.
+		effect(() => {
+			const trees = this.trees();
+			const searching = this.searchTerm().trim().length > 0;
+			const activeKey = this.activeGroupKey();
+			for (const tree of trees) {
+				if (searching) {
+					tree.expandAll();
+					continue;
+				}
+				for (const node of tree.dataSource as SidenavNode[]) {
+					if (node.groupKey && node.groupKey === activeKey) {
+						tree.expand(node);
+					}
+				}
+			}
+		});
+	}
+
+	/** The group key owning the active route (e.g. `buttons`), or null. */
+	private readonly activeGroupKey = computed<string | null>(() => {
+		const first = this.currentSlug().split('/')[0];
+		return this.groupKeys.has(first) ? first : null;
+	});
+
+	/** Whether the active route lives inside the given group. */
+	protected isGroupActive(key: string | undefined): boolean {
+		return !!key && this.activeGroupKey() === key;
 	}
 
 	protected toggleSidenav(): void {

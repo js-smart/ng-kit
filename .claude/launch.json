@@ -4,7 +4,7 @@
 		{
 			"name": "ng-kit-demo",
 			"runtimeExecutable": "pnpm",
-			"runtimeArgs": ["-C", "/Users/jaddap2/WebstormProjects/ng-kit", "run", "start"],
+			"runtimeArgs": ["-C", "/Users/pjadda/WebstormProjects/ng-kit", "run", "start"],
 			"port": 4300
 		}
 	]

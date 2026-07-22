@@ -3,7 +3,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 import { CodeBlock } from '../../shared/code-block.component';
-import { groupedPages } from '../../gallery/gallery-registry';
+import { homeSections } from '../../gallery/gallery-registry';
 
 const INSTALL_SNIPPET = 'pnpm add @js-smart/ng-kit @angular/material @angular/cdk';
 
@@ -60,17 +60,17 @@ const FEATURES: readonly Feature[] = [
 			}
 		</section>
 
-		@for (group of groups; track group.category) {
+		@for (section of sections; track section.category) {
 			<section class="catalog">
-				<h2 class="catalog__heading">{{ group.label }}</h2>
+				<h2 class="catalog__heading">{{ section.label }}</h2>
 				<div class="catalog__grid">
-					@for (page of group.pages; track page.slug) {
-						<a [routerLink]="['/', page.slug]" class="page-card">
+					@for (card of section.cards; track card.slug) {
+						<a [routerLink]="'/' + card.slug" class="page-card">
 							<span class="page-card__title">
-								{{ page.title }}
+								{{ card.title }}
 								<mat-icon>arrow_forward</mat-icon>
 							</span>
-							<span class="page-card__blurb">{{ page.blurb }}</span>
+							<span class="page-card__blurb">{{ card.blurb }}</span>
 						</a>
 					}
 				</div>
@@ -249,7 +249,7 @@ const FEATURES: readonly Feature[] = [
 	`,
 })
 export class HomePage {
-	protected readonly groups = groupedPages();
+	protected readonly sections = homeSections();
 	protected readonly features = FEATURES;
 	protected readonly installSnippet = INSTALL_SNIPPET;
 }

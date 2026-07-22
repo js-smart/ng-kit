@@ -21,6 +21,11 @@ export const routes: Route[] = [
 	// Gallery pages (primary navigation), generated from the registry.
 	...GALLERY_PAGES.map((page) => ({ path: page.slug, loadComponent: page.load })),
 
+	// Grouped landing redirects: the old flat routes now point at the group's
+	// introduction page (each family member has its own nested route).
+	{ path: 'buttons', pathMatch: 'full', redirectTo: 'buttons/introduction' },
+	{ path: 'autocomplete', pathMatch: 'full', redirectTo: 'autocomplete/introduction' },
+
 	// Legacy demo routes (kept for backward compatibility / existing e2e specs).
 	{ path: 'autocomplete-demo', component: AutocompleteDemoComponent },
 	{ path: 'autocomplete-suffix-demo', component: AutocompleteSuffixDemoComponent },
