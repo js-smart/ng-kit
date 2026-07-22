@@ -36,7 +36,10 @@ test.describe('Autocomplete Demo', () => {
 	});
 
 	test('has open in stackblitz button', async ({ page }) => {
-		await expect(page.getByRole('button', { name: '🚀 Open in StackBlitz' })).toBeVisible();
+		// The StackBlitz launcher moved from the legacy demo to the gallery example
+		// card header (aria-label "Open in StackBlitz"), shown on the Examples tab.
+		await page.goto('/autocomplete/combo-box#examples');
+		await expect(page.getByRole('button', { name: 'Open in StackBlitz' })).toBeVisible();
 	});
 
 	test.describe('Autocomplete with Objects', () => {

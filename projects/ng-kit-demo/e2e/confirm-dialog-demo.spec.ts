@@ -30,6 +30,7 @@ test('opens confirm dialog and shows Canceled status on No', async ({ page }) =>
 });
 
 test('has open in stackblitz button', async ({ page }) => {
-	await page.goto('/confirm-dialog-demo');
-	await expect(page.getByRole('button', { name: '🚀 Open in StackBlitz' })).toBeVisible();
+	// The StackBlitz launcher moved to the gallery card header (Examples tab).
+	await page.goto('/confirm-dialog#examples');
+	await expect(page.getByRole('button', { name: 'Open in StackBlitz' })).toBeVisible();
 });

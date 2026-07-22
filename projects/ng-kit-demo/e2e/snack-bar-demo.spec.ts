@@ -26,6 +26,7 @@ test('should show error snack bar and close it', async ({ page }) => {
 });
 
 test('has open in stackblitz button', async ({ page }) => {
-	await page.goto('/snack-bar-demo');
-	await expect(page.getByRole('button', { name: '🚀 Open in StackBlitz' })).toBeVisible();
+	// The StackBlitz launcher moved to the gallery card header (Examples tab).
+	await page.goto('/snack-bar#examples');
+	await expect(page.getByRole('button', { name: 'Open in StackBlitz' })).toBeVisible();
 });
