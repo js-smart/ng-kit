@@ -5,7 +5,7 @@ import { RouterLink } from '@angular/router';
 import { CodeBlock } from '../../shared/code-block.component';
 import { homeSections } from '../../gallery/gallery-registry';
 
-const INSTALL_SNIPPET = 'pnpm add @js-smart/ng-kit @angular/material @angular/cdk';
+const INSTALL_SNIPPET = 'npm i @js-smart/ng-kit @angular/material @angular/cdk';
 
 interface Feature {
 	readonly icon: string;
@@ -85,7 +85,7 @@ const FEATURES: readonly Feature[] = [
 		/* ── Hero ─────────────────────────────────────────────────────────── */
 		.hero {
 			padding-block: 1rem 2.5rem;
-			border-block-end: 1px solid rgba(0, 0, 0, 0.08);
+			border-block-end: 1px solid var(--gallery-border);
 			margin-block-end: 2.5rem;
 		}
 
@@ -95,7 +95,7 @@ const FEATURES: readonly Feature[] = [
 			font-weight: 600;
 			letter-spacing: 0.08em;
 			text-transform: uppercase;
-			color: #3f51b5;
+			color: var(--mat-sys-primary);
 		}
 
 		.hero__title {
@@ -111,7 +111,7 @@ const FEATURES: readonly Feature[] = [
 			margin: 0;
 			font-size: 1.125rem;
 			line-height: 1.55;
-			color: rgba(0, 0, 0, 0.68);
+			color: var(--gallery-text-muted);
 		}
 
 		.hero__actions {
@@ -148,8 +148,8 @@ const FEATURES: readonly Feature[] = [
 			width: 40px;
 			height: 40px;
 			border-radius: 10px;
-			background: rgba(63, 81, 181, 0.1);
-			color: #3f51b5;
+			background: color-mix(in srgb, var(--mat-sys-primary) 12%, transparent);
+			color: var(--mat-sys-primary);
 		}
 
 		.feature__title {
@@ -162,7 +162,7 @@ const FEATURES: readonly Feature[] = [
 			margin: 0;
 			font-size: 0.9375rem;
 			line-height: 1.5;
-			color: rgba(0, 0, 0, 0.6);
+			color: var(--gallery-text-muted);
 		}
 
 		/* ── Catalogue ────────────────────────────────────────────────────── */
@@ -185,11 +185,11 @@ const FEATURES: readonly Feature[] = [
 			flex-direction: column;
 			gap: 0.35rem;
 			padding: 1rem 1.1rem;
-			border: 1px solid rgba(0, 0, 0, 0.12);
+			border: 1px solid var(--gallery-border);
 			border-radius: 12px;
 			text-decoration: none;
 			color: inherit;
-			background: #fff;
+			background: var(--gallery-surface-raised);
 			transition:
 				border-color 120ms ease,
 				box-shadow 120ms ease,
@@ -198,8 +198,8 @@ const FEATURES: readonly Feature[] = [
 
 		.page-card:hover,
 		.page-card:focus-visible {
-			border-color: #3f51b5;
-			box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+			border-color: var(--mat-sys-primary);
+			box-shadow: 0 4px 14px var(--gallery-border);
 			transform: translateY(-2px);
 			outline: none;
 		}
@@ -216,7 +216,7 @@ const FEATURES: readonly Feature[] = [
 			font-size: 18px;
 			width: 18px;
 			height: 18px;
-			color: #3f51b5;
+			color: var(--mat-sys-primary);
 			opacity: 0;
 			transform: translateX(-6px);
 			transition:
@@ -233,7 +233,7 @@ const FEATURES: readonly Feature[] = [
 		.page-card__blurb {
 			font-size: 0.875rem;
 			line-height: 1.5;
-			color: rgba(0, 0, 0, 0.6);
+			color: var(--gallery-text-muted);
 		}
 
 		@media (prefers-reduced-motion: reduce) {

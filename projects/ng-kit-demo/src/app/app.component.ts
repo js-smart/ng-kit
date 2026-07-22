@@ -10,6 +10,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { NavigationEnd, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { filter, map } from 'rxjs';
 import { GALLERY_GROUPS, GALLERY_PAGES, GalleryPage, navTree } from './gallery/gallery-registry';
+import { DemoSettings } from './shared/demo-settings';
 
 /** A node in the sidenav Material tree: a navigable page, or an expandable group. */
 interface SidenavNode {
@@ -60,6 +61,15 @@ interface SidenavNode {
 				<mat-icon aria-hidden="true">search</mat-icon>
 				<input type="text" placeholder="Search" aria-label="Search" [value]="searchTerm()" (input)="onSearch($event)" />
 			</div>
+
+			<button
+				mat-icon-button
+				type="button"
+				(click)="settings.cycleTheme()"
+				[attr.aria-label]="'Theme: ' + settings.theme() + ' (click to change)'"
+				[title]="'Theme: ' + settings.theme() + ' — click to change'">
+				<mat-icon>{{ themeIcon() }}</mat-icon>
+			</button>
 
 			<a mat-icon-button href="https://github.com/js-smart/ng-kit" target="_blank" rel="noopener" aria-label="ng-kit on GitHub">
 				<mat-icon svgIcon="github" />
@@ -141,8 +151,8 @@ interface SidenavNode {
 			top: 0;
 			z-index: 100;
 			padding: 0.75rem 1rem;
-			background: #fff;
-			color: #1a1a1a;
+			background: var(--mat-sys-surface);
+			color: var(--mat-sys-on-surface);
 		}
 
 		.skip-link:focus {
@@ -180,7 +190,7 @@ interface SidenavNode {
 			padding-inline: 0.75rem;
 			font-size: 0.9375rem;
 			font-weight: 700;
-			color: rgba(0, 0, 0, 0.82);
+			color: var(--mat-sys-on-surface);
 		}
 
 		.spacer {
@@ -194,7 +204,7 @@ interface SidenavNode {
 		.shell-body {
 			flex: 1 1 auto;
 			min-height: 0;
-			background: #fff;
+			background: var(--mat-sys-surface);
 		}
 
 		.sidenav {
@@ -250,7 +260,7 @@ interface SidenavNode {
 
 		.content {
 			padding: 2rem clamp(1rem, 4vw, 3rem);
-			background: #fff;
+			background: var(--mat-sys-surface);
 			display: flex;
 			flex-direction: column;
 			min-height: 100%;
@@ -288,7 +298,7 @@ interface SidenavNode {
 			min-height: 36px;
 			padding: 0.375rem 0.75rem;
 			border-radius: 8px;
-			color: rgba(0, 0, 0, 0.75);
+			color: var(--mat-sys-on-surface);
 			text-decoration: none;
 			font: inherit;
 			font-size: 0.9375rem;
@@ -301,13 +311,13 @@ interface SidenavNode {
 
 		.nav-link:hover,
 		.nav-group:hover {
-			background: rgba(0, 0, 0, 0.04);
+			background: color-mix(in srgb, var(--mat-sys-on-surface) 6%, transparent);
 		}
 
 		/* Active page: light-blue pill + emphasised blue text (matches docs nav). */
 		.nav-link.active-link {
-			background: rgba(63, 81, 181, 0.1);
-			color: #3f51b5;
+			background: color-mix(in srgb, var(--mat-sys-primary) 12%, transparent);
+			color: var(--mat-sys-primary);
 			font-weight: 600;
 		}
 
@@ -319,11 +329,11 @@ interface SidenavNode {
 			cursor: pointer;
 			text-align: start;
 			font-weight: 700;
-			color: rgba(0, 0, 0, 0.82);
+			color: var(--mat-sys-on-surface);
 		}
 
 		.nav-group--active .nav-group__label {
-			color: #3f51b5;
+			color: var(--mat-sys-primary);
 		}
 
 		.nav-group__label {
@@ -333,7 +343,7 @@ interface SidenavNode {
 
 		.nav-group__chevron {
 			flex: none;
-			color: rgba(0, 0, 0, 0.45);
+			color: var(--mat-sys-on-surface-variant);
 			font-size: 20px;
 			width: 20px;
 			height: 20px;
@@ -346,7 +356,7 @@ interface SidenavNode {
 			justify-content: space-between;
 			margin-block-start: 2rem;
 			padding-block-start: 1rem;
-			border-block-start: 1px solid rgba(0, 0, 0, 0.12);
+			border-block-start: 1px solid var(--gallery-border);
 		}
 
 		@media (max-width: 720px) {
@@ -361,6 +371,19 @@ export class AppComponent {
 	private readonly breakpointObserver = inject(BreakpointObserver);
 	private readonly iconRegistry = inject(MatIconRegistry);
 	private readonly sanitizer = inject(DomSanitizer);
+	protected readonly settings = inject(DemoSettings);
+
+	/** Toolbar theme-toggle icon, reflecting the active {@link DemoSettings.theme}. */
+	protected readonly themeIcon = computed<string>(() => {
+		switch (this.settings.theme()) {
+			case 'light':
+				return 'light_mode';
+			case 'dark':
+				return 'dark_mode';
+			default:
+				return 'brightness_auto';
+		}
+	});
 
 	protected readonly searchTerm = signal('');
 

@@ -56,7 +56,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 		}
 
 		.doc-lead {
-			color: rgba(0, 0, 0, 0.7);
+			color: var(--gallery-text-muted);
 		}
 
 		.doc-tabs {
@@ -71,7 +71,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 		.doc-api-heading {
 			margin-block-start: 3.5rem;
 			padding-block-start: 1.5rem;
-			border-block-start: 2px solid rgba(0, 0, 0, 0.08);
+			border-block-start: 2px solid var(--gallery-border);
 		}
 
 		/* Material-docs-style tabs: uppercase labels. */

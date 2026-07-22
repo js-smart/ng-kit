@@ -149,13 +149,13 @@ const OVERVIEW_CODE = `<!-- Directive (preferred) -->
 		}
 
 		.doc-lead {
-			color: rgba(0, 0, 0, 0.7);
+			color: var(--gallery-text-muted);
 		}
 
 		.doc-api-heading {
 			margin-block-start: 3.5rem;
 			padding-block-start: 1.5rem;
-			border-block-start: 2px solid rgba(0, 0, 0, 0.08);
+			border-block-start: 2px solid var(--gallery-border);
 		}
 
 		h3 {
@@ -172,13 +172,13 @@ const OVERVIEW_CODE = `<!-- Directive (preferred) -->
 		.api-table td {
 			text-align: left;
 			padding: 0.5rem 0.75rem;
-			border-block-end: 1px solid rgba(0, 0, 0, 0.12);
+			border-block-end: 1px solid var(--gallery-border);
 			vertical-align: top;
 		}
 
 		.api-note {
 			margin-block-start: 0.75rem;
-			color: rgba(0, 0, 0, 0.7);
+			color: var(--gallery-text-muted);
 		}
 
 		code {

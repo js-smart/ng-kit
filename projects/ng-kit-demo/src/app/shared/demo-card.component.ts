@@ -98,9 +98,9 @@ import { CodeBlock } from './code-block.component';
 		}
 
 		.demo-card {
-			border: 1px solid rgba(0, 0, 0, 0.12);
+			border: 1px solid var(--gallery-border);
 			border-radius: 8px;
-			background: #fff;
+			background: var(--gallery-surface-raised);
 			overflow: hidden;
 		}
 
@@ -110,7 +110,7 @@ import { CodeBlock } from './code-block.component';
 			justify-content: space-between;
 			gap: 1rem;
 			padding: 1rem 0.75rem 1rem 1.25rem;
-			border-block-end: 1px solid rgba(0, 0, 0, 0.08);
+			border-block-end: 1px solid var(--gallery-border);
 		}
 
 		.demo-card__heading {
@@ -125,7 +125,7 @@ import { CodeBlock } from './code-block.component';
 
 		.demo-card__desc {
 			margin: 0.25rem 0 0;
-			color: rgba(0, 0, 0, 0.6);
+			color: var(--gallery-text-muted);
 			font-size: 0.8125rem;
 		}
 
@@ -134,7 +134,7 @@ import { CodeBlock } from './code-block.component';
 			flex: 0 0 auto;
 			align-items: center;
 			gap: 0.125rem;
-			color: rgba(0, 0, 0, 0.55);
+			color: var(--gallery-text-muted);
 		}
 
 		.demo-card__body {

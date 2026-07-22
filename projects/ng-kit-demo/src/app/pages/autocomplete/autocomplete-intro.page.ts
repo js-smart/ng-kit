@@ -253,45 +253,17 @@ import { AUTOCOMPLETE_FILTER_CONFIG, AUTOCOMPLETE_INPUTS, AUTOCOMPLETE_OUTPUTS, 
 		}
 
 		.doc-lead {
-			color: rgba(0, 0, 0, 0.7);
+			color: var(--gallery-text-muted);
 		}
 
 		.doc-api-heading {
 			margin-block-start: 3.5rem;
 			padding-block-start: 1.5rem;
-			border-block-start: 2px solid rgba(0, 0, 0, 0.08);
+			border-block-start: 2px solid var(--gallery-border);
 		}
 
 		h3 {
 			margin-block: 1.75rem 0.5rem;
-		}
-
-		.api-table {
-			width: 100%;
-			border-collapse: collapse;
-			font-size: 0.875rem;
-		}
-
-		.api-table th,
-		.api-table td {
-			text-align: left;
-			padding: 0.5rem 0.75rem;
-			border-block-end: 1px solid rgba(0, 0, 0, 0.12);
-			vertical-align: top;
-		}
-
-		.api-table td:first-child code {
-			white-space: nowrap;
-		}
-
-		.api-note {
-			margin-block-start: 0.75rem;
-			color: rgba(0, 0, 0, 0.7);
-		}
-
-		code {
-			font-family: 'Roboto Mono', ui-monospace, monospace;
-			font-size: 0.85em;
 		}
 	`,
 })

@@ -156,42 +156,14 @@ const materialConfig = buildDemoConfig({
 		}
 
 		.page-lead {
-			color: rgba(0, 0, 0, 0.7);
+			color: var(--gallery-text-muted);
 			margin-block-end: 2rem;
-		}
-
-		.page-section {
-			margin-block: 2rem;
 		}
 
 		.readout {
 			margin-top: 12px;
-			color: rgba(0, 0, 0, 0.6);
+			color: var(--gallery-text-muted);
 			font-size: 14px;
-		}
-
-		.api-table {
-			width: 100%;
-			border-collapse: collapse;
-			font-size: 0.875rem;
-		}
-
-		.api-table th,
-		.api-table td {
-			text-align: left;
-			padding: 0.5rem 0.75rem;
-			border-block-end: 1px solid rgba(0, 0, 0, 0.12);
-			vertical-align: top;
-		}
-
-		.api-note {
-			margin-block-start: 0.75rem;
-			color: rgba(0, 0, 0, 0.7);
-		}
-
-		code {
-			font-family: 'Roboto Mono', ui-monospace, monospace;
-			font-size: 0.85em;
 		}
 	`,
 })

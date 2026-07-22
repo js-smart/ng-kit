@@ -1,9 +1,48 @@
+@use '@angular/material' as mat;
+
+/* Third-party CSS: Bootstrap powers the button/alert demos; highlight.js styles
+   the code blocks. (The legacy indigo-pink prebuilt theme is replaced by the
+   Material 3 theme below.) */
 @import 'bootstrap/dist/css/bootstrap.css';
-@import '@angular/material/prebuilt-themes/indigo-pink.css';
 @import 'highlight.js/styles/github-dark.css';
 @import 'assets/app-variables';
 @import 'assets/app-buttons';
 @import 'assets/app-mat-snack-bar';
+
+/* ── Angular Material 3 theme ──────────────────────────────────────────────
+   `color-scheme: light dark` makes the emitted --mat-sys-* system colors flip
+   automatically (via the CSS light-dark() function); the toolbar theme toggle
+   forces a scheme by setting `color-scheme` on the <html> element. */
+html {
+	color-scheme: light dark;
+
+	@include mat.theme(
+		(
+			color: (
+				primary: mat.$azure-palette,
+				tertiary: mat.$violet-palette,
+			),
+			typography: Roboto,
+			density: 0,
+		)
+	);
+}
+
+:root {
+	/* Gallery chrome tokens, mapped onto the M3 system palette so every surface,
+	   border and text colour flips with the active color-scheme. */
+	--gallery-surface: var(--mat-sys-surface);
+	--gallery-surface-raised: var(--mat-sys-surface-container-low);
+	--gallery-surface-sunken: var(--mat-sys-surface-container);
+	--gallery-border: var(--mat-sys-outline-variant);
+	--gallery-border-strong: var(--mat-sys-outline);
+	--gallery-text: var(--mat-sys-on-surface);
+	--gallery-text-muted: var(--mat-sys-on-surface-variant);
+	--gallery-accent: var(--mat-sys-primary);
+	--gallery-radius: 8px;
+	/* Back-compat alias used by a few demo styles. */
+	--ng-muted: var(--mat-sys-on-surface-variant);
+}
 
 html,
 body {
@@ -13,6 +52,8 @@ body {
 body {
 	margin: 0;
 	font-family: Roboto, 'Helvetica Neue', sans-serif;
+	background: var(--mat-sys-surface);
+	color: var(--mat-sys-on-surface);
 }
 
 /* ── Docs content typography (matches the ng-kit docs headers/code style,
@@ -23,7 +64,7 @@ body {
 		font-size: 36px;
 		font-weight: 600;
 		line-height: 1.15;
-		color: #111;
+		color: var(--mat-sys-on-surface);
 		margin: 0 0 0.75rem;
 	}
 
@@ -31,7 +72,7 @@ body {
 		font-size: 26px;
 		font-weight: 600;
 		line-height: 1.25;
-		color: #111;
+		color: var(--mat-sys-on-surface);
 		margin: 2.75rem 0 0.75rem;
 	}
 
@@ -39,7 +80,7 @@ body {
 		font-size: 20px;
 		font-weight: 600;
 		line-height: 1.3;
-		color: #111;
+		color: var(--mat-sys-on-surface);
 		margin: 2rem 0 0.5rem;
 	}
 
@@ -48,13 +89,58 @@ body {
 		line-height: 1.65;
 	}
 
-	/* Inline code — subtle pill (excludes highlighted code blocks). */
+	/* Inline code — monospace + subtle pill (excludes highlighted code blocks). */
+	code:not(.hljs) {
+		font-family: 'Roboto Mono', ui-monospace, monospace;
+		font-size: 0.85em;
+	}
+
 	:where(p, li, td, h1, h2, h3, .doc-lead, .page-lead) code:not(.hljs) {
 		padding: 0.12em 0.38em;
 		border-radius: 4px;
-		background: rgba(101, 84, 192, 0.1);
-		color: #5b45b0;
-		font-size: 0.85em;
+		background: color-mix(in srgb, var(--mat-sys-primary) 12%, transparent);
+		color: var(--mat-sys-primary);
+	}
+
+	/* ── Shared gallery doc styles ────────────────────────────────────────────
+	   Defined once here (pages render inside `.content`) so each page component
+	   no longer re-declares them; all colours are tokenised for dark mode. */
+	.api-table {
+		width: 100%;
+		border-collapse: collapse;
+		font-size: 0.875rem;
+	}
+
+	.api-table th,
+	.api-table td {
+		text-align: left;
+		padding: 0.5rem 0.75rem;
+		border-block-end: 1px solid var(--gallery-border);
+		vertical-align: top;
+	}
+
+	.api-table td:first-child code {
+		white-space: nowrap;
+	}
+
+	.api-summary,
+	.api-note {
+		color: var(--gallery-text-muted);
+		margin-block: 0 1.25rem;
+	}
+
+	.api-link {
+		margin-block-start: 2rem;
+		color: var(--gallery-text-muted);
+	}
+
+	.page-section {
+		margin-block: 0 2rem;
+	}
+
+	.page-section h2 {
+		font-size: 1.125rem;
+		margin-block-end: 0.75rem;
 	}
 }
 

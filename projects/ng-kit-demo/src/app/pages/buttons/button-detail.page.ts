@@ -995,51 +995,9 @@ const BUTTON_OVERVIEW: Record<string, string> = {
 			display: block;
 		}
 
-		.page-section {
-			margin-block: 0 2rem;
-		}
-
-		.page-section h2 {
-			font-size: 1.125rem;
-			margin-block-end: 0.75rem;
-		}
-
-		.api-summary {
-			color: rgba(0, 0, 0, 0.7);
-			margin-block: 0 1.25rem;
-		}
-
 		h3 {
 			font-size: 1rem;
 			margin-block: 1.75rem 0.5rem;
-		}
-
-		.api-table {
-			width: 100%;
-			border-collapse: collapse;
-			font-size: 0.875rem;
-		}
-
-		.api-table th,
-		.api-table td {
-			text-align: left;
-			padding: 0.5rem 0.75rem;
-			border-block-end: 1px solid rgba(0, 0, 0, 0.12);
-			vertical-align: top;
-		}
-
-		.api-note {
-			color: rgba(0, 0, 0, 0.7);
-		}
-
-		.api-link {
-			margin-block-start: 2rem;
-			color: rgba(0, 0, 0, 0.7);
-		}
-
-		code {
-			font-family: 'Roboto Mono', ui-monospace, monospace;
-			font-size: 0.85em;
 		}
 	`,
 })
