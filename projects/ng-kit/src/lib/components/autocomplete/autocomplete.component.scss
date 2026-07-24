@@ -1,15 +1,39 @@
-// The field chrome (label, input, chips, indicators, appearance/density) is
-// now owned by Angular Material's `mat-form-field` / `mat-input` / `mat-chips`
-// / `mat-icon-button`. This file only styles what Material does NOT provide:
-// the CDK-portaled options panel and the popup/clear indicator SVGs.
-//
-// The panel is rendered from this component's own overlay template, so it
-// still carries this component's view-encapsulation attributes and these
-// `.ng-*` rules apply. It is portaled to `body`, so its `var(--ng-*)` tokens
-// resolve against whatever the consumer set on `body`/`:root` (e.g. via the
-// public `ng-autocomplete.theme(...)` mixin) — falling back to the M2
-// indigo/pink defaults baked in below when the consumer sets nothing.
+// Material owns the field chrome; this file styles only the CDK-portaled
+// options panel and the popup/clear indicator SVGs.
 @use '@angular/material' as mat;
+
+// Panel colours resolve `--ng-*` → `--mat-<component>-*` (set by M2 themes) →
+// `--mat-sys-*` (set by `mat.theme()`, M3, light/dark aware) → M2 default.
+$panel-bg: var(--ng-bg, var(--mat-autocomplete-background-color, var(--mat-sys-surface-container, #fff)));
+$panel-fg: var(--ng-fg, var(--mat-option-label-text-color, var(--mat-sys-on-surface, rgba(0, 0, 0, 0.87))));
+$panel-radius: var(--ng-radius, var(--mat-autocomplete-container-shape, var(--mat-sys-corner-extra-small, 4px)));
+$panel-shadow: var(
+  --ng-shadow,
+  var(
+    --mat-autocomplete-container-elevation-shadow,
+    0 5px 5px -3px rgba(0, 0, 0, 0.2),
+    0 8px 10px 1px rgba(0, 0, 0, 0.14),
+    0 3px 14px 2px rgba(0, 0, 0, 0.12)
+  )
+);
+$panel-muted: var(--ng-muted, var(--mat-sys-on-surface-variant, rgba(0, 0, 0, 0.54)));
+
+// M2 ships a ready-made `color-mix()` state layer; M3 composes it from the
+// on-surface/opacity system tokens.
+$_hover-layer: color-mix(
+  in srgb,
+  var(--mat-sys-on-surface, rgba(0, 0, 0, 0.87)) calc(var(--mat-sys-hover-state-layer-opacity, 0.04) * 100%),
+  transparent
+);
+$option-hover: var(--ng-hover, var(--mat-option-hover-state-layer-color, $_hover-layer));
+$option-selected: var(
+  --ng-selected,
+  var(--mat-option-selected-state-layer-color, var(--mat-sys-secondary-container, rgba(63, 81, 181, 0.12)))
+);
+$option-selected-fg: var(--mat-option-selected-state-label-text-color, var(--mat-sys-on-secondary-container, inherit));
+
+$accent: var(--ng-border-focus, var(--mat-sys-primary, #3f51b5));
+$outline: var(--ng-border, var(--mat-sys-outline, rgba(0, 0, 0, 0.38)));
 
 :host {
   display: inline-block;
@@ -26,8 +50,7 @@
   width: 100%;
 }
 
-// `size="small"` → Material form-field density -3 (compact rows/height),
-// scoped to this component's fields only.
+// `size="small"` → Material form-field density -3, scoped to our fields only.
 :host([data-size='small']) .ng-field {
   @include mat.form-field-density(-3);
 }
@@ -35,15 +58,10 @@
 // ── popup / listbox / options (MDC menu look) ───────────────────────────────
 
 .ng-popup {
-  border-radius: var(--ng-radius, 4px);
-  background: var(--ng-bg, #fff);
-  box-shadow: var(
-    --ng-shadow,
-    0 2px 4px -1px rgba(0, 0, 0, 0.2),
-    0 4px 5px 0 rgba(0, 0, 0, 0.14),
-    0 1px 10px 0 rgba(0, 0, 0, 0.12)
-  );
-  color: var(--ng-fg, rgba(0, 0, 0, 0.87));
+  border-radius: $panel-radius;
+  background: $panel-bg;
+  box-shadow: $panel-shadow;
+  color: $panel-fg;
   overflow: hidden;
 }
 
@@ -62,6 +80,12 @@
   min-height: var(--ng-row, 48px);
   padding: var(--ng-option-pad, 0 16px);
   cursor: pointer;
+  // Match `mat-option`'s label typography for the active theme.
+  font-family: var(--mat-option-label-text-font, var(--mat-sys-body-large-font, inherit));
+  font-size: var(--mat-option-label-text-size, var(--mat-sys-body-large-size, 16px));
+  font-weight: var(--mat-option-label-text-weight, var(--mat-sys-body-large-weight, 400));
+  line-height: var(--mat-option-label-text-line-height, var(--mat-sys-body-large-line-height, 24px));
+  letter-spacing: var(--mat-option-label-text-tracking, var(--mat-sys-body-large-tracking, 0.03125em));
 }
 
 .ng-option[aria-disabled='true'] {
@@ -69,10 +93,11 @@
   cursor: default;
 }
 .ng-option.ng-highlighted {
-  background: var(--ng-hover, rgba(0, 0, 0, 0.04));
+  background: $option-hover;
 }
 .ng-option.ng-selected {
-  background: var(--ng-selected, rgba(63, 81, 181, 0.12));
+  background: $option-selected;
+  color: $option-selected-fg;
 }
 .ng-option-label {
   overflow: hidden;
@@ -83,14 +108,15 @@
 .ng-check {
   width: 16px;
   height: 16px;
-  border: 1.5px solid var(--ng-border, rgba(0, 0, 0, 0.38));
+  border: 1.5px solid $outline;
   border-radius: 4px;
   flex: none;
 }
 .ng-check.ng-checked {
-  border-color: var(--ng-border-focus, #3f51b5);
-  background: var(--ng-border-focus, #3f51b5);
-  box-shadow: inset 0 0 0 3px var(--ng-bg, #fff);
+  border-color: $accent;
+  background: $accent;
+  // The inner tick is punched out in the panel's own surface colour.
+  box-shadow: inset 0 0 0 3px $panel-bg;
 }
 
 .ng-group {
@@ -106,40 +132,36 @@
   top: 0;
   z-index: 1;
   padding: var(--ng-option-pad, 0 16px);
-  background: var(--ng-bg, #fff);
+  background: $panel-bg;
   font-size: 0.75rem;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: var(--ng-muted, rgba(0, 0, 0, 0.54));
+  color: $panel-muted;
 }
 
 .ng-status {
   padding: 12px 16px;
-  color: var(--ng-muted, rgba(0, 0, 0, 0.54));
+  color: $panel-muted;
   font-size: 0.875rem;
 }
 
 // ── indicators (inside Material's suffix icon buttons) ──────────────────────
 
-// Material's mat-icon-button is a 48px touch target — far larger than MUI's
-// end-adornment icons. Shrink the suffix buttons to ~28px so they read like
-// MUI's clear/dropdown affordances.
+// Shrink Material's 48px icon-button touch target to ~28px so the suffixes
+// read like MUI's clear/dropdown end adornments.
 .ng-clear.mat-mdc-icon-button,
 .ng-toggle.mat-mdc-icon-button {
   width: 28px;
   height: 28px;
   padding: 0;
-  // Align the clear/dropdown affordances to each other and to the field: the
-  // suffix wrapper lays them out inline, and their icons have different heights
-  // (18px vs 24px), so baseline alignment leaves them a few px apart. Centre
-  // both — matching MUI's vertically-centred end-adornment indicators.
+  // Centre both: the icons differ in height (18px vs 24px), so baseline
+  // alignment in the inline suffix wrapper leaves them a few px apart.
   vertical-align: middle;
   --mdc-icon-button-state-layer-size: 28px;
   --mat-icon-button-touch-target-display: none;
 }
 
-// Keep the clear button's slot reserved when it isn't applicable, so the input
-// width doesn't jump as the clear affordance appears/disappears.
+// Keep the slot reserved so the input width doesn't jump as clear toggles.
 .ng-clear.ng-hidden {
   visibility: hidden;
   pointer-events: none;
@@ -164,8 +186,8 @@
   width: 14px;
   height: 14px;
   vertical-align: middle;
-  border: 2px solid var(--ng-border, rgba(0, 0, 0, 0.12));
-  border-top-color: var(--ng-border-focus, #3f51b5);
+  border: 2px solid var(--ng-border, var(--mat-sys-outline-variant, rgba(0, 0, 0, 0.12)));
+  border-top-color: $accent;
   border-radius: 50%;
   animation: ng-spin 700ms linear infinite;
 }
