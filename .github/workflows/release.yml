@@ -15,14 +15,14 @@ jobs:
     strategy:
       matrix:
         os: [ 'ubuntu-latest' ]
-        node: [ '24' ]
+        node: [ '26' ]
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Cache node modules
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         env:
           cache-name: cache-node-modules
         with:
@@ -34,12 +34,12 @@ jobs:
             ${{ runner.os }}-
 
       - name: Setup pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@v6
         with:
           version: latest
 
       - name: Use Node.js ${{ matrix.node }}
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: ${{ matrix.node }}
           cache: 'pnpm'
@@ -55,7 +55,7 @@ jobs:
         run: npx semantic-release
 
       - name: Import GPG key
-        uses: crazy-max/ghaction-import-gpg@v6
+        uses: crazy-max/ghaction-import-gpg@v7
         with:
           gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
 
