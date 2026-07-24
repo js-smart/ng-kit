@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CodeBlock } from '../../shared/code-block.component';
 
 const OVERVIEW_CODE = `<!-- Directive (preferred) -->
-<button ariaLabel="Submit" (click)="onSubmit()" primaryButton>Submit</button>
+<button ariaLabel="Submit" (click)="onSubmit()" primaryButton mat-raised-button>Submit</button>
 
 <!-- Component -->
 <primary-button ariaLabel="Submit" (click)="onSubmit()">Submit</primary-button>`;

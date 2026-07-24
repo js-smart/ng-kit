@@ -10,12 +10,13 @@ export function getEditBsButtonDemoConfig(): DemoConfig {
 		componentName: 'edit-bs-button-demo',
 		requiredImports: ['BrowserAnimationsModule'],
 		componentTs: `import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { MatButton } from '@angular/material/button';
 import { EditBsButtonComponent, EditBsButtonDirective } from '@js-smart/ng-kit';
 
 @Component({
 	selector: 'app-edit-bs-button-demo',
 	standalone: true,
-	imports: [EditBsButtonComponent, EditBsButtonDirective],
+	imports: [EditBsButtonComponent, EditBsButtonDirective, MatButton],
 	templateUrl: './edit-bs-button-demo.component.html',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -28,7 +29,7 @@ export class EditBsButtonDemoComponent {
 }`,
 		componentHtml: `<div>
 	<h2>Directive (Preferred)</h2>
-	<button ariaLabel="Edit item" (click)="onEdit()" editBsButton>Edit</button>
+	<button ariaLabel="Edit item" (click)="onEdit()" editBsButton mat-button>Edit</button>
 </div>
 
 <div>

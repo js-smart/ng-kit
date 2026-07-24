@@ -1,14 +1,15 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { MatButton } from '@angular/material/button';
 import { PrimaryButtonComponent, PrimaryButtonDirective } from '@js-smart/ng-kit';
 
 @Component({
 	selector: 'ng-kit-primary-button-demo',
 	standalone: true,
-	imports: [PrimaryButtonComponent, PrimaryButtonDirective],
+	imports: [PrimaryButtonComponent, PrimaryButtonDirective, MatButton],
 	template: `
 		<div>
 			<h2>Directive (Preferred)</h2>
-			<button ariaLabel="Submit" (click)="onSubmit()" primaryButton>Submit</button>
+			<button ariaLabel="Submit" (click)="onSubmit()" primaryButton mat-raised-button>Submit</button>
 		</div>
 
 		<div>

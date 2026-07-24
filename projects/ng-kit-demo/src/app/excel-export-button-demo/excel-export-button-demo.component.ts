@@ -1,14 +1,15 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { MatButton } from '@angular/material/button';
 import { ExcelExportButtonComponent, ExcelExportButtonDirective } from '@js-smart/ng-kit';
 
 @Component({
 	selector: 'ng-kit-excel-export-button-demo',
 	standalone: true,
-	imports: [ExcelExportButtonComponent, ExcelExportButtonDirective],
+	imports: [ExcelExportButtonComponent, ExcelExportButtonDirective, MatButton],
 	template: `
 		<div>
 			<h2>Directive (Preferred)</h2>
-			<button (click)="onExport()" excelExportButton>Excel</button>
+			<button (click)="onExport()" excelExportButton mat-raised-button>Excel</button>
 		</div>
 
 		<div>

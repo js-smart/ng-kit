@@ -10,12 +10,13 @@ export function getBaseButtonDemoConfig(): DemoConfig {
 		componentName: 'base-button-demo',
 		requiredImports: ['BrowserAnimationsModule'],
 		componentTs: `import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { MatButton } from '@angular/material/button';
 import { PrimaryButtonComponent, PrimaryButtonDirective } from '@js-smart/ng-kit';
 
 @Component({
 	selector: 'app-base-button-demo',
 	standalone: true,
-	imports: [PrimaryButtonComponent, PrimaryButtonDirective],
+	imports: [PrimaryButtonComponent, PrimaryButtonDirective, MatButton],
 	templateUrl: './base-button-demo.component.html',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -43,7 +44,7 @@ export class BaseButtonDemoComponent {
 
 <div>
 	<h2>Directive with loading</h2>
-	<button ariaLabel="Submit" [loading]="loading()" primaryButton>Submit</button>
+	<button ariaLabel="Submit" [loading]="loading()" primaryButton mat-raised-button>Submit</button>
 </div>`,
 	};
 }

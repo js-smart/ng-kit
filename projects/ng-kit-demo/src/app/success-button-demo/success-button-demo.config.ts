@@ -10,12 +10,13 @@ export function getSuccessButtonDemoConfig(): DemoConfig {
 		componentName: 'success-button-demo',
 		requiredImports: ['BrowserAnimationsModule'],
 		componentTs: `import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { MatButton } from '@angular/material/button';
 import { SuccessButtonComponent, SuccessButtonDirective } from '@js-smart/ng-kit';
 
 @Component({
 	selector: 'app-success-button-demo',
 	standalone: true,
-	imports: [SuccessButtonComponent, SuccessButtonDirective],
+	imports: [SuccessButtonComponent, SuccessButtonDirective, MatButton],
 	templateUrl: './success-button-demo.component.html',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -28,7 +29,7 @@ export class SuccessButtonDemoComponent {
 }`,
 		componentHtml: `<div>
 	<h2>Directive (Preferred)</h2>
-	<button ariaLabel="Success" (click)="onSuccess()" successButton>Success</button>
+	<button ariaLabel="Success" (click)="onSuccess()" successButton mat-raised-button>Success</button>
 </div>
 
 <div>

@@ -1,14 +1,15 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { MatButton } from '@angular/material/button';
 import { SavePrimaryButtonComponent, SavePrimaryButtonDirective } from '@js-smart/ng-kit';
 
 @Component({
 	selector: 'ng-kit-save-primary-button-demo',
 	standalone: true,
-	imports: [SavePrimaryButtonComponent, SavePrimaryButtonDirective],
+	imports: [SavePrimaryButtonComponent, SavePrimaryButtonDirective, MatButton],
 	template: `
 		<div>
 			<h2>Directive (Preferred)</h2>
-			<button ariaLabel="Save" (click)="onSave()" savePrimaryButton>Save</button>
+			<button ariaLabel="Save" (click)="onSave()" savePrimaryButton mat-raised-button>Save</button>
 		</div>
 
 		<div>

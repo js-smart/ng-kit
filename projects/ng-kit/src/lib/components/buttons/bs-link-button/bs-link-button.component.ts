@@ -1,11 +1,11 @@
-import { Component, input, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
-import { MatAnchor } from '@angular/material/button';
+import { MatAnchor, MatButton } from '@angular/material/button';
 import { BaseButtonComponent } from '../base-button/base-button.component';
 
 @Component({
 	selector: 'bs-link-button',
-	imports: [MatIcon, MatAnchor],
+	imports: [MatIcon, MatAnchor, MatButton],
 	template: `
 		<a
 			type="{{ type() }}"

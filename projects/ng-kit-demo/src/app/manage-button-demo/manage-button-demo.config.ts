@@ -10,12 +10,13 @@ export function getManageButtonDemoConfig(): DemoConfig {
 		componentName: 'manage-button-demo',
 		requiredImports: ['BrowserAnimationsModule'],
 		componentTs: `import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { MatButton } from '@angular/material/button';
 import { ManageButtonComponent, ManageButtonDirective } from '@js-smart/ng-kit';
 
 @Component({
 	selector: 'app-manage-button-demo',
 	standalone: true,
-	imports: [ManageButtonComponent, ManageButtonDirective],
+	imports: [ManageButtonComponent, ManageButtonDirective, MatButton],
 	templateUrl: './manage-button-demo.component.html',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -28,7 +29,7 @@ export class ManageButtonDemoComponent {
 }`,
 		componentHtml: `<div>
 	<h2>Directive (Preferred)</h2>
-	<button ariaLabel="Manage settings" (click)="onManage()" manageButton>Manage</button>
+	<button ariaLabel="Manage settings" (click)="onManage()" manageButton mat-raised-button>Manage</button>
 </div>
 
 <div>

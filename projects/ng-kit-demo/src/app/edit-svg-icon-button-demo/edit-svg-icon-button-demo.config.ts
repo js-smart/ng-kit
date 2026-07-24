@@ -9,12 +9,13 @@ export function getEditSvgIconButtonDemoConfig(): DemoConfig {
 		description: 'Demo showcasing the EditSvgIconButtonComponent and editSvgIconButton directive from @js-smart/ng-kit',
 		componentName: 'edit-svg-icon-button-demo',
 		componentTs: `import { Component } from '@angular/core';
+import { MatButton } from '@angular/material/button';
 import { EditSvgIconButtonComponent, EditSvgIconButtonDirective } from '@js-smart/ng-kit';
 
 @Component({
 	selector: 'app-edit-svg-icon-button-demo',
 	standalone: true,
-	imports: [EditSvgIconButtonComponent, EditSvgIconButtonDirective],
+	imports: [EditSvgIconButtonComponent, EditSvgIconButtonDirective, MatButton],
 	templateUrl: './edit-svg-icon-button-demo.component.html',
 	styles: [\`\`],
 })
@@ -25,7 +26,7 @@ export class EditSvgIconButtonDemoComponent {
 }`,
 		componentHtml: `<div>
 	<h2>Directive (Preferred)</h2>
-	<button ariaLabel="Edit item" (click)="onEdit()" editSvgIconButton>Edit</button>
+	<button ariaLabel="Edit item" (click)="onEdit()" editSvgIconButton mat-raised-button>Edit</button>
 </div>
 
 <div>

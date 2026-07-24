@@ -1,14 +1,15 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { MatButton } from '@angular/material/button';
 import { SuccessButtonComponent, SuccessButtonDirective } from '@js-smart/ng-kit';
 
 @Component({
 	selector: 'ng-kit-success-button-demo',
 	standalone: true,
-	imports: [SuccessButtonComponent, SuccessButtonDirective],
+	imports: [SuccessButtonComponent, SuccessButtonDirective, MatButton],
 	template: `
 		<div>
 			<h2>Directive (Preferred)</h2>
-			<button ariaLabel="Success" (click)="onSuccess()" successButton>Success</button>
+			<button ariaLabel="Success" (click)="onSuccess()" successButton mat-raised-button>Success</button>
 		</div>
 
 		<div>

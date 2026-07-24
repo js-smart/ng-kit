@@ -10,12 +10,13 @@ export function getViewButtonDemoConfig(): DemoConfig {
 		componentName: 'view-button-demo',
 		requiredImports: ['BrowserAnimationsModule'],
 		componentTs: `import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { MatButton } from '@angular/material/button';
 import { ViewButtonDirective } from '@js-smart/ng-kit';
 
 @Component({
 	selector: 'app-view-button-demo',
 	standalone: true,
-	imports: [ViewButtonDirective],
+	imports: [ViewButtonDirective, MatButton],
 	templateUrl: './view-button-demo.component.html',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -28,7 +29,7 @@ export class ViewButtonDemoComponent {
 }`,
 		componentHtml: `<div>
 	<h2>Directive (Preferred)</h2>
-	<button ariaLabel="View details" (click)="onView()" viewButton>View</button>
+	<button ariaLabel="View details" (click)="onView()" viewButton mat-button>View</button>
 </div>
 
 <p>{{ status() }}</p>`,

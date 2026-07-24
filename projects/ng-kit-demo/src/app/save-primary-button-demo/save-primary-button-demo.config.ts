@@ -10,12 +10,13 @@ export function getSavePrimaryButtonDemoConfig(): DemoConfig {
 		componentName: 'save-primary-button-demo',
 		requiredImports: ['BrowserAnimationsModule'],
 		componentTs: `import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { MatButton } from '@angular/material/button';
 import { SavePrimaryButtonComponent, SavePrimaryButtonDirective } from '@js-smart/ng-kit';
 
 @Component({
 	selector: 'app-save-primary-button-demo',
 	standalone: true,
-	imports: [SavePrimaryButtonComponent, SavePrimaryButtonDirective],
+	imports: [SavePrimaryButtonComponent, SavePrimaryButtonDirective, MatButton],
 	templateUrl: './save-primary-button-demo.component.html',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -28,7 +29,7 @@ export class SavePrimaryButtonDemoComponent {
 }`,
 		componentHtml: `<div>
 	<h2>Directive (Preferred)</h2>
-	<button ariaLabel="Save" (click)="onSave()" savePrimaryButton>Save</button>
+	<button ariaLabel="Save" (click)="onSave()" savePrimaryButton mat-raised-button>Save</button>
 </div>
 
 <div>

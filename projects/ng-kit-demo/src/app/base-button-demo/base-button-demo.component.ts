@@ -1,10 +1,11 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { MatButton } from '@angular/material/button';
 import { PrimaryButtonComponent, PrimaryButtonDirective } from '@js-smart/ng-kit';
 
 @Component({
 	selector: 'ng-kit-base-button-demo',
 	standalone: true,
-	imports: [PrimaryButtonComponent, PrimaryButtonDirective],
+	imports: [PrimaryButtonComponent, PrimaryButtonDirective, MatButton],
 	template: `
 		<div>
 			<h2>Loading state</h2>
@@ -23,7 +24,7 @@ import { PrimaryButtonComponent, PrimaryButtonDirective } from '@js-smart/ng-kit
 
 		<div>
 			<h2>Directive with loading</h2>
-			<button ariaLabel="Submit" [loading]="loading()" primaryButton>Submit</button>
+			<button ariaLabel="Submit" [loading]="loading()" primaryButton mat-raised-button>Submit</button>
 		</div>
 	`,
 	changeDetection: ChangeDetectionStrategy.OnPush,
