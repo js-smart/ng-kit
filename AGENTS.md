@@ -299,3 +299,7 @@ These tips are **not** a second source of truth for stack or workflow; they only
 | [`.cursor/rules/ngkit.mdc`](./.cursor/rules/ngkit.mdc)                       | Cursor always-applied rule: short pointer + critical constraints        |
 | [`.claude/CLAUDE.md`](./.claude/CLAUDE.md)                                   | Claude Code: pointer to this file                                       |
 | [`.aiassistant/rules/instructions.md`](./.aiassistant/rules/instructions.md) | JetBrains AI Assistant rule file: pointer + `apply: always` frontmatter |
+
+## What to Avoid
+- Never commit code to git unless I explicitly ask you to.
+- Always commit to git as a current user, not as an LLM

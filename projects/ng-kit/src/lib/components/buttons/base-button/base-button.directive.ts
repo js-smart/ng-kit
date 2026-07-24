@@ -1,13 +1,21 @@
-import { Directive, DOCUMENT, effect, ElementRef, inject, input, OnInit, signal } from '@angular/core';
+import { booleanAttribute, computed, Directive, DOCUMENT, effect, ElementRef, inject, input, OnInit, signal } from '@angular/core';
 
-@Directive()
+@Directive({
+	host: {
+		'[attr.disabled]': 'isDisabled() ? "" : null',
+		'[attr.aria-disabled]': 'isDisabled() ? "true" : null',
+		'[attr.aria-busy]': 'loading() ? "true" : null',
+	},
+})
 export abstract class BaseButtonDirective implements OnInit {
 	icon = input<string>('');
 	label = input<string>('');
 	loadingLabel = input<string>('Loading...');
 	loading = input<boolean>(false);
+	disabled = input(false, { transform: booleanAttribute });
 	elementRef = inject(ElementRef);
 	document = inject(DOCUMENT);
+	readonly isDisabled = computed(() => this.disabled() || this.loading());
 
 	protected originalText = signal('');
 	protected iconSpan = signal<HTMLElement | null>(null);
@@ -42,6 +50,8 @@ export abstract class BaseButtonDirective implements OnInit {
 			iconElement.classList.add('mat-icon', 'material-icons', 'pe-2');
 			iconElement.textContent = this.icon();
 			this.iconSpan.set(iconElement);
+		} else {
+			this.iconSpan.set(null);
 		}
 	}
 
@@ -63,7 +73,6 @@ export abstract class BaseButtonDirective implements OnInit {
 
 		element.appendChild(newSpan);
 		element.appendChild(this.document.createTextNode(this.loadingLabel()));
-		element.setAttribute('disabled', 'true');
 	}
 
 	protected showNormalState(element: HTMLElement): void {
@@ -73,6 +82,5 @@ export abstract class BaseButtonDirective implements OnInit {
 		}
 
 		element.appendChild(this.document.createTextNode(this.originalText()));
-		element.removeAttribute('disabled');
 	}
 }
