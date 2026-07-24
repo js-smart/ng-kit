@@ -1,7 +1,7 @@
 import { NgTemplateOutlet } from '@angular/common';
 import { CdkVirtualScrollViewport, ScrollingModule } from '@angular/cdk/scrolling';
 import { OverlayModule } from '@angular/cdk/overlay';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatFormFieldModule, type SubscriptSizing } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
@@ -166,6 +166,12 @@ export class AutocompleteComponent<T> implements ControlValueAccessor {
   readonly getLimitTagsText = input<(more: number) => string>((more) => `+${more}`);
   readonly fullWidth = input(false);
   readonly appearance = input<NgAutocompleteAppearance>('fill');
+  /**
+   * How the subscript (hint/error strip) is sized, matching `mat-form-field`.
+   * Left `undefined` so Material resolves it — an app's
+   * `MAT_FORM_FIELD_DEFAULT_OPTIONS` wins, then Material's own `'fixed'`.
+   */
+  readonly subscriptSizing = input<SubscriptSizing | undefined>(undefined);
 
   /** Per-element class/attribute pass-through, mirroring MUI's `slotProps`. */
   readonly slotProps = input<NgAutocompleteSlotProps>({});

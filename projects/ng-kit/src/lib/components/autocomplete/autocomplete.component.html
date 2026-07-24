@@ -9,7 +9,7 @@
 <div #origin="cdkOverlayOrigin" (mousedown)="onFieldMouseDown($event)" cdkOverlayOrigin class="ng-field-origin">
 	@if (!multiple() && !showSingleChip()) {
 		<!-- Single-select: a plain input as the form-field control. -->
-		<mat-form-field [appearance]="appearance()" class="ng-field" subscriptSizing="dynamic">
+		<mat-form-field [appearance]="appearance()" [subscriptSizing]="subscriptSizing()!" class="ng-field">
 			@if (label(); as text) {
 				<mat-label>{{ text }}</mat-label>
 			}
@@ -76,7 +76,7 @@
 		</mat-form-field>
 	} @else {
 		<!-- Multiple (chips) or single-chip: a mat-chip-grid as the control. -->
-		<mat-form-field [appearance]="appearance()" class="ng-field" subscriptSizing="dynamic">
+		<mat-form-field [appearance]="appearance()" [subscriptSizing]="subscriptSizing()!" class="ng-field">
 			@if (label(); as text) {
 				<mat-label>{{ text }}</mat-label>
 			}

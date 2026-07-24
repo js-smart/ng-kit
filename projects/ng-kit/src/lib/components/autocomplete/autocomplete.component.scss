@@ -35,8 +35,11 @@ $option-selected-fg: var(--mat-option-selected-state-label-text-color, var(--mat
 $accent: var(--ng-border-focus, var(--mat-sys-primary, #3f51b5));
 $outline: var(--ng-border, var(--mat-sys-outline, rgba(0, 0, 0, 0.38)));
 
+// Material's infix is a fixed `width: 180px`, so the field's natural width is
+// ~256px; without a cap it overflows any narrower container instead of shrinking.
 :host {
   display: inline-block;
+  max-width: 100%;
 }
 
 // Full-width: stretch the field (and its origin wrapper) to the container.
@@ -48,6 +51,18 @@ $outline: var(--ng-border, var(--mat-sys-outline, rgba(0, 0, 0, 0.38)));
 }
 :host(.ng-fullwidth) .ng-field {
   width: 100%;
+}
+.ng-field {
+  max-width: 100%;
+}
+
+// Material styles only the colour of its suffix slot, leaving it `display: block`,
+// so our two inline-block icon buttons line-wrap once the field gets narrow.
+:host ::ng-deep .mat-mdc-form-field-icon-suffix {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  flex: none;
 }
 
 // `size="small"` → Material form-field density -3, scoped to our fields only.
