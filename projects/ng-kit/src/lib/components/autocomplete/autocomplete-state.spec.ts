@@ -1,4 +1,5 @@
 import { computed, signal, type WritableSignal } from '@angular/core';
+import { vi } from 'vitest';
 import { NgAutocompleteState } from './autocomplete-state';
 import { DEFAULT_CONFIG, type NgAutocompleteConfig } from './autocomplete.types';
 import { defaultFilterOptions } from './create-filter-options';
@@ -44,6 +45,68 @@ describe('NgAutocompleteState — dirty & clearVisible (B2)', () => {
     expect(makeState({ disableClearable: true }, { value: 'Alpha' }).state.clearVisible()).toBe(false);
     expect(makeState({ disabled: true }, { value: 'Alpha' }).state.clearVisible()).toBe(false);
     expect(makeState({ readOnly: true }, { value: 'Alpha' }).state.clearVisible()).toBe(false);
+  });
+});
+
+describe('NgAutocompleteState — highlight syncs to the value on open', () => {
+  it('highlights the selected option so the list opens scrolled to it', () => {
+    const { state } = makeState({}, { value: 'Gamma', inputValue: 'Gamma' });
+    expect(state.highlightedIndex()).toBe(-1);
+
+    state.openPopup('toggleInput');
+
+    expect(state.highlightedIndex()).toBe(2);
+    expect(state.highlightedOption()?.option).toBe('Gamma');
+  });
+
+  it('leaves the highlight unset when nothing is selected', () => {
+    const { state } = makeState();
+    state.openPopup('toggleInput');
+    expect(state.highlightedIndex()).toBe(-1);
+  });
+
+  it('falls back to the autoHighlight default when the value is not in the list', () => {
+    const { state } = makeState({ autoHighlight: true }, { value: 'Delta' });
+    state.openPopup('toggleInput');
+    expect(state.highlightedIndex()).toBe(0);
+  });
+
+  it('does not emit highlightChange — the sync is programmatic', () => {
+    const options = signal<readonly string[]>(['Alpha', 'Beta', 'Gamma']);
+    const value = signal<string | readonly string[] | null>('Beta');
+    const inputValue = signal('Beta');
+    const open = signal(false);
+    const config = signal<NgAutocompleteConfig<string>>({
+      ...(DEFAULT_CONFIG as unknown as NgAutocompleteConfig<string>),
+      filterOptions: defaultFilterOptions as never,
+    });
+    const highlightChange = vi.fn();
+    const state = new NgAutocompleteState<string>({
+      options,
+      value,
+      inputValue,
+      open,
+      config,
+      events: { highlightChange },
+    });
+
+    state.openPopup('toggleInput');
+
+    expect(state.highlightedIndex()).toBe(1);
+    expect(highlightChange).not.toHaveBeenCalled();
+  });
+
+  it('keeps a multiple-mode highlight that already sits on a selected value', () => {
+    const { state } = makeState({ multiple: true }, { value: ['Alpha', 'Gamma'] });
+    state.openPopup('toggleInput');
+    // Alpha (index 0) is selected, so the sync settles there...
+    expect(state.highlightedIndex()).toBe(0);
+
+    state.setHighlight(2, 'keyboard'); // ...user moves to Gamma, also selected
+    state.closePopup('toggleInput');
+    state.openPopup('toggleInput');
+
+    expect(state.highlightedIndex()).toBe(2);
   });
 });
 

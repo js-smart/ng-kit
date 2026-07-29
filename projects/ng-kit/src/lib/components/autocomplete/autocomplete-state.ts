@@ -6,17 +6,17 @@ import {
   type Signal,
   type WritableSignal,
 } from '@angular/core';
-import { defaultFilterOptions } from './create-filter-options';
 import type {
-  NgAutocompleteConfig,
   ChangeReason,
   CloseReason,
   HighlightChangeReason,
   InputChangeReason,
+  NgAutocompleteConfig,
   OpenReason,
   OptionGroup,
   RenderedOption,
 } from './autocomplete.types';
+import { defaultFilterOptions } from './create-filter-options';
 
 export interface NgAutocompleteStateEvents<T> {
   change?(value: T | readonly T[] | null, reason: ChangeReason, option?: T): void;
@@ -90,7 +90,7 @@ export class NgAutocompleteState<T> {
   /** MUI `dirty` (useAutocomplete:1365-1366): freeSolo typed text OR a selected value. */
   readonly dirty = computed(() => {
     const c = this.cfg();
-    if (c.freeSolo && this.deps.inputValue().length > 0) return true;
+    if (c.freeSolo && this.deps.inputValue().length > 0) {return true;}
     return this.hasValue();
   });
 
@@ -98,7 +98,7 @@ export class NgAutocompleteState<T> {
   /** Current selection normalised to an array, whatever the mode. */
   readonly selectedValues = computed<readonly T[]>(() => {
     const v = this.deps.value();
-    if (v == null) return [];
+    if (v == null) {return [];}
     return Array.isArray(v) ? (v as readonly T[]) : [v as T];
   });
 
@@ -118,10 +118,10 @@ export class NgAutocompleteState<T> {
   private readonly filterQuery = computed(() => {
     const c = this.cfg();
     const input = this.deps.inputValue();
-    if (c.multiple) return input;
+    if (c.multiple) {return input;}
     const selected = this.selectedValues()[0];
     const isSelectedLabel = selected !== undefined && input === c.getOptionLabel(selected);
-    if (isSelectedLabel && this.inputPristine()) return '';
+    if (isSelectedLabel && this.inputPristine()) {return '';}
     return input;
   });
 
@@ -156,7 +156,7 @@ export class NgAutocompleteState<T> {
   /** Grouped view. Options must already be sorted by the group key, same as MUI. */
   readonly groups = computed<readonly OptionGroup<T>[]>(() => {
     const groupBy = this.cfg().groupBy;
-    if (!groupBy) return [];
+    if (!groupBy) {return [];}
     const out: OptionGroup<T>[] = [];
     for (const item of this.flatOptions()) {
       const group = groupBy(item.option);
@@ -175,9 +175,9 @@ export class NgAutocompleteState<T> {
   /** Whether the listbox should actually be on screen. */
   readonly listboxVisible = computed(() => {
     const c = this.cfg();
-    if (!this.open() || c.disabled) return false;
-    if (c.readOnly) return false;
-    if (!this.isEmpty()) return true;
+    if (!this.open() || c.disabled) {return false;}
+    if (c.readOnly) {return false;}
+    if (!this.isEmpty()) {return true;}
     return c.loading || !c.freeSolo; // show "no options" unless free solo
   });
 
@@ -190,16 +190,16 @@ export class NgAutocompleteState<T> {
   readonly highlightedIndex = linkedSignal<readonly RenderedOption<T>[], number>({
     source: () => this.flatOptions(),
     computation: (options, previous) => {
-      if (options.length === 0) return -1;
+      if (options.length === 0) {return -1;}
       const c = untracked(() => this.cfg());
       const prevOption = previous?.source?.[previous.value];
       if (prevOption) {
         const stillThere = options.findIndex((o) =>
           c.isOptionEqualToValue(o.option, prevOption.option),
         );
-        if (stillThere !== -1) return stillThere;
+        if (stillThere !== -1) {return stillThere;}
       }
-      if (c.autoHighlight) return this.firstEnabled(options, c);
+      if (c.autoHighlight) {return this.firstEnabled(options, c);}
       return -1;
     },
   });
@@ -215,10 +215,10 @@ export class NgAutocompleteState<T> {
    */
   readonly inlineCompletion = computed<string | null>(() => {
     const c = this.cfg();
-    if (!c.autoComplete || !this.open()) return null;
+    if (!c.autoComplete || !this.open()) {return null;}
     const highlighted = this.highlightedOption();
     const typed = this.deps.inputValue();
-    if (!highlighted || !typed) return null;
+    if (!highlighted || !typed) {return null;}
     const label = highlighted.label;
     return label.toLowerCase().startsWith(typed.toLowerCase()) && label !== typed
       ? label
@@ -228,21 +228,24 @@ export class NgAutocompleteState<T> {
   // ── open / close ─────────────────────────────────────────────────────────
   openPopup(reason: OpenReason): void {
     const c = this.cfg();
-    if (this.open() || c.disabled || c.readOnly) return;
+    if (this.open() || c.disabled || c.readOnly) {return;}
     this.open.set(true);
     this.inputPristine.set(true);
+    // Point the highlight at the current value before anyone observes the open
+    // popup, so the list scrolls to the selection instead of opening at the top.
+    this.syncHighlightedIndex();
     this.deps.events?.opened?.(reason);
   }
 
   closePopup(reason: CloseReason): void {
-    if (!this.open()) return;
+    if (!this.open()) {return;}
     this.open.set(false);
     this.deps.events?.closed?.(reason);
   }
 
   togglePopup(): void {
-    if (this.open()) this.closePopup('toggleInput');
-    else this.openPopup('toggleInput');
+    if (this.open()) {this.closePopup('toggleInput');}
+    else {this.openPopup('toggleInput');}
   }
 
   // ── highlight movement ───────────────────────────────────────────────────
@@ -267,7 +270,7 @@ export class NgAutocompleteState<T> {
 
   /** The listbox scrolled — any touch-highlight in flight is now stale. */
   notifyScroll(): void {
-    if (this.isTouch()) this.touchScrolled.set(true);
+    if (this.isTouch()) {this.touchScrolled.set(true);}
   }
 
   /**
@@ -275,10 +278,10 @@ export class NgAutocompleteState<T> {
    * `includeInputInList` and `disabledItemsFocusable`.
    */
   moveHighlight(diff: number | 'start' | 'end' | 'reset'): void {
-    if (!this.open()) this.openPopup('keyboard');
+    if (!this.open()) {this.openPopup('keyboard');}
     const options = this.flatOptions();
     const c = this.cfg();
-    if (options.length === 0) return;
+    if (options.length === 0) {return;}
 
     if (diff === 'reset') {
       this.setHighlight(c.autoHighlight ? this.firstEnabled(options, c) : -1, null);
@@ -298,8 +301,8 @@ export class NgAutocompleteState<T> {
     const current = this.highlightedIndex();
     let next = current + diff;
 
-    if (next > max) next = c.disableListWrap ? max : min;
-    else if (next < min) next = c.disableListWrap ? min : max;
+    if (next > max) {next = c.disableListWrap ? max : min;}
+    else if (next < min) {next = c.disableListWrap ? min : max;}
 
     // Skip disabled entries in the direction of travel.
     const step = diff > 0 ? 1 : -1;
@@ -311,21 +314,63 @@ export class NgAutocompleteState<T> {
       !c.disabledItemsFocusable
     ) {
       next += step;
-      if (next > max) next = c.disableListWrap ? current : min;
-      else if (next < min) next = c.disableListWrap ? current : max;
+      if (next > max) {next = c.disableListWrap ? current : min;}
+      else if (next < min) {next = c.disableListWrap ? current : max;}
     }
     this.setHighlight(next, 'keyboard');
   }
 
+  /**
+   * Align the highlight with the selected value when the popup opens — MUI's
+   * `syncHighlightedIndex`, which it runs from an effect gated on `popupOpen`.
+   * Without this the index stays at -1 and the listbox opens scrolled to the
+   * top, hiding the current value.
+   *
+   * MUI's "previously highlighted option survived the re-filter" branch has no
+   * equivalent here: `highlightedIndex` is a `linkedSignal` that already keeps
+   * pointing at the same option when the filtered list changes.
+   *
+   * The highlight is programmatic here (`null` reason), so it never emits
+   * `highlightChange` — that stays reserved for real user interaction.
+   */
+  private syncHighlightedIndex(): void {
+    const c = this.cfg();
+    const options = this.flatOptions();
+    const valueItem = this.selectedValues()[0];
+
+    if (options.length === 0 || valueItem === undefined) {
+      this.setHighlight(c.autoHighlight ? this.firstEnabled(options, c) : -1, null);
+      return;
+    }
+
+    // Multiple: a highlight already sitting on one of the selected values is
+    // kept, so reopening the panel does not jump back to the first chip.
+    if (c.multiple) {
+      const current = options[this.highlightedIndex()];
+      if (
+        current &&
+        this.selectedValues().some((v) => c.isOptionEqualToValue(current.option, v))
+      ) {
+        return;
+      }
+    }
+
+    const index = options.findIndex((o) => c.isOptionEqualToValue(o.option, valueItem));
+    this.setHighlight(
+      index === -1 ? (c.autoHighlight ? this.firstEnabled(options, c) : -1) : index,
+      null,
+    );
+  }
+
   private firstEnabled(options: readonly RenderedOption<T>[], c: NgAutocompleteConfig<T>): number {
-    if (c.disabledItemsFocusable) return options.length ? 0 : -1;
+    if (c.disabledItemsFocusable) {return options.length ? 0 : -1;}
     const i = options.findIndex((o) => !o.disabled);
     return i;
   }
 
   private lastEnabled(options: readonly RenderedOption<T>[], c: NgAutocompleteConfig<T>): number {
-    if (c.disabledItemsFocusable) return options.length - 1;
-    for (let i = options.length - 1; i >= 0; i--) if (!options[i].disabled) return i;
+    if (c.disabledItemsFocusable) {return options.length - 1;}
+    for (let i = options.length - 1; i >= 0; i--) {if (!options[i].disabled) {return i;}}
     return -1;
   }
 
@@ -342,8 +387,8 @@ export class NgAutocompleteState<T> {
 
   selectOption(option: T, reason: ChangeReason = 'selectOption'): void {
     const c = this.cfg();
-    if (c.disabled || c.readOnly) return;
-    if (c.getOptionDisabled(option) && reason !== 'createOption') return;
+    if (c.disabled || c.readOnly) {return;}
+    if (c.getOptionDisabled(option) && reason !== 'createOption') {return;}
 
     if (c.multiple) {
       const current = [...this.selectedValues()];
@@ -361,7 +406,7 @@ export class NgAutocompleteState<T> {
       this.setInputValue(c.getOptionLabel(option), 'selectOption');
     }
 
-    if (!c.disableCloseOnSelect) this.closePopup('selectOption');
+    if (!c.disableCloseOnSelect) {this.closePopup('selectOption');}
 
     const blur = c.blurOnSelect;
     if (blur === true || (blur === 'touch' && this.isTouch()) || (blur === 'mouse' && !this.isTouch())) {
@@ -372,10 +417,10 @@ export class NgAutocompleteState<T> {
 
   removeValueAt(index: number): void {
     const c = this.cfg();
-    if (c.disabled || c.readOnly) return;
+    if (c.disabled || c.readOnly) {return;}
     const current = [...this.selectedValues()];
     const removed = current[index];
-    if (removed === undefined || this.isFixed(removed)) return;
+    if (removed === undefined || this.isFixed(removed)) {return;}
     current.splice(index, 1);
     this.commit(current, 'removeOption', removed);
     this.focusedItemIndex.set(-1);
@@ -383,7 +428,7 @@ export class NgAutocompleteState<T> {
 
   clear(): void {
     const c = this.cfg();
-    if (c.disabled || c.readOnly) return;
+    if (c.disabled || c.readOnly) {return;}
     // Fixed options survive a clear.
     const next = c.multiple ? [...c.fixedOptions] : null;
     this.commit(next, 'clear');
@@ -398,7 +443,7 @@ export class NgAutocompleteState<T> {
 
   // ── input handling ───────────────────────────────────────────────────────
   setInputValue(text: string, reason: InputChangeReason): void {
-    if (untracked(this.deps.inputValue) === text && reason !== 'input') return;
+    if (untracked(this.deps.inputValue) === text && reason !== 'input') {return;}
     this.deps.inputValue.set(text);
     this.deps.events?.inputChange?.(text, reason);
   }
@@ -415,7 +460,7 @@ export class NgAutocompleteState<T> {
       this.openPopup('input');
     }
     this.focusedItemIndex.set(-1);
-    if (changed) this.inputPristine.set(false);
+    if (changed) {this.inputPristine.set(false);}
   }
 
   /** Push the input text back in sync with the current selection. */
@@ -451,7 +496,7 @@ export class NgAutocompleteState<T> {
       this.windowLostFocus.set(false);
       return;
     }
-    if (c.openOnFocus) this.openPopup('focus');
+    if (c.openOnFocus) {this.openPopup('focus');}
   }
 
   handleBlur(): void {
@@ -467,7 +512,7 @@ export class NgAutocompleteState<T> {
       this.highlightReason() !== 'touch'
     ) {
       const highlighted = this.highlightedOption();
-      if (highlighted) this.selectOption(highlighted.option, 'blur');
+      if (highlighted) {this.selectOption(highlighted.option, 'blur');}
     } else if (c.autoSelect && c.freeSolo && this.deps.inputValue() !== '') {
       this.createFreeSoloValue('blur');
     } else if (c.clearOnBlur) {
@@ -479,7 +524,7 @@ export class NgAutocompleteState<T> {
   private createFreeSoloValue(reason: ChangeReason = 'createOption'): void {
     const c = this.cfg();
     const text = this.deps.inputValue();
-    if (!text) return;
+    if (!text) {return;}
     const created = text as unknown as T;
     if (c.multiple) {
       this.commit([...this.selectedValues(), created], reason, created);
@@ -496,17 +541,17 @@ export class NgAutocompleteState<T> {
    */
   handleKeyDown(event: KeyboardEvent): boolean {
     const c = this.cfg();
-    if (c.disabled) return false;
+    if (c.disabled) {return false;}
 
     switch (event.key) {
       case 'ArrowDown':
-        if (c.readOnly) return false;
-        if (!this.open()) this.openPopup('keyboard');
-        else this.moveHighlight(1);
+        if (c.readOnly) {return false;}
+        if (!this.open()) {this.openPopup('keyboard');}
+        else {this.moveHighlight(1);}
         return true;
 
       case 'ArrowUp':
-        if (c.readOnly) return false;
+        if (c.readOnly) {return false;}
         if (!this.open()) {
           this.openPopup('keyboard');
           this.moveHighlight('end');
@@ -516,27 +561,27 @@ export class NgAutocompleteState<T> {
         return true;
 
       case 'PageDown':
-        if (!this.open()) this.openPopup('keyboard');
+        if (!this.open()) {this.openPopup('keyboard');}
         this.moveHighlight(5);
         return true;
 
       case 'PageUp':
-        if (!this.open()) this.openPopup('keyboard');
+        if (!this.open()) {this.openPopup('keyboard');}
         this.moveHighlight(-5);
         return true;
 
       case 'Home':
-        if (!this.open() || !c.handleHomeEndKeys) return false;
+        if (!this.open() || !c.handleHomeEndKeys) {return false;}
         this.moveHighlight('start');
         return true;
 
       case 'End':
-        if (!this.open() || !c.handleHomeEndKeys) return false;
+        if (!this.open() || !c.handleHomeEndKeys) {return false;}
         this.moveHighlight('end');
         return true;
 
       case 'Enter': {
-        if (c.readOnly) return false;
+        if (c.readOnly) {return false;}
         if (this.open() && this.touchScrolled()) {
           this.closePopup('escape');
           return true;
@@ -556,7 +601,7 @@ export class NgAutocompleteState<T> {
         }
         if (c.freeSolo && this.deps.inputValue() !== '' && !inputValueIsSelectedValue) {
           this.createFreeSoloValue('createOption');
-          if (!c.disableCloseOnSelect) this.closePopup('selectOption');
+          if (!c.disableCloseOnSelect) {this.closePopup('selectOption');}
           return true;
         }
         return false;
@@ -579,7 +624,7 @@ export class NgAutocompleteState<T> {
 
       case 'Backspace':
       case 'Delete': {
-        if (c.readOnly) return false;
+        if (c.readOnly) {return false;}
         // VoiceOver re-dispatches a synthetic Backspace immediately after its
         // own chip-delete gesture; without this guard it would delete a
         // second chip the user never asked to remove. useAutocomplete:1092.
@@ -615,7 +660,7 @@ export class NgAutocompleteState<T> {
       }
 
       case 'ArrowLeft':
-        if (this.deps.inputValue() !== '') return false;
+        if (this.deps.inputValue() !== '') {return false;}
         if (c.multiple) {
           this.moveItemFocus(-1);
           return true;
@@ -627,7 +672,7 @@ export class NgAutocompleteState<T> {
         return false;
 
       case 'ArrowRight':
-        if (!c.multiple || this.focusedItemIndex() === -1) return false;
+        if (!c.multiple || this.focusedItemIndex() === -1) {return false;}
         this.moveItemFocus(1);
         return true;
 
@@ -638,13 +683,13 @@ export class NgAutocompleteState<T> {
 
   private moveItemFocus(step: number): void {
     const count = this.selectedValues().length;
-    if (count === 0) return;
+    if (count === 0) {return;}
     const current = this.focusedItemIndex();
     let next: number;
-    if (current === -1) next = step < 0 ? count - 1 : -1;
-    else next = current + step;
-    if (next >= count) next = -1; // back to the text input
-    if (next < -1) next = -1;
+    if (current === -1) {next = step < 0 ? count - 1 : -1;}
+    else {next = current + step;}
+    if (next >= count) {next = -1;} // back to the text input
+    if (next < -1) {next = -1;}
     this.focusedItemIndex.set(next);
   }
 }

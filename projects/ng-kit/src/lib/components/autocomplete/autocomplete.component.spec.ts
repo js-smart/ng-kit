@@ -171,6 +171,13 @@ describe('AutocompleteComponent — multiple (chip field layout)', () => {
     expect(input.getAttribute('placeholder')).toBe('Add a film');
   });
 
+  // The chip input may only share the chip row when the whole placeholder fits,
+  // so a tight remainder wraps it to its own line instead of clipping the text.
+  it('sizes the chip input wrap threshold to the placeholder', () => {
+    const input = fixture.debugElement.query(By.css('input.ng-input')).nativeElement as HTMLInputElement;
+    expect(input.style.getPropertyValue('--ng-chip-input-min')).toBe(`${'Add a film'.length + 1}ch`);
+  });
+
   // Chips resize the field under the open panel, which positions only on open.
   // The env has no ResizeObserver, so stub it and drive the callback directly.
   it('repositions the open panel while the field is being observed', async () => {
