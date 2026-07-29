@@ -2,7 +2,7 @@ import { Component, signal } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormField, type SubscriptSizing } from '@angular/material/form-field';
+import { MatFormField } from '@angular/material/form-field';
 import { CdkConnectedOverlay } from '@angular/cdk/overlay';
 import { vi } from 'vitest';
 
@@ -176,6 +176,22 @@ describe('AutocompleteComponent — multiple (chip field layout)', () => {
   it('sizes the chip input wrap threshold to the placeholder', () => {
     const input = fixture.debugElement.query(By.css('input.ng-input')).nativeElement as HTMLInputElement;
     expect(input.style.getPropertyValue('--ng-chip-input-min')).toBe(`${'Add a film'.length + 1}ch`);
+  });
+
+  it('anchors the panel to Material’s form-field origin', async (): Promise<void> => {
+    const input = fixture.debugElement.query(By.css('input.ng-input')).nativeElement as HTMLInputElement;
+    input.dispatchEvent(new Event('focus'));
+    input.value = 'the';
+    input.dispatchEvent(new Event('input'));
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    const node = fixture.debugElement.queryAllNodes(By.directive(CdkConnectedOverlay))[0];
+    const overlay = node.injector.get(CdkConnectedOverlay);
+    const formField = fixture.debugElement.query(By.directive(MatFormField))
+      .componentInstance as MatFormField;
+
+    expect(overlay.origin).toBe(formField.getConnectedOverlayOrigin());
   });
 
   // Chips resize the field under the open panel, which positions only on open.
@@ -510,68 +526,5 @@ describe('AutocompleteComponent — single-select chip (B6)', () => {
     input.dispatchEvent(new KeyboardEvent('keydown', { key: 'Backspace', bubbles: true }));
     f.detectChanges(); await f.whenStable();
     expect(f.componentInstance.v).toBeNull();
-  });
-});
-
-describe('AutocompleteComponent subscriptSizing', () => {
-  // Material resolves the subscript strip as `input || MAT_FORM_FIELD_DEFAULT_OPTIONS || 'fixed'`,
-  // so an unset input must fall through rather than pin a value of its own.
-  @Component({
-    imports: [AutocompleteComponent],
-    template: `
-      <autocomplete [options]="o" [multiple]="multiple" [subscriptSizing]="sizing" [getOptionLabel]="id" />`,
-  })
-  class Host {
-    o = ['A', 'B'];
-    multiple = false;
-    sizing: SubscriptSizing | undefined = undefined;
-    id = (x: string) => x;
-  }
-
-  async function render(setup: Partial<Pick<Host, 'multiple' | 'sizing'>> = {}, providers: unknown[] = []) {
-    TestBed.resetTestingModule();
-    await TestBed.configureTestingModule({
-      imports: [Host],
-      providers: providers as never[],
-    }).compileComponents();
-    const f = TestBed.createComponent(Host);
-    Object.assign(f.componentInstance, setup);
-    f.detectChanges();
-    await f.whenStable();
-    return f;
-  }
-
-  function formField(f: ComponentFixture<Host>): MatFormField {
-    return f.debugElement.query(By.directive(MatFormField)).componentInstance as MatFormField;
-  }
-
-  it('defaults to Material’s own default when the input is unset', async () => {
-    const f = await render();
-    expect(formField(f).subscriptSizing).toBe('fixed');
-  });
-
-  it('honours the input in single-select mode', async () => {
-    const f = await render({ multiple: false, sizing: 'dynamic' });
-    expect(formField(f).subscriptSizing).toBe('dynamic');
-  });
-
-  it('honours the input in multiple (chips) mode', async () => {
-    const f = await render({ multiple: true, sizing: 'dynamic' });
-    expect(f.debugElement.query(By.css('mat-chip-grid'))).toBeTruthy();
-    expect(formField(f).subscriptSizing).toBe('dynamic');
-  });
-
-  it('falls through to MAT_FORM_FIELD_DEFAULT_OPTIONS when the input is unset', async () => {
-    const f = await render({}, [
-      { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { subscriptSizing: 'dynamic' } },
-    ]);
-    expect(formField(f).subscriptSizing).toBe('dynamic');
-  });
-
-  it('lets an explicit input win over MAT_FORM_FIELD_DEFAULT_OPTIONS', async () => {
-    const f = await render({ sizing: 'fixed' }, [
-      { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { subscriptSizing: 'dynamic' } },
-    ]);
-    expect(formField(f).subscriptSizing).toBe('fixed');
   });
 });

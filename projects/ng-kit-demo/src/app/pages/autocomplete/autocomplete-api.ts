@@ -75,12 +75,6 @@ export const AUTOCOMPLETE_INPUTS: readonly AutocompleteInput[] = [
 	{ name: 'placeholder', type: 'string | null', default: 'null', description: 'Input placeholder text.' },
 	{ name: 'size', type: "'small' | 'medium'", default: "'medium'", description: 'Field density.' },
 	{ name: 'appearance', type: "'fill' | 'outline'", default: "'fill'", description: 'Material form-field appearance.' },
-	{
-		name: 'subscriptSizing',
-		type: "'fixed' | 'dynamic'",
-		default: 'undefined',
-		description: "How the hint/error strip is sized. Unset defers to MAT_FORM_FIELD_DEFAULT_OPTIONS, then Material's 'fixed'.",
-	},
 	{ name: 'fullWidth', type: 'boolean', default: 'false', description: 'Stretch the field to fill its container.' },
 	{ name: 'limitTags', type: 'number', default: '-1', description: 'Max chips shown when unfocused (-1 = all).' },
 	{ name: 'getLimitTagsText', type: '(more: number) => string', default: '(more) => `+${more}`', description: 'Label for the truncated-tags summary.' },

@@ -1,18 +1,17 @@
 import { CommonModule, DatePipe } from '@angular/common';
+import { provideHttpClient, withFetch, withXsrfConfiguration } from '@angular/common/http';
 import { ApplicationConfig, importProvidersFrom } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
-import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { BrowserModule, Title } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PreloadAllModules, RouterModule } from '@angular/router';
-import { routes } from './app.routes';
-import { provideHttpClient, withFetch, withXsrfConfiguration } from '@angular/common/http';
 import { provideQueryClient } from '@js-smart/ng-kit';
+import { routes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {
 	providers: [
@@ -41,12 +40,6 @@ export const appConfig: ApplicationConfig = {
 		{
 			provide: MAT_DIALOG_DEFAULT_OPTIONS,
 			useValue: { hasBackdrop: true, disableClose: true },
-		},
-		{
-			// 'fixed' reserves ~20px for a hint/error strip no demo uses. An explicit
-			// subscriptSizing on an example still wins over this.
-			provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
-			useValue: { subscriptSizing: 'dynamic' },
-		},
+		}
 	],
 };

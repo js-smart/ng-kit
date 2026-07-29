@@ -2,14 +2,14 @@
   The field renders with Angular Material (M2) components: a `mat-form-field`
   hosts either a plain `matInput` (single) or a `mat-chip-grid` (multiple /
   single-chip). The headless behaviour (state machine, keyboard, ARIA) is
-  unchanged — only the field chrome is Material now. The wrapper `div` carries
-  `cdkOverlayOrigin` (root-scoped so the overlay template below can reference
-  it) and the field mousedown-to-focus/open behaviour.
+  unchanged — only the field chrome is Material now. The wrapper `div` handles
+  field mousedown-to-focus/open behaviour and provides a fallback overlay
+  origin until the Material form field is available.
 -->
 <div #origin="cdkOverlayOrigin" (mousedown)="onFieldMouseDown($event)" cdkOverlayOrigin class="ng-field-origin">
 	@if (!multiple() && !showSingleChip()) {
 		<!-- Single-select: a plain input as the form-field control. -->
-		<mat-form-field [appearance]="appearance()" [subscriptSizing]="subscriptSizing()!" class="ng-field">
+		<mat-form-field [appearance]="appearance()" class="ng-field">
 			@if (label(); as text) {
 				<mat-label>{{ text }}</mat-label>
 			}
@@ -76,7 +76,7 @@
 		</mat-form-field>
 	} @else {
 		<!-- Multiple (chips) or single-chip: a mat-chip-grid as the control. -->
-		<mat-form-field [appearance]="appearance()" [subscriptSizing]="subscriptSizing()!" class="ng-field">
+		<mat-form-field [appearance]="appearance()" class="ng-field">
 			@if (label(); as text) {
 				<mat-label>{{ text }}</mat-label>
 			}
@@ -289,7 +289,7 @@
 		<ng-template
 			(overlayOutsideClick)="onOutsideClick($event)"
 			[cdkConnectedOverlayOpen]="true"
-			[cdkConnectedOverlayOrigin]="origin"
+			[cdkConnectedOverlayOrigin]="formField()?.getConnectedOverlayOrigin() ?? origin"
 			[cdkConnectedOverlayPositions]="overlayPositions"
 			[cdkConnectedOverlayViewportMargin]="8"
 			cdkConnectedOverlay>

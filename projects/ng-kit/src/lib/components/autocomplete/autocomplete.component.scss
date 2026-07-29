@@ -1,5 +1,5 @@
-// Material owns the field chrome; this file styles only the CDK-portaled
-// options panel and the popup/clear indicator SVGs.
+// Material owns the field chrome; this file adds responsive field/chip layout
+// and styles the options panel and indicators.
 @use '@angular/material' as mat;
 
 // Panel colours resolve `--ng-*` → `--mat-<component>-*` (set by M2 themes) →
@@ -46,9 +46,6 @@ $outline: var(--ng-border, var(--mat-sys-outline, rgba(0, 0, 0, 0.38)));
 :host(.ng-fullwidth) {
   display: block;
 }
-.ng-field-origin {
-  display: block;
-}
 :host(.ng-fullwidth) .ng-field {
   width: 100%;
 }
@@ -61,7 +58,6 @@ $outline: var(--ng-border, var(--mat-sys-outline, rgba(0, 0, 0, 0.38)));
 :host ::ng-deep .mat-mdc-form-field-icon-suffix {
   display: flex;
   align-items: center;
-  flex-wrap: nowrap;
   flex: none;
 }
 
@@ -151,9 +147,6 @@ $outline: var(--ng-border, var(--mat-sys-outline, rgba(0, 0, 0, 0.38)));
   box-shadow: inset 0 0 0 3px $panel-bg;
 }
 
-.ng-group {
-  list-style: none;
-}
 .ng-group-items {
   margin: 0;
   padding: 0;
@@ -186,9 +179,6 @@ $outline: var(--ng-border, var(--mat-sys-outline, rgba(0, 0, 0, 0.38)));
   width: 28px;
   height: 28px;
   padding: 0;
-  // Centre both: the icons differ in height (18px vs 24px), so baseline
-  // alignment in the inline suffix wrapper leaves them a few px apart.
-  vertical-align: middle;
   --mdc-icon-button-state-layer-size: 28px;
   --mat-icon-button-touch-target-display: none;
 }
@@ -217,7 +207,6 @@ $outline: var(--ng-border, var(--mat-sys-outline, rgba(0, 0, 0, 0.38)));
 .ng-spinner {
   width: 14px;
   height: 14px;
-  vertical-align: middle;
   border: 2px solid var(--ng-border, var(--mat-sys-outline-variant, rgba(0, 0, 0, 0.12)));
   border-top-color: $accent;
   border-radius: 50%;
