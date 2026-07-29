@@ -56,3 +56,4 @@ docs/
 
 # Subagent-driven-development scratch state
 .superpowers/
+.playwright-mcp

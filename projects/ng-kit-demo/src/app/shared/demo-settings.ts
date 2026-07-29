@@ -3,17 +3,23 @@ import { effect, Injectable, signal } from '@angular/core';
 /** Gallery colour scheme: follow the OS, or force light / dark. */
 export type ThemeMode = 'system' | 'light' | 'dark';
 
+/** Example field width: `auto` is Material's natural ~256px, the rest stretch. */
+export type DemoWidth = 'auto' | 'half' | 'full';
+
 const THEME_STORAGE_KEY = 'ng-kit-demo-theme';
 
 /**
  * Gallery-wide demo settings: the Material form-field appearance (fill / outline)
- * that the Autocomplete examples respect, and the colour-scheme (theme) that
+ * and field width that the Autocomplete examples respect, and the colour-scheme (theme) that
  * drives the Material 3 `light-dark()` system colours via the `color-scheme`
  * CSS property on the document element.
  */
 @Injectable({ providedIn: 'root' })
 export class DemoSettings {
 	readonly appearance = signal<'fill' | 'outline'>('fill');
+
+	/** Field width the Autocomplete examples render at. */
+	readonly width = signal<DemoWidth>('full');
 
 	/** Active theme mode; persisted to localStorage and applied to <html>. */
 	readonly theme = signal<ThemeMode>(readStoredTheme());

@@ -3,6 +3,7 @@ import { NgTemplateOutlet } from '@angular/common';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormField, type SubscriptSizing } from '@angular/material/form-field';
+import { CdkConnectedOverlay } from '@angular/cdk/overlay';
 import { vi } from 'vitest';
 
 import { AutocompleteComponent } from './autocomplete.component';
@@ -128,6 +129,88 @@ describe('AutocompleteComponent', () => {
 
     expect(host.value).toBeTruthy();
     expect(['Pulp Fiction', 'Inception', 'Interstellar']).toContain(host.value as string);
+  });
+});
+
+describe('AutocompleteComponent — multiple (chip field layout)', () => {
+  @Component({
+    imports: [AutocompleteComponent],
+    template: `
+      <autocomplete
+        [options]="options"
+        [(value)]="value"
+        [multiple]="true"
+        label="Movies"
+        placeholder="Add a film"
+      />
+    `,
+  })
+  class MultipleHost {
+    options = ['The Godfather', 'Pulp Fiction', 'Inception'];
+    value = signal<string[]>(['Inception']);
+  }
+
+  let fixture: ComponentFixture<MultipleHost>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({ imports: [MultipleHost] }).compileComponents();
+    fixture = TestBed.createComponent(MultipleHost);
+    fixture.detectChanges();
+    await fixture.whenStable();
+  });
+
+  // As a sibling of the grid the input is a block, so the caret drops a line.
+  it('renders the input inside the chip grid, not as a sibling', () => {
+    const input = fixture.debugElement.query(By.css('input.ng-input')).nativeElement as HTMLInputElement;
+    expect(input.closest('mat-chip-grid')).toBeTruthy();
+  });
+
+  // MatChipInput host-binds attr.placeholder, overwriting any [attr.placeholder].
+  it('applies the placeholder to the chip input', () => {
+    const input = fixture.debugElement.query(By.css('input.ng-input')).nativeElement as HTMLInputElement;
+    expect(input.getAttribute('placeholder')).toBe('Add a film');
+  });
+
+  // Chips resize the field under the open panel, which positions only on open.
+  // The env has no ResizeObserver, so stub it and drive the callback directly.
+  it('repositions the open panel while the field is being observed', async () => {
+    const observed: Element[] = [];
+    let fire: (() => void) | undefined;
+    class ResizeObserverStub {
+      constructor(callback: () => void) {
+        fire = callback;
+      }
+      observe(target: Element): void {
+        observed.push(target);
+      }
+      disconnect(): void {}
+      unobserve(): void {}
+    }
+    const globals = globalThis as { ResizeObserver?: unknown };
+    const original = globals.ResizeObserver;
+    globals.ResizeObserver = ResizeObserverStub;
+
+    try {
+      const input = fixture.debugElement.query(By.css('input.ng-input')).nativeElement as HTMLInputElement;
+      input.dispatchEvent(new Event('focus'));
+      input.value = 'the';
+      input.dispatchEvent(new Event('input'));
+      fixture.detectChanges();
+      await fixture.whenStable();
+
+      // On an <ng-template>, so it is a debug node rather than an element.
+      const node = fixture.debugElement.queryAllNodes(By.directive(CdkConnectedOverlay))[0];
+      expect(node).toBeTruthy();
+
+      const dir = node.injector.get(CdkConnectedOverlay);
+      expect(observed.map((el) => el.classList.contains('ng-field'))).toContain(true);
+
+      const updatePosition = vi.spyOn(dir.overlayRef, 'updatePosition');
+      fire?.();
+      expect(updatePosition).toHaveBeenCalled();
+    } finally {
+      globals.ResizeObserver = original;
+    }
   });
 });
 

@@ -103,32 +103,33 @@
 				@if (multiple() && hiddenCount() > 0) {
 					<span class="ng-more">{{ getLimitTagsText()(hiddenCount()) }}</span>
 				}
-			</mat-chip-grid>
 
-			<input
-				#inputEl
-				(blur)="onBlur()"
-				(focus)="onFocus()"
-				(input)="onInput($event)"
-				(keydown)="onKeyDown($event)"
-				[attr.aria-activedescendant]="activeDescendant()"
-				[attr.aria-autocomplete]="freeSolo() ? 'both' : 'list'"
-				[attr.aria-controls]="state.open() ? listboxId : null"
-				[attr.aria-expanded]="state.open()"
-				[attr.aria-invalid]="invalid() || null"
-				[attr.aria-label]="ariaLabel()"
-				[attr.aria-required]="required() || null"
-				[attr.placeholder]="placeholder()"
-				[disabled]="disabled()"
-				[id]="inputId"
-				[matChipInputFor]="chipGrid"
-				[readOnly]="readOnly()"
-				[value]="showSingleChip() ? '' : inputValue()"
-				autocomplete="new-password"
-				class="ng-input"
-				role="combobox"
-				spellcheck="false"
-				type="text" />
+				<!-- Inside the grid, so the input is a flex item on the chip row; as a
+				     sibling it would be a block in the infix and wrap to its own line. -->
+				<input
+					#inputEl
+					(blur)="onBlur()"
+					(focus)="onFocus()"
+					(input)="onInput($event)"
+					(keydown)="onKeyDown($event)"
+					[attr.aria-activedescendant]="activeDescendant()"
+					[attr.aria-autocomplete]="freeSolo() ? 'both' : 'list'"
+					[attr.aria-controls]="state.open() ? listboxId : null"
+					[attr.aria-expanded]="state.open()"
+					[attr.aria-label]="ariaLabel()"
+					[disabled]="disabled()"
+					[id]="inputId"
+					[matChipInputFor]="chipGrid"
+					[placeholder]="placeholder() ?? ''"
+					[readOnly]="readOnly()"
+					[style.--ng-chip-input-min]="chipInputMinWidth()"
+					[value]="showSingleChip() ? '' : inputValue()"
+					autocomplete="new-password"
+					class="ng-input"
+					role="combobox"
+					spellcheck="false"
+					type="text" />
+			</mat-chip-grid>
 
 			@if (loading()) {
 				<span aria-hidden="true" class="ng-spinner" matSuffix></span>

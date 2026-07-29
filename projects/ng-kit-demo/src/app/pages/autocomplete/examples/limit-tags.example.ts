@@ -7,14 +7,15 @@ const CODE = `import { Component, signal } from '@angular/core';
 import { AutocompleteComponent } from '@js-smart/ng-kit';
 
 @Component({
-	selector: 'app-fixed-tags',
+	selector: 'app-limit-tags',
 	imports: [AutocompleteComponent],
 	template: \`
 		<autocomplete
 			[options]="films"
 			[multiple]="true"
 			[(value)]="value"
-			[fixedOptions]="fixedFilms"
+			[limitTags]="limitTags()"
+			[getLimitTagsText]="getLimitTagsText"
 			[isOptionEqualToValue]="isOptionEqualToValue"
 			appearance="outline"
 			label="Favorite films"
@@ -23,7 +24,7 @@ import { AutocompleteComponent } from '@js-smart/ng-kit';
 		<p>Selected: {{ value().join(', ') || '—' }}</p>
 	\`,
 })
-export class FixedTagsComponent {
+export class LimitTagsComponent {
 	protected readonly films = [
 		'The Shawshank Redemption',
 		'The Godfather',
@@ -36,18 +37,20 @@ export class FixedTagsComponent {
 		'Forrest Gump',
 		'The Matrix',
 	];
-	protected readonly fixedFilms = ['The Shawshank Redemption', 'The Godfather'];
+	protected readonly limitTags = signal(2);
 	protected readonly value = signal<string[]>([
 		'The Shawshank Redemption',
 		'The Godfather',
 		'Inception',
+		'Interstellar',
 	]);
+	protected readonly getLimitTagsText = (n: number): string => \`+\${n} more\`;
 	protected readonly isOptionEqualToValue = (option: string, value: string): boolean =>
 		option === value;
 }`;
 
 @Component({
-	selector: 'ng-kit-fixed-tags-example',
+	selector: 'ng-kit-limit-tags-example',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [AutocompleteComponent],
 	template: `
@@ -55,7 +58,8 @@ export class FixedTagsComponent {
 			[options]="films"
 			[multiple]="true"
 			[(value)]="value"
-			[fixedOptions]="fixedFilms"
+			[limitTags]="limitTags()"
+			[getLimitTagsText]="getLimitTagsText"
 			[isOptionEqualToValue]="isOptionEqualToValue"
 			[appearance]="settings.appearance()"
 			label="Favorite films"
@@ -67,7 +71,7 @@ export class FixedTagsComponent {
 		.readout { margin-top: 12px; color: var(--ng-muted, #6b7280); font-size: 14px; }
 	`,
 })
-export class FixedTagsExample {
+export class LimitTagsExample {
 	protected readonly settings = inject(DemoSettings);
 
 	protected readonly films = [
@@ -83,20 +87,23 @@ export class FixedTagsExample {
 		'The Matrix',
 	];
 
-	protected readonly fixedFilms = ['The Shawshank Redemption', 'The Godfather'];
+	protected readonly limitTags = signal(2);
 
 	protected readonly value = signal<string[]>([
 		'The Shawshank Redemption',
 		'The Godfather',
 		'Inception',
+		'Interstellar',
 	]);
+
+	protected readonly getLimitTagsText = (n: number): string => `+${n} more`;
 
 	protected readonly isOptionEqualToValue = (option: string, value: string): boolean =>
 		option === value;
 }
 
-export const fixedTagsConfig = buildAutocompleteExampleConfig({
-	title: 'Fixed tags',
-	componentName: 'fixed-tags',
+export const limitTagsConfig = buildAutocompleteExampleConfig({
+	title: 'Limit tags',
+	componentName: 'limit-tags',
 	code: CODE,
 });

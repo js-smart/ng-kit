@@ -17,6 +17,7 @@ import { CountrySelectExample, countrySelectConfig } from './examples/country-se
 import { CustomRenderExample, customRenderConfig } from './examples/custom-render.example';
 import { DisabledOptionsExample, disabledOptionsConfig } from './examples/disabled-options.example';
 import { FixedTagsExample, fixedTagsConfig } from './examples/fixed-tags.example';
+import { LimitTagsExample, limitTagsConfig } from './examples/limit-tags.example';
 import { FreeSoloExample, freeSoloConfig } from './examples/free-solo.example';
 import { GroupedExample, groupedConfig } from './examples/grouped.example';
 import { MultipleCheckboxesExample, multipleCheckboxesConfig } from './examples/multiple-checkboxes.example';
@@ -58,7 +59,8 @@ const EXAMPLE_DETAILS: Record<string, ExampleDetail> = {
 	'disabled-options': { title: 'Disabled options', description: 'Every 3rd option is disabled and cannot be selected.', component: DisabledOptionsExample, config: disabledOptionsConfig },
 	'sizes-appearances': { title: 'Sizes & appearances', description: 'Every combination of size and appearance.', component: SizesAppearancesExample, config: sizesAppearancesConfig },
 	checkboxes: { title: 'Checkboxes', description: 'Multi-select with checkboxes; popup stays open after each pick.', component: MultipleCheckboxesExample, config: multipleCheckboxesConfig },
-	'fixed-tags': { title: 'Fixed tags', description: "Multi-select with fixed chips that can't be removed, plus a “+n more” summary.", component: FixedTagsExample, config: fixedTagsConfig },
+	'fixed-tags': { title: 'Fixed tags', description: "Multi-select with fixed chips that can't be removed.", component: FixedTagsExample, config: fixedTagsConfig },
+	'limit-tags': { title: 'Limit tags', description: 'Multi-select that collapses the extra chips into a “+n more” summary.', component: LimitTagsExample, config: limitTagsConfig },
 	'free-solo': { title: 'Free solo', description: "Type anything — the raw text becomes the value, even if it isn't in the list.", component: FreeSoloExample, config: freeSoloConfig },
 	controlled: { title: 'Controlled', description: 'Every piece of state is owned by external signals and outside buttons.', component: ControlledExample, config: controlledConfig },
 	async: { title: 'Asynchronous requests', description: 'Simulates a server-side search: options load after each keystroke.', component: AsyncExample, config: asyncConfig },
@@ -130,17 +132,28 @@ const EXAMPLE_DOCS: Record<string, ExampleDoc> = {
 	},
 	'fixed-tags': {
 		overview:
-			'Multi-select with fixed chips that cannot be removed. fixedOptions locks certain values in place, limitTags caps how many chips are shown when the field is unfocused, and getLimitTagsText customises the “+N” overflow summary.',
+			'Multi-select with fixed chips that cannot be removed. multiple renders the selection as chips, and fixedOptions locks certain values in place so their chips lose the remove button and survive a clear. See Limit tags for collapsing a long selection.',
 		usage: `<autocomplete
   [options]="films"
   [multiple]="true"
   [(value)]="value"
   [fixedOptions]="fixedFilms"
+  appearance="outline"
+  label="Favorite films" />`,
+		inputs: ['multiple', 'fixedOptions', 'isOptionEqualToValue'],
+	},
+	'limit-tags': {
+		overview:
+			'Caps how many chips a multi-select renders. limitTags shows only the first N chips while the field is unfocused and collapses the rest into a summary, and getLimitTagsText customises that “+N” text. Focusing the field reveals every chip again.',
+		usage: `<autocomplete
+  [options]="films"
+  [multiple]="true"
+  [(value)]="value"
   [limitTags]="2"
   [getLimitTagsText]="getLimitTagsText"
   appearance="outline"
   label="Favorite films" />`,
-		inputs: ['multiple', 'fixedOptions', 'limitTags', 'getLimitTagsText', 'isOptionEqualToValue'],
+		inputs: ['multiple', 'limitTags', 'getLimitTagsText', 'isOptionEqualToValue'],
 	},
 	'free-solo': {
 		overview:
@@ -332,7 +345,7 @@ const EXAMPLE_DOCS: Record<string, ExampleDoc> = {
 					}
 				</div>
 
-				<div docExamples>
+				<div docExamples [class]="'width-' + settings.width()">
 					<div class="appearance-row">
 						<span class="appearance-label">Field appearance</span>
 						<mat-button-toggle-group
@@ -342,6 +355,17 @@ const EXAMPLE_DOCS: Record<string, ExampleDoc> = {
 							aria-label="Field appearance">
 							<mat-button-toggle value="fill">Fill</mat-button-toggle>
 							<mat-button-toggle value="outline">Outline</mat-button-toggle>
+						</mat-button-toggle-group>
+
+						<span class="appearance-label">Field width</span>
+						<mat-button-toggle-group
+							class="appearance-toggle"
+							[value]="settings.width()"
+							(change)="settings.width.set($event.value)"
+							aria-label="Field width">
+							<mat-button-toggle value="auto">Auto</mat-button-toggle>
+							<mat-button-toggle value="half">Half</mat-button-toggle>
+							<mat-button-toggle value="full">Full</mat-button-toggle>
 						</mat-button-toggle-group>
 					</div>
 
@@ -372,8 +396,24 @@ const EXAMPLE_DOCS: Record<string, ExampleDoc> = {
 		.appearance-row {
 			display: flex;
 			align-items: center;
+			flex-wrap: wrap;
 			gap: 0.75rem;
 			margin-block-end: 1.25rem;
+		}
+
+		/* Stretch the field the way [fullWidth] does, without each example opting in. */
+		.width-half ::ng-deep autocomplete,
+		.width-full ::ng-deep autocomplete {
+			display: block;
+		}
+
+		.width-half ::ng-deep autocomplete .ng-field,
+		.width-full ::ng-deep autocomplete .ng-field {
+			width: 100%;
+		}
+
+		.width-half ::ng-deep autocomplete {
+			max-width: 50%;
 		}
 
 		.appearance-label {

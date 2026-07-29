@@ -1,6 +1,6 @@
 import { NgTemplateOutlet } from '@angular/common';
 import { CdkVirtualScrollViewport, ScrollingModule } from '@angular/cdk/scrolling';
-import { OverlayModule } from '@angular/cdk/overlay';
+import { CdkConnectedOverlay, OverlayModule } from '@angular/cdk/overlay';
 import { MatFormFieldModule, type SubscriptSizing } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatChipsModule } from '@angular/material/chips';
@@ -205,6 +205,7 @@ export class AutocompleteComponent<T> implements ControlValueAccessor {
   private readonly listEl = viewChild<ElementRef<HTMLElement>>('listEl');
   private readonly viewport = viewChild(CdkVirtualScrollViewport);
   protected readonly listboxRef = viewChild<TemplateRef<unknown>>('listbox');
+  private readonly connectedOverlay = viewChild(CdkConnectedOverlay);
   private readonly host = inject(ElementRef<HTMLElement>);
 
   protected readonly overlayPositions: ConnectedPosition[] = [
@@ -312,6 +313,15 @@ export class AutocompleteComponent<T> implements ControlValueAccessor {
 
   protected readonly fieldWidth = signal<number | null>(null);
 
+  /**
+   * Width the chip input needs before it may share the chip row — enough for the
+   * whole placeholder, so it wraps to its own line instead of being clipped.
+   */
+  protected readonly chipInputMinWidth = computed(() => {
+    const placeholder = this.placeholder();
+    return placeholder ? `${placeholder.length + 1}ch` : '30px';
+  });
+
   constructor() {
     // Window losing focus (e.g. alt-tab) is not a user-initiated focus of
     // this control; note it so the next `focus` event skips `openOnFocus`.
@@ -382,11 +392,24 @@ export class AutocompleteComponent<T> implements ControlValueAccessor {
       });
     });
 
-    // Track the field width so the overlay matches it.
-    effect(() => {
+    // Match the overlay to the field, and keep it anchored: a connected overlay
+    // positions itself only on open, but chips resize the field under it.
+    effect((onCleanup) => {
       if (!this.state.open()) return;
       const field = this.host.nativeElement.querySelector('.ng-field') as HTMLElement | null;
-      if (field) this.fieldWidth.set(field.getBoundingClientRect().width);
+      if (!field) return;
+
+      const sync = (): void => {
+        this.fieldWidth.set(field.getBoundingClientRect().width);
+        this.connectedOverlay()?.overlayRef?.updatePosition();
+      };
+      sync();
+
+      // Non-browser/test environments keep just the initial sync above.
+      if (typeof ResizeObserver === 'undefined') return;
+      const observer = new ResizeObserver(sync);
+      observer.observe(field);
+      onCleanup(() => observer.disconnect());
     });
   }
 

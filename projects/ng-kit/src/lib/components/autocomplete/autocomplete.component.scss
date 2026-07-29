@@ -65,6 +65,23 @@ $outline: var(--ng-border, var(--mat-sys-outline, rgba(0, 0, 0, 0.38)));
   flex: none;
 }
 
+// Material's `flex: 1 0 150px` wraps the input below 150px of free space. Wrap
+// on the placeholder's own width instead, so it is never clipped mid-word.
+// `min()` keeps a long placeholder from overflowing a narrow field.
+.ng-input.mat-mdc-chip-input {
+  --ng-chip-input-floor: min(var(--ng-chip-input-min, 30px), 100%);
+  flex: 1 1 var(--ng-chip-input-floor);
+  min-width: var(--ng-chip-input-floor);
+}
+
+// A bare span among the chips, so it has to opt in to the row's centring.
+.ng-more {
+  align-self: center;
+  margin-inline: 4px;
+  flex: none;
+  color: $panel-muted;
+}
+
 // `size="small"` → Material form-field density -3, scoped to our fields only.
 :host([data-size='small']) .ng-field {
   @include mat.form-field-density(-3);

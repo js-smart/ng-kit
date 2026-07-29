@@ -225,6 +225,7 @@ function autocompletePages(): GalleryPage[] {
 		{ slug: 'sizes-appearances', title: 'Sizes & Appearances', blurb: 'Every combination of size and appearance.' },
 		{ slug: 'checkboxes', title: 'Checkboxes', blurb: 'Multi-select with checkboxes; popup stays open after each pick.' },
 		{ slug: 'fixed-tags', title: 'Fixed Tags', blurb: "Multi-select with fixed chips that can't be removed." },
+		{ slug: 'limit-tags', title: 'Limit Tags', blurb: 'Multi-select that collapses the extra chips into a “+n more” summary.' },
 		{ slug: 'free-solo', title: 'Free Solo', blurb: 'Type anything — the raw text becomes the value.' },
 		{ slug: 'controlled', title: 'Controlled', blurb: 'Every piece of state is owned by external signals.' },
 		{ slug: 'async', title: 'Asynchronous Requests', blurb: 'Simulates a server-side search: options load after each keystroke.' },
