@@ -51,5 +51,6 @@ test-results
 
 
 # Subagent-driven-development scratch state
+docs/
 .superpowers/
 .playwright-mcp
