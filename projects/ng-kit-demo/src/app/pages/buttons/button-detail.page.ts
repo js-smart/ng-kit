@@ -866,8 +866,8 @@ const BUTTON_API: Record<string, ButtonApi> = {
 
 /**
  * Detailed per-button overview prose, keyed by route slug. Synthesised from the
- * ng-kit-docs pages and the library source, this is the lead description shown at
- * the top of each button page (above the Overview / Examples tabs).
+ * library source, this is the lead description shown at the top of each button
+ * page (above the Overview / Examples tabs).
  */
 const BUTTON_OVERVIEW: Record<string, string> = {
 	'base-button':

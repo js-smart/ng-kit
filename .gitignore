@@ -50,10 +50,6 @@ Thumbs.db
 test-results
 
 
-# NgDoc files
-/ng-doc
-docs/
-
 # Subagent-driven-development scratch state
 .superpowers/
 .playwright-mcp

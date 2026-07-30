@@ -17,12 +17,6 @@
       ],
       "@ng-kit-demo/*": [
         "./projects/ng-kit-demo/src/app/*"
-      ],
-      "ng-doc/ng-kit-docs": [
-        "./ng-doc/ng-kit-docs/index.ts"
-      ],
-      "ng-doc/ng-kit-docs/*": [
-        "./ng-doc/ng-kit-docs/*"
       ]
     },
     "declaration": false,

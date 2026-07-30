@@ -157,18 +157,11 @@ ng-kit/
 │   │           ├── store/
 │   │           ├── types/
 │   │           └── util/
-│   ├── ng-kit-demo/                         # Demo application for library usage
-│   │   ├── public/
-│   │   └── src/
-│   │       ├── main.ts
-│   │       └── app/
-│   └── ng-kit-docs/                         # Documentation site (ng-doc)
+│   └── ng-kit-demo/                         # Demo application for library usage
 │       ├── public/
 │       └── src/
 │           ├── main.ts
 │           └── app/
-│               ├── categories/
-│               └── home/
 └── dist/                                    # Build output
 ```
 
@@ -184,18 +177,11 @@ pnpm install
 pnpm run start
 # App runs at http://localhost:4300
 
-# Run docs app locally
-pnpm run start:docs
-# Docs run at http://localhost:4301
-
 # Build library package
 pnpm run build
 
 # Build demo app
 pnpm run build:demo
-
-# Build docs app
-pnpm run build:docs
 
 # Watch builds in development mode
 pnpm run watch
