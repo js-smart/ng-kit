@@ -7,29 +7,30 @@ allowBuilds:
 overrides:
   esbuild: "0.28.0"
 minimumReleaseAgeExclude:
-  - '@angular-devkit/architect@0.2200.0'
-  - '@angular-devkit/core@22.0.0'
-  - '@angular-devkit/schematics@22.0.0'
-  - '@angular/cli@22.0.0'
-  - '@schematics/angular@22.0.0'
-  - '@angular-devkit/build-angular@22.0.0'
-  - '@angular-devkit/build-webpack@0.2200.0'
-  - '@angular/animations@22.0.0'
-  - '@angular/build@22.0.0'
-  - '@angular/cdk@22.0.0 || 22.0.4'
-  - '@angular/common@22.0.0'
-  - '@angular/compiler-cli@22.0.0'
-  - '@angular/compiler@22.0.0'
-  - '@angular/core@22.0.0'
-  - '@angular/forms@22.0.0'
-  - '@angular/material@22.0.0 || 22.0.4'
-  - '@angular/platform-browser-dynamic@22.0.0'
-  - '@angular/platform-browser@22.0.0'
-  - '@angular/router@22.0.0'
-  - '@ngtools/webpack@22.0.0'
-  - ng-packagr@22.0.0
-  - '@playwright/test@1.61.1'
-  - '@tanstack/query-core@5.101.1'
-  - playwright-core@1.61.1
-  - playwright@1.61.1
-  - '@types/node@26.1.1'
+  - '@angular-devkit/architect@0.2201.0'
+  - '@angular-devkit/core@22.1.0'
+  - '@angular-devkit/schematics@22.1.0'
+  - '@angular/cli@22.1.0'
+  - '@schematics/angular@22.1.0'
+  - '@angular/animations@22.1.0'
+  - '@angular/build@22.1.0'
+  - '@angular/cdk@22.1.0'
+  - '@angular/common@22.1.0'
+  - '@angular/compiler-cli@22.1.0'
+  - '@angular/compiler@22.1.0'
+  - '@angular/core@22.1.0'
+  - '@angular/forms@22.1.0'
+  - '@angular/material@22.1.0'
+  - '@angular/platform-browser@22.1.0'
+  - '@angular/router@22.1.0'
+  - ng-packagr@22.1.0
+  - '@playwright/test@1.62.0'
+  - '@tanstack/query-core@5.101.4'
+  - playwright-core@1.62.0
+  - playwright@1.62.0
+  - '@types/node@26.1.2'
+  - baseline-browser-mapping@2.11.7
+  - brace-expansion@1.1.17
+  - jose@6.2.5
+  - npm@11.19.0
+  - postcss@8.5.25
