@@ -1,6 +1,6 @@
 import { Type } from '@angular/core';
 
-/** Top-level nav groupings, mirroring the ng-kit-docs categories. */
+/** Top-level nav groupings for the demo app. */
 export type GalleryCategory = 'getting-started' | 'components' | 'directives' | 'utilities';
 
 export interface GalleryPage {
