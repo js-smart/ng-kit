@@ -282,6 +282,24 @@ describe('NgAutocompleteState — VoiceOver synthetic Backspace guard (B10)', ()
   });
 });
 
+describe('DEFAULT_CONFIG.getOptionKey (identity)', () => {
+  it('assigns distinct stable ids to distinct objects with the same label', () => {
+    const a = { label: 'X' };
+    const b = { label: 'X' };
+    const keyA = DEFAULT_CONFIG.getOptionKey(a);
+    const keyB = DEFAULT_CONFIG.getOptionKey(b);
+    expect(keyA).not.toBe(keyB);
+    expect(DEFAULT_CONFIG.getOptionKey(a)).toBe(keyA);
+  });
+
+  it('uses stable, type-safe value identity for primitives', () => {
+    expect(DEFAULT_CONFIG.getOptionKey('Alpha')).toBe(DEFAULT_CONFIG.getOptionKey('Alpha'));
+    expect(DEFAULT_CONFIG.getOptionKey(42)).toBe(DEFAULT_CONFIG.getOptionKey(42));
+    expect(DEFAULT_CONFIG.getOptionKey('42')).not.toBe(DEFAULT_CONFIG.getOptionKey(42));
+    expect(DEFAULT_CONFIG.getOptionKey(true)).not.toBe(DEFAULT_CONFIG.getOptionKey('true'));
+  });
+});
+
 describe('DEFAULT_CONFIG.getOptionLabel (B11)', () => {
   it('returns option.label when present', () => {
     expect(DEFAULT_CONFIG.getOptionLabel({ label: 'X' })).toBe('X');

@@ -195,7 +195,9 @@
 			[attr.aria-multiselectable]="multiple() || null"
 			[id]="listboxId"
 			[itemSize]="itemSize()"
+			[style.--ng-row]="itemSize() + 'px'"
 			[style.height.px]="viewportHeight()"
+			[style.max-height.px]="viewportHeight()"
 			class="ng-listbox"
 			role="listbox">
 			<ng-container *cdkVirtualFor="let item of state.flatOptions(); trackBy: trackOption">
