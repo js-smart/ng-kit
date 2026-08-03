@@ -26,19 +26,16 @@ const snackBarConfig = getSnackBarDemoConfig();
 			<div docOverview>
 				<section class="page-section">
 					<h2>Overview</h2>
-					<p>
-						Inject <code>MatSnackBarService</code> in your component, then call one of its methods to show a snack bar:
-					</p>
+					<p>Inject <code>MatSnackBarService</code> in your component, then call one of its methods to show a snack bar:</p>
 					<ul>
 						<li><code>success('YOUR MESSAGE')</code> — show a success (green) snack bar.</li>
 						<li><code>error('YOUR MESSAGE')</code> — show an error (red) snack bar.</li>
 						<li><code>open('YOUR MESSAGE')</code> — show a generic snack bar with a Close action.</li>
 					</ul>
 					<p>
-						The service is <code>providedIn: 'root'</code>, so it is available everywhere without extra wiring. Each method
-						accepts an optional options object to override the <code>duration</code>, <code>horizontalPosition</code>,
-						<code>verticalPosition</code>, and <code>panelClass</code>. By default snack bars appear at the top-right and dismiss
-						after 5 seconds.
+						The service is <code>providedIn: 'root'</code>, so it is available everywhere without extra wiring. Each method accepts an
+						optional options object to override the <code>duration</code>, <code>horizontalPosition</code>, <code>verticalPosition</code>,
+						and <code>panelClass</code>. By default snack bars appear at the top-right and dismiss after 5 seconds.
 					</p>
 				</section>
 			</div>
@@ -153,9 +150,8 @@ const snackBarConfig = getSnackBarDemoConfig();
 						</tbody>
 					</table>
 					<p class="api-note">
-						Built-in panel classes include <code>success-snackbar</code>, <code>error-snackbar</code>,
-						<code>light-success-snackbar</code>, <code>light-error-snackbar</code>, <code>primary-snackbar</code>,
-						<code>info-snackbar</code>, and <code>warning-snackbar</code>.
+						Built-in panel classes include <code>success-snackbar</code>, <code>error-snackbar</code>, <code>light-success-snackbar</code>,
+						<code>light-error-snackbar</code>, <code>primary-snackbar</code>, <code>info-snackbar</code>, and <code>warning-snackbar</code>.
 					</p>
 				</section>
 			</div>

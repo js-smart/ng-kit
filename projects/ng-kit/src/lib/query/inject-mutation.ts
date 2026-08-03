@@ -96,10 +96,8 @@ export function injectMutation<TData, TError = Error, TVariables = void, TContex
 
 	destroyRef.onDestroy(unsubscribe);
 
-	const mutateAsync = (
-		variables: TVariables,
-		options?: MutateOptions<TData, TError, TVariables, TContext>,
-	): Promise<TData> => observer.mutate(variables, options);
+	const mutateAsync = (variables: TVariables, options?: MutateOptions<TData, TError, TVariables, TContext>): Promise<TData> =>
+		observer.mutate(variables, options);
 
 	// Return both the reactive result AND a mutate function
 	return {

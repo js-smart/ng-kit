@@ -54,20 +54,90 @@ interface ExampleDoc {
  * current page up here.
  */
 const EXAMPLE_DETAILS: Record<string, ExampleDetail> = {
-	'combo-box': { title: 'Combo box', description: 'Basic single-select with a filtered list of options.', component: ComboBoxExample, config: comboBoxConfig },
-	'country-select': { title: 'Country select', description: 'Custom option template with a flag and dial code.', component: CountrySelectExample, config: countrySelectConfig },
-	'disabled-options': { title: 'Disabled options', description: 'Every 3rd option is disabled and cannot be selected.', component: DisabledOptionsExample, config: disabledOptionsConfig },
-	'sizes-appearances': { title: 'Sizes & appearances', description: 'Every combination of size and appearance.', component: SizesAppearancesExample, config: sizesAppearancesConfig },
-	checkboxes: { title: 'Checkboxes', description: 'Multi-select with checkboxes; popup stays open after each pick.', component: MultipleCheckboxesExample, config: multipleCheckboxesConfig },
-	'fixed-tags': { title: 'Fixed tags', description: "Multi-select with fixed chips that can't be removed.", component: FixedTagsExample, config: fixedTagsConfig },
-	'limit-tags': { title: 'Limit tags', description: 'Multi-select that collapses the extra chips into a “+n more” summary.', component: LimitTagsExample, config: limitTagsConfig },
-	'free-solo': { title: 'Free solo', description: "Type anything — the raw text becomes the value, even if it isn't in the list.", component: FreeSoloExample, config: freeSoloConfig },
-	controlled: { title: 'Controlled', description: 'Every piece of state is owned by external signals and outside buttons.', component: ControlledExample, config: controlledConfig },
-	async: { title: 'Asynchronous requests', description: 'Simulates a server-side search: options load after each keystroke.', component: AsyncExample, config: asyncConfig },
-	grouped: { title: 'Grouped', description: 'Options grouped by their first letter via a pre-sorted group key.', component: GroupedExample, config: groupedConfig },
-	virtualized: { title: 'Virtualized (10,000 options)', description: 'Single-select over 10,000 options, rendered virtually.', component: VirtualizedExample, config: virtualizedConfig },
-	'custom-render': { title: 'Custom rendering', description: 'Custom option markup with query highlighting, custom icons, and a custom paper surface.', component: CustomRenderExample, config: customRenderConfig },
-	playground: { title: 'Playground', description: 'Flip every input live to see how the autocomplete reacts.', component: PlaygroundExample, config: playgroundConfig },
+	'combo-box': {
+		title: 'Combo box',
+		description: 'Basic single-select with a filtered list of options.',
+		component: ComboBoxExample,
+		config: comboBoxConfig,
+	},
+	'country-select': {
+		title: 'Country select',
+		description: 'Custom option template with a flag and dial code.',
+		component: CountrySelectExample,
+		config: countrySelectConfig,
+	},
+	'disabled-options': {
+		title: 'Disabled options',
+		description: 'Every 3rd option is disabled and cannot be selected.',
+		component: DisabledOptionsExample,
+		config: disabledOptionsConfig,
+	},
+	'sizes-appearances': {
+		title: 'Sizes & appearances',
+		description: 'Every combination of size and appearance.',
+		component: SizesAppearancesExample,
+		config: sizesAppearancesConfig,
+	},
+	checkboxes: {
+		title: 'Checkboxes',
+		description: 'Multi-select with checkboxes; popup stays open after each pick.',
+		component: MultipleCheckboxesExample,
+		config: multipleCheckboxesConfig,
+	},
+	'fixed-tags': {
+		title: 'Fixed tags',
+		description: "Multi-select with fixed chips that can't be removed.",
+		component: FixedTagsExample,
+		config: fixedTagsConfig,
+	},
+	'limit-tags': {
+		title: 'Limit tags',
+		description: 'Multi-select that collapses the extra chips into a “+n more” summary.',
+		component: LimitTagsExample,
+		config: limitTagsConfig,
+	},
+	'free-solo': {
+		title: 'Free solo',
+		description: "Type anything — the raw text becomes the value, even if it isn't in the list.",
+		component: FreeSoloExample,
+		config: freeSoloConfig,
+	},
+	controlled: {
+		title: 'Controlled',
+		description: 'Every piece of state is owned by external signals and outside buttons.',
+		component: ControlledExample,
+		config: controlledConfig,
+	},
+	async: {
+		title: 'Asynchronous requests',
+		description: 'Simulates a server-side search: options load after each keystroke.',
+		component: AsyncExample,
+		config: asyncConfig,
+	},
+	grouped: {
+		title: 'Grouped',
+		description: 'Options grouped by their first letter via a pre-sorted group key.',
+		component: GroupedExample,
+		config: groupedConfig,
+	},
+	virtualized: {
+		title: 'Virtualized (10,000 options)',
+		description: 'Single-select over 10,000 options, rendered virtually.',
+		component: VirtualizedExample,
+		config: virtualizedConfig,
+	},
+	'custom-render': {
+		title: 'Custom rendering',
+		description: 'Custom option markup with query highlighting, custom icons, and a custom paper surface.',
+		component: CustomRenderExample,
+		config: customRenderConfig,
+	},
+	playground: {
+		title: 'Playground',
+		description: 'Flip every input live to see how the autocomplete reacts.',
+		component: PlaygroundExample,
+		config: playgroundConfig,
+	},
 };
 
 /** Detailed overview + usage + demonstrated-API per example, keyed by route slug. */
@@ -312,9 +382,15 @@ const EXAMPLE_DOCS: Record<string, ExampleDoc> = {
 							<tbody>
 								@for (row of demoInputs(); track row.name) {
 									<tr>
-										<td><code>{{ row.name }}</code></td>
-										<td><code>{{ row.type }}</code></td>
-										<td><code>{{ row.default }}</code></td>
+										<td>
+											<code>{{ row.name }}</code>
+										</td>
+										<td>
+											<code>{{ row.type }}</code>
+										</td>
+										<td>
+											<code>{{ row.default }}</code>
+										</td>
 										<td>{{ row.description }}</td>
 									</tr>
 								}
@@ -335,8 +411,12 @@ const EXAMPLE_DOCS: Record<string, ExampleDoc> = {
 							<tbody>
 								@for (row of demoTemplates(); track row.name) {
 									<tr>
-										<td><code>{{ row.name }}</code></td>
-										<td><code>{{ row.mui }}</code></td>
+										<td>
+											<code>{{ row.name }}</code>
+										</td>
+										<td>
+											<code>{{ row.mui }}</code>
+										</td>
 										<td>{{ row.purpose }}</td>
 									</tr>
 								}

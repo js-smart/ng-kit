@@ -733,9 +733,15 @@ export class ViewPrimaryButtonDemoComponent {
  */
 const BUTTON_API: Record<string, ButtonApi> = {
 	'base-button': {
-		summary: 'The shared base every ng-kit button extends. It defines the common inputs and outputs that all other buttons inherit; consume it through one of the specific buttons rather than directly.',
+		summary:
+			'The shared base every ng-kit button extends. It defines the common inputs and outputs that all other buttons inherit; consume it through one of the specific buttons rather than directly.',
 		inputs: [
-			{ name: 'loading', type: 'boolean', default: 'false', description: 'Shows a spinner and the loading label, and disables the button.' },
+			{
+				name: 'loading',
+				type: 'boolean',
+				default: 'false',
+				description: 'Shows a spinner and the loading label, and disables the button.',
+			},
 			{ name: 'disabled', type: 'boolean', default: 'false', description: 'Disables the button.' },
 			{ name: 'type', type: "'button' | 'submit'", default: "'button'", description: 'Native button type attribute.' },
 			{ name: 'loadingLabel', type: 'string', default: "'Saving...'", description: 'Text shown while loading is true.' },
@@ -755,7 +761,8 @@ const BUTTON_API: Record<string, ButtonApi> = {
 		],
 	},
 	'primary-button': {
-		summary: 'Extends the base button, overriding these defaults for the main call-to-action. All other base inputs and outputs are inherited.',
+		summary:
+			'Extends the base button, overriding these defaults for the main call-to-action. All other base inputs and outputs are inherited.',
 		inputs: [
 			{ name: 'label', type: 'string', default: "'Save'", description: 'Button label text.' },
 			{ name: 'icon', type: 'string', default: "'save'", description: 'Material icon name rendered before the label.' },
@@ -778,7 +785,7 @@ const BUTTON_API: Record<string, ButtonApi> = {
 		inputs: [
 			{ name: 'label', type: 'string', default: "'Save'", description: 'Button label text.' },
 			{ name: 'icon', type: 'string', default: "'save'", description: 'Material icon name rendered before the label.' },
-			{ name: 'loadingLabel', type: 'string', default: "'Saving...'", description: "Text shown while saving (loading) is true." },
+			{ name: 'loadingLabel', type: 'string', default: "'Saving...'", description: 'Text shown while saving (loading) is true.' },
 			{ name: 'classes', type: 'string', default: "'btn-primary primary-button'", description: 'CSS classes applied to the button.' },
 		],
 	},
@@ -799,7 +806,8 @@ const BUTTON_API: Record<string, ButtonApi> = {
 		],
 	},
 	'view-primary-button': {
-		summary: 'A view button with primary emphasis for the main row action, extending the base button. All other base inputs and outputs are inherited.',
+		summary:
+			'A view button with primary emphasis for the main row action, extending the base button. All other base inputs and outputs are inherited.',
 		inputs: [
 			{ name: 'label', type: 'string', default: "'View'", description: 'Button label text.' },
 			{ name: 'icon', type: 'string', default: "'visibility'", description: 'Material icon name rendered before the label.' },
@@ -822,7 +830,8 @@ const BUTTON_API: Record<string, ButtonApi> = {
 		],
 	},
 	'edit-svg-icon-button': {
-		summary: 'An icon-only edit button that renders a custom inline SVG pencil instead of a Material icon, extending the base button. All other base inputs and outputs are inherited.',
+		summary:
+			'An icon-only edit button that renders a custom inline SVG pencil instead of a Material icon, extending the base button. All other base inputs and outputs are inherited.',
 		inputs: [
 			{ name: 'label', type: 'string', default: "'Edit'", description: 'Accessible button label text.' },
 			{ name: 'classes', type: 'string', default: "'primary-button'", description: 'CSS classes applied to the button.' },
@@ -838,15 +847,22 @@ const BUTTON_API: Record<string, ButtonApi> = {
 		],
 	},
 	'manage-button': {
-		summary: 'A secondary button for management / settings entry points, extending the base button. All other base inputs and outputs are inherited.',
+		summary:
+			'A secondary button for management / settings entry points, extending the base button. All other base inputs and outputs are inherited.',
 		inputs: [
 			{ name: 'label', type: 'string', default: "'Manage'", description: 'Button label text.' },
 			{ name: 'icon', type: 'string', default: "'settings'", description: 'Material icon name rendered before the label.' },
-			{ name: 'classes', type: 'string', default: "'mr-3 btn btn-secondary secondary-button'", description: 'CSS classes applied to the button.' },
+			{
+				name: 'classes',
+				type: 'string',
+				default: "'mr-3 btn btn-secondary secondary-button'",
+				description: 'CSS classes applied to the button.',
+			},
 		],
 	},
 	'bootstrap-link-button': {
-		summary: 'Renders an anchor styled as a Bootstrap link button, extending the base button. All other base inputs and outputs are inherited.',
+		summary:
+			'Renders an anchor styled as a Bootstrap link button, extending the base button. All other base inputs and outputs are inherited.',
 		inputs: [
 			{ name: 'label', type: 'string', default: "'Edit'", description: 'Link label text.' },
 			{ name: 'icon', type: 'string', default: "'search'", description: 'Material icon name rendered before the label.' },
@@ -854,13 +870,16 @@ const BUTTON_API: Record<string, ButtonApi> = {
 		],
 	},
 	'close-button': {
-		summary: 'A dismiss button applied via the closeButton directive. It adds close-button (secondary-button) styling to its host element and exposes no configurable inputs or outputs of its own.',
+		summary:
+			'A dismiss button applied via the closeButton directive. It adds close-button (secondary-button) styling to its host element and exposes no configurable inputs or outputs of its own.',
 	},
 	'excel-export-button': {
-		summary: 'A standalone export button with fixed styling and a dark-green background. It does not extend the base button and exposes no configurable inputs or outputs.',
+		summary:
+			'A standalone export button with fixed styling and a dark-green background. It does not extend the base button and exposes no configurable inputs or outputs.',
 	},
 	'pdf-export-button': {
-		summary: 'A standalone export button with fixed styling for PDF export. It does not extend the base button and exposes no configurable inputs or outputs.',
+		summary:
+			'A standalone export button with fixed styling for PDF export. It does not extend the base button and exposes no configurable inputs or outputs.',
 	},
 };
 
@@ -950,9 +969,15 @@ const BUTTON_OVERVIEW: Record<string, string> = {
 								<tbody>
 									@for (row of a.inputs; track row.name) {
 										<tr>
-											<td><code>{{ row.name }}</code></td>
-											<td><code>{{ row.type }}</code></td>
-											<td><code>{{ row.default }}</code></td>
+											<td>
+												<code>{{ row.name }}</code>
+											</td>
+											<td>
+												<code>{{ row.type }}</code>
+											</td>
+											<td>
+												<code>{{ row.default }}</code>
+											</td>
 											<td>{{ row.description }}</td>
 										</tr>
 									}
@@ -973,8 +998,12 @@ const BUTTON_OVERVIEW: Record<string, string> = {
 								<tbody>
 									@for (row of a.outputs; track row.name) {
 										<tr>
-											<td><code>{{ row.name }}</code></td>
-											<td><code>{{ row.type }}</code></td>
+											<td>
+												<code>{{ row.name }}</code>
+											</td>
+											<td>
+												<code>{{ row.type }}</code>
+											</td>
 											<td>{{ row.description }}</td>
 										</tr>
 									}

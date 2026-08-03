@@ -48,7 +48,11 @@ export class ThrottleViewButtonComponent {
 const basicConfig = buildDemoConfig({ title: 'Basic', componentName: 'basic-prevent-clicks', code: BASIC_CODE });
 
 /** StackBlitz config for the button-component card — class name matches PascalCase(componentName). */
-const viewButtonConfig = buildDemoConfig({ title: 'With a button component', componentName: 'throttle-view-button', code: VIEW_BUTTON_CODE });
+const viewButtonConfig = buildDemoConfig({
+	title: 'With a button component',
+	componentName: 'throttle-view-button',
+	code: VIEW_BUTTON_CODE,
+});
 
 /**
  * Gallery page for the preventMultipleClicks directive: an overview, a live
@@ -71,8 +75,8 @@ const viewButtonConfig = buildDemoConfig({ title: 'With a button component', com
 				<p>
 					Apply the <code>preventMultipleClicks</code> attribute to any clickable element, then listen to the
 					<code>throttleClick</code> output instead of the native <code>click</code> event. The directive intercepts the click, calls
-					<code>preventDefault()</code> and <code>stopPropagation()</code>, buffers the event through an RxJS
-					<code>Subject</code>, and re-emits it only once per throttle period.
+					<code>preventDefault()</code> and <code>stopPropagation()</code>, buffers the event through an RxJS <code>Subject</code>, and
+					re-emits it only once per throttle period.
 				</p>
 				<p>Common use cases include:</p>
 				<ul>
@@ -129,8 +133,8 @@ const viewButtonConfig = buildDemoConfig({ title: 'With a button component', com
 					</tbody>
 				</table>
 				<p class="api-note">
-					The emitted <code>throttleClick</code> event carries the original DOM event, so all event properties remain accessible. Works
-					with template-driven and reactive forms and is compatible with Angular Material and custom button components.
+					The emitted <code>throttleClick</code> event carries the original DOM event, so all event properties remain accessible. Works with
+					template-driven and reactive forms and is compatible with Angular Material and custom button components.
 				</p>
 			</div>
 

@@ -93,39 +93,28 @@ export const playgroundConfig = buildAutocompleteExampleConfig({
 			[appearance]="appearance()"
 			[size]="size()"
 			label="Movie"
-			placeholder="Pick a film"
-		/>
+			placeholder="Pick a film" />
 
 		<div class="controls">
 			<mat-checkbox [checked]="multiple()" (change)="onCheckbox($event, multiple)">multiple</mat-checkbox>
 			<mat-checkbox [checked]="freeSolo()" (change)="onCheckbox($event, freeSolo)">freeSolo</mat-checkbox>
-			<mat-checkbox [checked]="disableClearable()" (change)="onCheckbox($event, disableClearable)">
-				disableClearable
-			</mat-checkbox>
+			<mat-checkbox [checked]="disableClearable()" (change)="onCheckbox($event, disableClearable)"> disableClearable </mat-checkbox>
 			<mat-checkbox [checked]="disabled()" (change)="onCheckbox($event, disabled)">disabled</mat-checkbox>
 			<mat-checkbox [checked]="readOnly()" (change)="onCheckbox($event, readOnly)">readOnly</mat-checkbox>
 			<mat-checkbox [checked]="loading()" (change)="onCheckbox($event, loading)">loading</mat-checkbox>
-			<mat-checkbox [checked]="autoHighlight()" (change)="onCheckbox($event, autoHighlight)">
-				autoHighlight
-			</mat-checkbox>
+			<mat-checkbox [checked]="autoHighlight()" (change)="onCheckbox($event, autoHighlight)"> autoHighlight </mat-checkbox>
 			<mat-checkbox [checked]="autoSelect()" (change)="onCheckbox($event, autoSelect)">autoSelect</mat-checkbox>
 			<mat-checkbox [checked]="disableCloseOnSelect()" (change)="onCheckbox($event, disableCloseOnSelect)">
 				disableCloseOnSelect
 			</mat-checkbox>
 			<mat-checkbox [checked]="openOnFocus()" (change)="onCheckbox($event, openOnFocus)">openOnFocus</mat-checkbox>
-			<mat-checkbox [checked]="showCheckboxes()" (change)="onCheckbox($event, showCheckboxes)">
-				showCheckboxes
-			</mat-checkbox>
+			<mat-checkbox [checked]="showCheckboxes()" (change)="onCheckbox($event, showCheckboxes)"> showCheckboxes </mat-checkbox>
 		</div>
 
 		<div class="toggle-controls">
 			<div class="toggle-group">
 				<span class="toggle-label">appearance</span>
-				<mat-button-toggle-group
-					[value]="appearance()"
-					(change)="onAppearance($event.value)"
-					aria-label="Appearance"
-				>
+				<mat-button-toggle-group [value]="appearance()" (change)="onAppearance($event.value)" aria-label="Appearance">
 					<mat-button-toggle value="fill">fill</mat-button-toggle>
 					<mat-button-toggle value="outline">outline</mat-button-toggle>
 				</mat-button-toggle-group>

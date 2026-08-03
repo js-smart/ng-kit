@@ -2,13 +2,7 @@ import { NgTemplateOutlet } from '@angular/common';
 import { ChangeDetectionStrategy, Component, signal, inject } from '@angular/core';
 import { DemoSettings } from '../../../shared/demo-settings';
 import { buildAutocompleteExampleConfig } from './example-stackblitz';
-import {
-	AutocompleteComponent,
-	NgClearIconDef,
-	NgOptionDef,
-	NgPaperDef,
-	NgPopupIconDef,
-} from '@js-smart/ng-kit';
+import { AutocompleteComponent, NgClearIconDef, NgOptionDef, NgPaperDef, NgPopupIconDef } from '@js-smart/ng-kit';
 
 interface Film {
 	title: string;
@@ -129,16 +123,15 @@ export const customRenderConfig = buildAutocompleteExampleConfig({
 @Component({
 	selector: 'ng-kit-custom-render-example',
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	imports: [
-		AutocompleteComponent,
-		NgOptionDef,
-		NgPopupIconDef,
-		NgClearIconDef,
-		NgPaperDef,
-		NgTemplateOutlet,
-	],
+	imports: [AutocompleteComponent, NgOptionDef, NgPopupIconDef, NgClearIconDef, NgPaperDef, NgTemplateOutlet],
 	template: `
-		<autocomplete [options]="films" [(value)]="value" [getOptionLabel]="getOptionLabel" [appearance]="settings.appearance()" label="Film" placeholder="Search films">
+		<autocomplete
+			[options]="films"
+			[(value)]="value"
+			[getOptionLabel]="getOptionLabel"
+			[appearance]="settings.appearance()"
+			label="Film"
+			placeholder="Search films">
 			<div *ngOption="let opt; query as q" class="film-option">
 				<span class="film-title">
 					@for (seg of splitTitle(asFilm(opt).title, q); track $index) {
@@ -162,22 +155,43 @@ export const customRenderConfig = buildAutocompleteExampleConfig({
 		</autocomplete>
 		<p class="readout">Selected: {{ value()?.title ?? '—' }}</p>
 	`,
-	styles: [`
-		.film-option { display: flex; align-items: baseline; gap: 4px; }
-		.film-title mark { background: rgba(255, 213, 79, 0.6); color: inherit; border-radius: 2px; }
-		.film-year { color: var(--ng-muted, #6b7280); font-size: 13px; }
-		.custom-paper { border-top: 2px solid var(--ng-primary, #3f51b5); }
-		.paper-header {
-			padding: 6px 16px;
-			font-size: 12px;
-			font-weight: 600;
-			text-transform: uppercase;
-			letter-spacing: 0.04em;
-			color: var(--ng-muted, #6b7280);
-		}
-		.readout { margin-top: 12px; color: var(--ng-muted, #6b7280); font-size: 14px; }
-		.material-symbols-outlined { font-size: 20px; }
-	`],
+	styles: [
+		`
+			.film-option {
+				display: flex;
+				align-items: baseline;
+				gap: 4px;
+			}
+			.film-title mark {
+				background: rgba(255, 213, 79, 0.6);
+				color: inherit;
+				border-radius: 2px;
+			}
+			.film-year {
+				color: var(--ng-muted, #6b7280);
+				font-size: 13px;
+			}
+			.custom-paper {
+				border-top: 2px solid var(--ng-primary, #3f51b5);
+			}
+			.paper-header {
+				padding: 6px 16px;
+				font-size: 12px;
+				font-weight: 600;
+				text-transform: uppercase;
+				letter-spacing: 0.04em;
+				color: var(--ng-muted, #6b7280);
+			}
+			.readout {
+				margin-top: 12px;
+				color: var(--ng-muted, #6b7280);
+				font-size: 14px;
+			}
+			.material-symbols-outlined {
+				font-size: 20px;
+			}
+		`,
+	],
 })
 export class CustomRenderExample {
 	protected readonly settings = inject(DemoSettings);

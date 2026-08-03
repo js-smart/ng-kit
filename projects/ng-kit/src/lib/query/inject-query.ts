@@ -39,9 +39,7 @@ export function injectQuery<
 	TData = TQueryFnData,
 	TQueryData = TQueryFnData,
 	TQueryKey extends QueryKey = QueryKey,
->(
-	optionsFn: () => QueryObserverOptions<TQueryFnData, TError, TData, TQueryData, TQueryKey>,
-): Signal<QueryObserverResult<TData, TError>> {
+>(optionsFn: () => QueryObserverOptions<TQueryFnData, TError, TData, TQueryData, TQueryKey>): Signal<QueryObserverResult<TData, TError>> {
 	const client = inject(QUERY_CLIENT);
 	const destroyRef = inject(DestroyRef);
 

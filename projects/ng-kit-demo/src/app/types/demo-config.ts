@@ -47,4 +47,3 @@ export interface DemoConfig {
 	 */
 	additionalFiles?: Record<string, string>;
 }
-

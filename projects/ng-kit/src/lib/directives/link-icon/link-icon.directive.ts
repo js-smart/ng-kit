@@ -11,7 +11,6 @@ import {
 } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 
-
 /**
  * A directive that adds an icon to a link.
  *

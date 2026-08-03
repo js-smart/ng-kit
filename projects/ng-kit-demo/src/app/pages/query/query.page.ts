@@ -261,7 +261,9 @@ const mutationConfig = buildDemoConfig({
 				<ul>
 					<li><code>provideQueryClient()</code> — registers a <code>QueryClient</code> (or config) with Angular DI.</li>
 					<li><code>injectQuery()</code> — subscribes to a query and returns a reactive result signal.</li>
-					<li><code>injectMutation()</code> — creates a mutation with <code>mutate</code>, <code>mutateAsync</code>, and <code>reset</code>.</li>
+					<li>
+						<code>injectMutation()</code> — creates a mutation with <code>mutate</code>, <code>mutateAsync</code>, and <code>reset</code>.
+					</li>
 				</ul>
 				<p>
 					Both hooks must run in an injection context (a component field initializer or inside <code>inject()</code>), and clean up their
@@ -354,8 +356,9 @@ const mutationConfig = buildDemoConfig({
 
 				<p class="api-note">
 					Both hooks must run in an injection context and require a <code>QUERY_CLIENT</code> to be provided via
-					<code>provideQueryClient()</code>. Generic parameters mirror TanStack Query: <code>injectQuery&lt;TQueryFnData, TError, TData&gt;</code>
-					and <code>injectMutation&lt;TData, TError, TVariables, TContext&gt;</code>.
+					<code>provideQueryClient()</code>. Generic parameters mirror TanStack Query:
+					<code>injectQuery&lt;TQueryFnData, TError, TData&gt;</code> and
+					<code>injectMutation&lt;TData, TError, TVariables, TContext&gt;</code>.
 				</p>
 			</div>
 

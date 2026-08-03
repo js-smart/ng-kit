@@ -10,9 +10,7 @@ interface Country {
 }
 
 function flagEmoji(code: string): string {
-	return code
-		.toUpperCase()
-		.replace(/./g, (char) => String.fromCodePoint(127397 + char.charCodeAt(0)));
+	return code.toUpperCase().replace(/./g, (char) => String.fromCodePoint(127397 + char.charCodeAt(0)));
 }
 
 const CODE = `import { Component, signal } from '@angular/core';
@@ -100,8 +98,7 @@ export const countrySelectConfig = buildAutocompleteExampleConfig({
 			[isOptionEqualToValue]="isOptionEqualToValue"
 			[appearance]="settings.appearance()"
 			label="Country"
-			placeholder="Select a country"
-		>
+			placeholder="Select a country">
 			<div *ngOption="let o" class="country-option">
 				<span class="flag" aria-hidden="true">{{ flagEmoji(asCountry(o).code) }}</span>
 				<span class="label">{{ asCountry(o).label }}</span>
@@ -110,12 +107,28 @@ export const countrySelectConfig = buildAutocompleteExampleConfig({
 		</autocomplete>
 		<p class="readout">Selected: {{ value()?.label ?? '—' }}</p>
 	`,
-	styles: [`
-		.readout { margin-top: 12px; color: var(--ng-muted, #6b7280); font-size: 14px; }
-		.country-option { display: flex; align-items: center; gap: 8px; width: 100%; }
-		.country-option .label { flex: 1 1 auto; }
-		.country-option .phone { color: var(--ng-muted, #6b7280); font-size: 13px; }
-	`],
+	styles: [
+		`
+			.readout {
+				margin-top: 12px;
+				color: var(--ng-muted, #6b7280);
+				font-size: 14px;
+			}
+			.country-option {
+				display: flex;
+				align-items: center;
+				gap: 8px;
+				width: 100%;
+			}
+			.country-option .label {
+				flex: 1 1 auto;
+			}
+			.country-option .phone {
+				color: var(--ng-muted, #6b7280);
+				font-size: 13px;
+			}
+		`,
+	],
 })
 export class CountrySelectExample {
 	protected readonly settings = inject(DemoSettings);

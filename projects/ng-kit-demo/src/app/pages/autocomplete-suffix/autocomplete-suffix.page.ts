@@ -52,20 +52,21 @@ const suffixConfig = buildDemoConfig({
 		<doc-page title="Autocomplete Suffix">
 			<p docLead>
 				A single directive that adds a clear button and a dropdown-toggle button to the suffix of a Material autocomplete input. Apply
-				<code>autocompleteSuffix</code> straight to the <code>input</code> element — no anchor directive or separate suffix component required.
+				<code>autocompleteSuffix</code> straight to the <code>input</code> element — no anchor directive or separate suffix component
+				required.
 			</p>
 
 			<div docOverview>
 				<p>
 					<code>AutocompleteSuffixDirective</code> targets an <code>input</code> that carries both <code>matAutocomplete</code> and
-					<code>autocompleteSuffix</code>. It injects the <code>MatAutocompleteTrigger</code> from the host input and renders two icon buttons
-					into the field's suffix slot:
+					<code>autocompleteSuffix</code>. It injects the <code>MatAutocompleteTrigger</code> from the host input and renders two icon
+					buttons into the field's suffix slot:
 				</p>
 				<ul>
 					<li>
 						A <strong>clear button</strong> (<code>close</code> icon) that empties the input, resets the bound form control to
-						<code>null</code>, marks it touched, closes the panel, and restores focus. It is hidden while the input is empty and appears once a
-						value is present.
+						<code>null</code>, marks it touched, closes the panel, and restores focus. It is hidden while the input is empty and appears
+						once a value is present.
 					</li>
 					<li>
 						A <strong>dropdown-toggle button</strong> that opens or closes the autocomplete panel. Its icon flips between
@@ -74,8 +75,8 @@ const suffixConfig = buildDemoConfig({
 				</ul>
 				<p>
 					When the directive is applied to an input with an <code>NgControl</code> (for example <code>formControlName</code>), it tracks the
-					control's value changes to keep the clear button's visibility in sync. On open, the currently selected option is scrolled into view.
-					The directive works with both plain string options and object options paired with a <code>displayWith</code> function.
+					control's value changes to keep the clear button's visibility in sync. On open, the currently selected option is scrolled into
+					view. The directive works with both plain string options and object options paired with a <code>displayWith</code> function.
 				</p>
 				<p>
 					Because it wires directly into the Material trigger and the field's icon-suffix container, it composes with a standard
@@ -99,9 +100,9 @@ const suffixConfig = buildDemoConfig({
 				<h3>Selector</h3>
 				<p><code>input[matAutocomplete][autocompleteSuffix]</code></p>
 				<p class="api-note">
-					The directive matches only when applied to an <code>input</code> that also has the <code>matAutocomplete</code> binding. It exposes no
-					inputs or outputs — its behavior is driven entirely by the host input, its <code>MatAutocompleteTrigger</code>, and the associated
-					form control.
+					The directive matches only when applied to an <code>input</code> that also has the <code>matAutocomplete</code> binding. It
+					exposes no inputs or outputs — its behavior is driven entirely by the host input, its <code>MatAutocompleteTrigger</code>, and the
+					associated form control.
 				</p>
 
 				<h3>Behavior</h3>

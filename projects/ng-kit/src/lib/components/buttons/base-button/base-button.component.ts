@@ -48,7 +48,7 @@ export class BaseButtonComponent {
 	/**
 	 * If set, sets the style of the button
 	 */
-	style = input<any | null | undefined>();
+	style = input<string | null | undefined>();
 
 	/**
 	 * If set, sets the class of the button

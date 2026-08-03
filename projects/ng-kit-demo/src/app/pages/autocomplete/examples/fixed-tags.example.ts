@@ -59,12 +59,15 @@ export class FixedTagsComponent {
 			[isOptionEqualToValue]="isOptionEqualToValue"
 			[appearance]="settings.appearance()"
 			label="Favorite films"
-			placeholder="Add a film"
-		/>
+			placeholder="Add a film" />
 		<p class="readout">Selected: {{ value().join(', ') || '—' }}</p>
 	`,
 	styles: `
-		.readout { margin-top: 12px; color: var(--ng-muted, #6b7280); font-size: 14px; }
+		.readout {
+			margin-top: 12px;
+			color: var(--ng-muted, #6b7280);
+			font-size: 14px;
+		}
 	`,
 })
 export class FixedTagsExample {
@@ -85,14 +88,9 @@ export class FixedTagsExample {
 
 	protected readonly fixedFilms = ['The Shawshank Redemption', 'The Godfather'];
 
-	protected readonly value = signal<string[]>([
-		'The Shawshank Redemption',
-		'The Godfather',
-		'Inception',
-	]);
+	protected readonly value = signal<string[]>(['The Shawshank Redemption', 'The Godfather', 'Inception']);
 
-	protected readonly isOptionEqualToValue = (option: string, value: string): boolean =>
-		option === value;
+	protected readonly isOptionEqualToValue = (option: string, value: string): boolean => option === value;
 }
 
 export const fixedTagsConfig = buildAutocompleteExampleConfig({

@@ -29,7 +29,12 @@ hljs.registerLanguage('json', json);
 		<div class="code-block">
 			<div class="code-block__bar">
 				<span class="code-block__lang">{{ language() }}</span>
-				<button mat-icon-button type="button" class="code-block__copy" (click)="copy()" [attr.aria-label]="copied() ? 'Copied' : 'Copy code'">
+				<button
+					mat-icon-button
+					type="button"
+					class="code-block__copy"
+					(click)="copy()"
+					[attr.aria-label]="copied() ? 'Copied' : 'Copy code'">
 					<mat-icon>{{ copied() ? 'check' : 'content_copy' }}</mat-icon>
 				</button>
 			</div>

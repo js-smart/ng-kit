@@ -122,6 +122,26 @@ export interface NgAutocompleteSlotProps {
 	popupIndicator?: NgSlotProp;
 }
 
+// Angular track expressions require keys to be unique within a collection.
+// Unlike MUI's label-based default, use reference identity for objects and
+// value identity for primitives so distinct options may safely share a label.
+// Consumers should still provide a domain key when object instances are
+// recreated or the options contain the same primitive more than once.
+const optionIds = new WeakMap<object, number>();
+let nextOptionId = 0;
+
+const identityOptionKey = (option: unknown): string | number => {
+	if (option !== null && (typeof option === 'object' || typeof option === 'function')) {
+		let id = optionIds.get(option as object);
+		if (id === undefined) {
+			id = nextOptionId++;
+			optionIds.set(option as object, id);
+		}
+		return `object:${id}`;
+	}
+	return `${typeof option}:${String(option)}`;
+};
+
 export const DEFAULT_CONFIG: NgAutocompleteConfig<unknown> = {
 	getOptionLabel: (option: unknown) => {
 		if (typeof option === 'string') {
@@ -133,7 +153,7 @@ export const DEFAULT_CONFIG: NgAutocompleteConfig<unknown> = {
 		}
 		return label != null ? String(label) : option != null ? String(option) : '';
 	},
-  getOptionKey: (option: unknown) => DEFAULT_CONFIG.getOptionLabel(option),
+	getOptionKey: identityOptionKey,
 	getOptionDisabled: () => false,
 	isOptionEqualToValue: (a: unknown, b: unknown) => a === b,
 	groupBy: null,

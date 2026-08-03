@@ -35,13 +35,7 @@ export const comboBoxConfig = buildAutocompleteExampleConfig({ title: 'Combo box
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [AutocompleteComponent],
 	template: `
-		<autocomplete
-			[options]="films"
-			[(value)]="value"
-			[appearance]="settings.appearance()"
-			label="Movie"
-			placeholder="Pick a film"
-		/>
+		<autocomplete [options]="films" [(value)]="value" [appearance]="settings.appearance()" label="Movie" placeholder="Pick a film" />
 		<p class="readout">Selected: {{ value() ?? '—' }}</p>
 	`,
 	styles: `
@@ -56,8 +50,14 @@ export class ComboBoxExample {
 	protected readonly settings = inject(DemoSettings);
 
 	protected readonly films = [
-		'The Shawshank Redemption', 'The Godfather', 'The Dark Knight',
-		'Pulp Fiction', 'Inception', 'Interstellar', 'Parasite', 'Whiplash',
+		'The Shawshank Redemption',
+		'The Godfather',
+		'The Dark Knight',
+		'Pulp Fiction',
+		'Inception',
+		'Interstellar',
+		'Parasite',
+		'Whiplash',
 	];
 	protected readonly value = signal<string | null>(null);
 }

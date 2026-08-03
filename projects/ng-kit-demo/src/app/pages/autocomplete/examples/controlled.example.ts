@@ -74,8 +74,7 @@ export const controlledConfig = buildAutocompleteExampleConfig({ title: 'Control
 			[(open)]="open"
 			[appearance]="settings.appearance()"
 			label="Movie"
-			placeholder="Pick a film"
-		/>
+			placeholder="Pick a film" />
 
 		<div class="controls">
 			<button mat-flat-button color="primary" (click)="open.set(true)">Open</button>
@@ -95,7 +94,12 @@ export const controlledConfig = buildAutocompleteExampleConfig({ title: 'Control
 		</dl>
 	`,
 	styles: `
-		.controls { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+		.controls {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 8px;
+			margin-top: 12px;
+		}
 		.readout {
 			margin-top: 12px;
 			display: grid;
@@ -104,16 +108,26 @@ export const controlledConfig = buildAutocompleteExampleConfig({ title: 'Control
 			color: var(--ng-muted, #6b7280);
 			font-size: 14px;
 		}
-		.readout dt { font-weight: 600; }
-		.readout dd { margin: 0; }
+		.readout dt {
+			font-weight: 600;
+		}
+		.readout dd {
+			margin: 0;
+		}
 	`,
 })
 export class ControlledExample {
 	protected readonly settings = inject(DemoSettings);
 
 	protected readonly films = [
-		'The Shawshank Redemption', 'The Godfather', 'The Dark Knight',
-		'Pulp Fiction', 'Inception', 'Interstellar', 'Parasite', 'Whiplash',
+		'The Shawshank Redemption',
+		'The Godfather',
+		'The Dark Knight',
+		'Pulp Fiction',
+		'Inception',
+		'Interstellar',
+		'Parasite',
+		'Whiplash',
 	];
 
 	protected readonly value = signal<string | null>(null);

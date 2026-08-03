@@ -241,4 +241,3 @@ export interface City {
 </div>`,
 	};
 }
-

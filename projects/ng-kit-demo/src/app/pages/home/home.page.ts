@@ -51,7 +51,9 @@ const FEATURES: readonly Feature[] = [
 		<section class="features" aria-label="Highlights">
 			@for (feature of features; track feature.title) {
 				<div class="feature">
-					<span class="feature__icon"><mat-icon>{{ feature.icon }}</mat-icon></span>
+					<span class="feature__icon"
+						><mat-icon>{{ feature.icon }}</mat-icon></span
+					>
 					<div class="feature__text">
 						<h3 class="feature__title">{{ feature.title }}</h3>
 						<p class="feature__desc">{{ feature.description }}</p>

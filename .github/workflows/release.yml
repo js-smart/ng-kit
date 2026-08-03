@@ -6,16 +6,16 @@ on:
       - main
 
 permissions:
-  id-token: write   # Required for npm trusted publishing (OIDC)
-  contents: write  # Required for semantic-release to push tags/commits
+  id-token: write # Required for npm trusted publishing (OIDC)
+  contents: write # Required for semantic-release to push tags/commits
 
 jobs:
   release:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ 'ubuntu-latest' ]
-        node: [ '26' ]
+        os: ['ubuntu-latest']
+        node: ['26']
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:

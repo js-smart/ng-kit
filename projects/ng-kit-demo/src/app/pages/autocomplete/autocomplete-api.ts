@@ -39,12 +39,43 @@ export const AUTOCOMPLETE_INPUTS: readonly AutocompleteInput[] = [
 	{ name: 'value', type: 'T | T[] | null', default: 'null', description: 'Two-way selected value (model). An array when multiple.' },
 	{ name: 'inputValue', type: 'string', default: "''", description: 'Two-way text shown in the box (model); independent of value.' },
 	{ name: 'open', type: 'boolean', default: 'false', description: 'Two-way popup open state (model).' },
-	{ name: 'getOptionLabel', type: '(option: T) => string', default: 'option.label ?? String(option)', description: 'Maps an option to its display string.' },
-	{ name: 'getOptionKey', type: '(option: T) => string | number', default: 'option identity', description: 'Stable key for an option (trackBy). Uses reference identity for objects and value identity for primitives; override it for stable domain IDs.' },
-	{ name: 'getOptionDisabled', type: '(option: T) => boolean', default: '() => false', description: 'Marks individual options as disabled.' },
-	{ name: 'isOptionEqualToValue', type: '(a: T, b: T) => boolean', default: '===', description: 'Equality used to match a value against an option.' },
-	{ name: 'groupBy', type: '((option: T) => string) | null', default: 'null', description: 'Groups options under headers; options must be pre-sorted by key.' },
-	{ name: 'filterOptions', type: 'FilterOptionsFn<T>', default: 'createFilterOptions()', description: 'Custom filtering function. Pass passThroughFilter for server-side search.' },
+	{
+		name: 'getOptionLabel',
+		type: '(option: T) => string',
+		default: 'option.label ?? String(option)',
+		description: 'Maps an option to its display string.',
+	},
+	{
+		name: 'getOptionKey',
+		type: '(option: T) => string | number',
+		default: 'option identity',
+		description:
+			'Stable key for an option (trackBy). Uses reference identity for objects and value identity for primitives; override it for stable domain IDs.',
+	},
+	{
+		name: 'getOptionDisabled',
+		type: '(option: T) => boolean',
+		default: '() => false',
+		description: 'Marks individual options as disabled.',
+	},
+	{
+		name: 'isOptionEqualToValue',
+		type: '(a: T, b: T) => boolean',
+		default: '===',
+		description: 'Equality used to match a value against an option.',
+	},
+	{
+		name: 'groupBy',
+		type: '((option: T) => string) | null',
+		default: 'null',
+		description: 'Groups options under headers; options must be pre-sorted by key.',
+	},
+	{
+		name: 'filterOptions',
+		type: 'FilterOptionsFn<T>',
+		default: 'createFilterOptions()',
+		description: 'Custom filtering function. Pass passThroughFilter for server-side search.',
+	},
 	{ name: 'multiple', type: 'boolean', default: 'false', description: 'Allow selecting several values, rendered as chips.' },
 	{ name: 'freeSolo', type: 'boolean', default: 'false', description: 'Allow arbitrary values not bound to the options.' },
 	{ name: 'disabled', type: 'boolean', default: 'false', description: 'Disable the control (also set via reactive-forms).' },
@@ -67,7 +98,12 @@ export const AUTOCOMPLETE_INPUTS: readonly AutocompleteInput[] = [
 	{ name: 'handleHomeEndKeys', type: 'boolean', default: '!freeSolo', description: 'Move highlight with Home/End keys.' },
 	{ name: 'includeInputInList', type: 'boolean', default: 'false', description: 'Allow the highlight to move back to the input.' },
 	{ name: 'openOnFocus', type: 'boolean', default: 'false', description: 'Open the popup as soon as the input is focused.' },
-	{ name: 'resetHighlightOnMouseLeave', type: 'boolean', default: 'false', description: 'Reset the highlight when the pointer leaves the list.' },
+	{
+		name: 'resetHighlightOnMouseLeave',
+		type: 'boolean',
+		default: 'false',
+		description: 'Reset the highlight when the pointer leaves the list.',
+	},
 	{ name: 'selectOnFocus', type: 'boolean', default: '!freeSolo', description: 'Select the input text on focus.' },
 	{ name: 'fixedOptions', type: 'readonly T[]', default: '[]', description: 'Values that cannot be removed while multiple.' },
 	{ name: 'label', type: 'string | null', default: 'null', description: 'Field label (mat-label).' },
@@ -77,7 +113,12 @@ export const AUTOCOMPLETE_INPUTS: readonly AutocompleteInput[] = [
 	{ name: 'appearance', type: "'fill' | 'outline'", default: "'fill'", description: 'Material form-field appearance.' },
 	{ name: 'fullWidth', type: 'boolean', default: 'false', description: 'Stretch the field to fill its container.' },
 	{ name: 'limitTags', type: 'number', default: '-1', description: 'Max chips shown when unfocused (-1 = all).' },
-	{ name: 'getLimitTagsText', type: '(more: number) => string', default: '(more) => `+${more}`', description: 'Label for the truncated-tags summary.' },
+	{
+		name: 'getLimitTagsText',
+		type: '(more: number) => string',
+		default: '(more) => `+${more}`',
+		description: 'Label for the truncated-tags summary.',
+	},
 	{ name: 'showCheckboxes', type: 'boolean', default: 'false', description: 'Render a checkbox in front of each option (multiple).' },
 	{ name: 'noOptionsText', type: 'string', default: "'No options'", description: 'Message shown when nothing matches.' },
 	{ name: 'loadingText', type: 'string', default: "'Loading…'", description: 'Message shown while loading.' },
@@ -86,23 +127,52 @@ export const AUTOCOMPLETE_INPUTS: readonly AutocompleteInput[] = [
 	{ name: 'closeText', type: 'string', default: "'Close'", description: 'Accessible label for the toggle button (open).' },
 	{ name: 'forcePopupIcon', type: "boolean | 'auto'", default: "'auto'", description: 'Force the dropdown toggle icon on/off.' },
 	{ name: 'virtualize', type: 'boolean', default: 'false', description: 'Virtual-scroll the option list (CDK).' },
-	{ name: 'itemSize', type: 'number', default: '48', description: 'Row height (px) used by virtual scroll; matches the default option height.' },
+	{
+		name: 'itemSize',
+		type: 'number',
+		default: '48',
+		description: 'Row height (px) used by virtual scroll; matches the default option height.',
+	},
 	{ name: 'maxVisibleItems', type: 'number', default: '8', description: 'Max rows visible before the list scrolls.' },
 	{ name: 'slotProps', type: 'NgAutocompleteSlotProps', default: '{}', description: 'Per-slot class/attribute pass-through.' },
 	{ name: 'id', type: 'string | null', default: 'null', description: 'Base id used to derive element ids (accessibility).' },
 ];
 
 export const AUTOCOMPLETE_OUTPUTS: readonly AutocompleteOutput[] = [
-	{ name: 'valueChanged', payload: '{ value; reason; option? }', description: 'Selected value changed. reason: createOption | selectOption | removeOption | clear | blur.' },
-	{ name: 'inputChanged', payload: '{ value: string; reason }', description: 'Input text changed. reason: input | reset | clear | blur | selectOption | removeOption.' },
+	{
+		name: 'valueChanged',
+		payload: '{ value; reason; option? }',
+		description: 'Selected value changed. reason: createOption | selectOption | removeOption | clear | blur.',
+	},
+	{
+		name: 'inputChanged',
+		payload: '{ value: string; reason }',
+		description: 'Input text changed. reason: input | reset | clear | blur | selectOption | removeOption.',
+	},
 	{ name: 'opened', payload: 'OpenReason', description: 'Popup opened. reason: toggleInput | focus | input | keyboard.' },
-	{ name: 'closed', payload: 'CloseReason', description: 'Popup closed. reason: toggleInput | escape | selectOption | removeOption | blur.' },
-	{ name: 'highlightChanged', payload: '{ option: T | null; reason }', description: 'Highlighted option changed. reason: keyboard | mouse | auto | touch.' },
+	{
+		name: 'closed',
+		payload: 'CloseReason',
+		description: 'Popup closed. reason: toggleInput | escape | selectOption | removeOption | blur.',
+	},
+	{
+		name: 'highlightChanged',
+		payload: '{ option: T | null; reason }',
+		description: 'Highlighted option changed. reason: keyboard | mouse | auto | touch.',
+	},
 ];
 
 export const AUTOCOMPLETE_TEMPLATES: readonly AutocompleteTemplate[] = [
-	{ name: '*ngOption', mui: 'renderOption', purpose: 'Custom option row. Context: $implicit (option), option, highlighted, selected, query.' },
-	{ name: '*ngValue', mui: 'renderValue', purpose: 'Custom chip / selected-value rendering. Context: $implicit, index, label, disabled, fixed, focused, remove().' },
+	{
+		name: '*ngOption',
+		mui: 'renderOption',
+		purpose: 'Custom option row. Context: $implicit (option), option, highlighted, selected, query.',
+	},
+	{
+		name: '*ngValue',
+		mui: 'renderValue',
+		purpose: 'Custom chip / selected-value rendering. Context: $implicit, index, label, disabled, fixed, focused, remove().',
+	},
 	{ name: '*ngGroupHeader', mui: 'renderGroup', purpose: 'Custom group header. Context: $implicit (group name), count.' },
 	{ name: '*ngPaper', mui: 'slots.paper', purpose: 'Custom popup surface wrapping the listbox. Context: $implicit (listbox template).' },
 	{ name: '*ngEmpty', mui: 'noOptionsText', purpose: 'Custom "no options" content.' },
@@ -113,7 +183,12 @@ export const AUTOCOMPLETE_TEMPLATES: readonly AutocompleteTemplate[] = [
 
 export const AUTOCOMPLETE_FILTER_CONFIG: readonly AutocompleteFilterOption[] = [
 	{ name: 'matchFrom', type: "'any' | 'start'", default: "'any'", description: 'Match anywhere in the string, or only at the start.' },
-	{ name: 'stringify', type: '(option: T) => string', default: 'getOptionLabel', description: 'Turn an option into the string that gets matched.' },
+	{
+		name: 'stringify',
+		type: '(option: T) => string',
+		default: 'getOptionLabel',
+		description: 'Turn an option into the string that gets matched.',
+	},
 	{ name: 'ignoreCase', type: 'boolean', default: 'true', description: 'Lowercase both sides before comparing.' },
 	{ name: 'ignoreAccents', type: 'boolean', default: 'true', description: 'Strip diacritics before comparing.' },
 	{ name: 'trim', type: 'boolean', default: 'false', description: 'Trim trailing whitespace off the query.' },
@@ -126,7 +201,9 @@ export const AUTOCOMPLETE_FILTER_CONFIG: readonly AutocompleteFilterOption[] = [
  * Unknown names are skipped.
  */
 export function pickAutocompleteInputs(names: readonly string[]): AutocompleteInput[] {
-	return names.map((name) => AUTOCOMPLETE_INPUTS.find((input) => input.name === name)).filter((input): input is AutocompleteInput => !!input);
+	return names
+		.map((name) => AUTOCOMPLETE_INPUTS.find((input) => input.name === name))
+		.filter((input): input is AutocompleteInput => !!input);
 }
 
 /** Like {@link pickAutocompleteInputs} but for content-template directives. */

@@ -30,16 +30,7 @@ interface SidenavNode {
  */
 @Component({
 	selector: 'ng-kit-root',
-	imports: [
-		RouterLink,
-		RouterLinkActive,
-		RouterOutlet,
-		MatToolbarModule,
-		MatSidenavModule,
-		MatTreeModule,
-		MatIconModule,
-		MatButtonModule,
-	],
+	imports: [RouterLink, RouterLinkActive, RouterOutlet, MatToolbarModule, MatSidenavModule, MatTreeModule, MatIconModule, MatButtonModule],
 	host: { class: 'shell' },
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	template: `
@@ -82,14 +73,26 @@ interface SidenavNode {
 		<mat-sidenav-container class="shell-body">
 			<mat-sidenav [mode]="sidenavMode()" [opened]="sidenavOpened()" (openedChange)="sidenavOpened.set($event)" class="sidenav">
 				<nav class="nav" aria-label="Components">
-					<a class="nav-link nav-link--top" routerLink="/" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">Overview</a>
+					<a class="nav-link nav-link--top" routerLink="/" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }"
+						>Overview</a
+					>
 
 					@for (section of sections(); track section.category) {
 						<h3 class="nav-subheader">{{ section.label }}</h3>
-						<mat-tree #tree="matTree" [dataSource]="section.nodes" [childrenAccessor]="childrenAccessor" [expansionKey]="expansionKey" class="nav-tree">
+						<mat-tree
+							#tree="matTree"
+							[dataSource]="section.nodes"
+							[childrenAccessor]="childrenAccessor"
+							[expansionKey]="expansionKey"
+							class="nav-tree">
 							<!-- Navigable leaf page -->
 							<mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding [matTreeNodePaddingIndent]="16" class="nav-node">
-								<a class="nav-link" [routerLink]="'/' + node.slug" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }" (click)="onNavLinkClick()">
+								<a
+									class="nav-link"
+									[routerLink]="'/' + node.slug"
+									routerLinkActive="active-link"
+									[routerLinkActiveOptions]="{ exact: true }"
+									(click)="onNavLinkClick()">
 									{{ node.title }}
 								</a>
 							</mat-tree-node>
@@ -409,7 +412,9 @@ export class AppComponent {
 							return match ? { title: node.page.title, slug: node.page.slug } : null;
 						}
 						const groupMatches = !term || node.title.toLowerCase().includes(term);
-						const pages = groupMatches ? node.pages : node.pages.filter((p) => p.title.toLowerCase().includes(term) || p.blurb.toLowerCase().includes(term));
+						const pages = groupMatches
+							? node.pages
+							: node.pages.filter((p) => p.title.toLowerCase().includes(term) || p.blurb.toLowerCase().includes(term));
 						if (pages.length === 0) {
 							return null;
 						}

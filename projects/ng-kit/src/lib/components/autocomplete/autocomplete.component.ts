@@ -1,11 +1,7 @@
-import { NgTemplateOutlet } from '@angular/common';
-import { CdkVirtualScrollViewport, ScrollingModule } from '@angular/cdk/scrolling';
+import type { ConnectedPosition } from '@angular/cdk/overlay';
 import { CdkConnectedOverlay, OverlayModule } from '@angular/cdk/overlay';
-import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatChipsModule } from '@angular/material/chips';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
+import { CdkVirtualScrollViewport, ScrollingModule } from '@angular/cdk/scrolling';
+import { NgTemplateOutlet } from '@angular/common';
 import {
 	Component,
 	DestroyRef,
@@ -23,10 +19,13 @@ import {
 	untracked,
 	viewChild,
 } from '@angular/core';
-import type { ConnectedPosition } from '@angular/cdk/overlay';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
 import { NgAutocompleteState } from './autocomplete-state';
-import { defaultFilterOptions } from './create-filter-options';
 import {
 	NgClearIconDef,
 	NgEmptyDef,
@@ -39,22 +38,18 @@ import {
 } from './autocomplete-templates';
 import {
 	DEFAULT_CONFIG,
-  type NgAutocompleteConfig,
 	type ChangeReason,
 	type CloseReason,
 	type FilterOptionsFn,
 	type HighlightChangeReason,
 	type InputChangeReason,
 	type NgAutocompleteAppearance,
+	type NgAutocompleteConfig,
 	type NgAutocompleteSlotProps,
 	type OpenReason,
 	type RenderedOption,
 } from './autocomplete.types';
-import { T } from '@angular/cdk/keycodes';
-import { readonly } from '@angular/forms/signals';
-import { constructor } from 'assert';
-import { index } from 'd3';
-import { range } from 'rxjs';
+import { defaultFilterOptions } from './create-filter-options';
 
 let nextId = 0;
 
@@ -88,18 +83,6 @@ let nextId = 0;
 	templateUrl: './autocomplete.component.html',
 })
 export class AutocompleteComponent<T> implements ControlValueAccessor {
-  writeValue(obj: any): void {
-    throw new Error('Method not implemented.');
-  }
-  registerOnChange(fn: any): void {
-    throw new Error('Method not implemented.');
-  }
-  registerOnTouched(fn: any): void {
-    throw new Error('Method not implemented.');
-  }
-  setDisabledState?(isDisabled: boolean): void {
-    throw new Error('Method not implemented.');
-  }
 	private readonly uid = nextId++;
 	readonly id = input<string | null>(null);
 	private base(): string {
@@ -121,7 +104,7 @@ export class AutocompleteComponent<T> implements ControlValueAccessor {
 
 	// ── identity & labels ────────────────────────────────────────────────────
 	readonly getOptionLabel = input<(option: T) => string>(DEFAULT_CONFIG.getOptionLabel as (option: T) => string);
-	readonly getOptionKey = input<(option: T) => string | number>((option: T) => this.getOptionLabel()(option));
+	readonly getOptionKey = input<(option: T) => string | number>(DEFAULT_CONFIG.getOptionKey as (option: T) => string | number);
 	readonly getOptionDisabled = input<(option: T) => boolean>(() => false);
 	readonly isOptionEqualToValue = input<(option: T, value: T) => boolean>((a, b) => a === b);
 	readonly groupBy = input<((option: T) => string) | null>(null);
@@ -166,7 +149,7 @@ export class AutocompleteComponent<T> implements ControlValueAccessor {
 	readonly noOptionsText = input('No options');
 	readonly loadingText = input('Loading…');
 	readonly virtualize = input(false);
-  readonly itemSize = input(40);
+	readonly itemSize = input(48);
 	readonly maxVisibleItems = input(8);
 	readonly forcePopupIcon = input<boolean | 'auto'>('auto');
 	readonly openText = input('Open');
@@ -211,6 +194,12 @@ export class AutocompleteComponent<T> implements ControlValueAccessor {
 	protected readonly listboxRef = viewChild<TemplateRef<unknown>>('listbox');
 	private readonly connectedOverlay = viewChild(CdkConnectedOverlay);
 	private readonly host = inject(ElementRef<HTMLElement>);
+
+	/** What `slotProps` last applied to each target, so changes can be undone. */
+	private readonly slotState = new Map<
+		keyof NgAutocompleteSlotProps,
+		{ element: HTMLElement; classes: Set<string>; attrs: Map<string, string | null> }
+	>();
 
 	protected readonly overlayPositions: ConnectedPosition[] = [
 		{ originX: 'start', originY: 'bottom', overlayX: 'start', overlayY: 'top', offsetY: 0 },
@@ -299,7 +288,9 @@ export class AutocompleteComponent<T> implements ControlValueAccessor {
 	protected readonly visibleValues = computed(() => {
 		const all = this.valueContexts();
 		const limit = this.limitTags();
-    if (limit < 0 || this.state.focused()) return all;
+		if (limit < 0 || this.state.focused()) {
+			return all;
+		}
 		return all.slice(0, limit);
 	});
 
@@ -312,7 +303,7 @@ export class AutocompleteComponent<T> implements ControlValueAccessor {
 	/**
 	 * Width the chip input needs before it may share the chip row — enough for the
 	 * whole placeholder, so it wraps to its own line instead of being clipped.
-	 */{}
+	 */
 	protected readonly chipInputMinWidth = computed(() => {
 		const placeholder = this.placeholder();
 		return placeholder ? `${placeholder.length + 1}ch` : '30px';
@@ -325,48 +316,93 @@ export class AutocompleteComponent<T> implements ControlValueAccessor {
 		window.addEventListener('blur', onWindowBlur);
 		inject(DestroyRef).onDestroy(() => window.removeEventListener('blur', onWindowBlur));
 
-    // Apply `slotProps` class/attribute pass-through to the input and host root.
-    // (listbox/paper/indicator classes bind directly in their templates.)
+		// Apply `slotProps` class/attribute pass-through to the input and host root,
+		// diffing against what was last applied so removed props are cleaned up.
 		effect(() => {
-      const targets: Array<[keyof NgAutocompleteSlotProps, HTMLElement | null | undefined]> = [
+			const targets: [keyof NgAutocompleteSlotProps, HTMLElement | null | undefined][] = [
 				['input', this.inputEl()?.nativeElement],
 				['root', this.host.nativeElement],
 			];
 			for (const [key, el] of targets) {
-        if (!el) continue;
-        for (const [name, val] of Object.entries(this.slotAttrs(key))) {
+				if (!el) {
+					continue;
+				}
+				let applied = this.slotState.get(key);
+				if (!applied || applied.element !== el) {
+					applied = { element: el, classes: new Set<string>(), attrs: new Map<string, string | null>() };
+					this.slotState.set(key, applied);
+				}
+
+				const attrs = this.slotAttrs(key);
+				const attrNames = new Set(Object.keys(attrs));
+				for (const [name, originalValue] of applied.attrs) {
+					if (!attrNames.has(name)) {
+						if (originalValue === null) {
+							el.removeAttribute(name);
+						} else {
+							el.setAttribute(name, originalValue);
+						}
+						applied.attrs.delete(name);
+					}
+				}
+				for (const [name, val] of Object.entries(attrs)) {
+					if (!applied.attrs.has(name)) {
+						applied.attrs.set(name, el.getAttribute(name));
+					}
 					el.setAttribute(name, String(val));
 				}
-        const cls = this.slotClass(key);
-        if (cls) el.classList.add(...cls.split(/\s+/).filter(Boolean));
+
+				const classes = new Set(this.slotClass(key).split(/\s+/).filter(Boolean));
+				for (const cls of applied.classes) {
+					if (!classes.has(cls)) {
+						el.classList.remove(cls);
+						applied.classes.delete(cls);
+					}
+				}
+				for (const cls of classes) {
+					if (!el.classList.contains(cls)) {
+						el.classList.add(cls);
+						applied.classes.add(cls);
+					}
+				}
 			}
 		});
 
 		// Keep the text box in sync when the value is changed from the outside
 		// (patchValue, another component, a reset).
 		effect(() => {
-			const selected = tate.selectedValues();[]
+			const selected = this.state.selectedValues();
 			untracked(() => {
-				if (this.state.focused()) return;
-				if (this.multiple()) return;
-				if (this.showSingleChip()) return;
-				const current{ = this.i}nputValue();
+				if (this.state.focused()) {
+					return;
+				}
+				if (this.multiple()) {
+					return;
+				}
+				if (this.showSingleChip()) {
+					return;
+				}
+				const current = this.inputValue();
 				const expected = selected[0] === undefined ? '' : this.getOptionLabel()(selected[0]);
 				if (current !== expected && !this.freeSolo()) {
 					this.state.setInputValue(expected, 'reset');
 				}
-			});{}
+			});
 		});
 
 		// Scroll the highlighted option into view — plain list or virtual.
 		effect(() => {
 			const index = this.state.highlightedIndex();
-      if (index < 0 || !this.state.open()) return;
+			if (index < 0 || !this.state.open()) {
+				return;
+			}
 			const viewport = this.viewport();
 			if (viewport) {
-				const range = viewport.getRend{eredRan}ge();
-				if (index < range.start |{| index} >= range.end) viewport.scrollToIndex(index, 'smooth');
-				return;{}
+				const range = viewport.getRenderedRange();
+				if (index < range.start || index >= range.end) {
+					viewport.scrollToIndex(index, 'smooth');
+				}
+				return;
 			}
 			const list = this.listEl()?.nativeElement;
 			queueMicrotask(() => {
@@ -378,11 +414,13 @@ export class AutocompleteComponent<T> implements ControlValueAccessor {
 		// Inline completion (`autoComplete`): write the full label into the input
 		// and select the part the user has not typed yet.
 		effect(() => {
-			const completion = this.state.inlineComp{letion(});
+			const completion = this.state.inlineCompletion();
 			const el = this.inputEl()?.nativeElement;
-      if (!el || completion == null) return;
+			if (!el || completion == null) {
+				return;
+			}
 			const typedLength = untracked(this.inputValue).length;
-			queueMicrotask(() => {{}
+			queueMicrotask(() => {
 				el.value = completion;
 				el.setSelectionRange(typedLength, completion.length);
 			});
@@ -391,26 +429,32 @@ export class AutocompleteComponent<T> implements ControlValueAccessor {
 		// Match the overlay to the field, and keep it anchored: a connected overlay
 		// positions itself only on open, but chips resize the field under it.
 		effect((onCleanup) => {
-      if (!this.state.open()) return;
+			if (!this.state.open()) {
+				return;
+			}
 			const field = this.host.nativeElement.querySelector('.ng-field') as HTMLElement | null;
-      if (!field) return;
+			if (!field) {
+				return;
+			}
 
 			const sync = (): void => {
 				this.fieldWidth.set(field.getBoundingClientRect().width);
-				this.connectedOverlay()?.overlayR{ef?.upd}atePosition();
+				this.connectedOverlay()?.overlayRef?.updatePosition();
 			};
 			sync();
 
 			// Non-browser/test environments keep just the initial sync above.
-      if (typeof ResizeObserver === 'undefined') return;
+			if (typeof ResizeObserver === 'undefined') {
+				return;
+			}
 			const observer = new ResizeObserver(sync);
 			observer.observe(field);
 			onCleanup(() => observer.disconnect());
 		});
 	}
-{}
+
 	// ── event handlers ───────────────────────────────────────────────────────
-	protected onInput{(event:} Event): void {
+	protected onInput(event: Event): void {
 		this.state.handleInput((event.target as HTMLInputElement).value);
 	}
 
@@ -419,7 +463,7 @@ export class AutocompleteComponent<T> implements ControlValueAccessor {
 		const selectOnFocus = this.selectOnFocus() ?? !this.freeSolo();
 		if (selectOnFocus) {
 			queueMicrotask(() => this.inputEl()?.nativeElement.select());
-		}{}
+		}
 	}
 
 	protected onBlur(): void {
@@ -428,49 +472,65 @@ export class AutocompleteComponent<T> implements ControlValueAccessor {
 	}
 
 	protected onKeyDown(event: KeyboardEvent): void {
-    if (this.state.handleKeyDown(event)) event.preventDefault();
+		if (this.state.handleKeyDown(event)) {
+			event.preventDefault();
+		}
 	}
 
 	protected onFieldMouseDown(event: MouseEvent): void {
-    if ((event.target as HTMLElement).closest('button')) return;
+		if ((event.target as HTMLElement).closest('button')) {
+			return;
+		}
 		if (event.target !== this.inputEl()?.nativeElement) {
 			event.preventDefault();
 			this.focusInput();
 		}
-    if (!this.state.open() && !this.readOnly()) this.state.openPopup('toggleInput');
+		if (!this.state.open() && !this.readOnly()) {
+			this.state.openPopup('toggleInput');
+		}
 	}
 
 	protected onOptionHover(item: RenderedOption<T>): void {
-    if (item.disabled && !this.disabledItemsFocusable()) return;
+		if (item.disabled && !this.disabledItemsFocusable()) {
+			return;
+		}
 		if (this.state.highlightedIndex() !== item.index) {
 			this.state.setHighlight(item.index, 'mouse');
 		}
-	}{}
+	}
 
 	protected onListMouseLeave(): void {
-		if (this.resetHighlightOnMouseLeave()) this.state.moveHighlight('reset');
-	}{}
+		if (this.resetHighlightOnMouseLeave()) {
+			this.state.moveHighlight('reset');
+		}
+	}
 
 	protected onOptionClick(item: RenderedOption<T>, event: MouseEvent): void {
 		event.preventDefault();
-		if (item.disabled) return;
-		// `selectOption` now owns the blurOnSelect de{cision (touch/mouse resolved}
+		if (item.disabled) {
+			return;
+		}
+		// `selectOption` now owns the blurOnSelect decision (touch/mouse resolved
 		// against `state.isTouch`) and fires `requestBlur` synchronously when a
 		// blur is due, which re-enters `onBlur()` -> `state.handleBlur()` before
 		// `selectOption` returns. So `state.focused()` already reflects whether
-		// that happened, and re-focusing here only when it did{ NOT ke}eps a plain
+		// that happened, and re-focusing here only when it did NOT keeps a plain
 		// click's "stay focused" behaviour without fighting an intentional blur.
 		this.state.selectOption(item.option, 'selectOption');
 		this.state.isTouch.set(false);
-    if (this.state.focused()) this.focusInput();
+		if (this.state.focused()) {
+			this.focusInput();
+		}
 	}
 
-	protected onOutsideClick(event: MouseEvent{): void {}
-		if (this.host.nativeElement.contains(event.target as Node)) return;
+	protected onOutsideClick(event: MouseEvent): void {
+		if (this.host.nativeElement.contains(event.target as Node)) {
+			return;
+		}
 		this.state.closePopup('blur');
 	}
 
-	protected trackOption {= (_: n}umber, item: RenderedOption<T>) => item.key;
+	protected trackOption = (_: number, item: RenderedOption<T>) => item.key;
 
 	focusInput(): void {
 		this.inputEl()?.nativeElement.focus();
@@ -479,11 +539,11 @@ export class AutocompleteComponent<T> implements ControlValueAccessor {
 	// ── ControlValueAccessor ─────────────────────────────────────────────────
 	private onChangeFn: (value: unknown) => void = () => {};
 	private onTouchedFn: () => void = () => {};
-{}
+
 	writeValue(value: T | readonly T[] | null): void {
 		this.value.set(value ?? (this.multiple() ? [] : null));
 		this.state.resetInputValue('reset');
-	}{}
+	}
 	registerOnChange(fn: (value: unknown) => void): void {
 		this.onChangeFn = fn;
 	}

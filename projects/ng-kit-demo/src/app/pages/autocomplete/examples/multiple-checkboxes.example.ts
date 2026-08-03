@@ -74,8 +74,7 @@ export const multipleCheckboxesConfig = buildAutocompleteExampleConfig({
 			[disableCloseOnSelect]="true"
 			[appearance]="settings.appearance()"
 			label="Movies"
-			placeholder="Pick some films"
-		/>
+			placeholder="Pick some films" />
 		<p class="readout">Count: {{ value().length }}</p>
 		<p class="readout">Selected: {{ selectedList() }}</p>
 
@@ -88,30 +87,38 @@ export const multipleCheckboxesConfig = buildAutocompleteExampleConfig({
 			[filterSelectedOptions]="true"
 			[appearance]="settings.appearance()"
 			label="Movies (selected hidden)"
-			placeholder="Pick some films"
-		/>
+			placeholder="Pick some films" />
 		<p class="readout">Count: {{ hiddenValue().length }}</p>
 		<p class="readout">Selected: {{ hiddenSelectedList() }}</p>
 	`,
-	styles: [`
-		.readout { margin-top: 12px; color: var(--ng-muted, #6b7280); font-size: 14px; }
-	`],
+	styles: [
+		`
+			.readout {
+				margin-top: 12px;
+				color: var(--ng-muted, #6b7280);
+				font-size: 14px;
+			}
+		`,
+	],
 })
 export class MultipleCheckboxesExample {
 	protected readonly settings = inject(DemoSettings);
 
 	protected readonly films = [
-		'The Shawshank Redemption', 'The Godfather', 'The Dark Knight',
-		'Pulp Fiction', 'Inception', 'Interstellar', 'Parasite',
-		'Fight Club', 'Forrest Gump', 'The Matrix',
+		'The Shawshank Redemption',
+		'The Godfather',
+		'The Dark Knight',
+		'Pulp Fiction',
+		'Inception',
+		'Interstellar',
+		'Parasite',
+		'Fight Club',
+		'Forrest Gump',
+		'The Matrix',
 	];
 	protected readonly value = signal<string[]>([]);
 	protected readonly hiddenValue = signal<string[]>([]);
 
-	protected readonly selectedList = computed(() =>
-		this.value().length ? this.value().join(', ') : '—',
-	);
-	protected readonly hiddenSelectedList = computed(() =>
-		this.hiddenValue().length ? this.hiddenValue().join(', ') : '—',
-	);
+	protected readonly selectedList = computed(() => (this.value().length ? this.value().join(', ') : '—'));
+	protected readonly hiddenSelectedList = computed(() => (this.hiddenValue().length ? this.hiddenValue().join(', ') : '—'));
 }

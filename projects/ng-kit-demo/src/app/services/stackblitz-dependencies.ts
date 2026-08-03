@@ -27,12 +27,7 @@ const RUNTIME_DEPENDENCY_KEYS = [
 
 const WORKSPACE_DEV_DEPENDENCY_KEYS = ['zone.js'] as const;
 
-const STACKBLITZ_DEV_DEPENDENCY_KEYS = [
-	'@angular/build',
-	'@angular/cli',
-	'@angular/compiler-cli',
-	'typescript',
-] as const;
+const STACKBLITZ_DEV_DEPENDENCY_KEYS = ['@angular/build', '@angular/cli', '@angular/compiler-cli', 'typescript'] as const;
 
 function pickVersions(source: Record<string, string | undefined>, keys: readonly string[]): Record<string, string> {
 	const result: Record<string, string> = {};

@@ -25,10 +25,9 @@ const confirmDialogConfig = getConfirmDialogDemoConfig();
 
 			<div docOverview>
 				<p>
-					Open <code>ConfirmDialogComponent</code> with Angular Material's <code>MatDialog</code> service, passing a
-					<code>title</code> and <code>message</code> through the <code>data</code> option. The dialog resolves to
-					<code>true</code> when the user confirms and <code>false</code> when they cancel, so you can branch on the value emitted by
-					<code>afterClosed()</code>.
+					Open <code>ConfirmDialogComponent</code> with Angular Material's <code>MatDialog</code> service, passing a <code>title</code> and
+					<code>message</code> through the <code>data</code> option. The dialog resolves to <code>true</code> when the user confirms and
+					<code>false</code> when they cancel, so you can branch on the value emitted by <code>afterClosed()</code>.
 				</p>
 				<ul>
 					<li>Uses Angular Material dialog for modal presentation.</li>

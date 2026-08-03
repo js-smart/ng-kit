@@ -29,20 +29,26 @@ const OVERVIEW_CODE = `<!-- Directive (preferred) -->
 			</header>
 
 			<p>
-				A <code>BaseButtonDirective</code> provides common functionality and styling for all button types; every ng-kit button extends
-				this base. Buttons can be consumed in two ways:
+				A <code>BaseButtonDirective</code> provides common functionality and styling for all button types; every ng-kit button extends this
+				base. Buttons can be consumed in two ways:
 			</p>
 			<ul>
-				<li><strong>Directives (preferred)</strong> — apply button styling and behaviour to any existing HTML element for cleaner markup and more flexibility.</li>
-				<li><strong>Components (legacy)</strong> — dedicated Angular components that wrap Angular Material buttons. Still supported, but the directive approach is preferred for new implementations.</li>
+				<li>
+					<strong>Directives (preferred)</strong> — apply button styling and behaviour to any existing HTML element for cleaner markup and
+					more flexibility.
+				</li>
+				<li>
+					<strong>Components (legacy)</strong> — dedicated Angular components that wrap Angular Material buttons. Still supported, but the
+					directive approach is preferred for new implementations.
+				</li>
 			</ul>
 			<p>The two styles are interchangeable:</p>
 			<code-block [code]="overviewCode" language="html" />
 
 			<h2 class="doc-api-heading">API</h2>
 			<p>
-				All buttons share the inputs and outputs of the base button. Directive selectors are attribute-based
-				(e.g. <code>primaryButton</code>); component selectors are elements (e.g. <code>&lt;primary-button&gt;</code>).
+				All buttons share the inputs and outputs of the base button. Directive selectors are attribute-based (e.g.
+				<code>primaryButton</code>); component selectors are elements (e.g. <code>&lt;primary-button&gt;</code>).
 			</p>
 
 			<h3>Common inputs</h3>
@@ -101,9 +107,8 @@ const OVERVIEW_CODE = `<!-- Directive (preferred) -->
 				</tbody>
 			</table>
 			<p class="api-note">
-				The base <em>directive</em> exposes <code>icon</code>, <code>label</code>, <code>loading</code> and
-				<code>loadingLabel</code>. Component buttons additionally provide <code>style</code>, <code>classes</code> and
-				<code>dataCy</code> inputs.
+				The base <em>directive</em> exposes <code>icon</code>, <code>label</code>, <code>loading</code> and <code>loadingLabel</code>.
+				Component buttons additionally provide <code>style</code>, <code>classes</code> and <code>dataCy</code> inputs.
 			</p>
 
 			<h3>Outputs</h3>

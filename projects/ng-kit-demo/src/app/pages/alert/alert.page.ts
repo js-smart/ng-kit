@@ -54,10 +54,10 @@ const alertTypesConfig = getAlertDemoConfig();
 				<section class="page-section">
 					<h2>Overview</h2>
 					<p>
-						Import <code>AlertComponent</code> and drop an <code>&lt;alert&gt;</code> element into your template with the message projected as
-						content. Set <code>type</code> to choose the contextual style, toggle visibility with <code>isOpen</code>, and control dismissal with
-						<code>dismissible</code>, <code>dismissOnTimeout</code>, and <code>dismissTimeout</code>. Listen to <code>closed</code> to react when
-						the alert is dismissed.
+						Import <code>AlertComponent</code> and drop an <code>&lt;alert&gt;</code> element into your template with the message projected
+						as content. Set <code>type</code> to choose the contextual style, toggle visibility with <code>isOpen</code>, and control
+						dismissal with <code>dismissible</code>, <code>dismissOnTimeout</code>, and <code>dismissTimeout</code>. Listen to
+						<code>closed</code> to react when the alert is dismissed.
 					</p>
 					<ul>
 						<li>The alert is tree-shakable: only imported features are included in your bundle.</li>

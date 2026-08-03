@@ -287,5 +287,6 @@ These tips are **not** a second source of truth for stack or workflow; they only
 | [`.aiassistant/rules/instructions.md`](./.aiassistant/rules/instructions.md) | JetBrains AI Assistant rule file: pointer + `apply: always` frontmatter |
 
 ## What to Avoid
+
 - Never commit code to git unless I explicitly ask you to.
 - Always commit to git as a current user, not as an LLM

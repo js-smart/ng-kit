@@ -4,25 +4,30 @@ import { Directive, DOCUMENT, effect, ElementRef, inject, input } from '@angular
 	selector: '[bsLinkButton]',
 })
 export class BsLinkButtonDirective {
-	icon = input<string>('search');
-	elementRef = inject(ElementRef);
-	document = inject(DOCUMENT);
+	/** Material icon name rendered before the link label. */
+	readonly icon = input<string>('search');
+
+	private readonly elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+	private readonly document = inject(DOCUMENT);
+	private readonly iconElement = this.document.createElement('span');
 
 	constructor() {
-		this.elementRef.nativeElement.classList.add('btn', 'text-primary');
+		const element = this.elementRef.nativeElement;
+		element.classList.add('btn', 'text-primary');
+		this.iconElement.classList.add('material-icons', 'pe-2');
+		this.iconElement.setAttribute('aria-hidden', 'true');
 
 		effect(() => {
-			this.updateContent();
-		});
-	}
+			const icon = this.icon();
 
-	private updateContent(): void {
-		// if icon present, add material-icons class and set text content
-		if (this.icon()) {
-			const iconSpan = this.document.createElement('span');
-			iconSpan.classList.add('material-icons', 'pe-2');
-			iconSpan.textContent = this.icon();
-			this.elementRef.nativeElement.appendChild(iconSpan);
-		}
+			if (!icon) {
+				this.iconElement.remove();
+				return;
+			}
+
+			this.iconElement.textContent = icon;
+			const label = element.querySelector<HTMLElement>('.mdc-button__label');
+			element.insertBefore(this.iconElement, label ?? element.firstChild);
+		});
 	}
 }

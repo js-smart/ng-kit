@@ -42,8 +42,8 @@ npm install`;
 	template: `
 		<h1 class="page-title">Installation</h1>
 		<p class="page-lead">
-			How to install and set up <code>&#64;js-smart/ng-kit</code> in your Angular application, plus prerequisites, version
-			compatibility, and troubleshooting tips.
+			How to install and set up <code>&#64;js-smart/ng-kit</code> in your Angular application, plus prerequisites, version compatibility,
+			and troubleshooting tips.
 		</p>
 
 		<section class="page-section">
@@ -113,7 +113,10 @@ npm install`;
 			<p>If you encounter issues during installation or usage:</p>
 			<ol>
 				<li><strong>Version compatibility</strong>: Ensure your Angular version is 19 or later.</li>
-				<li><strong>Peer dependencies</strong>: Check for peer dependency warnings during install and ensure all required packages are installed.</li>
+				<li>
+					<strong>Peer dependencies</strong>: Check for peer dependency warnings during install and ensure all required packages are
+					installed.
+				</li>
 				<li><strong>Clean install</strong>: Delete <code>node_modules</code> and lock files, then reinstall dependencies.</li>
 				<li><strong>Bootstrap styles</strong>: Verify Bootstrap CSS is properly imported if components appear unstyled.</li>
 				<li><strong>Angular Material</strong>: Ensure Angular Material is installed if using Material-based components.</li>

@@ -73,12 +73,15 @@ export class AsyncComponent {
 			(inputChanged)="onInputChanged($event.value)"
 			[appearance]="settings.appearance()"
 			label="Country"
-			placeholder="Search for a country"
-		/>
+			placeholder="Search for a country" />
 		<p class="readout">Selected: {{ value() ?? '—' }}</p>
 	`,
 	styles: `
-		.readout { margin-top: 12px; color: var(--ng-muted, #6b7280); font-size: 14px; }
+		.readout {
+			margin-top: 12px;
+			color: var(--ng-muted, #6b7280);
+			font-size: 14px;
+		}
 	`,
 })
 export class AsyncExample {
@@ -91,12 +94,42 @@ export class AsyncExample {
 	protected readonly loading = signal(false);
 
 	private readonly countries = [
-		'Argentina', 'Australia', 'Belgium', 'Brazil', 'Canada', 'Chile',
-		'China', 'Denmark', 'Egypt', 'Finland', 'France', 'Germany',
-		'Greece', 'India', 'Indonesia', 'Ireland', 'Italy', 'Japan',
-		'Kenya', 'Mexico', 'Netherlands', 'New Zealand', 'Norway', 'Peru',
-		'Philippines', 'Poland', 'Portugal', 'Spain', 'Sweden', 'Switzerland',
-		'Thailand', 'Turkey', 'Ukraine', 'United Kingdom', 'United States', 'Vietnam',
+		'Argentina',
+		'Australia',
+		'Belgium',
+		'Brazil',
+		'Canada',
+		'Chile',
+		'China',
+		'Denmark',
+		'Egypt',
+		'Finland',
+		'France',
+		'Germany',
+		'Greece',
+		'India',
+		'Indonesia',
+		'Ireland',
+		'Italy',
+		'Japan',
+		'Kenya',
+		'Mexico',
+		'Netherlands',
+		'New Zealand',
+		'Norway',
+		'Peru',
+		'Philippines',
+		'Poland',
+		'Portugal',
+		'Spain',
+		'Sweden',
+		'Switzerland',
+		'Thailand',
+		'Turkey',
+		'Ukraine',
+		'United Kingdom',
+		'United States',
+		'Vietnam',
 	];
 
 	private pendingSearch: ReturnType<typeof setTimeout> | undefined;
@@ -110,9 +143,7 @@ export class AsyncExample {
 
 		this.pendingSearch = setTimeout(() => {
 			const needle = query.trim().toLowerCase();
-			const results = needle
-				? this.countries.filter((country) => country.toLowerCase().includes(needle))
-				: this.countries;
+			const results = needle ? this.countries.filter((country) => country.toLowerCase().includes(needle)) : this.countries;
 
 			this.options.set(results);
 			this.loading.set(false);

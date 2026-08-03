@@ -62,8 +62,7 @@ export const groupedConfig = buildAutocompleteExampleConfig({ title: 'Grouped', 
 			[groupBy]="groupByLetter"
 			[appearance]="settings.appearance()"
 			label="Movie"
-			placeholder="Pick a film"
-		>
+			placeholder="Pick a film">
 			<div *ngGroupHeader="let letter; count as count" class="group-header">
 				{{ letter }}
 				<span class="group-count">({{ count }})</span>
@@ -71,20 +70,26 @@ export const groupedConfig = buildAutocompleteExampleConfig({ title: 'Grouped', 
 		</autocomplete>
 		<p class="readout">Selected: {{ value() ?? '—' }}</p>
 	`,
-	styles: [`
-		.readout { margin-top: 12px; color: var(--ng-muted, #6b7280); font-size: 14px; }
-		.group-header {
-			display: flex;
-			align-items: baseline;
-			gap: 6px;
-			font-weight: 600;
-		}
-		.group-count {
-			font-weight: 400;
-			color: var(--ng-muted, #6b7280);
-			font-size: 12px;
-		}
-	`],
+	styles: [
+		`
+			.readout {
+				margin-top: 12px;
+				color: var(--ng-muted, #6b7280);
+				font-size: 14px;
+			}
+			.group-header {
+				display: flex;
+				align-items: baseline;
+				gap: 6px;
+				font-weight: 600;
+			}
+			.group-count {
+				font-weight: 400;
+				color: var(--ng-muted, #6b7280);
+				font-size: 12px;
+			}
+		`,
+	],
 })
 export class GroupedExample {
 	protected readonly settings = inject(DemoSettings);

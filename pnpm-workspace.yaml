@@ -5,7 +5,7 @@ allowBuilds:
   msgpackr-extract: true
   unrs-resolver: true
 overrides:
-  esbuild: "0.28.0"
+  esbuild: '0.28.0'
 minimumReleaseAgeExclude:
   - '@angular-devkit/architect@0.2201.0'
   - '@angular-devkit/core@22.1.0'

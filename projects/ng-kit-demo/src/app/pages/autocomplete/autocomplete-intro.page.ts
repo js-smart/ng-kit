@@ -30,8 +30,15 @@ import { AUTOCOMPLETE_FILTER_CONFIG, AUTOCOMPLETE_INPUTS, AUTOCOMPLETE_OUTPUTS, 
 
 			<p>The widget is useful for two scenarios:</p>
 			<ul>
-				<li>The value for the textbox must be chosen from a predefined set of allowed values, e.g. a location field must contain a valid location name (a <em>combo box</em>).</li>
-				<li>The textbox may contain any arbitrary value, but it is advantageous to suggest possible values, e.g. a search field (<em>free solo</em>).</li>
+				<li>
+					The value for the textbox must be chosen from a predefined set of allowed values, e.g. a location field must contain a valid
+					location name (a <em>combo box</em>).
+				</li>
+				<li>
+					The textbox may contain any arbitrary value, but it is advantageous to suggest possible values, e.g. a search field (<em
+						>free solo</em
+					>).
+				</li>
 			</ul>
 
 			<h3>Basic usage</h3>
@@ -70,7 +77,10 @@ import { AUTOCOMPLETE_FILTER_CONFIG, AUTOCOMPLETE_INPUTS, AUTOCOMPLETE_OUTPUTS, 
 			</p>
 
 			<h3>Disabled options</h3>
-			<p>Use <code>getOptionDisabled</code> to prevent selection of specific options — useful for unavailable time slots or restricted choices.</p>
+			<p>
+				Use <code>getOptionDisabled</code> to prevent selection of specific options — useful for unavailable time slots or restricted
+				choices.
+			</p>
 
 			<h3>Asynchronous requests</h3>
 			<p>
@@ -88,7 +98,10 @@ import { AUTOCOMPLETE_FILTER_CONFIG, AUTOCOMPLETE_INPUTS, AUTOCOMPLETE_OUTPUTS, 
 			</p>
 
 			<h3>Fixed options</h3>
-			<p>Pass <code>fixedOptions</code> to lock certain chips so they cannot be removed from the selection (see the <strong>Fixed tags</strong> example).</p>
+			<p>
+				Pass <code>fixedOptions</code> to lock certain chips so they cannot be removed from the selection (see the
+				<strong>Fixed tags</strong> example).
+			</p>
 
 			<h3>Limit tags</h3>
 			<p>
@@ -98,17 +111,18 @@ import { AUTOCOMPLETE_FILTER_CONFIG, AUTOCOMPLETE_INPUTS, AUTOCOMPLETE_OUTPUTS, 
 
 			<h3>Sizes &amp; appearance</h3>
 			<p>
-				<code>size</code> switches between <code>'medium'</code> and a denser <code>'small'</code> field, and <code>appearance</code>
-				chooses the Material form-field style (<code>'fill'</code> or <code>'outline'</code>). See the <strong>Sizes &amp; appearances</strong> example.
+				<code>size</code> switches between <code>'medium'</code> and a denser <code>'small'</code> field, and
+				<code>appearance</code> chooses the Material form-field style (<code>'fill'</code> or <code>'outline'</code>). See the
+				<strong>Sizes &amp; appearances</strong> example.
 			</p>
 
 			<h3>Custom rendering</h3>
 			<p>
 				Every slot is overridable via projected templates: <code>*ngOption</code> (MUI's <code>renderOption</code>, with a
-				<code>query</code> for highlighting), <code>*ngValue</code> (<code>renderValue</code>), <code>*ngGroupHeader</code>
-				(<code>renderGroup</code>), plus <code>*ngPaper</code>, <code>*ngEmpty</code>, <code>*ngLoading</code>, <code>*ngPopupIcon</code>
-				and <code>*ngClearIcon</code>. The <strong>Custom rendering</strong> example shows query highlighting, custom icons and a custom
-				paper surface.
+				<code>query</code> for highlighting), <code>*ngValue</code> (<code>renderValue</code>),
+				<code>*ngGroupHeader</code> (<code>renderGroup</code>), plus <code>*ngPaper</code>, <code>*ngEmpty</code>, <code>*ngLoading</code>,
+				<code>*ngPopupIcon</code> and <code>*ngClearIcon</code>. The <strong>Custom rendering</strong> example shows query highlighting,
+				custom icons and a custom paper surface.
 			</p>
 
 			<h3>Custom filter</h3>
@@ -156,8 +170,12 @@ import { AUTOCOMPLETE_FILTER_CONFIG, AUTOCOMPLETE_INPUTS, AUTOCOMPLETE_OUTPUTS, 
 				<tbody>
 					@for (input of inputs; track input.name) {
 						<tr>
-							<td><code>{{ input.name }}</code></td>
-							<td><code>{{ input.type }}</code></td>
+							<td>
+								<code>{{ input.name }}</code>
+							</td>
+							<td>
+								<code>{{ input.type }}</code>
+							</td>
 							<td>{{ input.default }}</td>
 							<td>{{ input.description }}</td>
 						</tr>
@@ -177,8 +195,12 @@ import { AUTOCOMPLETE_FILTER_CONFIG, AUTOCOMPLETE_INPUTS, AUTOCOMPLETE_OUTPUTS, 
 				<tbody>
 					@for (output of outputs; track output.name) {
 						<tr>
-							<td><code>{{ output.name }}</code></td>
-							<td><code>{{ output.payload }}</code></td>
+							<td>
+								<code>{{ output.name }}</code>
+							</td>
+							<td>
+								<code>{{ output.payload }}</code>
+							</td>
 							<td>{{ output.description }}</td>
 						</tr>
 					}
@@ -198,8 +220,12 @@ import { AUTOCOMPLETE_FILTER_CONFIG, AUTOCOMPLETE_INPUTS, AUTOCOMPLETE_OUTPUTS, 
 				<tbody>
 					@for (tpl of templates; track tpl.name) {
 						<tr>
-							<td><code>{{ tpl.name }}</code></td>
-							<td><code>{{ tpl.mui }}</code></td>
+							<td>
+								<code>{{ tpl.name }}</code>
+							</td>
+							<td>
+								<code>{{ tpl.mui }}</code>
+							</td>
 							<td>{{ tpl.purpose }}</td>
 						</tr>
 					}
@@ -223,8 +249,12 @@ import { AUTOCOMPLETE_FILTER_CONFIG, AUTOCOMPLETE_INPUTS, AUTOCOMPLETE_OUTPUTS, 
 				<tbody>
 					@for (opt of filterOptionsConfig; track opt.name) {
 						<tr>
-							<td><code>{{ opt.name }}</code></td>
-							<td><code>{{ opt.type }}</code></td>
+							<td>
+								<code>{{ opt.name }}</code>
+							</td>
+							<td>
+								<code>{{ opt.type }}</code>
+							</td>
 							<td>{{ opt.default }}</td>
 							<td>{{ opt.description }}</td>
 						</tr>

@@ -65,8 +65,8 @@ const materialConfig = buildDemoConfig({
 					<p>
 						Import <code>SpinnerComponent</code> and drop the <code>&lt;spinner&gt;</code> element into any standalone component. By default
 						<code>bootstrapSpinner</code> is <code>true</code>, which renders a Bootstrap spinner (requires Bootstrap CSS). Set
-						<code>bootstrapSpinner</code> to <code>false</code> to render the Angular Material <code>mat-spinner</code> instead, then tune it
-						with <code>diameter</code>, <code>color</code>, and <code>strokeWidth</code>.
+						<code>bootstrapSpinner</code> to <code>false</code> to render the Angular Material <code>mat-spinner</code> instead, then tune
+						it with <code>diameter</code>, <code>color</code>, and <code>strokeWidth</code>.
 					</p>
 					<ul>
 						<li>Tree-shakable: only the imported features are included in your bundle.</li>

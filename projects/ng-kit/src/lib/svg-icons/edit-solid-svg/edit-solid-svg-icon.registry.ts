@@ -17,9 +17,6 @@ export class EditSolidSvgIconRegistry {
 		const iconRegistry = inject(MatIconRegistry);
 		const sanitizer = inject(DomSanitizer);
 
-		iconRegistry.addSvgIconLiteral(
-			EDIT_SOLID_SVG_ICON_NAME,
-			sanitizer.bypassSecurityTrustHtml(EDIT_ICON),
-		);
+		iconRegistry.addSvgIconLiteral(EDIT_SOLID_SVG_ICON_NAME, sanitizer.bypassSecurityTrustHtml(EDIT_ICON));
 	}
 }

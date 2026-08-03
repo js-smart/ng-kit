@@ -1,13 +1,15 @@
-import { CdkConnectedOverlay } from '@angular/cdk/overlay';
-import { NgTemplateOutlet } from '@angular/common';
 import { Component, signal } from '@angular/core';
+import { NgTemplateOutlet } from '@angular/common';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatFormField } from '@angular/material/form-field';
 import { By } from '@angular/platform-browser';
+import { MatFormField } from '@angular/material/form-field';
+import { CdkConnectedOverlay } from '@angular/cdk/overlay';
 import { vi } from 'vitest';
-import { NgClearIconDef, NgPaperDef, NgPopupIconDef, NgValueDef } from './autocomplete-templates';
+
 import { AutocompleteComponent } from './autocomplete.component';
 import { createFilterOptions } from './create-filter-options';
+import { NgPopupIconDef, NgClearIconDef, NgPaperDef, NgValueDef } from './autocomplete-templates';
+import type { NgAutocompleteSlotProps } from './autocomplete.types';
 
 @Component({
 	imports: [AutocompleteComponent],
@@ -211,7 +213,7 @@ describe('AutocompleteComponent — multiple (chip field layout)', () => {
 			globals.ResizeObserver = original;
 		}
 	});
-};);
+});
 
 describe('AutocompleteComponent — controlled open', () => {
 	// Signals-first host: this is how an Angular v22 consumer binds a two-way
@@ -248,7 +250,7 @@ describe('AutocompleteComponent — controlled open', () => {
 		await fixture.whenStable();
 		expect(fixture.componentInstance.open()).toBe(true);
 	});
-};);
+});
 
 describe('AutocompleteComponent — selectOnFocus default (B1)', () => {
 	// NOTE: also binds [(value)] so the pre-existing "keep input text in sync
@@ -296,7 +298,7 @@ describe('AutocompleteComponent — selectOnFocus default (B1)', () => {
 		await fixture.whenStable();
 		expect(input.selectionStart).toBe(input.selectionEnd);
 	});
-};);
+});
 
 describe('AutocompleteComponent — forcePopupIcon (B3)', () => {
 	@Component({
@@ -463,12 +465,14 @@ describe('AutocompleteComponent — paper slot', () => {
 describe('AutocompleteComponent — slotProps', () => {
 	@Component({
 		imports: [AutocompleteComponent],
-    template: `<autocomplete [options]="o" [getOptionLabel]="id" [slotProps]="sp" />`,
+		template: `<autocomplete ariaLabel="Base label" [options]="o" [getOptionLabel]="id" [slotProps]="sp()" />`,
 	})
 	class Host {
 		o = ['A'];
 		id = (x: string) => x;
-		sp = { input: { class: 'custom-input', 'data-testid': 'ac-input' } };
+		sp = signal<NgAutocompleteSlotProps>({
+			input: { class: 'ng-input custom-input', 'aria-label': 'Slot label', 'data-testid': 'ac-input' },
+		});
 	}
 	it('applies slotProps.input class and attributes', async () => {
 		const f = TestBed.createComponent(Host);
@@ -476,7 +480,25 @@ describe('AutocompleteComponent — slotProps', () => {
 		f.detectChanges();
 		const input = f.debugElement.query(By.css('input.ng-input')).nativeElement as HTMLInputElement;
 		expect(input.classList.contains('custom-input')).toBe(true);
+		expect(input.getAttribute('aria-label')).toBe('Slot label');
 		expect(input.getAttribute('data-testid')).toBe('ac-input');
+	});
+
+	it('replaces changed classes and removes dropped attributes', async () => {
+		const f = TestBed.createComponent(Host);
+		await f.whenStable();
+		f.detectChanges();
+		const input = f.debugElement.query(By.css('input.ng-input')).nativeElement as HTMLInputElement;
+
+		f.componentInstance.sp.set({ input: { class: 'replacement-input' } });
+		f.detectChanges();
+		await f.whenStable();
+
+		expect(input.classList.contains('custom-input')).toBe(false);
+		expect(input.classList.contains('ng-input')).toBe(true);
+		expect(input.classList.contains('replacement-input')).toBe(true);
+		expect(input.getAttribute('data-testid')).toBeNull();
+		expect(input.getAttribute('aria-label')).toBe('Base label');
 	});
 });
 
@@ -510,7 +532,7 @@ describe('AutocompleteComponent — window blur reopen guard (B10)', () => {
 		f.detectChanges();
 		await f.whenStable();
 		expect(f.debugElement.query(By.css('[role="listbox"]'))).toBeTruthy();
-	};);
+	});
 
 	it('removes the window blur listener on destroy', async () => {
 		const f = TestBed.createComponent(Host);
@@ -589,5 +611,95 @@ describe('AutocompleteComponent — single-select chip (B6)', () => {
 		f.detectChanges();
 		await f.whenStable();
 		expect(f.componentInstance.v).toBeNull();
+	});
+});
+
+describe('AutocompleteComponent — openOnFocus default', () => {
+	@Component({
+		imports: [AutocompleteComponent],
+		selector: 'test-open-on-focus-host',
+		template: `<autocomplete [options]="o" [getOptionLabel]="id" />`,
+	})
+	class Host {
+		o = ['A', 'B'];
+		id = (x: string): string => x;
+	}
+
+	it('leaves the popup closed on plain focus and opens it with ArrowDown', async () => {
+		const f = TestBed.createComponent(Host);
+		await f.whenStable();
+		f.detectChanges();
+		const input = f.debugElement.query(By.css('input.ng-input')).nativeElement as HTMLInputElement;
+
+		input.dispatchEvent(new Event('focus'));
+		f.detectChanges();
+		await f.whenStable();
+		expect(f.debugElement.query(By.css('[role="listbox"]'))).toBeNull();
+
+		input.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true }));
+		f.detectChanges();
+		await f.whenStable();
+		expect(f.debugElement.query(By.css('[role="listbox"]'))).toBeTruthy();
+	});
+});
+
+describe('AutocompleteComponent — duplicate labels', () => {
+	@Component({
+		imports: [AutocompleteComponent],
+		selector: 'test-duplicate-labels-host',
+		template: `<autocomplete [options]="o" [getOptionLabel]="label" />`,
+	})
+	class Host {
+		o = [
+			{ id: 1, label: 'Alpha' },
+			{ id: 2, label: 'Alpha' },
+			{ id: 3, label: 'Beta' },
+		];
+		label = (option: { id: number; label: string }): string => option.label;
+	}
+
+	it('renders without an NG0955 duplicate-track warning', async () => {
+		const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+		try {
+			const f = TestBed.createComponent(Host);
+			await f.whenStable();
+			f.detectChanges();
+			const input = f.debugElement.query(By.css('input.ng-input')).nativeElement as HTMLInputElement;
+			input.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true }));
+			f.detectChanges();
+			await f.whenStable();
+
+			expect(f.debugElement.queryAll(By.css('[role="option"]')).length).toBe(3);
+			expect(warn.mock.calls.flat().join(' ')).not.toContain('NG0955');
+		} finally {
+			warn.mockRestore();
+		}
+	});
+});
+
+describe('AutocompleteComponent — virtual listbox dimensions', () => {
+	@Component({
+		imports: [AutocompleteComponent],
+		selector: 'test-virtual-dimensions-host',
+		template: `<autocomplete [options]="o" [getOptionLabel]="id" [virtualize]="true" [maxVisibleItems]="2" />`,
+	})
+	class Host {
+		o = ['A', 'B', 'C', 'D', 'E'];
+		id = (x: string): string => x;
+	}
+
+	it('uses the item size for the viewport and rendered rows', async () => {
+		const f = TestBed.createComponent(Host);
+		await f.whenStable();
+		f.detectChanges();
+		const input = f.debugElement.query(By.css('input.ng-input')).nativeElement as HTMLInputElement;
+		input.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true }));
+		f.detectChanges();
+		await f.whenStable();
+
+		const viewport = f.debugElement.query(By.css('.cdk-virtual-scroll-viewport')).nativeElement as HTMLElement;
+		expect(viewport.style.height).toBe('96px');
+		expect(viewport.style.maxHeight).toBe('96px');
+		expect(viewport.style.getPropertyValue('--ng-row')).toBe('48px');
 	});
 });

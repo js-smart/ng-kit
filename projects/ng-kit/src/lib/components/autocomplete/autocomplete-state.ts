@@ -1,13 +1,13 @@
 import { computed, linkedSignal, signal, untracked, type Signal, type WritableSignal } from '@angular/core';
 import type {
-  ChangeReason,
-  CloseReason,
-  HighlightChangeReason,
-  InputChangeReason,
-  NgAutocompleteConfig,
-  OpenReason,
-  OptionGroup,
-  RenderedOption,
+	ChangeReason,
+	CloseReason,
+	HighlightChangeReason,
+	InputChangeReason,
+	NgAutocompleteConfig,
+	OpenReason,
+	OptionGroup,
+	RenderedOption,
 } from './autocomplete.types';
 import { defaultFilterOptions } from './create-filter-options';
 

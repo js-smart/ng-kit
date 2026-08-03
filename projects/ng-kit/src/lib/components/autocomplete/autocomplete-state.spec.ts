@@ -1,17 +1,26 @@
-import { signal } from '@angular/core';
+import { computed, signal, type WritableSignal } from '@angular/core';
 import { vi } from 'vitest';
-import { NgAutocompleteState } from './autocomplete-state';
+import { NgAutocompleteState, type NgAutocompleteStateEvents } from './autocomplete-state';
 import { DEFAULT_CONFIG, type NgAutocompleteConfig } from './autocomplete.types';
 import { defaultFilterOptions } from './create-filter-options';
 
-function makeState(
-	cfg: Partial<NgAutocompleteConfig<string>> = {},
-	opts: {
-		options?: string[];
-		value?: string | readonly string[] | null;
-		inputValue?: string;
-	} = {},
-) {
+interface MakeStateOptions {
+	options?: string[];
+	value?: string | readonly string[] | null;
+	inputValue?: string;
+	events?: NgAutocompleteStateEvents<string>;
+}
+
+interface TestState {
+	state: NgAutocompleteState<string>;
+	options: WritableSignal<readonly string[]>;
+	value: WritableSignal<string | readonly string[] | null>;
+	inputValue: WritableSignal<string>;
+	open: WritableSignal<boolean>;
+	config: WritableSignal<NgAutocompleteConfig<string>>;
+}
+
+function makeState(cfg: Partial<NgAutocompleteConfig<string>> = {}, opts: MakeStateOptions = {}): TestState {
 	const options = signal<readonly string[]>(opts.options ?? ['Alpha', 'Beta', 'Gamma']);
 	const value = signal<string | readonly string[] | null>(opts.value ?? null);
 	const inputValue = signal<string>(opts.inputValue ?? '');
@@ -21,7 +30,7 @@ function makeState(
 		filterOptions: defaultFilterOptions as never,
 		...cfg,
 	});
-	const state = new NgAutocompleteState<string>({ options, value, inputValue, open, config });
+	const state = new NgAutocompleteState<string>({ options, value, inputValue, open, config, events: opts.events });
 	return { state, options, value, inputValue, open, config };
 }
 
@@ -116,8 +125,19 @@ describe('NgAutocompleteState — highlight syncs to the value on open', () => {
 describe('NgAutocompleteState — autoSelect blur gating (B4/B7)', () => {
 	it('does NOT auto-select a mouse-highlighted option on blur', () => {
 		const changes: string[] = [];
-		const { state } = makeState({ autoSelect: true }, { inputValue: '' });
-		(state as any).deps.events = { change: (v: string) => changes.push(v as string) };
+		const { state } = makeState(
+			{ autoSelect: true },
+			{
+				inputValue: '',
+				events: {
+					change: (value): void => {
+						if (typeof value === 'string') {
+							changes.push(value);
+						}
+					},
+				},
+			},
+		);
 		state.openPopup('input');
 		state.setHighlight(0, 'mouse');
 		state.handleBlur();
@@ -125,9 +145,7 @@ describe('NgAutocompleteState — autoSelect blur gating (B4/B7)', () => {
 	});
 
 	it('auto-selects a keyboard-highlighted option on blur', () => {
-		const changes: unknown[] = [];
 		const { state, value } = makeState({ autoSelect: true }, { inputValue: '' });
-		(state as any).deps.events = { change: (v: unknown) => changes.push(v) };
 		state.openPopup('input');
 		state.setHighlight(0, 'keyboard');
 		state.handleBlur();
@@ -136,8 +154,16 @@ describe('NgAutocompleteState — autoSelect blur gating (B4/B7)', () => {
 
 	it('does not emit highlightChange for programmatic (auto) highlight (B7)', () => {
 		const reasons: string[] = [];
-		const { state } = makeState({ autoHighlight: true });
-		(state as any).deps.events = { highlightChange: (_o: unknown, r: string) => reasons.push(r) };
+		const { state } = makeState(
+			{ autoHighlight: true },
+			{
+				events: {
+					highlightChange: (_option, reason): void => {
+						reasons.push(reason);
+					},
+				},
+			},
+		);
 		state.openPopup('input');
 		state.moveHighlight('reset');
 		expect(reasons).not.toContain('auto');
@@ -218,12 +244,17 @@ describe('NgAutocompleteState — touch semantics (B9)', () => {
 
 	it('does NOT call requestBlur on a touch selection when blurOnSelect is "mouse"', () => {
 		let blurred = false;
-		const { state } = makeState({ blurOnSelect: 'mouse' }, { inputValue: 'A' });
-		(state as any).deps.events = {
-			requestBlur: () => {
-				blurred = true;
+		const { state } = makeState(
+			{ blurOnSelect: 'mouse' },
+			{
+				inputValue: 'A',
+				events: {
+					requestBlur: (): void => {
+						blurred = true;
+					},
+				},
 			},
-		};
+		);
 		state.openPopup('input');
 		state.handleOptionTouchStart(0);
 		state.selectOption('Alpha', 'selectOption');
@@ -232,12 +263,17 @@ describe('NgAutocompleteState — touch semantics (B9)', () => {
 
 	it('calls requestBlur on a touch selection when blurOnSelect is "touch"', () => {
 		let blurred = false;
-		const { state } = makeState({ blurOnSelect: 'touch' }, { inputValue: 'A' });
-		(state as any).deps.events = {
-			requestBlur: () => {
-				blurred = true;
+		const { state } = makeState(
+			{ blurOnSelect: 'touch' },
+			{
+				inputValue: 'A',
+				events: {
+					requestBlur: (): void => {
+						blurred = true;
+					},
+				},
 			},
-		};
+		);
 		state.openPopup('input');
 		state.handleOptionTouchStart(0);
 		state.selectOption('Alpha', 'selectOption');
@@ -246,12 +282,17 @@ describe('NgAutocompleteState — touch semantics (B9)', () => {
 
 	it('calls requestBlur on a non-touch (mouse/keyboard) selection when blurOnSelect is "mouse"', () => {
 		let blurred = false;
-		const { state } = makeState({ blurOnSelect: 'mouse' }, { inputValue: 'A' });
-		(state as any).deps.events = {
-			requestBlur: () => {
-				blurred = true;
+		const { state } = makeState(
+			{ blurOnSelect: 'mouse' },
+			{
+				inputValue: 'A',
+				events: {
+					requestBlur: (): void => {
+						blurred = true;
+					},
+				},
 			},
-		};
+		);
 		state.openPopup('input');
 		state.selectOption('Alpha', 'selectOption');
 		expect(blurred).toBe(true);
@@ -292,21 +333,21 @@ describe('NgAutocompleteState — VoiceOver synthetic Backspace guard (B10)', ()
 });
 
 describe('DEFAULT_CONFIG.getOptionKey (identity)', () => {
-  it('assigns distinct stable ids to distinct objects with the same label', () => {
-    const a = { label: 'X' };
-    const b = { label: 'X' };
-    const keyA = DEFAULT_CONFIG.getOptionKey(a);
-    const keyB = DEFAULT_CONFIG.getOptionKey(b);
-    expect(keyA).not.toBe(keyB);
-    expect(DEFAULT_CONFIG.getOptionKey(a)).toBe(keyA);
-  });
+	it('assigns distinct stable ids to distinct objects with the same label', () => {
+		const a = { label: 'X' };
+		const b = { label: 'X' };
+		const keyA = DEFAULT_CONFIG.getOptionKey(a);
+		const keyB = DEFAULT_CONFIG.getOptionKey(b);
+		expect(keyA).not.toBe(keyB);
+		expect(DEFAULT_CONFIG.getOptionKey(a)).toBe(keyA);
+	});
 
-  it('uses stable, type-safe value identity for primitives', () => {
-    expect(DEFAULT_CONFIG.getOptionKey('Alpha')).toBe(DEFAULT_CONFIG.getOptionKey('Alpha'));
-    expect(DEFAULT_CONFIG.getOptionKey(42)).toBe(DEFAULT_CONFIG.getOptionKey(42));
-    expect(DEFAULT_CONFIG.getOptionKey('42')).not.toBe(DEFAULT_CONFIG.getOptionKey(42));
-    expect(DEFAULT_CONFIG.getOptionKey(true)).not.toBe(DEFAULT_CONFIG.getOptionKey('true'));
-  });
+	it('uses stable, type-safe value identity for primitives', () => {
+		expect(DEFAULT_CONFIG.getOptionKey('Alpha')).toBe(DEFAULT_CONFIG.getOptionKey('Alpha'));
+		expect(DEFAULT_CONFIG.getOptionKey(42)).toBe(DEFAULT_CONFIG.getOptionKey(42));
+		expect(DEFAULT_CONFIG.getOptionKey('42')).not.toBe(DEFAULT_CONFIG.getOptionKey(42));
+		expect(DEFAULT_CONFIG.getOptionKey(true)).not.toBe(DEFAULT_CONFIG.getOptionKey('true'));
+	});
 });
 
 describe('DEFAULT_CONFIG.getOptionLabel (B11)', () => {

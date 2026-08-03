@@ -121,8 +121,8 @@ const basicPrintConfig = buildDemoConfig({ title: 'Basic print', componentName: 
 	template: `
 		<doc-page title="Ngx Print">
 			<p docLead>
-				<code>ngxPrint</code> is a reusable Angular directive that prints any specified section of your application. Apply it to a button, point
-				it at an element by id, and it opens a print dialog or a live preview window that renders exactly the content you want.
+				<code>ngxPrint</code> is a reusable Angular directive that prints any specified section of your application. Apply it to a button,
+				point it at an element by id, and it opens a print dialog or a live preview window that renders exactly the content you want.
 			</p>
 
 			<div docOverview>
@@ -167,7 +167,9 @@ const basicPrintConfig = buildDemoConfig({ title: 'Basic print', componentName: 
 			<div docApi>
 				<h3>Selectors</h3>
 				<p><code>button[ngxPrint]</code>, <code>button[print]</code></p>
-				<p class="api-note">The directive must be applied to a <code>&lt;button&gt;</code> element, and <code>printSectionId</code> is required.</p>
+				<p class="api-note">
+					The directive must be applied to a <code>&lt;button&gt;</code> element, and <code>printSectionId</code> is required.
+				</p>
 
 				<h3>Inputs</h3>
 				<table class="api-table">

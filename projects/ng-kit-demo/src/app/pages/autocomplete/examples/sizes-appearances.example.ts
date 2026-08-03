@@ -57,26 +57,14 @@ interface Combo {
 			@for (c of combos; track c.label) {
 				<div class="cell">
 					<span class="cell-label">{{ c.label }}</span>
-					<autocomplete
-						[options]="films"
-						[(value)]="c.value"
-						[size]="c.size"
-						[appearance]="c.appearance"
-						label="Movie"
-					/>
+					<autocomplete [options]="films" [(value)]="c.value" [size]="c.size" [appearance]="c.appearance" label="Movie" />
 				</div>
 			}
 		</div>
 
 		<div class="full">
 			<span class="cell-label">fullWidth</span>
-			<autocomplete
-				[options]="films"
-				[(value)]="fullWidthValue"
-				[fullWidth]="true"
-				appearance="outline"
-				label="Movie"
-			/>
+			<autocomplete [options]="films" [(value)]="fullWidthValue" [fullWidth]="true" appearance="outline" label="Movie" />
 		</div>
 	`,
 	styles: `
@@ -102,8 +90,14 @@ interface Combo {
 })
 export class SizesAppearancesExample {
 	protected readonly films = [
-		'The Shawshank Redemption', 'The Godfather', 'The Dark Knight',
-		'Pulp Fiction', 'Inception', 'Interstellar', 'Parasite', 'Whiplash',
+		'The Shawshank Redemption',
+		'The Godfather',
+		'The Dark Knight',
+		'Pulp Fiction',
+		'Inception',
+		'Interstellar',
+		'Parasite',
+		'Whiplash',
 	];
 
 	protected readonly combos: readonly Combo[] = [

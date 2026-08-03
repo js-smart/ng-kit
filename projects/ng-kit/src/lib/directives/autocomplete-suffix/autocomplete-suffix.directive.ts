@@ -1,4 +1,15 @@
-import { AfterViewInit, ApplicationRef, ComponentRef, createComponent, DestroyRef, Directive, ElementRef, EnvironmentInjector, inject, Renderer2 } from '@angular/core';
+import {
+	AfterViewInit,
+	ApplicationRef,
+	ComponentRef,
+	createComponent,
+	DestroyRef,
+	Directive,
+	ElementRef,
+	EnvironmentInjector,
+	inject,
+	Renderer2,
+} from '@angular/core';
 import { NgControl } from '@angular/forms';
 import { MatAutocompleteTrigger } from '@angular/material/autocomplete';
 import { AutocompleteClearButtonComponent } from './autocomplete-clear-button.component';

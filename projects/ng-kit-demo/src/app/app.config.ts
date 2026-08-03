@@ -40,6 +40,6 @@ export const appConfig: ApplicationConfig = {
 		{
 			provide: MAT_DIALOG_DEFAULT_OPTIONS,
 			useValue: { hasBackdrop: true, disableClose: true },
-		}
+		},
 	],
 };

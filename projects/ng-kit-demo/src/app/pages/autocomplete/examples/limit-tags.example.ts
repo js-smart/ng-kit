@@ -63,12 +63,15 @@ export class LimitTagsComponent {
 			[isOptionEqualToValue]="isOptionEqualToValue"
 			[appearance]="settings.appearance()"
 			label="Favorite films"
-			placeholder="Add a film"
-		/>
+			placeholder="Add a film" />
 		<p class="readout">Selected: {{ value().join(', ') || '—' }}</p>
 	`,
 	styles: `
-		.readout { margin-top: 12px; color: var(--ng-muted, #6b7280); font-size: 14px; }
+		.readout {
+			margin-top: 12px;
+			color: var(--ng-muted, #6b7280);
+			font-size: 14px;
+		}
 	`,
 })
 export class LimitTagsExample {
@@ -89,17 +92,11 @@ export class LimitTagsExample {
 
 	protected readonly limitTags = signal(2);
 
-	protected readonly value = signal<string[]>([
-		'The Shawshank Redemption',
-		'The Godfather',
-		'Inception',
-		'Interstellar',
-	]);
+	protected readonly value = signal<string[]>(['The Shawshank Redemption', 'The Godfather', 'Inception', 'Interstellar']);
 
 	protected readonly getLimitTagsText = (n: number): string => `+${n} more`;
 
-	protected readonly isOptionEqualToValue = (option: string, value: string): boolean =>
-		option === value;
+	protected readonly isOptionEqualToValue = (option: string, value: string): boolean => option === value;
 }
 
 export const limitTagsConfig = buildAutocompleteExampleConfig({

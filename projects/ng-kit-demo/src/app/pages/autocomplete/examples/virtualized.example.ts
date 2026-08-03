@@ -41,12 +41,15 @@ export const virtualizedConfig = buildAutocompleteExampleConfig({ title: 'Virtua
 			[itemSize]="48"
 			[appearance]="settings.appearance()"
 			label="Option"
-			placeholder="Search 10,000 options"
-		/>
+			placeholder="Search 10,000 options" />
 		<p class="readout">Selected: {{ value() ?? '—' }}</p>
 	`,
 	styles: `
-		.readout { margin-top: 12px; color: var(--ng-muted, #6b7280); font-size: 14px; }
+		.readout {
+			margin-top: 12px;
+			color: var(--ng-muted, #6b7280);
+			font-size: 14px;
+		}
 	`,
 })
 export class VirtualizedExample {

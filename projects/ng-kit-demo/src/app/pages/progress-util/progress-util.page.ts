@@ -62,13 +62,13 @@ const saveLifecycleConfig = buildDemoConfig({
 
 			<div docOverview>
 				<p>
-					<code>progress-util</code> manages progress states in Angular applications using Angular Signals. It offers a simple,
-					type-safe way to track the loading, success, and error states of asynchronous work, making it a good fit for form
-					submissions, API calls, data loading, and user feedback.
+					<code>progress-util</code> manages progress states in Angular applications using Angular Signals. It offers a simple, type-safe
+					way to track the loading, success, and error states of asynchronous work, making it a good fit for form submissions, API calls,
+					data loading, and user feedback.
 				</p>
 				<p>
-					The utility uses a <code>WritableSignal</code> for reactive state management, so the UI updates automatically when the
-					progress state changes. Import the functions from <code>&#64;js-smart/ng-kit</code>, initialize a state with
+					The utility uses a <code>WritableSignal</code> for reactive state management, so the UI updates automatically when the progress
+					state changes. Import the functions from <code>&#64;js-smart/ng-kit</code>, initialize a state with
 					<code>initializeState()</code>, and call the helpers to move through the lifecycle:
 				</p>
 				<ul>
@@ -77,8 +77,8 @@ const saveLifecycleConfig = buildDemoConfig({
 					<li><code>markError(state, message?)</code> — the operation failed.</li>
 				</ul>
 				<p>
-					The state follows a predictable flow: <em>Initial → Loading → Success/Error</em>, and can return to loading for a new
-					operation. It works seamlessly with Angular change detection and the OnPush strategy.
+					The state follows a predictable flow: <em>Initial → Loading → Success/Error</em>, and can return to loading for a new operation.
+					It works seamlessly with Angular change detection and the OnPush strategy.
 				</p>
 			</div>
 
@@ -171,8 +171,9 @@ const saveLifecycleConfig = buildDemoConfig({
 					</tbody>
 				</table>
 				<p class="api-note">
-					The initial state is <code>{{ '{' }} isLoading: false, isSuccess: false, isError: false, isComplete: false, message: '' {{ '}' }}</code>.
-					Reset for a new operation by calling <code>markLoading()</code> again.
+					The initial state is
+					<code>{{ '{' }} isLoading: false, isSuccess: false, isError: false, isComplete: false, message: '' {{ '}' }}</code
+					>. Reset for a new operation by calling <code>markLoading()</code> again.
 				</p>
 			</div>
 		</doc-page>

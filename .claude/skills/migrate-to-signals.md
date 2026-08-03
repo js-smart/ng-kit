@@ -5,7 +5,7 @@ description: Migrate Angular Observable consumption to signals — replace `| as
 
 # Migrate to signals
 
-Convert Observable-based *state reading* to signals so templates read plain values and Angular handles cleanup automatically. This targets values you only **consume** (template `| async`, read-only subscriptions, derived state) — not genuine event/stream pipelines, which stay as RxJS.
+Convert Observable-based _state reading_ to signals so templates read plain values and Angular handles cleanup automatically. This targets values you only **consume** (template `| async`, read-only subscriptions, derived state) — not genuine event/stream pipelines, which stay as RxJS.
 
 ## When to apply
 
@@ -14,16 +14,16 @@ Convert Observable-based *state reading* to signals so templates read plain valu
 - A `combineLatest`/`map` chain produces a value that's only read (not a stream of events).
 - The user asks to "remove async pipes", "use signals", or "migrate to toSignal".
 
-Do **not** convert: event streams (clicks, websockets, action effects), HTTP *mutations*, or pipelines with side effects. For those see the `take-until-destroyed` skill.
+Do **not** convert: event streams (clicks, websockets, action effects), HTTP _mutations_, or pipelines with side effects. For those see the `take-until-destroyed` skill.
 
 ## Tools
 
-| Source | Use |
-|---|---|
-| NgRx selector | `this.store.selectSignal(selector)` (purpose-built; no `toSignal` needed) |
-| Any other Observable (HTTP, router, form `valueChanges`) | `toSignal(obs$, { initialValue })` from `@angular/core/rxjs-interop` |
-| Derived value from other signals | `computed(() => ...)` |
-| Local mutable state | `signal(initial)` |
+| Source                                                   | Use                                                                       |
+| -------------------------------------------------------- | ------------------------------------------------------------------------- |
+| NgRx selector                                            | `this.store.selectSignal(selector)` (purpose-built; no `toSignal` needed) |
+| Any other Observable (HTTP, router, form `valueChanges`) | `toSignal(obs$, { initialValue })` from `@angular/core/rxjs-interop`      |
+| Derived value from other signals                         | `computed(() => ...)`                                                     |
+| Local mutable state                                      | `signal(initial)`                                                         |
 
 ## The initial-value rule (critical)
 
@@ -52,14 +52,15 @@ Prefer `this.store.selectSignal(selector)` for NgRx selectors in the first place
 ## Before
 
 ```typescript
-@Component({ /* ... */ })
+@Component({/* ... */})
 export class ProfileComponent {
-    private readonly store = inject(Store);
+	private readonly store = inject(Store);
 
-    user$ = this.store.select(selectUser);
-    fullName$ = this.user$.pipe(map(u => `${u.firstName} ${u.lastName}`));
+	user$ = this.store.select(selectUser);
+	fullName$ = this.user$.pipe(map((u) => `${u.firstName} ${u.lastName}`));
 }
 ```
+
 ```html
 <div *ngIf="user$ | async as user">{{ fullName$ | async }}</div>
 ```
@@ -67,20 +68,21 @@ export class ProfileComponent {
 ## After
 
 ```typescript
-@Component({ /* ... */ })
+@Component({/* ... */})
 export class ProfileComponent {
-    private readonly store = inject(Store);
+	private readonly store = inject(Store);
 
-    user = this.store.selectSignal(selectUser);
-    fullName = computed(() => {
-        const u = this.user();
-        return u ? `${u.firstName} ${u.lastName}` : '';
-    });
+	user = this.store.selectSignal(selectUser);
+	fullName = computed(() => {
+		const u = this.user();
+		return u ? `${u.firstName} ${u.lastName}` : '';
+	});
 }
 ```
+
 ```html
 @if (user(); as user) {
-  <div>{{ fullName() }}</div>
+<div>{{ fullName() }}</div>
 }
 ```
 

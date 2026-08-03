@@ -5,13 +5,7 @@ import { EDIT_SOLID_SVG_ICON_NAME, EditSolidSvgIconRegistry } from './edit-solid
 @Component({
 	selector: 'edit-solid-svg',
 	imports: [MatIconModule],
-	template: `
-		<mat-icon
-			[class]="iconClass()"
-			[style.font-size]="size()"
-			aria-hidden="true"
-			[svgIcon]="svgIconName" />
-	`,
+	template: ` <mat-icon [class]="iconClass()" [style.font-size]="size()" aria-hidden="true" [svgIcon]="svgIconName" /> `,
 	styles: [
 		`
 			:host {
