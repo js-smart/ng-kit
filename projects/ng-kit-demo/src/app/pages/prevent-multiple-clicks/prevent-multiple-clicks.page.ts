@@ -29,13 +29,14 @@ export class BasicPreventClicksComponent {
 }`;
 
 const VIEW_BUTTON_CODE = `import { Component } from '@angular/core';
-import { PreventMultipleClicksDirective, ViewButtonComponent } from '@js-smart/ng-kit';
+import { MatButton } from '@angular/material/button';
+import { PreventMultipleClicksDirective, ViewButtonDirective } from '@js-smart/ng-kit';
 
 @Component({
 	selector: 'app-throttle-view-button',
-	imports: [ViewButtonComponent, PreventMultipleClicksDirective],
+	imports: [ViewButtonDirective, MatButton, PreventMultipleClicksDirective],
 	template: \`
-		<view-button label="Throttle Button" preventMultipleClicks (throttleClick)="click()" />
+		<button viewButton mat-button preventMultipleClicks (throttleClick)="click()">Throttle Button</button>
 	\`,
 })
 export class ThrottleViewButtonComponent {
@@ -47,9 +48,9 @@ export class ThrottleViewButtonComponent {
 /** StackBlitz config for the Basic card — class name matches PascalCase(componentName). */
 const basicConfig = buildDemoConfig({ title: 'Basic', componentName: 'basic-prevent-clicks', code: BASIC_CODE });
 
-/** StackBlitz config for the button-component card — class name matches PascalCase(componentName). */
+/** StackBlitz config for the button-directive card — class name matches PascalCase(componentName). */
 const viewButtonConfig = buildDemoConfig({
-	title: 'With a button component',
+	title: 'With a button directive',
 	componentName: 'throttle-view-button',
 	code: VIEW_BUTTON_CODE,
 });
@@ -151,9 +152,9 @@ const viewButtonConfig = buildDemoConfig({
 				</demo-card>
 
 				<demo-card
-					title="With a button component"
-					anchorId="with-a-button-component"
-					description="The directive applied to the library's view-button. Open the console to see the throttled output fire."
+					title="With a button directive"
+					anchorId="with-a-button-directive"
+					description="The directive applied to the library's viewButton. Open the console to see the throttled output fire."
 					[props]="['preventMultipleClicks', 'throttleClick']"
 					[code]="viewButtonCode"
 					[stackblitz]="viewButtonConfig">

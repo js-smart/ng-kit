@@ -6,17 +6,17 @@ import { DemoConfig } from '../types/demo-config';
 export function getViewPrimaryButtonDemoConfig(): DemoConfig {
 	return {
 		title: 'View Primary Button Demo',
-		description: 'Demo showcasing the ViewPrimaryButtonComponent and viewPrimaryButton directive from @js-smart/ng-kit',
+		description: 'Demo showcasing the ViewPrimaryButtonDirective from @js-smart/ng-kit',
 		componentName: 'view-primary-button-demo',
 		requiredImports: ['BrowserAnimationsModule'],
 		componentTs: `import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { MatButton } from '@angular/material/button';
-import { ViewPrimaryButtonComponent, ViewPrimaryButtonDirective } from '@js-smart/ng-kit';
+import { ViewPrimaryButtonDirective } from '@js-smart/ng-kit';
 
 @Component({
 	selector: 'app-view-primary-button-demo',
 	standalone: true,
-	imports: [ViewPrimaryButtonComponent, ViewPrimaryButtonDirective, MatButton],
+	imports: [ViewPrimaryButtonDirective, MatButton],
 	templateUrl: './view-primary-button-demo.component.html',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -30,11 +30,6 @@ export class ViewPrimaryButtonDemoComponent {
 		componentHtml: `<div>
 	<h2>Directive (Preferred)</h2>
 	<button ariaLabel="View details" (click)="onView()" viewPrimaryButton mat-raised-button>View</button>
-</div>
-
-<div>
-	<h2>Component</h2>
-	<view-primary-button ariaLabel="View details" (click)="onView()">View</view-primary-button>
 </div>
 
 <p>{{ status() }}</p>`,

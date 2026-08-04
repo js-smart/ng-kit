@@ -1,19 +1,14 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatButton } from '@angular/material/button';
-import { EditSvgIconButtonComponent, EditSvgIconButtonDirective } from '@js-smart/ng-kit';
+import { EditSvgIconButtonDirective } from '@js-smart/ng-kit';
 
 @Component({
 	selector: 'ng-kit-edit-svg-icon-button-demo',
-	imports: [EditSvgIconButtonComponent, EditSvgIconButtonDirective, MatButton],
+	imports: [EditSvgIconButtonDirective, MatButton],
 	template: `
 		<div>
 			<h2>Directive (Preferred)</h2>
 			<button ariaLabel="Edit item" (click)="onEdit()" editSvgIconButton mat-raised-button>Edit</button>
-		</div>
-
-		<div>
-			<h2>Component</h2>
-			<edit-svg-icon-button ariaLabel="Edit item" (click)="onEdit()"></edit-svg-icon-button>
 		</div>
 	`,
 	styles: [``],

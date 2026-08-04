@@ -1,30 +1,25 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { MatButton } from '@angular/material/button';
-import { PrimaryButtonComponent, PrimaryButtonDirective } from '@js-smart/ng-kit';
+import { PrimaryButtonDirective } from '@js-smart/ng-kit';
 
 @Component({
 	selector: 'ng-kit-base-button-demo',
 	standalone: true,
-	imports: [PrimaryButtonComponent, PrimaryButtonDirective, MatButton],
+	imports: [PrimaryButtonDirective, MatButton],
 	template: `
 		<div>
 			<h2>Loading state</h2>
-			<primary-button [loading]="loading()" label="Save" (click)="toggleLoading()"></primary-button>
+			<button [loading]="loading()" label="Save" (click)="toggleLoading()" primaryButton mat-raised-button>Save</button>
 		</div>
 
 		<div>
 			<h2>Disabled state</h2>
-			<primary-button [disabled]="true" label="Disabled"></primary-button>
+			<button [disabled]="true" primaryButton mat-raised-button>Disabled</button>
 		</div>
 
 		<div>
 			<h2>With icon</h2>
-			<primary-button [showIcon]="true" icon="save" label="Save with icon"></primary-button>
-		</div>
-
-		<div>
-			<h2>Directive with loading</h2>
-			<button ariaLabel="Submit" [loading]="loading()" primaryButton mat-raised-button>Submit</button>
+			<button icon="save" primaryButton mat-raised-button>Save with icon</button>
 		</div>
 	`,
 	changeDetection: ChangeDetectionStrategy.OnPush,

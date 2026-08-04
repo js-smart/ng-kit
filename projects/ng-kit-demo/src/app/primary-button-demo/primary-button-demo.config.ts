@@ -6,17 +6,17 @@ import { DemoConfig } from '../types/demo-config';
 export function getPrimaryButtonDemoConfig(): DemoConfig {
 	return {
 		title: 'Primary Button Demo',
-		description: 'Demo showcasing the PrimaryButtonComponent and primaryButton directive from @js-smart/ng-kit',
+		description: 'Demo showcasing the PrimaryButtonDirective from @js-smart/ng-kit',
 		componentName: 'primary-button-demo',
 		requiredImports: ['BrowserAnimationsModule'],
 		componentTs: `import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { MatButton } from '@angular/material/button';
-import { PrimaryButtonComponent, PrimaryButtonDirective } from '@js-smart/ng-kit';
+import { PrimaryButtonDirective } from '@js-smart/ng-kit';
 
 @Component({
 	selector: 'app-primary-button-demo',
 	standalone: true,
-	imports: [PrimaryButtonComponent, PrimaryButtonDirective, MatButton],
+	imports: [PrimaryButtonDirective, MatButton],
 	templateUrl: './primary-button-demo.component.html',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -30,11 +30,6 @@ export class PrimaryButtonDemoComponent {
 		componentHtml: `<div>
 	<h2>Directive (Preferred)</h2>
 	<button ariaLabel="Submit" (click)="onSubmit()" primaryButton mat-raised-button>Submit</button>
-</div>
-
-<div>
-	<h2>Component</h2>
-	<primary-button ariaLabel="Submit" (click)="onSubmit()">Submit</primary-button>
 </div>
 
 <p>{{ status() }}</p>`,

@@ -6,16 +6,16 @@ import { DemoConfig } from '../types/demo-config';
 export function getPdfExportButtonDemoConfig(): DemoConfig {
 	return {
 		title: 'PDF Export Button Demo',
-		description: 'Demo showcasing the PdfExportButtonComponent and pdfExportButton directive from @js-smart/ng-kit',
+		description: 'Demo showcasing the PdfExportButtonDirective from @js-smart/ng-kit',
 		componentName: 'pdf-export-button-demo',
 		componentTs: `import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { MatButton } from '@angular/material/button';
-import { PdfExportButtonComponent, PdfExportButtonDirective } from '@js-smart/ng-kit';
+import { PdfExportButtonDirective } from '@js-smart/ng-kit';
 
 @Component({
 	selector: 'app-pdf-export-button-demo',
 	standalone: true,
-	imports: [PdfExportButtonComponent, PdfExportButtonDirective, MatButton],
+	imports: [PdfExportButtonDirective, MatButton],
 	templateUrl: './pdf-export-button-demo.component.html',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -29,11 +29,6 @@ export class PdfExportButtonDemoComponent {
 		componentHtml: `<div>
 	<h2>Directive (Preferred)</h2>
 	<button (click)="onExport()" pdfExportButton mat-raised-button>PDF</button>
-</div>
-
-<div>
-	<h2>Component</h2>
-	<pdf-export-button (click)="onExport()"></pdf-export-button>
 </div>
 
 <p>{{ status() }}</p>`,

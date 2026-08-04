@@ -6,17 +6,17 @@ import { DemoConfig } from '../types/demo-config';
 export function getBaseButtonDemoConfig(): DemoConfig {
 	return {
 		title: 'Base Button Demo',
-		description: 'Demo showcasing inherited Base Button inputs via PrimaryButtonComponent from @js-smart/ng-kit',
+		description: 'Demo showcasing inherited Base Button inputs via PrimaryButtonDirective from @js-smart/ng-kit',
 		componentName: 'base-button-demo',
 		requiredImports: ['BrowserAnimationsModule'],
 		componentTs: `import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { MatButton } from '@angular/material/button';
-import { PrimaryButtonComponent, PrimaryButtonDirective } from '@js-smart/ng-kit';
+import { PrimaryButtonDirective } from '@js-smart/ng-kit';
 
 @Component({
 	selector: 'app-base-button-demo',
 	standalone: true,
-	imports: [PrimaryButtonComponent, PrimaryButtonDirective, MatButton],
+	imports: [PrimaryButtonDirective, MatButton],
 	templateUrl: './base-button-demo.component.html',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -29,22 +29,17 @@ export class BaseButtonDemoComponent {
 }`,
 		componentHtml: `<div>
 	<h2>Loading state</h2>
-	<primary-button [loading]="loading()" label="Save" (click)="toggleLoading()"></primary-button>
+	<button [loading]="loading()" label="Save" (click)="toggleLoading()" primaryButton mat-raised-button>Save</button>
 </div>
 
 <div>
 	<h2>Disabled state</h2>
-	<primary-button [disabled]="true" label="Disabled"></primary-button>
+	<button [disabled]="true" primaryButton mat-raised-button>Disabled</button>
 </div>
 
 <div>
 	<h2>With icon</h2>
-	<primary-button [showIcon]="true" icon="save" label="Save with icon"></primary-button>
-</div>
-
-<div>
-	<h2>Directive with loading</h2>
-	<button ariaLabel="Submit" [loading]="loading()" primaryButton mat-raised-button>Submit</button>
+	<button icon="save" primaryButton mat-raised-button>Save with icon</button>
 </div>`,
 	};
 }

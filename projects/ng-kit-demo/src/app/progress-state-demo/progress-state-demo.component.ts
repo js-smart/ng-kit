@@ -1,11 +1,12 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { MatButton } from '@angular/material/button';
 
-import { AlertComponent, initializeState, markError, markLoading, markSuccess, SavePrimaryButtonComponent } from '@js-smart/ng-kit';
+import { AlertComponent, initializeState, markError, markLoading, markSuccess, SavePrimaryButtonDirective } from '@js-smart/ng-kit';
 
 @Component({
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	selector: 'app-progress-state-demo',
-	imports: [SavePrimaryButtonComponent, AlertComponent],
+	imports: [SavePrimaryButtonDirective, MatButton, AlertComponent],
 	templateUrl: './progress-state-demo.component.html',
 })
 export class ProgressStateDemoComponent {

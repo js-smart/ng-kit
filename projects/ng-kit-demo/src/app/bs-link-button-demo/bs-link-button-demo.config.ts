@@ -6,16 +6,16 @@ import { DemoConfig } from '@ng-kit-demo/types/demo-config';
 export function getBsLinkButtonDemoConfig(): DemoConfig {
 	return {
 		title: 'Bootstrap Link Button Demo',
-		description: 'Demo showcasing the Bootstrap Link Button component and directive from @js-smart/ng-kit',
+		description: 'Demo showcasing the BsLinkButtonDirective from @js-smart/ng-kit',
 		componentName: 'bs-link-button-demo',
 		componentTs: `import { Component } from '@angular/core';
 import { MatButton } from '@angular/material/button';
-import { BsLinkButtonComponent, BsLinkButtonDirective } from '@js-smart/ng-kit';
+import { BsLinkButtonDirective } from '@js-smart/ng-kit';
 
 @Component({
 	selector: 'app-bs-link-button-demo',
 	standalone: true,
-	imports: [BsLinkButtonComponent, BsLinkButtonDirective, MatButton],
+	imports: [BsLinkButtonDirective, MatButton],
 	templateUrl: './bs-link-button-demo.component.html',
 	styles: [\`\`],
 })
@@ -23,11 +23,6 @@ export class BsLinkButtonDemoComponent {}`,
 		componentHtml: `<div class="m-3">
 	<h2>Directive (Preferred)</h2>
 	<a bsLinkButton ariaLabel="Bootstrap Link Button" href="/path" mat-button>Bootstrap Link Button</a>
-</div>
-
-<div class="m-3">
-	<h2>Component</h2>
-	<bs-link-button class="m-3" label="Bootstrap Link Button"></bs-link-button>
 </div>
 
 <hr />`,

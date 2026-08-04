@@ -46,13 +46,14 @@ export function getConfirmDialogDemoConfig(): DemoConfig {
 		componentName: 'confirm-dialog-demo',
 		requiredImports: ['BrowserAnimationsModule'],
 		componentTs: `import { Component, inject, signal } from '@angular/core';
+import { MatButton } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
-import { ConfirmDialogComponent, PrimaryButtonComponent } from '@js-smart/ng-kit';
+import { ConfirmDialogComponent, PrimaryButtonDirective } from '@js-smart/ng-kit';
 
 @Component({
 	selector: 'app-confirm-dialog-demo',
 	standalone: true,
-	imports: [PrimaryButtonComponent],
+	imports: [PrimaryButtonDirective, MatButton],
 	templateUrl: './confirm-dialog-demo.component.html',
 	styles: [\`\`],
 })
@@ -78,7 +79,7 @@ export class ConfirmDialogDemoComponent {
 	}
 }`,
 		componentHtml: `<div class="m-5">
-	<primary-button (click)="confirm()" (keydown)="confirm()" label="Click to Confirm"></primary-button>
+	<button (click)="confirm()" (keydown)="confirm()" primaryButton mat-raised-button>Click to Confirm</button>
 
 	<br />
 	<br />

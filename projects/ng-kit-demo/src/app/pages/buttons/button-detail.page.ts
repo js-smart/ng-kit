@@ -47,7 +47,7 @@ interface ButtonApiRow {
  * Per-button API reference. Each ng-kit button extends the shared base button and
  * overrides a handful of defaults (label, icon, loading label, classes); those
  * overrides are the button's "own" API and are listed in {@link inputs}. Values
- * are taken from the library source (component form). Everything else — the full
+ * are taken from the library source (directive form). Everything else — the full
  * common input/output surface — is inherited from the base and documented on the
  * Buttons introduction page. Buttons that don't extend the base (close / export)
  * declare no inputs of their own.
@@ -78,39 +78,34 @@ const BUTTON_DETAILS: Record<string, ButtonDetail> = {
 		description: 'The shared base button supplying icon, label and loading behaviour to every ng-kit button.',
 		component: BaseButtonDemoComponent,
 		code: `<!-- The base supplies icon / label / loading to every button. Shown here
-     via <primary-button>, which extends BaseButtonDirective. -->
-<primary-button [loading]="loading()" [showIcon]="true" icon="save" label="Save"></primary-button>
+     via primaryButton, which extends BaseButtonDirective. -->
+<button [loading]="loading()" icon="save" primaryButton mat-raised-button>Save</button>
 <button ariaLabel="Submit" [loading]="loading()" primaryButton mat-raised-button>Submit</button>`,
 		config: buildDemoConfig({
 			title: 'Base Button',
 			componentName: 'base-button-demo',
 			code: `import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { MatButton } from '@angular/material/button';
-import { PrimaryButtonComponent, PrimaryButtonDirective } from '@js-smart/ng-kit';
+import { PrimaryButtonDirective } from '@js-smart/ng-kit';
 
 @Component({
 	selector: 'app-base-button-demo',
 	standalone: true,
-	imports: [PrimaryButtonComponent, PrimaryButtonDirective, MatButton],
+	imports: [PrimaryButtonDirective, MatButton],
 	template: \`
 		<div>
 			<h2>Loading state</h2>
-			<primary-button [loading]="loading()" label="Save" (click)="toggleLoading()"></primary-button>
+			<button [loading]="loading()" label="Save" (click)="toggleLoading()" primaryButton mat-raised-button>Save</button>
 		</div>
 
 		<div>
 			<h2>Disabled state</h2>
-			<primary-button [disabled]="true" label="Disabled"></primary-button>
+			<button [disabled]="true" primaryButton mat-raised-button>Disabled</button>
 		</div>
 
 		<div>
 			<h2>With icon</h2>
-			<primary-button [showIcon]="true" icon="save" label="Save with icon"></primary-button>
-		</div>
-
-		<div>
-			<h2>Directive with loading</h2>
-			<button ariaLabel="Submit" [loading]="loading()" primaryButton mat-raised-button>Submit</button>
+			<button icon="save" primaryButton mat-raised-button>Save with icon</button>
 		</div>
 	\`,
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -126,32 +121,26 @@ export class BaseButtonDemoComponent {
 	},
 	'bootstrap-link-button': {
 		title: 'Bootstrap Link Button',
-		description: 'An anchor styled as a Bootstrap button (bsLinkButton / <bs-link-button>).',
+		description: 'An anchor styled as a Bootstrap button (bsLinkButton directive).',
 		component: BsLinkButtonDemoComponent,
-		code: `<a bsLinkButton href="/docs" mat-button>Docs</a>
-
-<bs-link-button href="/docs">Docs</bs-link-button>`,
+		code: `<a bsLinkButton href="/docs" mat-button>Docs</a>`,
 		config: buildDemoConfig({
 			title: 'Bootstrap Link Button',
 			componentName: 'bs-link-button-demo',
 			code: `import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatButton } from '@angular/material/button';
-import { BsLinkButtonComponent, BsLinkButtonDirective } from '@js-smart/ng-kit';
+import { BsLinkButtonDirective } from '@js-smart/ng-kit';
 
 @Component({
 	selector: 'app-bs-link-button-demo',
 	standalone: true,
-	imports: [BsLinkButtonComponent, BsLinkButtonDirective, MatButton],
+	imports: [BsLinkButtonDirective, MatButton],
 	template: \`
 		<div class="m-3">
 			<h2>Directive (Preferred)</h2>
 			<a bsLinkButton ariaLabel="Bootstrap Link Button" href="/path" mat-button>Bootstrap Link Button</a>
 		</div>
 
-		<div class="m-3">
-			<h2>Component</h2>
-			<bs-link-button class="m-3" label="Bootstrap Link Button"></bs-link-button>
-		</div>
 	\`,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -208,33 +197,24 @@ export class CloseButtonDemoComponent {
 	},
 	'delete-button': {
 		title: 'Delete Button',
-		description: 'A destructive delete button (deleteButton directive / <delete-button>).',
+		description: 'A destructive delete button (deleteButton directive).',
 		component: DeleteButtonDemoComponent,
-		code: `<!-- Directive (preferred) -->
-<button ariaLabel="Delete item" (click)="onDelete()" deleteButton mat-raised-button>Delete</button>
-
-<!-- Component -->
-<delete-button ariaLabel="Delete item" (click)="onDelete()"></delete-button>`,
+		code: `<button ariaLabel="Delete item" (click)="onDelete()" deleteButton mat-raised-button>Delete</button>`,
 		config: buildDemoConfig({
 			title: 'Delete Button',
 			componentName: 'delete-button-demo',
 			code: `import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { MatButton } from '@angular/material/button';
-import { DeleteButtonComponent, DeleteButtonDirective } from '@js-smart/ng-kit';
+import { DeleteButtonDirective } from '@js-smart/ng-kit';
 
 @Component({
 	selector: 'app-delete-button-demo',
 	standalone: true,
-	imports: [DeleteButtonComponent, DeleteButtonDirective, MatButton],
+	imports: [DeleteButtonDirective, MatButton],
 	template: \`
 		<div>
 			<h2>Directive (Preferred)</h2>
 			<button ariaLabel="Delete item" (click)="onDelete()" deleteButton mat-raised-button>Delete</button>
-		</div>
-
-		<div>
-			<h2>Component</h2>
-			<delete-button ariaLabel="Delete item" (click)="onDelete()"></delete-button>
 		</div>
 
 		<p>{{ status() }}</p>
@@ -260,21 +240,16 @@ export class DeleteButtonDemoComponent {
 			componentName: 'edit-bs-button-demo',
 			code: `import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { MatButton } from '@angular/material/button';
-import { EditBsButtonComponent, EditBsButtonDirective } from '@js-smart/ng-kit';
+import { EditBsButtonDirective } from '@js-smart/ng-kit';
 
 @Component({
 	selector: 'app-edit-bs-button-demo',
 	standalone: true,
-	imports: [EditBsButtonComponent, EditBsButtonDirective, MatButton],
+	imports: [EditBsButtonDirective, MatButton],
 	template: \`
 		<div>
 			<h2>Directive (Preferred)</h2>
 			<button ariaLabel="Edit item" (click)="onEdit()" editBsButton mat-button>Edit</button>
-		</div>
-
-		<div>
-			<h2>Component</h2>
-			<edit-bs-button ariaLabel="Edit item" (click)="onEdit()"></edit-bs-button>
 		</div>
 
 		<p>{{ status() }}</p>
@@ -292,33 +267,24 @@ export class EditBsButtonDemoComponent {
 	},
 	'edit-button': {
 		title: 'Edit Button',
-		description: 'The default edit button (editButton directive / <edit-button>).',
+		description: 'The default edit button (editButton directive).',
 		component: EditButtonDemoComponent,
-		code: `<!-- Directive (preferred) -->
-<button ariaLabel="Edit item" (click)="onEdit()" editButton mat-raised-button>Edit</button>
-
-<!-- Component -->
-<edit-button ariaLabel="Edit item" (click)="onEdit()"></edit-button>`,
+		code: `<button ariaLabel="Edit item" (click)="onEdit()" editButton mat-raised-button>Edit</button>`,
 		config: buildDemoConfig({
 			title: 'Edit Button',
 			componentName: 'edit-button-demo',
 			code: `import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { MatButton } from '@angular/material/button';
-import { EditButtonComponent, EditButtonDirective } from '@js-smart/ng-kit';
+import { EditButtonDirective } from '@js-smart/ng-kit';
 
 @Component({
 	selector: 'app-edit-button-demo',
 	standalone: true,
-	imports: [EditButtonComponent, EditButtonDirective, MatButton],
+	imports: [EditButtonDirective, MatButton],
 	template: \`
 		<div>
 			<h2>Directive (Preferred)</h2>
 			<button ariaLabel="Edit item" (click)="onEdit()" editButton mat-raised-button>Edit</button>
-		</div>
-
-		<div>
-			<h2>Component</h2>
-			<edit-button ariaLabel="Edit item" (click)="onEdit()"></edit-button>
 		</div>
 
 		<p>{{ status() }}</p>
@@ -344,22 +310,18 @@ export class EditButtonDemoComponent {
 			componentName: 'edit-svg-icon-button-demo',
 			code: `import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatButton } from '@angular/material/button';
-import { EditSvgIconButtonComponent, EditSvgIconButtonDirective } from '@js-smart/ng-kit';
+import { EditSvgIconButtonDirective } from '@js-smart/ng-kit';
 
 @Component({
 	selector: 'app-edit-svg-icon-button-demo',
 	standalone: true,
-	imports: [EditSvgIconButtonComponent, EditSvgIconButtonDirective, MatButton],
+	imports: [EditSvgIconButtonDirective, MatButton],
 	template: \`
 		<div>
 			<h2>Directive (Preferred)</h2>
 			<button ariaLabel="Edit item" (click)="onEdit()" editSvgIconButton mat-raised-button>Edit</button>
 		</div>
 
-		<div>
-			<h2>Component</h2>
-			<edit-svg-icon-button ariaLabel="Edit item" (click)="onEdit()"></edit-svg-icon-button>
-		</div>
 	\`,
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -380,21 +342,16 @@ export class EditSvgIconButtonDemoComponent {
 			componentName: 'excel-export-button-demo',
 			code: `import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { MatButton } from '@angular/material/button';
-import { ExcelExportButtonComponent, ExcelExportButtonDirective } from '@js-smart/ng-kit';
+import { ExcelExportButtonDirective } from '@js-smart/ng-kit';
 
 @Component({
 	selector: 'app-excel-export-button-demo',
 	standalone: true,
-	imports: [ExcelExportButtonComponent, ExcelExportButtonDirective, MatButton],
+	imports: [ExcelExportButtonDirective, MatButton],
 	template: \`
 		<div>
 			<h2>Directive (Preferred)</h2>
 			<button (click)="onExport()" excelExportButton mat-raised-button>Excel</button>
-		</div>
-
-		<div>
-			<h2>Component</h2>
-			<excel-export-button (click)="onExport()"></excel-export-button>
 		</div>
 
 		<p>{{ status() }}</p>
@@ -420,21 +377,16 @@ export class ExcelExportButtonDemoComponent {
 			componentName: 'manage-button-demo',
 			code: `import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { MatButton } from '@angular/material/button';
-import { ManageButtonComponent, ManageButtonDirective } from '@js-smart/ng-kit';
+import { ManageButtonDirective } from '@js-smart/ng-kit';
 
 @Component({
 	selector: 'app-manage-button-demo',
 	standalone: true,
-	imports: [ManageButtonComponent, ManageButtonDirective, MatButton],
+	imports: [ManageButtonDirective, MatButton],
 	template: \`
 		<div>
 			<h2>Directive (Preferred)</h2>
 			<button ariaLabel="Manage settings" (click)="onManage()" manageButton mat-raised-button>Manage</button>
-		</div>
-
-		<div>
-			<h2>Component</h2>
-			<manage-button ariaLabel="Manage settings" (click)="onManage()"></manage-button>
 		</div>
 
 		<p>{{ status() }}</p>
@@ -460,21 +412,16 @@ export class ManageButtonDemoComponent {
 			componentName: 'pdf-export-button-demo',
 			code: `import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { MatButton } from '@angular/material/button';
-import { PdfExportButtonComponent, PdfExportButtonDirective } from '@js-smart/ng-kit';
+import { PdfExportButtonDirective } from '@js-smart/ng-kit';
 
 @Component({
 	selector: 'app-pdf-export-button-demo',
 	standalone: true,
-	imports: [PdfExportButtonComponent, PdfExportButtonDirective, MatButton],
+	imports: [PdfExportButtonDirective, MatButton],
 	template: \`
 		<div>
 			<h2>Directive (Preferred)</h2>
 			<button (click)="onExport()" pdfExportButton mat-raised-button>PDF</button>
-		</div>
-
-		<div>
-			<h2>Component</h2>
-			<pdf-export-button (click)="onExport()"></pdf-export-button>
 		</div>
 
 		<p>{{ status() }}</p>
@@ -492,33 +439,24 @@ export class PdfExportButtonDemoComponent {
 	},
 	'primary-button': {
 		title: 'Primary Button',
-		description: 'The default call-to-action (primaryButton directive / <primary-button>).',
+		description: 'The default call-to-action (primaryButton directive).',
 		component: PrimaryButtonDemoComponent,
-		code: `<!-- Directive (preferred) -->
-<button ariaLabel="Submit" (click)="onSubmit()" primaryButton mat-raised-button>Submit</button>
-
-<!-- Component -->
-<primary-button ariaLabel="Submit" (click)="onSubmit()">Submit</primary-button>`,
+		code: `<button ariaLabel="Submit" (click)="onSubmit()" primaryButton mat-raised-button>Submit</button>`,
 		config: buildDemoConfig({
 			title: 'Primary Button',
 			componentName: 'primary-button-demo',
 			code: `import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { MatButton } from '@angular/material/button';
-import { PrimaryButtonComponent, PrimaryButtonDirective } from '@js-smart/ng-kit';
+import { PrimaryButtonDirective } from '@js-smart/ng-kit';
 
 @Component({
 	selector: 'app-primary-button-demo',
 	standalone: true,
-	imports: [PrimaryButtonComponent, PrimaryButtonDirective, MatButton],
+	imports: [PrimaryButtonDirective, MatButton],
 	template: \`
 		<div>
 			<h2>Directive (Preferred)</h2>
 			<button ariaLabel="Submit" (click)="onSubmit()" primaryButton mat-raised-button>Submit</button>
-		</div>
-
-		<div>
-			<h2>Component</h2>
-			<primary-button ariaLabel="Submit" (click)="onSubmit()">Submit</primary-button>
 		</div>
 
 		<p>{{ status() }}</p>
@@ -544,21 +482,16 @@ export class PrimaryButtonDemoComponent {
 			componentName: 'save-primary-button-demo',
 			code: `import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { MatButton } from '@angular/material/button';
-import { SavePrimaryButtonComponent, SavePrimaryButtonDirective } from '@js-smart/ng-kit';
+import { SavePrimaryButtonDirective } from '@js-smart/ng-kit';
 
 @Component({
 	selector: 'app-save-primary-button-demo',
 	standalone: true,
-	imports: [SavePrimaryButtonComponent, SavePrimaryButtonDirective, MatButton],
+	imports: [SavePrimaryButtonDirective, MatButton],
 	template: \`
 		<div>
 			<h2>Directive (Preferred)</h2>
 			<button ariaLabel="Save" (click)="onSave()" savePrimaryButton mat-raised-button>Save</button>
-		</div>
-
-		<div>
-			<h2>Component</h2>
-			<save-primary-button ariaLabel="Save" (click)="onSave()">Save</save-primary-button>
 		</div>
 
 		<p>{{ status() }}</p>
@@ -584,21 +517,16 @@ export class SavePrimaryButtonDemoComponent {
 			componentName: 'success-button-demo',
 			code: `import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { MatButton } from '@angular/material/button';
-import { SuccessButtonComponent, SuccessButtonDirective } from '@js-smart/ng-kit';
+import { SuccessButtonDirective } from '@js-smart/ng-kit';
 
 @Component({
 	selector: 'app-success-button-demo',
 	standalone: true,
-	imports: [SuccessButtonComponent, SuccessButtonDirective, MatButton],
+	imports: [SuccessButtonDirective, MatButton],
 	template: \`
 		<div>
 			<h2>Directive (Preferred)</h2>
 			<button ariaLabel="Success" (click)="onSuccess()" successButton mat-raised-button>Success</button>
-		</div>
-
-		<div>
-			<h2>Component</h2>
-			<success-button ariaLabel="Success" (click)="onSuccess()">Success</success-button>
 		</div>
 
 		<p>{{ status() }}</p>
@@ -618,21 +546,22 @@ export class SuccessButtonDemoComponent {
 		title: 'Search Button',
 		description: 'A button styled for search / filter triggers.',
 		component: SearchButtonDemoComponent,
-		code: `<search-button ariaLabel="Search" (click)="onSearch()"></search-button>`,
+		code: `<button ariaLabel="Search" (click)="onSearch()" searchButton mat-raised-button>Search</button>`,
 		config: buildDemoConfig({
 			title: 'Search Button',
 			componentName: 'search-button-demo',
 			code: `import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
-import { SearchButtonComponent } from '@js-smart/ng-kit';
+import { MatButton } from '@angular/material/button';
+import { SearchButtonDirective } from '@js-smart/ng-kit';
 
 @Component({
 	selector: 'app-search-button-demo',
 	standalone: true,
-	imports: [SearchButtonComponent],
+	imports: [SearchButtonDirective, MatButton],
 	template: \`
 		<div>
-			<h2>Component</h2>
-			<search-button ariaLabel="Search" (click)="onSearch()"></search-button>
+			<h2>Directive (Preferred)</h2>
+			<button ariaLabel="Search" (click)="onSearch()" searchButton mat-raised-button>Search</button>
 		</div>
 
 		<p>{{ status() }}</p>
@@ -693,21 +622,16 @@ export class ViewButtonDemoComponent {
 			componentName: 'view-primary-button-demo',
 			code: `import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { MatButton } from '@angular/material/button';
-import { ViewPrimaryButtonComponent, ViewPrimaryButtonDirective } from '@js-smart/ng-kit';
+import { ViewPrimaryButtonDirective } from '@js-smart/ng-kit';
 
 @Component({
 	selector: 'app-view-primary-button-demo',
 	standalone: true,
-	imports: [ViewPrimaryButtonComponent, ViewPrimaryButtonDirective, MatButton],
+	imports: [ViewPrimaryButtonDirective, MatButton],
 	template: \`
 		<div>
 			<h2>Directive (Preferred)</h2>
 			<button ariaLabel="View details" (click)="onView()" viewPrimaryButton mat-raised-button>View</button>
-		</div>
-
-		<div>
-			<h2>Component</h2>
-			<view-primary-button ariaLabel="View details" (click)="onView()">View</view-primary-button>
 		</div>
 
 		<p>{{ status() }}</p>
@@ -727,7 +651,7 @@ export class ViewPrimaryButtonDemoComponent {
 
 /**
  * Per-button API reference, keyed by the same route slug as {@link BUTTON_DETAILS}.
- * Values mirror the ng-kit library source (component form). Buttons that extend
+ * Values mirror the ng-kit library source (directive form). Buttons that extend
  * the base button list only their overridden inputs; the base button lists the
  * full shared surface; buttons that don't extend the base declare no inputs.
  */
@@ -898,7 +822,7 @@ const BUTTON_OVERVIEW: Record<string, string> = {
 	'save-primary-button':
 		'The Save Primary Button is a primary button tuned for save actions. It combines primary styling with a save icon and a “Saving…” loading label, and extends the Base Button for the shared loading and accessibility behaviour.',
 	'search-button':
-		'The Search Button triggers search or filter actions and is styled with a magnifier icon. It extends the Base Button and is available as a component only (there is no directive form).',
+		'The Search Button triggers search or filter actions and is styled with a magnifier icon. It extends the Base Button and is available as the searchButton directive.',
 	'view-button':
 		'The View Button triggers view or details actions, styled with an eye (visibility) icon. It extends the Base Button; for a more prominent, primary-styled variant, use the View Primary Button.',
 	'view-primary-button':
@@ -942,8 +866,8 @@ const BUTTON_OVERVIEW: Record<string, string> = {
 					<section class="page-section">
 						<h2>Usage</h2>
 						<p>
-							Use the button through its directive selector on any element, or through its component selector. The directive form is
-							preferred for new code; the component form remains supported.
+							Use the button through its directive selector on any element (for example,
+							<code>primaryButton</code> on a <code>&lt;button&gt;</code>).
 						</p>
 						@if (d.code) {
 							<code-block [code]="d.code" language="html" />
@@ -1023,7 +947,7 @@ const BUTTON_OVERVIEW: Record<string, string> = {
 					<demo-card
 						[title]="d.title"
 						[anchorId]="slug()"
-						description="Live demo — directive and component forms."
+						description="Live demo — directive form."
 						[code]="d.config?.componentTs ?? ''"
 						[stackblitz]="d.config ?? null">
 						<ng-container *ngComponentOutlet="d.component" />

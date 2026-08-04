@@ -1,10 +1,13 @@
 <div class="app-flex-justify-center">
-	<save-primary-button
+	<button
 		(click)="setLoading()"
 		(keydown)="setLoading()"
 		[loading]="updateState().isLoading"
 		class="m-3"
-		label="Save Data"></save-primary-button>
+		savePrimaryButton
+		mat-raised-button>
+		Save Data
+	</button>
 </div>
 <p style="margin: 1rem">
 	@if (updateState().isSuccess && !updateState().isLoading) {

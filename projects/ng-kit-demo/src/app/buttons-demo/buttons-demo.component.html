@@ -1,60 +1,52 @@
 <div class="m-5">
-	<edit-bs-button class="m-3" label="Edit Bootstrap Button"></edit-bs-button>
-	<button editBsButton mat-button>Edit BS (Directive)</button>
+	<button editBsButton mat-button class="m-3" data-cy="edit-bs-button">Edit Bootstrap Button</button>
 	<hr />
 
-	<primary-button (click)="setLoading()" [loading]="loading()" class="m-3" label="Primary Button"></primary-button>
-	<button [loading]="loading()" (click)="setLoading()" primaryButton mat-raised-button class="m-3">Primary Button (Directive)</button>
-	<hr />
-
-	<save-primary-button (click)="setLoading()" [loading]="loading()" class="m-3" label="Save Primary Button"></save-primary-button>
-	<button [loading]="loading()" (click)="setLoading()" savePrimaryButton mat-raised-button class="m-3">
-		Save Primary Button (Directive)
+	<button [loading]="loading()" (click)="setLoading()" primaryButton mat-raised-button class="m-3" data-cy="primary-button">
+		Primary Button
 	</button>
 	<hr />
 
-	<view-primary-button class="m-3"></view-primary-button>
-	<button viewPrimaryButton mat-raised-button class="m-3">View Primary (Directive)</button>
+	<button [loading]="loading()" (click)="setLoading()" savePrimaryButton mat-raised-button class="m-3" data-cy="save-primary-button">
+		Save Primary Button
+	</button>
 	<hr />
 
-	<edit-button class="m-3" label="Edit Button"></edit-button>
-	<button editButton mat-raised-button>Edit Button (Directive)</button>
+	<button viewPrimaryButton mat-raised-button class="m-3">View Primary</button>
 	<hr />
 
-	<view-button class="m-3"></view-button>
-	<button color="primary" viewButton mat-button>View Button (Directive)</button>
+	<button editButton mat-raised-button class="m-3" data-cy="edit-button">Edit Button</button>
 	<hr />
 
-	<edit-svg-icon-button class="m-3" label="Edit Svg Icon Button"></edit-svg-icon-button>
-	<button editSvgIconButton mat-raised-button class="m-3">Edit SVG Icon (Directive)</button>
+	<button color="primary" viewButton mat-button class="m-3" data-cy="view-button">View Button</button>
+	<hr />
+
+	<button editSvgIconButton mat-raised-button class="m-3" data-cy="edit-svg-icon-button">Edit SVG Icon</button>
 
 	<hr />
 
-	<bs-link-button class="m-3" label="Bootstrap Link Button"></bs-link-button>
-	<button bsLinkButton matButton class="m-3">Bootstrap Link (Directive)</button>
+	<a bsLinkButton mat-button class="m-3" data-cy="bs-link-button" href="/path">Bootstrap Link Button</a>
 
 	<hr />
-	<success-button (click)="setLoading()" [loading]="loading()" class="m-3" label="Success Button"></success-button>
-	<button [loading]="loading()" (click)="setLoading()" successButton mat-raised-button>Success Button (Directive)</button>
+	<button [loading]="loading()" (click)="setLoading()" successButton mat-raised-button class="m-3" data-cy="success-button">
+		Success Button
+	</button>
 	<hr />
-	<delete-button (onClick)="setLoading()" [loading]="loading()" class="m-3" label="Delete Button"></delete-button>
-	<button [loading]="loading()" (click)="setLoading()" deleteButton mat-raised-button>Delete Button (Directive)</button>
+	<button [loading]="loading()" (click)="setLoading()" deleteButton mat-raised-button class="m-3" data-cy="delete-button">
+		Delete Button
+	</button>
 	<hr />
 
 	<button closeButton mat-raised-button>Close Button</button>
-	<manage-button class="m-3"></manage-button>
-	<button manageButton mat-raised-button class="m-3">Manage (Directive)</button>
+	<button manageButton mat-raised-button class="m-3" data-cy="manage-button">Manage</button>
 
 	<hr />
-	<search-button class="m-3"></search-button>
-	<button icon="search" primaryButton mat-raised-button class="m-3">Search (Directive)</button>
+	<button ariaLabel="Search" searchButton mat-raised-button class="m-3" data-cy="search-button">Search</button>
 	<hr />
 
-	<pdf-export-button class="m-3"></pdf-export-button>
-	<button pdfExportButton mat-raised-button class="m-3">PDF (D)</button>
+	<button pdfExportButton mat-raised-button class="m-3" data-cy="pdf-export-button">PDF</button>
 	<hr />
-	<excel-export-button class="m-3"></excel-export-button>
-	<button excelExportButton mat-raised-button class="m-3">Excel (D)</button>
+	<button excelExportButton mat-raised-button class="m-3" data-cy="excel-export-button">Excel</button>
 
 	<hr />
 </div>

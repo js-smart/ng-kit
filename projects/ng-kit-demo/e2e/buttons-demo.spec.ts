@@ -12,7 +12,7 @@ test('has all buttons', async ({ page }) => {
 	await expect(page.locator('[data-cy=success-button]')).toBeVisible();
 	await expect(page.locator('[data-cy=delete-button]')).toBeVisible();
 	await expect(page.locator('[data-cy=manage-button]')).toBeVisible();
-	await expect(page.locator('[data-cy=primary-button]', { hasText: 'Search' })).toBeVisible();
+	await expect(page.locator('[data-cy=search-button]', { hasText: 'Search' })).toBeVisible();
 	await expect(page.locator('[data-cy=pdf-export-button]')).toBeVisible();
 	await expect(page.locator('[data-cy=excel-export-button]')).toBeVisible();
 });
