@@ -2,7 +2,7 @@ import { expect, test } from '@playwright/test';
 
 test('has throttle button button', async ({ page }) => {
 	await page.goto('/directives-demo');
-	await page.waitForSelector('view-button', { state: 'visible' });
-	await expect(page.getByText('Throttle Button')).toBeVisible();
-	await expect(page.getByText('visibility')).toBeVisible();
+	await expect(page.locator('button[viewButton]')).toBeVisible();
+	await expect(page.getByRole('button', { name: 'Throttle Button' })).toBeVisible();
+	await expect(page.locator('mat-icon', { hasText: 'visibility' })).toBeVisible();
 });
