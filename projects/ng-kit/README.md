@@ -1,280 +1,62 @@
-# Angular components and utilities
+# NG Kit
 
-Reusable Angular components built with Angular Material and Bootstrap 5.x, Utility classes/functions for Date, Form and String operations
+Standalone Angular components, directives, and utilities — signals-first and built on Angular Material.
 
 [![CI](https://github.com/js-smart/ng-kit/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/js-smart/ng-kit/actions/workflows/build.yml)
-<a href="https://www.npmjs.com/@js-smart/ng-kit">
-<img src="https://img.shields.io/npm/v/@js-smart/ng-kit" alt="Ng Kit on npm" />
-</a>
+[![npm](https://img.shields.io/npm/v/@js-smart/ng-kit)](https://www.npmjs.com/package/@js-smart/ng-kit)
 
-### Installation
+## Installation
 
-Install the library
+Requires **Angular 19+**. Library majors track Angular majors — see the [compatibility matrix](https://ng-kit.netlify.app/installation).
 
 ```shell
-npm install @js-smart/ng-kit
+pnpm add @js-smart/ng-kit @angular/material @angular/cdk
+# or: npm i @js-smart/ng-kit @angular/material @angular/cdk
 ```
 
-and use it as shown below in each section
+## Documentation
 
-### Technologies
+Examples and API docs: **[https://ng-kit.netlify.app/](https://ng-kit.netlify.app/)**
 
-1. Angular
-2. Bootstrap
+### Components
 
-## Auto Complete
+| Name                                                                 | Description                                              |
+| -------------------------------------------------------------------- | -------------------------------------------------------- |
+| [Autocomplete](https://ng-kit.netlify.app/autocomplete/introduction) | Signal-based autocomplete / combobox on Angular Material |
+| [Buttons](https://ng-kit.netlify.app/buttons/introduction)           | Themed action buttons on a shared base                   |
+| [Alert](https://ng-kit.netlify.app/alert)                            | Dismissible contextual alert banners                     |
+| [Confirm Dialog](https://ng-kit.netlify.app/confirm-dialog)          | Material confirm dialog with a simple service API        |
+| [Snack Bar](https://ng-kit.netlify.app/snack-bar)                    | Success / error snackbars                                |
+| [Spinner](https://ng-kit.netlify.app/spinner)                        | Loading spinner                                          |
 
-Reusable Auto Complete that extends Mat Auto Complete component
+### Directives
 
-### Demo
+| Name                                                                          | Description                                       |
+| ----------------------------------------------------------------------------- | ------------------------------------------------- |
+| [Ngx Print](https://ng-kit.netlify.app/ngx-print)                             | Print a DOM section                               |
+| [Prevent Multiple Clicks](https://ng-kit.netlify.app/prevent-multiple-clicks) | Debounce rapid repeated clicks                    |
+| [Autocomplete Suffix](https://ng-kit.netlify.app/autocomplete-suffix)         | Clear + dropdown suffix for Material autocomplete |
 
-https://ng-kit.netlify.app/autocomplete-demo
+### Utilities
 
-### Usage
+| Name                                                      | Description                                        |
+| --------------------------------------------------------- | -------------------------------------------------- |
+| [Progress Util](https://ng-kit.netlify.app/progress-util) | Track async progress state                         |
+| [TanStack Query](https://ng-kit.netlify.app/query)        | Angular adapter (`injectQuery` / `injectMutation`) |
 
-The library has one `autocomplete` component. To use the Auto Complete component, add the following code to the HTML page
+## Demo
 
-**app.component.html**
+Live site: **[https://ng-kit.netlify.app/](https://ng-kit.netlify.app/)**
 
-```typescript
-<!-- Auto Complete with Objects -->
+To run the demo app locally:
 
-<form [formGroup] = "genericFormGroup" >
-<autocomplete
-  [data] = "cities"
-  [inputFormGroup] = "genericFormGroup"
-  [required] = "true"
-  [displayWith] = "displayFn"
-bindLabel = "location"
-bindValue = "id"
-label = "City"
-placeHolder = "Select City" >
-  </autocomplete>
-  < /form>
-
+```shell
+pnpm install
+pnpm start
 ```
 
-**app.component.ts**
-Then define form group instances and object array (cities) and names (for string array)
+Then open [http://localhost:4300](http://localhost:4300).
 
-```typescript
-// Define objects
-cities = [{ id: 1001, location: 'New York' }, { id: 1002, location: 'Boston' }, { id: 1001, location: 'Washington DC' }];
+## License
 
-// Define Form Groups
-inputFormGroup = this.fb.group({
-  autocomplete: ['']
-})
-
-//Display function
-displayFn(object
-:
-any
-):
-string
-{
-  if (typeof object === "string") return object;
-  return object && object["location"] ? object["location"] : "";
-}
-```
-
-If you are using strings rather than objects, do not provide `bindLabel`, `bindValue` and `displayWith` inputs. See below sample
-
-```
-<!-- Auto Complete with Strings -->
-<form [formGroup]="inputFormGroup">
-  <autocomplete
-    [data]="names"
-    [inputFormGroup]="inputFormGroup"
-    [required]="true"
-    label="City"
-    placeHolder="Select City">
-  </autocomplete>
-</form>
-```
-
-### Auto Complete API
-
-#### List of selectors that can be used to select the component(s)
-
-| AutoComplete Selector          |
-| ------------------------------ |
-| autocomplete, lib-autocomplete |
-
-#### Properties
-
-| Property       | Description                                                                                                               | Type              | Default Value |
-| -------------- | ------------------------------------------------------------------------------------------------------------------------- | ----------------- | ------------- |
-| inputFormGroup | Input Form Group                                                                                                          | FormGroup         |               |
-| label          | Label of the AutoComplete                                                                                                 | string            |               |
-| placeHolder    | PlaceHolder of the AutoComplete                                                                                           | string            |               |
-| appearance     | Appearance of the AutoComplete, defaults to `fill`                                                                        | string            | fill          |
-| classes        | List of CSS classes that need to applied to autocomplete                                                                  | string            |               |
-| bindLabel      | Applies only to AutoComplete with Objects. Attribute of the Object whose value would be shown when searching for data     | string            | id            |
-| bindValue      | Applies only to AutoComplete with Objects. Attribute of the Object whose value would be used for search. Defaults to `ID` | string            | id            |
-| displayWith    | Applies only to AutoComplete with Objects. A function used to show display value in Input                                 | boolean           | false         |
-| required       | Provide `true` if AutoComplete is required, otherwise provide `false`                                                     | boolean           | false         |
-| data           | List of Objects or String values that need to be bind and searched for                                                    | any[] or string[] | false         |
-
-## Alert
-
-Reusable alert component created with Bootstrap 5+ and Angular 17+
-
-### Auto Complete API
-
-#### List of selectors that can be used to select the component
-
-| Selector        |
-| --------------- |
-| alert,lib-alert |
-
-#### Properties
-
-| Property         | Description                                                                                                | Type             | Default Value |
-| ---------------- | ---------------------------------------------------------------------------------------------------------- | ---------------- | ------------- |
-| dismissible      | If set, displays an inline "Close" button                                                                  | boolean          | false         |
-| dismissOnTimeout | If set, dismisses the alert after Dismiss Timeout                                                          | boolean          | true          |
-| dismissTimeout   | Number in milliseconds, after which alert will be closed                                                   | string or number | 5000          |
-| isOpen           | Is alert visible                                                                                           | boolean          | false         |
-| type             | Alert type. Provides one of four bootstrap supported contextual classes: success, info, warning and danger | string           | info          |
-
-## Spinner
-
-Reusable Spinner component created with Bootstrap 5.x and Angular 17.x
-
-### Demo
-
-https://main--js-smart-ng-kit.netlify.app/alert-demo
-
-### API
-
-#### List of selectors that can be used to select the component
-
-| Selector            |
-| ------------------- |
-| spinner,lib-spinner |
-
-#### Properties
-
-| Property         | Description                                  | Type                     | Default Value |
-| ---------------- | -------------------------------------------- | ------------------------ | ------------- |
-| bootstrapSpinner | Use Boostrap Spinner. Default `true`         | boolean                  | false         |
-| diameter         | Diameter of the Angular Material spinner     | boolean                  | true          |
-| color            | Color of the Angular Material spinner        | string or `ThemePalette` | 5000          |
-| strokeWidth      | Stroke Width of the Angular Material spinner | boolean                  | false         |
-
-## Print
-
-Angular (2++) directive that prints HTML section
-
-### Usage
-
-Import the main module `NgxPrintModule` :
-
-```js
-import { NgxPrintModule } from '@js-smart/print';
-
-@NgModule({
-...
- imports:
-[NgxPrintModule, ...],
-...
-})
-
-export class YourAppModule {
-}
-```
-
-**3-** Then plug n' play with it:
-
-- Assuming you want to print the following HTML section:
-
-```html
-<div>
-	<!--Your html stuff that you want to print-->
-</div>
-<button>print</button>
-<!--Your relevant print button-->
-```
-
-- Now, what you have to do is tagging your _wanted-to-print_ section by an `id` attribute, then link that `id` to a
-  directive parameter in your button :
-
-```html
-<!--
-   1)- Add an ID here
- -->
-<div id="print-section">
-	<!--Your html stuff that you want to print-->
-</div>
-
-<!--
-  2)- Add the directive name in your button (ngxPrint),
-  3)- Affect your ID to printSectionId
--->
-<button printSectionId="print-section" ngxPrint>print</button>
-```
-
-### Optional properties
-
-- You want a customized title for your printing window ? you have the choice by adding a new attribute to your print
-  button `printTitle`:
-
-```html
-<div id="print-section">
-	<!-- ... -->
-</div>
-
-<button printTitle="MyTitle" printSectionId="print-section" ngxPrint>print</button>
-```
-
-- Also, would you like to customize the printing window style sheet (CSS) ? Hence you can do so by adding infinite
-  styles to another attribute called `printStyle`:
-
-```html
-<div id="print-section">
-	<!-- ... -->
-</div>
-
-<button [printStyle]="{h1 : {'color': 'red'}, h2 : {'border': 'solid 1px'}}" printSectionId="print-section" ngxPrint>print</button>
-```
-
-Here some simple styles were added to every `h1` & `h2` tags within the `div` where `print-section` is tagged to
-its `id` attribute.
-
-- If you would like to use your existing CSS with media print you can add the `useExistingCss` attribute:
-
-```html
-<div id="print-section">
-	<!-- ... -->
-</div>
-
-<button [useExistingCss]="true" printSectionId="print-section" ngxPrint>print</button>
-```
-
-- If you want to customize the printing window style sheet (CSS) by importing the css provided in assets/css
-  use `styleSheetFile`:
-
-```html
-<div id="print-section">
-	<!-- ... -->
-</div>
-
-<button styleSheetFile="assets/css/custom1.css,assets/css/custom2.css" printSectionId="print-section" ngxPrint>print</button>
-```
-
-### Publish library to NPM
-
-1. Build the library
-   ```shell
-   pnpm build ng-kit
-   ```
-2. If the NPM token is not configured, open `~/.npmrc` and add the following line:
-   ```shell
-   //registry.npmjs.org/:_authToken=<your npm token>
-   ```
-3. Then navigate to `dist` directory anf publish the library to NPM. If prompted, enter the 2fa auth code from the Authenticator app.
-   ```shell
-   cd dist/libs/ng-kit && npm publish --tag latest
-   ```
-   For beta releases use tag `--tag beta`
+[MIT](LICENSE)
