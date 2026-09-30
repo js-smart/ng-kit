@@ -58,7 +58,7 @@ This file is the canonical instruction set for AI coding assistants in this repo
 
 # NG Kit — instructions for AI coding assistants
 
-This file is the **single canonical repository context** for **Claude Code**, **Cursor**, **Codex**, **JetBrains AI Assistant**, **Copilot**, and any other agent. Do not treat parallel copies under `.cursor/`, `.claude/`, or `.aiassistant/` as separate sources of truth—those files only **point here** or add IDE wiring.
+This file is the **single canonical repository context** for **Claude Code**, **Cursor**, **Codex**, **JetBrains AI Assistant**, **Copilot**, and any other agent. Do not treat parallel copies under `.cursor/`, `.agents/`, or `.aiassistant/` as separate sources of truth—those files only **point here** or add IDE wiring.
 
 If instructions conflict, prefer **`AGENTS.md`** and the actual codebase.
 
@@ -283,7 +283,6 @@ These tips are **not** a second source of truth for stack or workflow; they only
 | Location                                                                     | Purpose                                                                 |
 | ---------------------------------------------------------------------------- | ----------------------------------------------------------------------- |
 | [`.cursor/rules/ngkit.mdc`](./.cursor/rules/ngkit.mdc)                       | Cursor always-applied rule: short pointer + critical constraints        |
-| [`.claude/CLAUDE.md`](./.claude/CLAUDE.md)                                   | Claude Code: pointer to this file                                       |
 | [`.aiassistant/rules/instructions.md`](./.aiassistant/rules/instructions.md) | JetBrains AI Assistant rule file: pointer + `apply: always` frontmatter |
 
 ## What to Avoid
