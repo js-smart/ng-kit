@@ -1,5 +1,4 @@
 import { Directive, DOCUMENT, effect, ElementRef, inject, input } from '@angular/core';
-import { ensureButtonStyles } from '../button-styles';
 
 @Directive({
 	selector: '[bsLinkButton]',
@@ -14,7 +13,6 @@ export class BsLinkButtonDirective {
 
 	constructor() {
 		const element = this.elementRef.nativeElement;
-		ensureButtonStyles();
 		element.classList.add('btn', 'text-primary');
 		this.iconElement.classList.add('material-icons', 'pe-2');
 		this.iconElement.setAttribute('aria-hidden', 'true');

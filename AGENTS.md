@@ -123,7 +123,7 @@ Apply these rules to all new or modified Angular code:
 
 - **Angular 22.x** with standalone components (no NgModules pattern)
 - **TypeScript 6.0.x**
-- **Angular Material 22.x** (UI components); Bootstrap is not required
+- **Bootstrap 5.3** + **Angular Material 22.x** (UI components)
 - **RxJS 7.x**
 
 ### Package manager

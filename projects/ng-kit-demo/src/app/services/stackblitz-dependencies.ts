@@ -20,6 +20,7 @@ const RUNTIME_DEPENDENCY_KEYS = [
 	'@angular/material',
 	'@angular/platform-browser',
 	'@angular/router',
+	'bootstrap',
 	'rxjs',
 	'tslib',
 ] as const;

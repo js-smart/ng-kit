@@ -12,7 +12,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 		<h1 class="page-title">Introduction</h1>
 		<p class="page-lead">
 			<strong>&#64;js-smart/ng-kit</strong> is a comprehensive collection of reusable Angular components, directives, and utilities built
-			with Angular Material and modern CSS.
+			with Angular Material and Bootstrap 5.x.
 		</p>
 
 		<section class="page-section">
@@ -28,7 +28,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 			<h2>Key features</h2>
 			<ul class="feature-list">
 				<li>
-					<strong>Low dependencies</strong> — no Bootstrap dependency is required. Fewer dependencies reduce security risk, simplify
+					<strong>Low dependencies</strong> — only one third-party dependency (Bootstrap). Fewer dependencies reduce security risk, simplify
 					updates, and prevent version conflicts.
 				</li>
 				<li>

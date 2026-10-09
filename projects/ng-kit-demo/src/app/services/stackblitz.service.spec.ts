@@ -30,11 +30,10 @@ describe('StackBlitzService', () => {
 				template: 'node',
 				files: expect.objectContaining({
 					'package.json': expect.any(String),
-					'src/styles.scss': expect.not.stringContaining('bootstrap'),
+					'src/styles.scss': expect.stringContaining("@import 'bootstrap/dist/css/bootstrap.css'"),
 					'src/assets/app-variables.scss': expect.stringContaining('--primary-color'),
 					'src/assets/app-buttons.scss': expect.stringContaining('.primary-button'),
 					'src/assets/app-mat-snack-bar.scss': expect.stringContaining('.success-snackbar'),
-					'src/assets/demo-utilities.scss': expect.stringContaining('.container-fluid'),
 				}),
 			}),
 			{

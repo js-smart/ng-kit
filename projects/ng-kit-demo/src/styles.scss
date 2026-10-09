@@ -1,8 +1,9 @@
 @use '@angular/material' as mat;
-@use 'assets/demo-utilities';
 
-/* Third-party CSS: highlight.js styles the code blocks. (The legacy
-   indigo-pink prebuilt theme is replaced by the Material 3 theme below.) */
+/* Third-party CSS: Bootstrap powers the button/alert demos; highlight.js styles
+   the code blocks. (The legacy indigo-pink prebuilt theme is replaced by the
+   Material 3 theme below.) */
+@import 'bootstrap/dist/css/bootstrap.css';
 @import 'highlight.js/styles/github-dark.css';
 @import 'assets/app-variables';
 @import 'assets/app-buttons';
@@ -43,12 +44,6 @@ html {
 	--ng-muted: var(--mat-sys-on-surface-variant);
 }
 
-*,
-*::before,
-*::after {
-	box-sizing: border-box;
-}
-
 html,
 body {
 	height: 100%;
@@ -57,7 +52,6 @@ body {
 body {
 	margin: 0;
 	font-family: Roboto, 'Helvetica Neue', sans-serif;
-	line-height: 1.5;
 	background: var(--mat-sys-surface);
 	color: var(--mat-sys-on-surface);
 }
