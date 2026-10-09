@@ -121,9 +121,9 @@ Apply these rules to all new or modified Angular code:
 
 ### Core framework
 
-- **Angular 21.x** with standalone components (no NgModules pattern)
-- **TypeScript 5.9.3**
-- **Bootstrap 5.3** + **Angular Material 21.x** (UI components)
+- **Angular 22.x** with standalone components (no NgModules pattern)
+- **TypeScript 6.0.x**
+- **Angular Material 22.x** (UI components); Bootstrap is not required
 - **RxJS 7.x**
 
 ### Package manager

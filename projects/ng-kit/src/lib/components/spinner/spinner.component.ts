@@ -10,9 +10,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 	styleUrls: ['./spinner.component.scss'],
 })
 export class SpinnerComponent {
-	/**
-	 *  Use Boostrap Spinner. Default `true`
-	 */
+	/** @deprecated Retained for compatibility; the component always renders an indeterminate Material spinner. */
 	bootstrapSpinner = input(true);
 
 	/**

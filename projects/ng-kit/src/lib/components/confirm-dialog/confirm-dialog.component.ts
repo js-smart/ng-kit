@@ -22,7 +22,7 @@ import { MatDividerModule } from '@angular/material/divider';
 		</div>
 	`,
 	changeDetection: ChangeDetectionStrategy.Eager,
-	styles: [],
+	styles: ['.m-3 { margin: 1rem; }'],
 })
 export class ConfirmDialogComponent {
 	title: string;

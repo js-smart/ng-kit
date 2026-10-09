@@ -5,15 +5,22 @@
  * - projects/ng-kit-demo/src/assets/app-variables.scss
  * - projects/ng-kit-demo/src/assets/app-buttons.scss
  * - projects/ng-kit-demo/src/assets/app-mat-snack-bar.scss
+ * - projects/ng-kit-demo/src/assets/demo-utilities.scss
  *
  * Plus a StackBlitz-only `.demo-shell` layout that centers demos.
  */
 
-export const STACKBLITZ_STYLES_SCSS = `@import 'bootstrap/dist/css/bootstrap.css';
-@import '@angular/material/prebuilt-themes/indigo-pink.css';
+export const STACKBLITZ_STYLES_SCSS = `@import '@angular/material/prebuilt-themes/indigo-pink.css';
 @import 'assets/app-variables';
 @import 'assets/app-buttons';
 @import 'assets/app-mat-snack-bar';
+@import 'assets/demo-utilities';
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
 
 html,
 body {
@@ -23,6 +30,7 @@ body {
 body {
 	margin: 0;
 	font-family: Roboto, 'Helvetica Neue', sans-serif;
+	line-height: 1.5;
 	background-color: var(--background-color);
 	color: #1f2937;
 }
@@ -204,5 +212,123 @@ export const STACKBLITZ_APP_MAT_SNACK_BAR_SCSS = `/* Success Snack Bar Styles */
 
 .error-snackbar .mat-mdc-snack-bar-action {
 	color: var(--white-color) !important;
+}
+`;
+
+/** Demo compatibility utilities copied into generated StackBlitz projects. */
+export const STACKBLITZ_DEMO_UTILITIES_SCSS = `/* ── Demo-only Bootstrap class compatibility ───────────────────────────────
+   Demo markup keeps its Bootstrap class names; these rules cover only the
+   classes the demo uses. !important mirrors Bootstrap's utilities so they
+   win over Angular Material's component styles. */
+.m-2 {
+	margin: 0.5rem !important;
+}
+.m-3 {
+	margin: 1rem !important;
+}
+.m-5 {
+	margin: 3rem !important;
+}
+.mt-2 {
+	margin-block-start: 0.5rem !important;
+}
+.mt-3 {
+	margin-block-start: 1rem !important;
+}
+.mb-2 {
+	margin-block-end: 0.5rem !important;
+}
+.mb-3 {
+	margin-block-end: 1rem !important;
+}
+.mb-4 {
+	margin-block-end: 1.5rem !important;
+}
+
+.text-center {
+	text-align: center !important;
+}
+.text-muted {
+	color: var(--gallery-text-muted, var(--mat-sys-on-surface-variant, #6c757d)) !important;
+}
+.text-danger {
+	color: #dc3545 !important;
+}
+.text-success {
+	color: #198754 !important;
+}
+
+.d-flex {
+	display: flex !important;
+}
+.justify-content-between {
+	justify-content: space-between !important;
+}
+.align-items-center {
+	align-items: center !important;
+}
+
+.container-fluid {
+	width: 100%;
+	padding-inline: 0.75rem;
+	margin-inline: auto;
+}
+
+.row {
+	display: flex;
+	flex-wrap: wrap;
+	margin-inline: -0.75rem;
+
+	> * {
+		flex-shrink: 0;
+		width: 100%;
+		max-width: 100%;
+		padding-inline: 0.75rem;
+	}
+}
+.col-6 {
+	flex: 0 0 50%;
+	max-width: 50%;
+}
+.col-12 {
+	flex: 0 0 100%;
+	max-width: 100%;
+}
+
+hr {
+	margin-block: 1rem;
+	border: 0;
+	border-block-start: 1px solid currentColor;
+	opacity: 0.25;
+}
+
+/* Raw "alert alert-info" panel in the close-button demo */
+.alert {
+	position: relative;
+	margin-block-end: 1rem;
+	padding: 1rem;
+	border: 1px solid transparent;
+	border-radius: 0.375rem;
+}
+.alert-info {
+	color: #055160;
+	background-color: #cff4fc;
+	border-color: #9eeaf9;
+}
+
+.btn-secondary {
+	color: #fff;
+	background-color: #6c757d;
+	border-color: #6c757d;
+
+	&:hover {
+		background-color: #5c636a;
+		border-color: #565e64;
+	}
+
+	&:focus-visible {
+		outline: 0.2rem solid color-mix(in srgb, #6c757d 40%, transparent);
+		outline-offset: 0.125rem;
+	}
 }
 `;

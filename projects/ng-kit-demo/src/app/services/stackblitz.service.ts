@@ -6,6 +6,7 @@ import {
 	STACKBLITZ_APP_BUTTONS_SCSS,
 	STACKBLITZ_APP_MAT_SNACK_BAR_SCSS,
 	STACKBLITZ_APP_VARIABLES_SCSS,
+	STACKBLITZ_DEMO_UTILITIES_SCSS,
 	STACKBLITZ_STYLES_SCSS,
 } from './stackblitz-styles';
 
@@ -50,6 +51,7 @@ export class StackBlitzService {
 			'src/assets/app-variables.scss': STACKBLITZ_APP_VARIABLES_SCSS,
 			'src/assets/app-buttons.scss': STACKBLITZ_APP_BUTTONS_SCSS,
 			'src/assets/app-mat-snack-bar.scss': STACKBLITZ_APP_MAT_SNACK_BAR_SCSS,
+			'src/assets/demo-utilities.scss': STACKBLITZ_DEMO_UTILITIES_SCSS,
 
 			// App component
 			'src/app/app.component.ts': this.getAppComponentTs(demoConfig),
