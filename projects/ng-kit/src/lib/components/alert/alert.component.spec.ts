@@ -50,9 +50,10 @@ describe('AlertComponent', () => {
 	it('should add custom classes from class input', () => {
 		fixture.componentRef.setInput('class', 'custom-class-1 custom-class-2');
 		fixture.detectChanges();
-		const rowDiv = fixture.debugElement.query(By.css('.row'));
-		expect(rowDiv.nativeElement.classList).toContain('custom-class-1');
-		expect(rowDiv.nativeElement.classList).toContain('custom-class-2');
+		const gridDiv = fixture.debugElement.query(By.css('.grid'));
+		expect(gridDiv.nativeElement.classList).toContain('custom-class-1');
+		expect(gridDiv.nativeElement.classList).toContain('custom-class-2');
+		expect(fixture.debugElement.query(By.css('.g-col-12'))).toBeTruthy();
 	});
 
 	it('should not render when open signal is false', () => {

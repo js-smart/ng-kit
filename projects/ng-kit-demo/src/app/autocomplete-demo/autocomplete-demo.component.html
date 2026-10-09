@@ -1,5 +1,5 @@
-<div class="row">
-	<div class="col-6">
+<div class="grid">
+	<div class="g-col-6">
 		<h1 style="display: flex; justify-content: center; align-items: center; margin-top: 50px">Autocomplete with Objects</h1>
 		<div style="display: flex; justify-content: center; align-items: center">
 			<form [formGroup]="genericFormGroup">
@@ -17,7 +17,7 @@
 			<h2>{{ genericFormGroup.get('autocomplete')?.value?.location ?? '' }}</h2>
 		</div>
 	</div>
-	<div class="col-6">
+	<div class="g-col-6">
 		<h1 style="display: flex; justify-content: center; align-items: center; margin-top: 50px">Autocomplete with Strings</h1>
 		<div style="display: flex; justify-content: center; align-items: center">
 			<form [formGroup]="stringFormGroup">
@@ -35,7 +35,7 @@
 		</div>
 	</div>
 
-	<div class="col-6">
+	<div class="g-col-6">
 		<h2 style="display: flex; justify-content: center; align-items: center; margin-top: 50px">Autocomplete with Loading State</h2>
 		<div style="display: flex; justify-content: center; align-items: center">
 			<form [formGroup]="loadingFormGroup">
@@ -56,7 +56,7 @@
 		</div>
 	</div>
 
-	<div class="col-6">
+	<div class="g-col-6">
 		<h2 style="display: flex; justify-content: center; align-items: center; margin-top: 50px">Autocomplete with Disabled State</h2>
 		<div style="display: flex; flex-direction: column; justify-content: center; align-items: center">
 			<form [formGroup]="disabledFormGroup">

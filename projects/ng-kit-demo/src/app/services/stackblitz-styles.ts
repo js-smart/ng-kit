@@ -9,7 +9,8 @@
  * Plus a StackBlitz-only `.demo-shell` layout that centers demos.
  */
 
-export const STACKBLITZ_STYLES_SCSS = `@import 'bootstrap/dist/css/bootstrap.css';
+export const STACKBLITZ_STYLES_SCSS = `$enable-cssgrid: true;
+@import 'bootstrap/scss/bootstrap';
 @import '@angular/material/prebuilt-themes/indigo-pink.css';
 @import 'assets/app-variables';
 @import 'assets/app-buttons';
@@ -64,7 +65,7 @@ body {
 	margin: 0.25rem;
 }
 
-.demo-shell .row {
+.demo-shell .grid {
 	text-align: left;
 }
 

@@ -1,3 +1,25 @@
+// Keep the alert layout working with Bootstrap 5's default CSS, which omits CSS Grid.
+.grid {
+	display: grid;
+	grid-template-columns: repeat(12, minmax(0, 1fr));
+}
+
+.g-col-12 {
+	grid-column: auto / span 12;
+}
+
+.alert-grid-cell {
+	inline-size: 100%;
+	max-inline-size: 100%;
+}
+
+@media (min-width: 768px) {
+	.alert-grid-cell {
+		inline-size: fit-content;
+		justify-self: center;
+	}
+}
+
 .alert_div {
 	display: flex;
 	align-items: center;

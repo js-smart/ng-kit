@@ -196,15 +196,15 @@ export interface City {
 	location: string;
 	state: string;
 }`,
-		componentHtml: `<div class="row">
-	<div class="col-6">
+		componentHtml: `<div class="grid">
+	<div class="g-col-6">
 		<h1>Autocomplete with Objects</h1>
 		<form [formGroup]="genericFormGroup">
 			<autocomplete [getOptionLabel]="displayWith" [options]="cities" formControlName="autocomplete" label="City" placeholder="Select City">
 			</autocomplete>
 		</form>
 	</div>
-	<div class="col-6">
+	<div class="g-col-6">
 		<h1>Autocomplete with Strings</h1>
 		<form [formGroup]="stringFormGroup">
 			<autocomplete
@@ -215,7 +215,7 @@ export interface City {
 			</autocomplete>
 		</form>
 	</div>
-	<div class="col-6">
+	<div class="g-col-6">
 		<h2>Autocomplete with Loading State</h2>
 		<form [formGroup]="loadingFormGroup">
 			<autocomplete
@@ -229,7 +229,7 @@ export interface City {
 			</autocomplete>
 		</form>
 	</div>
-	<div class="col-6">
+	<div class="g-col-6">
 		<h2>Autocomplete with Disabled State</h2>
 		<form [formGroup]="disabledFormGroup">
 			<autocomplete [getOptionLabel]="displayWith" [options]="cities" formControlName="autocomplete" label="City" placeholder="Select City">
