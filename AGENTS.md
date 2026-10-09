@@ -123,7 +123,7 @@ Apply these rules to all new or modified Angular code:
 
 - **Angular 21.x** with standalone components (no NgModules pattern)
 - **TypeScript 5.9.3**
-- **Bootstrap 5.3** + **Angular Material 21.x** (UI components)
+- **Bootstrap 6** (6.0.0-alpha.1 in the demo; library classes also work with 5.3) + **Angular Material 21.x** (UI components)
 - **RxJS 7.x**
 
 ### Package manager

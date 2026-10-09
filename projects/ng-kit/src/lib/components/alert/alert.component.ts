@@ -1,6 +1,32 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, effect, inject, input, type OnInit, output, signal } from '@angular/core';
+import {
+	ChangeDetectionStrategy,
+	ChangeDetectorRef,
+	Component,
+	computed,
+	effect,
+	inject,
+	input,
+	type OnInit,
+	output,
+	signal,
+} from '@angular/core';
 
 export type AlertType = 'info' | 'primary' | 'secondary' | 'success' | 'warning' | 'danger' | 'dark' | 'light';
+
+/**
+ * Bootstrap 6 replaces `alert-{type}` with `theme-{name}`. It has no `dark` or `light` theme, so `dark` maps to `theme-inverse`
+ * and `light` uses the default (neutral) alert.
+ */
+const ALERT_THEME_CLASSES: Record<AlertType, string> = {
+	info: 'theme-info',
+	primary: 'theme-primary',
+	secondary: 'theme-secondary',
+	success: 'theme-success',
+	warning: 'theme-warning',
+	danger: 'theme-danger',
+	dark: 'theme-inverse',
+	light: '',
+};
 
 /**
  * Boostrap Alert component that can be used to alert messages to the user
@@ -20,6 +46,11 @@ export class AlertComponent implements OnInit {
 	 * Type of the BootStrap Alert. Following values are supported. See BootStrap docs for more information
 	 */
 	type = input<AlertType>('info');
+
+	/**
+	 * Bootstrap 5 (`alert-{type}`) and Bootstrap 6 (`theme-{name}`) classes for the alert type
+	 */
+	typeClasses = computed(() => `alert-${this.type()} ${ALERT_THEME_CLASSES[this.type()]}`.trim());
 
 	/**
 	 *  Is alert visible or open

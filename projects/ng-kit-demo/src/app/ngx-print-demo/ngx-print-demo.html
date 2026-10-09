@@ -1,4 +1,4 @@
-<div class="m-2 container-fluid">
+<div class="m-3 container-fluid">
 	<div class="row">
 		<div class="col-12">
 			<h2 class="text-center">NGX Print Directive Demo</h2>
@@ -25,7 +25,7 @@
 	</div>
 
 	<!-- Generate Mat Table with sorting and pagination -->
-	<table mat-table class="m-5" [dataSource]="dataSource" matSort matSortActive="name" matSortDirection="asc" id="print_id">
+	<table mat-table class="m-12" [dataSource]="dataSource" matSort matSortActive="name" matSortDirection="asc" id="print_id">
 		<ng-container matColumnDef="name">
 			<mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
 			<mat-cell *matCellDef="let element"> {{ element.name }} </mat-cell>

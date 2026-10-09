@@ -277,9 +277,11 @@ interface SidenavNode {
 		}
 
 		/* ── Sidenav Material tree ────────────────────────────────────────── */
+		/* .nav / .nav-link share names with Bootstrap 6 components, so reset its gap and centered content. */
 		.nav {
 			display: flex;
 			flex-direction: column;
+			gap: 0;
 		}
 
 		.nav-tree {
@@ -296,6 +298,7 @@ interface SidenavNode {
 		.nav-group {
 			display: flex;
 			align-items: center;
+			justify-content: flex-start;
 			gap: 0.35rem;
 			flex: 1;
 			min-height: 36px;

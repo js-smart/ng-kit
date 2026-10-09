@@ -6,7 +6,7 @@ import { BsLinkButtonDirective } from '@js-smart/ng-kit';
 	selector: 'ng-kit-bs-link-button-demo',
 	imports: [BsLinkButtonDirective, MatButton],
 	template: `
-		<div class="m-3">
+		<div class="m-5">
 			<h2>Directive (Preferred)</h2>
 			<a bsLinkButton ariaLabel="Bootstrap Link Button" href="/path" mat-button>Bootstrap Link Button</a>
 		</div>

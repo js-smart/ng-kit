@@ -78,13 +78,13 @@ export class ConfirmDialogDemoComponent {
 		});
 	}
 }`,
-		componentHtml: `<div class="m-5">
+		componentHtml: `<div class="m-12">
 	<button (click)="confirm()" (keydown)="confirm()" primaryButton mat-raised-button>Click to Confirm</button>
 
 	<br />
 	<br />
 	<section>
-		<h3 class="mat-h3"><b class="m-2">Confirm Status:</b>{{ confirmStatus() }}</h3>
+		<h3 class="mat-h3"><b class="m-3">Confirm Status:</b>{{ confirmStatus() }}</h3>
 	</section>
 </div>`,
 	};

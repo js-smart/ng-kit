@@ -5,7 +5,7 @@ import { EditSvgIconButtonDirective } from '@js-smart/ng-kit';
 @Component({
 	selector: 'ng-kit-edit-svg-icon-demo',
 	imports: [EditSvgIconButtonDirective, MatButton],
-	template: ` <button class="m-5" editSvgIconButton mat-raised-button>Edit</button> `,
+	template: ` <button class="m-12" editSvgIconButton mat-raised-button>Edit</button> `,
 	changeDetection: ChangeDetectionStrategy.Eager,
 	styles: [],
 })

@@ -59,7 +59,7 @@ npm install`;
 			<ul>
 				<li><strong>Angular</strong>: Version 19 or later</li>
 				<li><strong>RxJS</strong>: Version 7.x</li>
-				<li><strong>Bootstrap</strong>: Version 5.x (if using)</li>
+				<li><strong>Bootstrap</strong>: Version 5.3 or 6.x (optional; components emit class names for both)</li>
 				<li><strong>Angular Material</strong>: Required for Material-based components</li>
 			</ul>
 		</section>

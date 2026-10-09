@@ -41,8 +41,8 @@ importers:
         specifier: ^5.101.4
         version: 5.101.4
       bootstrap:
-        specifier: ^5.3.8
-        version: 5.3.8(@popperjs/core@2.11.8)
+        specifier: 6.0.0-alpha.1
+        version: 6.0.0-alpha.1(@floating-ui/dom@1.8.0)(vanilla-calendar-pro@3.4.0)
       rxjs:
         specifier: ~7.8.2
         version: 7.8.2
@@ -823,6 +823,15 @@ packages:
       '@noble/hashes':
         optional: true
 
+  '@floating-ui/core@1.8.0':
+    resolution: { integrity: sha512-0CIZ5itps/8x7BG8dEIhs53BvCUH2PCoogtakwRTut+Arm58sJooJ0AuZhLw2HJYIR5cMLNPBSS728sPho2khQ== }
+
+  '@floating-ui/dom@1.8.0':
+    resolution: { integrity: sha512-yXSrzeHZBTZadLOlfyhCkJHNeLJnHRnRInwdZ40L7ZiaAtrBwoYlsDrX3v5zB1Utk7CLfzcOVnVVWoXEky7Ceg== }
+
+  '@floating-ui/utils@0.2.12':
+    resolution: { integrity: sha512-HpCo8tmWzLVad5s2d19EhAz5zqrrQ6s69qd6moPMQvkOuSwDT1YgRfWSVuc4ennqrgv3OHppiOGMQ7oC13yIww== }
+
   '@harperfast/extended-iterable@1.0.3':
     resolution: { integrity: sha512-sSAYhQca3rDWtQUHSAPeO7axFIUJOI6hn1gjRC5APVE1a90tuyT8f5WIgRsFhhWA7htNkju2veB9eWL6YHi/Lw== }
 
@@ -1502,9 +1511,6 @@ packages:
 
   '@polka/url@1.0.0-next.29':
     resolution: { integrity: sha512-wwQAWhWSuHaag8c4q/KN/vCoeOJYshAIvMQwD4GpSb3OiZklFfvAgmj0VCBBImRpuF/aFgIRzllXlVX93Jevww== }
-
-  '@popperjs/core@2.11.8':
-    resolution: { integrity: sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A== }
 
   '@rolldown/binding-android-arm64@1.1.5':
     resolution: { integrity: sha512-lZg8fqIv2v7FF237bwMgzGZEJvGL79/s5knJ/i6FmsGF4XXlzccZ4jb+TrFIxtSSxFtIpdsgrPZeMk1I9AFcyQ== }
@@ -2577,10 +2583,11 @@ packages:
   boolbase@1.0.0:
     resolution: { integrity: sha512-JZOSA7Mo9sNGB8+UjSgzdLtokWAky1zbztM3WRLCbZ70/3cTANmQmOdR7y2g+J0e2WXywy1yS468tY+IruqEww== }
 
-  bootstrap@5.3.8:
-    resolution: { integrity: sha512-HP1SZDqaLDPwsNiqRqi5NcP0SSXciX2s9E+RyqJIIqGo+vJeN5AJVM98CXmW/Wux0nQ5L7jeWUdplCEf0Ee+tg== }
+  bootstrap@6.0.0-alpha.1:
+    resolution: { integrity: sha512-snAWSjKDVdQAyPOtR69Upy247tZq13gw86SMDMZS4wNfBXGNdzbHdIP6GAyaAVJwTX4LjWowY8YYaJkSDv2wGQ== }
     peerDependencies:
-      '@popperjs/core': ^2.11.8
+      '@floating-ui/dom': ^1.7.6
+      vanilla-calendar-pro: ^3.4.0
 
   bottleneck@2.19.5:
     resolution: { integrity: sha512-VHiNCbI1lKdl44tGrhNfU3lup0Tj/ZBMJB5/2ZbNXRCPuRCO7ed2mgcK4r17y+KB2EfuYuRaVlwNbAeaWGSpbw== }
@@ -5260,6 +5267,9 @@ packages:
     resolution: { integrity: sha512-SCv6OOV6Xj2/3cXy3dGmADluJTNcL3o7hZAglNPTe+WYuEuvxgJzxPrSDLZhF+CwyQOubqgecjMmTJGMVLWjYQ== }
     engines: { node: ^22.22.2 || ^24.15.0 || >=26.0.0 }
 
+  vanilla-calendar-pro@3.4.0:
+    resolution: { integrity: sha512-HLWjzHOWvMIrjI77tXK5bYzp0s5TeBSrZC247STjcTAdWI7kqEwWT6Xvu20vqdwzF498H1Da8l4WpdgVIGtc1Q== }
+
   vary@1.1.2:
     resolution: { integrity: sha512-BNGbWLfd0eUPabhkXUVm0j8uuvREyTh5ovRa/dyow/BqAbZJyC+5fU+IzQOzmAKzYqYRAISoRhdQr3eIZ/PXqg== }
     engines: { node: '>= 0.8' }
@@ -6180,6 +6190,17 @@ snapshots:
 
   '@exodus/bytes@1.15.1': {}
 
+  '@floating-ui/core@1.8.0':
+    dependencies:
+      '@floating-ui/utils': 0.2.12
+
+  '@floating-ui/dom@1.8.0':
+    dependencies:
+      '@floating-ui/core': 1.8.0
+      '@floating-ui/utils': 0.2.12
+
+  '@floating-ui/utils@0.2.12': {}
+
   '@harperfast/extended-iterable@1.0.3':
     optional: true
 
@@ -6718,8 +6739,6 @@ snapshots:
       config-chain: 1.1.13
 
   '@polka/url@1.0.0-next.29': {}
-
-  '@popperjs/core@2.11.8': {}
 
   '@rolldown/binding-android-arm64@1.1.5':
     optional: true
@@ -7780,9 +7799,10 @@ snapshots:
 
   boolbase@1.0.0: {}
 
-  bootstrap@5.3.8(@popperjs/core@2.11.8):
+  bootstrap@6.0.0-alpha.1(@floating-ui/dom@1.8.0)(vanilla-calendar-pro@3.4.0):
     dependencies:
-      '@popperjs/core': 2.11.8
+      '@floating-ui/dom': 1.8.0
+      vanilla-calendar-pro: 3.4.0
 
   bottleneck@2.19.5: {}
 
@@ -10732,6 +10752,8 @@ snapshots:
       spdx-expression-parse: 3.0.1
 
   validate-npm-package-name@8.0.0: {}
+
+  vanilla-calendar-pro@3.4.0: {}
 
   vary@1.1.2: {}
 

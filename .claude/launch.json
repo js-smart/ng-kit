@@ -1,0 +1,11 @@
+{
+	"version": "0.0.1",
+	"configurations": [
+		{
+			"name": "ng-kit-demo",
+			"runtimeExecutable": "pnpm",
+			"runtimeArgs": ["exec", "ng", "serve", "ng-kit-demo", "--port=4301"],
+			"port": 4301
+		}
+	]
+}

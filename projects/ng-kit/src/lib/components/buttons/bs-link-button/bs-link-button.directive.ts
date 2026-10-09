@@ -1,4 +1,5 @@
 import { Directive, DOCUMENT, effect, ElementRef, inject, input } from '@angular/core';
+import { BS_TEXT_PRIMARY_BUTTON_CLASSES } from '../bootstrap-classes';
 
 @Directive({
 	selector: '[bsLinkButton]',
@@ -13,7 +14,7 @@ export class BsLinkButtonDirective {
 
 	constructor() {
 		const element = this.elementRef.nativeElement;
-		element.classList.add('btn', 'text-primary');
+		element.classList.add(...BS_TEXT_PRIMARY_BUTTON_CLASSES);
 		this.iconElement.classList.add('material-icons', 'pe-2');
 		this.iconElement.setAttribute('aria-hidden', 'true');
 

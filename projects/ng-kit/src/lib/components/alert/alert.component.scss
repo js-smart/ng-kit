@@ -2,4 +2,6 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	// Bootstrap 6 removed the alert's bottom margin; keep the Bootstrap 5 spacing
+	margin-bottom: var(--bs-alert-margin-bottom, 1rem);
 }

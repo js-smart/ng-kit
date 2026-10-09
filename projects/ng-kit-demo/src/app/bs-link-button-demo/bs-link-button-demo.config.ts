@@ -20,7 +20,7 @@ import { BsLinkButtonDirective } from '@js-smart/ng-kit';
 	styles: [\`\`],
 })
 export class BsLinkButtonDemoComponent {}`,
-		componentHtml: `<div class="m-3">
+		componentHtml: `<div class="m-5">
 	<h2>Directive (Preferred)</h2>
 	<a bsLinkButton ariaLabel="Bootstrap Link Button" href="/path" mat-button>Bootstrap Link Button</a>
 </div>

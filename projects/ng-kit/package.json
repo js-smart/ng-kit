@@ -33,7 +33,13 @@
 		"@angular/core": "^22.0.0",
 		"@angular/forms": "^22.0.0",
 		"@angular/material": "^22.0.0",
-		"@tanstack/query-core": "^5.101.0"
+		"@tanstack/query-core": "^5.101.0",
+		"bootstrap": "^5.3.0 || ^6.0.0-alpha.1"
+	},
+	"peerDependenciesMeta": {
+		"bootstrap": {
+			"optional": true
+		}
 	},
 	"dependencies": {
 		"tslib": "^2.8.1"

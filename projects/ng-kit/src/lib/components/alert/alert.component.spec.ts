@@ -47,6 +47,27 @@ describe('AlertComponent', () => {
 		});
 	});
 
+	it('should apply Bootstrap 6 theme class based on type', () => {
+		const expected: Record<AlertType, string | null> = {
+			success: 'theme-success',
+			danger: 'theme-danger',
+			warning: 'theme-warning',
+			info: 'theme-info',
+			primary: 'theme-primary',
+			secondary: 'theme-secondary',
+			dark: 'theme-inverse',
+			light: null,
+		};
+
+		(Object.keys(expected) as AlertType[]).forEach((type) => {
+			fixture.componentRef.setInput('type', type);
+			fixture.detectChanges();
+			const classList: DOMTokenList = fixture.debugElement.query(By.css('.alert')).nativeElement.classList;
+			const themeClasses = Array.from(classList).filter((c) => c.startsWith('theme-'));
+			expect(themeClasses).toEqual(expected[type] ? [expected[type]] : []);
+		});
+	});
+
 	it('should add custom classes from class input', () => {
 		fixture.componentRef.setInput('class', 'custom-class-1 custom-class-2');
 		fixture.detectChanges();

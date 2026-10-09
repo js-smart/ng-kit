@@ -1,10 +1,10 @@
 @if (isPanelVisible()) {
-	<div class="alert alert-info d-flex justify-content-between align-items-center">
+	<div class="alert theme-info d-flex justify-content-between align-items-center">
 		<span>This is a dismissible panel. Click the close button to hide it.</span>
 		<button (click)="closePanel()" aria-label="Close panel" closeButton mat-button>&times;</button>
 	</div>
 } @else {
-	<button (click)="resetPanel()" class="btn btn-secondary" mat-button>Reset Demo</button>
+	<button (click)="resetPanel()" class="btn-solid theme-secondary" mat-button>Reset Demo</button>
 }
 
 <hr />

@@ -136,7 +136,7 @@ import { BsLinkButtonDirective } from '@js-smart/ng-kit';
 	standalone: true,
 	imports: [BsLinkButtonDirective, MatButton],
 	template: \`
-		<div class="m-3">
+		<div class="m-5">
 			<h2>Directive (Preferred)</h2>
 			<a bsLinkButton ariaLabel="Bootstrap Link Button" href="/path" mat-button>Bootstrap Link Button</a>
 		</div>
@@ -165,12 +165,12 @@ import { CloseButtonDirective } from '@js-smart/ng-kit';
 	imports: [CloseButtonDirective, MatButton],
 	template: \`
 		@if (isPanelVisible()) {
-			<div class="alert alert-info d-flex justify-content-between align-items-center">
+			<div class="alert theme-info d-flex justify-content-between align-items-center">
 				<span>This is a dismissible panel. Click the close button to hide it.</span>
 				<button (click)="closePanel()" aria-label="Close panel" closeButton mat-button>&times;</button>
 			</div>
 		} @else {
-			<button (click)="resetPanel()" class="btn btn-secondary" mat-button>Reset Demo</button>
+			<button (click)="resetPanel()" class="btn-solid theme-secondary" mat-button>Reset Demo</button>
 		}
 
 		<hr />
@@ -692,7 +692,12 @@ const BUTTON_API: Record<string, ButtonApi> = {
 			{ name: 'icon', type: 'string', default: "'save'", description: 'Material icon name rendered before the label.' },
 			{ name: 'showIcon', type: 'boolean', default: 'false', description: 'The primary button hides the leading icon by default.' },
 			{ name: 'loadingLabel', type: 'string', default: "'Saving...'", description: 'Text shown while loading is true.' },
-			{ name: 'classes', type: 'string', default: "'btn-primary primary-button'", description: 'CSS classes applied to the button.' },
+			{
+				name: 'classes',
+				type: 'string',
+				default: "'btn-primary btn-solid theme-primary primary-button'",
+				description: 'CSS classes applied to the button.',
+			},
 		],
 	},
 	'success-button': {
@@ -710,7 +715,12 @@ const BUTTON_API: Record<string, ButtonApi> = {
 			{ name: 'label', type: 'string', default: "'Save'", description: 'Button label text.' },
 			{ name: 'icon', type: 'string', default: "'save'", description: 'Material icon name rendered before the label.' },
 			{ name: 'loadingLabel', type: 'string', default: "'Saving...'", description: 'Text shown while saving (loading) is true.' },
-			{ name: 'classes', type: 'string', default: "'btn-primary primary-button'", description: 'CSS classes applied to the button.' },
+			{
+				name: 'classes',
+				type: 'string',
+				default: "'btn-primary btn-solid theme-primary primary-button'",
+				description: 'CSS classes applied to the button.',
+			},
 		],
 	},
 	'search-button': {
@@ -719,7 +729,12 @@ const BUTTON_API: Record<string, ButtonApi> = {
 			{ name: 'label', type: 'string', default: "'Search'", description: 'Button label text.' },
 			{ name: 'icon', type: 'string', default: "'search'", description: 'Material icon name rendered before the label.' },
 			{ name: 'loadingLabel', type: 'string', default: "'Searching...'", description: 'Text shown while loading is true.' },
-			{ name: 'classes', type: 'string', default: "'btn-primary primary-button'", description: 'CSS classes applied to the button.' },
+			{
+				name: 'classes',
+				type: 'string',
+				default: "'btn-primary btn-solid theme-primary primary-button'",
+				description: 'CSS classes applied to the button.',
+			},
 		],
 	},
 	'view-button': {
@@ -735,7 +750,12 @@ const BUTTON_API: Record<string, ButtonApi> = {
 		inputs: [
 			{ name: 'label', type: 'string', default: "'View'", description: 'Button label text.' },
 			{ name: 'icon', type: 'string', default: "'visibility'", description: 'Material icon name rendered before the label.' },
-			{ name: 'classes', type: 'string', default: "'btn-primary primary-button'", description: 'CSS classes applied to the button.' },
+			{
+				name: 'classes',
+				type: 'string',
+				default: "'btn-primary btn-solid theme-primary primary-button'",
+				description: 'CSS classes applied to the button.',
+			},
 		],
 	},
 	'edit-button': {
@@ -750,7 +770,12 @@ const BUTTON_API: Record<string, ButtonApi> = {
 		summary: 'An edit button with Bootstrap button styling, extending the base button. All other base inputs and outputs are inherited.',
 		inputs: [
 			{ name: 'label', type: 'string', default: "'Edit'", description: 'Button label text.' },
-			{ name: 'classes', type: 'string', default: "'text-primary'", description: 'CSS classes applied to the button.' },
+			{
+				name: 'classes',
+				type: 'string',
+				default: "'btn text-primary btn-text theme-primary gap-1'",
+				description: 'CSS classes applied to the button.',
+			},
 		],
 	},
 	'edit-svg-icon-button': {
@@ -790,7 +815,12 @@ const BUTTON_API: Record<string, ButtonApi> = {
 		inputs: [
 			{ name: 'label', type: 'string', default: "'Edit'", description: 'Link label text.' },
 			{ name: 'icon', type: 'string', default: "'search'", description: 'Material icon name rendered before the label.' },
-			{ name: 'classes', type: 'string', default: "'btn text-primary'", description: 'CSS classes applied to the anchor.' },
+			{
+				name: 'classes',
+				type: 'string',
+				default: "'btn text-primary btn-text theme-primary'",
+				description: 'CSS classes applied to the anchor.',
+			},
 		],
 	},
 	'close-button': {

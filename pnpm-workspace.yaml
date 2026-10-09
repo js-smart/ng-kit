@@ -34,3 +34,4 @@ minimumReleaseAgeExclude:
   - jose@6.2.5
   - npm@11.19.0
   - postcss@8.5.25
+  - bootstrap@6.0.0-alpha.1

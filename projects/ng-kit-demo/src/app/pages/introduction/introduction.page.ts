@@ -12,7 +12,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 		<h1 class="page-title">Introduction</h1>
 		<p class="page-lead">
 			<strong>&#64;js-smart/ng-kit</strong> is a comprehensive collection of reusable Angular components, directives, and utilities built
-			with Angular Material and Bootstrap 5.x.
+			with Angular Material and Bootstrap (5.3 or 6).
 		</p>
 
 		<section class="page-section">

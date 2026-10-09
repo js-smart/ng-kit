@@ -7,8 +7,8 @@ import { PreventMultipleClicksDirective, ViewButtonDirective } from '@js-smart/n
 	imports: [ViewButtonDirective, MatButton, PreventMultipleClicksDirective],
 	changeDetection: ChangeDetectionStrategy.Eager,
 	template: `
-		<div class="m-5">
-			<button class="m-3" viewButton mat-button preventMultipleClicks (throttleClick)="click()">Throttle Button</button>
+		<div class="m-12">
+			<button class="m-5" viewButton mat-button preventMultipleClicks (throttleClick)="click()">Throttle Button</button>
 		</div>
 	`,
 })

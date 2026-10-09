@@ -45,6 +45,8 @@ interface Post {
 		MatProgressBarModule,
 	],
 	templateUrl: './query-demo.component.html',
+	// Material's .mat-divider { margin: 0 } outranks Bootstrap 6's layered spacing utilities
+	styles: ['mat-divider { margin-block: 1rem; }'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class QueryDemoComponent {
