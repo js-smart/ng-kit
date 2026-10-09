@@ -123,7 +123,7 @@ Apply these rules to all new or modified Angular code:
 
 - **Angular 21.x** with standalone components (no NgModules pattern)
 - **TypeScript 5.9.3**
-- **Bootstrap 5.3** + **Angular Material 21.x** (UI components)
+- **Angular Material 21.x** (UI components). The library has no Bootstrap dependency: button directives and components keep their Bootstrap class names and ship their own CSS for them. Library CSS sits in the `ng-kit` cascade layer. The demo still loads Bootstrap 5.3 for its own layout.
 - **RxJS 7.x**
 
 ### Package manager

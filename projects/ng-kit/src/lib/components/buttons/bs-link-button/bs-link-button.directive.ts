@@ -1,4 +1,5 @@
 import { Directive, DOCUMENT, effect, ElementRef, inject, input } from '@angular/core';
+import { injectButtonStyles } from '../button-styles.component';
 
 @Directive({
 	selector: '[bsLinkButton]',
@@ -12,6 +13,7 @@ export class BsLinkButtonDirective {
 	private readonly iconElement = this.document.createElement('span');
 
 	constructor() {
+		injectButtonStyles();
 		const element = this.elementRef.nativeElement;
 		element.classList.add('btn', 'text-primary');
 		this.iconElement.classList.add('material-icons', 'pe-2');

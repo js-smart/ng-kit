@@ -59,7 +59,7 @@ npm install`;
 			<ul>
 				<li><strong>Angular</strong>: Version 19 or later</li>
 				<li><strong>RxJS</strong>: Version 7.x</li>
-				<li><strong>Bootstrap</strong>: Version 5.x (if using)</li>
+				<li><strong>Bootstrap</strong>: Not required by the library</li>
 				<li><strong>Angular Material</strong>: Required for Material-based components</li>
 			</ul>
 		</section>
@@ -118,8 +118,12 @@ npm install`;
 					installed.
 				</li>
 				<li><strong>Clean install</strong>: Delete <code>node_modules</code> and lock files, then reinstall dependencies.</li>
-				<li><strong>Bootstrap styles</strong>: Verify Bootstrap CSS is properly imported if components appear unstyled.</li>
+				<li><strong>Library styles</strong>: Ensure the application allows component styles if buttons or alerts appear unstyled.</li>
 				<li><strong>Angular Material</strong>: Ensure Angular Material is installed if using Material-based components.</li>
+				<li>
+					<strong>CSS layers</strong>: If your application uses layers, declare <code>ng-kit</code> before your utility layer, for example
+					<code>&#64;layer components, ng-kit, utilities;</code> near the top of your stylesheet.
+				</li>
 				<li><strong>TypeScript errors</strong>: Ensure you're using a compatible TypeScript version (check Angular requirements).</li>
 				<li><strong>Update guide</strong>: Review the Angular Update Guide for breaking changes between versions.</li>
 			</ol>

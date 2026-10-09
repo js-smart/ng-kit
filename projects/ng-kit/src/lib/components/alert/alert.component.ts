@@ -1,9 +1,24 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, effect, inject, input, type OnInit, output, signal } from '@angular/core';
+import {
+	ChangeDetectionStrategy,
+	ChangeDetectorRef,
+	Component,
+	effect,
+	inject,
+	input,
+	type OnInit,
+	output,
+	signal,
+	ViewEncapsulation,
+} from '@angular/core';
 
 export type AlertType = 'info' | 'primary' | 'secondary' | 'success' | 'warning' | 'danger' | 'dark' | 'light';
 
 /**
- * Boostrap Alert component that can be used to alert messages to the user
+ * Alert component that shows a message to the user. It is dismissible by default and closes itself after a timeout.
+ *
+ * Styling is self-contained and needs no CSS framework. Colours come from Bootstrap's CSS variables when Bootstrap is
+ * loaded, otherwise from Bootstrap 5's defaults; override `--ngk-alert-color`, `--ngk-alert-bg` and
+ * `--ngk-alert-border-color` on an `.alert-{type}` class to theme a type.
  *
  * @author Pavan Kumar Jadda
  * @since 12.0.0
@@ -11,13 +26,16 @@ export type AlertType = 'info' | 'primary' | 'secondary' | 'success' | 'warning'
 @Component({
 	selector: 'lib-alert, alert',
 	templateUrl: './alert.component.html',
-	styleUrls: ['./alert.component.scss'],
+	styleUrl: './alert.component.css',
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	// Global styles use the existing Bootstrap class names, scoped to the component host.
+	encapsulation: ViewEncapsulation.None,
 })
 export class AlertComponent implements OnInit {
 	cdr = inject(ChangeDetectorRef);
 	/**
-	 * Type of the BootStrap Alert. Following values are supported. See BootStrap docs for more information
+	 * Type of the alert, which selects its colours. Supported values: `info` (default), `primary`, `secondary`, `success`,
+	 * `warning`, `danger`, `dark` and `light`
 	 */
 	type = input<AlertType>('info');
 
@@ -47,7 +65,7 @@ export class AlertComponent implements OnInit {
 	dismissTimeout = input(5000);
 
 	/**
-	 * Additional classes to be added to the alert. This can be used to add custom styles to the alert
+	 * Additional classes to be added to the alert container. This can be used to add custom styles to the alert
 	 */
 	class = input('');
 
@@ -79,7 +97,7 @@ export class AlertComponent implements OnInit {
 	}
 
 	/**
-	 * Closes BootStrap Alert if not open
+	 * Closes the alert and emits `closed`. Does nothing if the alert is already closed
 	 *
 	 * @author Pavan Kumar Jadda
 	 * @since 12.0.0

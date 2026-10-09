@@ -11,7 +11,7 @@ import { SpinnerComponent } from '@js-smart/ng-kit';
 	selector: 'app-spinner-demo',
 	imports: [SpinnerComponent],
 	template: \`
-		<spinner [bootstrapSpinner]="false" [diameter]="40" color="accent" [strokeWidth]="4" />
+		<spinner [diameter]="40" color="accent" [strokeWidth]="4" />
 	\`,
 })
 export class SpinnerDemoComponent {}`;
@@ -23,7 +23,7 @@ import { SpinnerComponent } from '@js-smart/ng-kit';
 	selector: 'app-spinner-default',
 	imports: [SpinnerComponent],
 	template: \`
-		<spinner [bootstrapSpinner]="false" />
+		<spinner />
 	\`,
 })
 export class SpinnerDefaultComponent {}`;
@@ -56,7 +56,7 @@ const materialConfig = buildDemoConfig({
 		<doc-page title="Spinner">
 			<p docLead>
 				A thin wrapper around the Angular Material progress spinner. Provides a simple way to customize size, color, and stroke width, with
-				an optional Bootstrap spinner fallback.
+				an indeterminate loading indicator without requiring Bootstrap.
 			</p>
 
 			<div docOverview>
@@ -64,9 +64,8 @@ const materialConfig = buildDemoConfig({
 					<h2>Overview</h2>
 					<p>
 						Import <code>SpinnerComponent</code> and drop the <code>&lt;spinner&gt;</code> element into any standalone component. By default
-						<code>bootstrapSpinner</code> is <code>true</code>, which renders a Bootstrap spinner (requires Bootstrap CSS). Set
-						<code>bootstrapSpinner</code> to <code>false</code> to render the Angular Material <code>mat-spinner</code> instead, then tune
-						it with <code>diameter</code>, <code>color</code>, and <code>strokeWidth</code>.
+						The component always renders an indeterminate Angular Material progress spinner. Tune it with <code>diameter</code>,
+						<code>color</code>, and <code>strokeWidth</code>.
 					</p>
 					<ul>
 						<li>Tree-shakable: only the imported features are included in your bundle.</li>
@@ -81,20 +80,20 @@ const materialConfig = buildDemoConfig({
 					title="Material spinner"
 					anchorId="material-spinner"
 					description="The Angular Material spinner with default diameter, primary color, and default stroke width."
-					[props]="['bootstrapSpinner']"
+					[props]="[]"
 					[code]="defaultCode"
 					[stackblitz]="defaultConfig">
-					<spinner [bootstrapSpinner]="false" />
+					<spinner />
 				</demo-card>
 
 				<demo-card
 					title="Custom size, color &amp; stroke"
 					anchorId="custom-size-color-stroke"
 					description="Tune the Material spinner with a smaller diameter, an accent color, and a thinner stroke."
-					[props]="['bootstrapSpinner', 'diameter', 'color', 'strokeWidth']"
+					[props]="['diameter', 'color', 'strokeWidth']"
 					[code]="materialCode"
 					[stackblitz]="materialConfig">
-					<spinner [bootstrapSpinner]="false" [diameter]="40" color="accent" [strokeWidth]="4" />
+					<spinner [diameter]="40" color="accent" [strokeWidth]="4" />
 				</demo-card>
 			</div>
 
@@ -117,7 +116,7 @@ const materialConfig = buildDemoConfig({
 							<td><code>bootstrapSpinner</code></td>
 							<td><code>boolean</code></td>
 							<td><code>true</code></td>
-							<td>Use the Bootstrap spinner when <code>true</code>, otherwise the Angular Material spinner</td>
+							<td>Deprecated compatibility input; has no effect</td>
 						</tr>
 						<tr>
 							<td><code>diameter</code></td>
@@ -140,8 +139,8 @@ const materialConfig = buildDemoConfig({
 					</tbody>
 				</table>
 				<p class="api-note">
-					Set <code>bootstrapSpinner</code> to <code>false</code> to use the Angular Material spinner. The Bootstrap variant requires
-					Bootstrap CSS to be present in your application.
+					The default changed from a Bootstrap spinner to an Angular Material spinner. Existing
+					<code>[bootstrapSpinner]</code> bindings still compile but do not change the result.
 				</p>
 			</div>
 		</doc-page>

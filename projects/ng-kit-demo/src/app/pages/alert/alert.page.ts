@@ -46,8 +46,8 @@ const alertTypesConfig = getAlertDemoConfig();
 	template: `
 		<doc-page title="Alert">
 			<p docLead>
-				Fully customizable, reusable alert component styled with Bootstrap CSS. Designed for standalone usage, tree-shakable imports, and
-				reactive state via Angular signals. Configure the alert type, visibility, dismiss behavior, and custom classes.
+				Fully customizable, reusable alert component with its own styles. Designed for standalone usage, tree-shakable imports, and reactive
+				state via Angular signals. Configure the alert type, visibility, dismiss behavior, and custom classes.
 			</p>
 
 			<div docOverview>
@@ -165,7 +165,7 @@ const alertTypesConfig = getAlertDemoConfig();
 						</tr>
 					</tbody>
 				</table>
-				<p class="api-note">Requires Bootstrap styles to be loaded for the alert to render correctly.</p>
+				<p class="api-note">No Bootstrap styles are required. The existing <code>alert</code> and <code>alert-*</code> classes remain.</p>
 			</div>
 		</doc-page>
 	`,

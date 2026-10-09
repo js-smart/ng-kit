@@ -1,4 +1,5 @@
 import { booleanAttribute, computed, Directive, DOCUMENT, effect, ElementRef, inject, input, OnInit, signal } from '@angular/core';
+import { injectButtonStyles } from '../button-styles.component';
 
 @Directive({
 	host: {
@@ -21,6 +22,7 @@ export abstract class BaseButtonDirective implements OnInit {
 	protected iconSpan = signal<HTMLElement | null>(null);
 
 	constructor() {
+		injectButtonStyles();
 		this.elementRef.nativeElement.classList.add('btn');
 
 		effect(() => {

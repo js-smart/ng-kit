@@ -1,11 +1,7 @@
-<!-- Angular Material Spinner -->
-@if (!bootstrapSpinner()) {
-	<mat-spinner [color]="color()" [diameter]="diameter()" [strokeWidth]="strokeWidth()" class="mx-auto"> </mat-spinner>
-}
-
-<!-- Bootstrap Spinner -->
-@if (bootstrapSpinner()) {
-	<div class="d-flex justify-content-center">
-		<div class="spinner-border bs-spinner" role="status"></div>
-	</div>
-}
+<mat-progress-spinner
+	[color]="color()"
+	[diameter]="diameter()"
+	[strokeWidth]="strokeWidth()"
+	aria-label="Loading"
+	class="mx-auto"
+	mode="indeterminate"></mat-progress-spinner>

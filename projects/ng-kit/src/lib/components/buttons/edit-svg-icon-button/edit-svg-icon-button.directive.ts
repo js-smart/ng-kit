@@ -1,6 +1,7 @@
 import { ComponentRef, Directive, DOCUMENT, ElementRef, inject, OnDestroy, OnInit, signal, ViewContainerRef } from '@angular/core';
 import { mountEditSolidSvgIcon } from '../../../svg-icons/edit-solid-svg/append-edit-solid-svg-icon.util';
 import { EditSolidSvgComponent } from '../../../svg-icons/edit-solid-svg/edit-solid-svg.component';
+import { injectButtonStyles } from '../button-styles.component';
 
 @Directive({
 	selector: '[editSvgIconButton]',
@@ -12,6 +13,10 @@ export class EditSvgIconButtonDirective implements OnInit, OnDestroy {
 
 	protected originalText = signal('');
 	private iconComponentRef: ComponentRef<EditSolidSvgComponent> | null = null;
+
+	constructor() {
+		injectButtonStyles();
+	}
 
 	ngOnInit(): void {
 		this.elementRef.nativeElement.classList.add('mat-raised-button', 'primary-button', 'gap-1');

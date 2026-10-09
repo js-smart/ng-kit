@@ -8,7 +8,7 @@ import { MatDividerModule } from '@angular/material/divider';
 	imports: [MatButtonModule, MatDividerModule, MatDialogModule],
 	template: `
 		<div class="mat-dialog-title" style="text-align: center">
-			<h3 class="m-3 mat-headline-5	">{{ title }}</h3>
+			<h3 class="m-3 mat-headline-5">{{ title }}</h3>
 		</div>
 
 		<mat-divider></mat-divider>
@@ -22,7 +22,16 @@ import { MatDividerModule } from '@angular/material/divider';
 		</div>
 	`,
 	changeDetection: ChangeDetectionStrategy.Eager,
-	styles: [],
+	styles: `
+		@layer ng-kit {
+			.m-3.mat-headline-5 {
+				margin: 1rem;
+				font-size: 1.75rem;
+				font-weight: 500;
+				line-height: 1.2;
+			}
+		}
+	`,
 })
 export class ConfirmDialogComponent {
 	title: string;

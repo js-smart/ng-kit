@@ -1,0 +1,119 @@
+/*
+ * Alert styles: the Bootstrap 5 alert look, without Bootstrap. The existing class names are scoped to this component's
+ * host. Colours use Bootstrap's CSS variables when present and fall back to Bootstrap 5's defaults otherwise.
+ */
+@layer ng-kit {
+	:is(alert, lib-alert) > .row {
+		display: flex;
+		flex-wrap: wrap;
+		margin-inline: -0.75rem;
+	}
+
+	:is(alert, lib-alert) > .row > .col-xs-12 {
+		box-sizing: border-box;
+		width: 100%;
+		margin-inline: auto;
+		padding-inline: 0.75rem;
+	}
+
+	:is(alert, lib-alert) .alert {
+		position: relative;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		box-sizing: border-box;
+		width: 100%;
+		margin-bottom: 1rem;
+		padding: 1rem 3rem 1rem 1rem;
+		line-height: 1.5;
+		color: var(--ngk-alert-color);
+		background-color: var(--ngk-alert-bg);
+		border: 1px solid var(--ngk-alert-border-color);
+		border-radius: 0.375rem;
+	}
+
+	/* Full width on small screens, shrink-wrapped and centred from 768px up */
+	@media (width >= 768px) {
+		:is(alert, lib-alert) > .row > .col-md-auto {
+			width: auto;
+		}
+	}
+
+	:is(alert, lib-alert) .alert-primary {
+		--ngk-alert-color: var(--bs-primary-text-emphasis, #052c65);
+		--ngk-alert-bg: var(--bs-primary-bg-subtle, #cfe2ff);
+		--ngk-alert-border-color: var(--bs-primary-border-subtle, #9ec5fe);
+	}
+
+	:is(alert, lib-alert) .alert-secondary {
+		--ngk-alert-color: var(--bs-secondary-text-emphasis, #2b2f32);
+		--ngk-alert-bg: var(--bs-secondary-bg-subtle, #e2e3e5);
+		--ngk-alert-border-color: var(--bs-secondary-border-subtle, #c4c8cb);
+	}
+
+	:is(alert, lib-alert) .alert-success {
+		--ngk-alert-color: var(--bs-success-text-emphasis, #0a3622);
+		--ngk-alert-bg: var(--bs-success-bg-subtle, #d1e7dd);
+		--ngk-alert-border-color: var(--bs-success-border-subtle, #a3cfbb);
+	}
+
+	:is(alert, lib-alert) .alert-info {
+		--ngk-alert-color: var(--bs-info-text-emphasis, #055160);
+		--ngk-alert-bg: var(--bs-info-bg-subtle, #cff4fc);
+		--ngk-alert-border-color: var(--bs-info-border-subtle, #9eeaf9);
+	}
+
+	:is(alert, lib-alert) .alert-warning {
+		--ngk-alert-color: var(--bs-warning-text-emphasis, #664d03);
+		--ngk-alert-bg: var(--bs-warning-bg-subtle, #fff3cd);
+		--ngk-alert-border-color: var(--bs-warning-border-subtle, #ffe69c);
+	}
+
+	:is(alert, lib-alert) .alert-danger {
+		--ngk-alert-color: var(--bs-danger-text-emphasis, #58151c);
+		--ngk-alert-bg: var(--bs-danger-bg-subtle, #f8d7da);
+		--ngk-alert-border-color: var(--bs-danger-border-subtle, #f1aeb5);
+	}
+
+	:is(alert, lib-alert) .alert-light {
+		--ngk-alert-color: var(--bs-light-text-emphasis, #495057);
+		--ngk-alert-bg: var(--bs-light-bg-subtle, #fcfcfd);
+		--ngk-alert-border-color: var(--bs-light-border-subtle, #e9ecef);
+	}
+
+	:is(alert, lib-alert) .alert-dark {
+		--ngk-alert-color: var(--bs-dark-text-emphasis, #495057);
+		--ngk-alert-bg: var(--bs-dark-bg-subtle, #ced4da);
+		--ngk-alert-border-color: var(--bs-dark-border-subtle, #adb5bd);
+	}
+
+	:is(alert, lib-alert) .btn-close {
+		position: absolute;
+		top: 0;
+		right: 0;
+		z-index: 2;
+		box-sizing: content-box;
+		width: 1em;
+		height: 1em;
+		margin: 0;
+		padding: 1.25rem 1rem;
+		font: inherit;
+		cursor: pointer;
+		background: transparent
+			url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23000'%3e%3cpath d='M.293.293a1 1 0 0 1 1.414 0L8 6.586 14.293.293a1 1 0 1 1 1.414 1.414L9.414 8l6.293 6.293a1 1 0 0 1-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L6.586 8 .293 1.707a1 1 0 0 1 0-1.414'/%3e%3c/svg%3e")
+			center / 1em auto no-repeat;
+		border: 0;
+		border-radius: 0.375rem;
+		opacity: 0.5;
+
+		&:hover {
+			opacity: 0.75;
+		}
+
+		&:focus-visible {
+			outline: 0;
+			box-shadow: 0 0 0 0.25rem rgb(13 110 253 / 25%);
+			opacity: 1;
+		}
+	}
+}

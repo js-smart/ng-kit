@@ -1,32 +1,38 @@
-import { Component, input, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, ViewEncapsulation } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
 
+/**
+ * Centered, indeterminate Angular Material progress spinner.
+ */
 @Component({
 	selector: 'spinner,lib-spinner',
-	imports: [MatProgressSpinnerModule],
+	imports: [MatProgressSpinner],
 	templateUrl: './spinner.component.html',
 	changeDetection: ChangeDetectionStrategy.Eager,
-	styleUrls: ['./spinner.component.scss'],
+	// Global styles keep the existing mx-auto class, scoped to the component host.
+	styles: '@layer ng-kit { :is(spinner, lib-spinner) .mx-auto { margin-inline: auto; } }',
+	encapsulation: ViewEncapsulation.None,
 })
 export class SpinnerComponent {
 	/**
-	 *  Use Boostrap Spinner. Default `true`
+	 * @deprecated Has no effect: the component always renders the Angular Material progress spinner. Kept so existing
+	 * `[bootstrapSpinner]` bindings still compile; it will be removed in a future major version.
 	 */
 	bootstrapSpinner = input(true);
 
 	/**
-	 * Diameter of the Angular Material spinner
+	 * Diameter of the spinner in pixels. Default `50`
 	 */
 	diameter = input(50);
 
 	/**
-	 *  Color of the Angular Material spinner
+	 * Theme color of the spinner. Default `primary`
 	 */
 	color = input<ThemePalette>('primary');
 
 	/**
-	 *  Stroke Width of the Angular Material spinner
+	 * Stroke width of the spinner in pixels. Default `5`
 	 */
 	strokeWidth = input(5);
 }
