@@ -11,7 +11,6 @@ const rootPkg = rootPackageJson as PackageJson;
 const ngKitPkg = ngKitPackageJson as PackageJson;
 
 const RUNTIME_DEPENDENCY_KEYS = [
-	'@angular/animations',
 	'@angular/cdk',
 	'@angular/common',
 	'@angular/compiler',

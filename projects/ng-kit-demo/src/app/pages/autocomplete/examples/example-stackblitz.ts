@@ -21,8 +21,7 @@ export interface AutocompleteExampleConfigInput {
  * launched in StackBlitz via `StackBlitzService.openDemo`.
  *
  * Templates are inline in each example's source, so `componentHtml` is empty.
- * `BrowserAnimationsModule` is required for Material overlay/ripple animations;
- * every other module each example needs is already declared inside the source's
+ * Every module each example needs is already declared inside the source's
  * own component `imports` array.
  */
 export function buildAutocompleteExampleConfig(input: AutocompleteExampleConfigInput): DemoConfig {
@@ -32,6 +31,5 @@ export function buildAutocompleteExampleConfig(input: AutocompleteExampleConfigI
 		componentName: input.componentName,
 		componentTs: input.code,
 		componentHtml: '',
-		requiredImports: ['BrowserAnimationsModule'],
 	};
 }

@@ -36,7 +36,6 @@ const suffixConfig = buildDemoConfig({
 	title: 'Clear + dropdown suffix',
 	componentName: 'clear-dropdown-suffix',
 	code: SUFFIX_CODE,
-	requiredImports: ['BrowserAnimationsModule'],
 });
 
 /**

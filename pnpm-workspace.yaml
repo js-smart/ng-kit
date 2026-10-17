@@ -12,7 +12,6 @@ minimumReleaseAgeExclude:
   - '@angular-devkit/schematics@22.1.0'
   - '@angular/cli@22.1.0'
   - '@schematics/angular@22.1.0'
-  - '@angular/animations@22.1.0'
   - '@angular/build@22.1.0'
   - '@angular/cdk@22.1.0'
   - '@angular/common@22.1.0'

@@ -18,9 +18,9 @@ export interface DemoConfigInput {
 	description?: string;
 	/**
 	 * Angular modules the StackBlitz app needs registered via `importProvidersFrom`
-	 * (e.g. `BrowserAnimationsModule` for Material overlays/ripples). Every module a
+	 * (e.g. `MatNativeDateModule`). Every module a
 	 * component itself imports belongs in its own `imports` array, not here.
-	 * Defaults to `['BrowserAnimationsModule']`.
+	 * Defaults to `[]`.
 	 */
 	requiredImports?: string[];
 	/** Optional external template markup; defaults to empty (templates are inline in {@link code}). */
@@ -44,7 +44,7 @@ export function buildDemoConfig(input: DemoConfigInput): DemoConfig {
 		componentName: input.componentName,
 		componentTs: input.code,
 		componentHtml: input.componentHtml ?? '',
-		requiredImports: input.requiredImports ?? ['BrowserAnimationsModule'],
+		requiredImports: input.requiredImports ?? [],
 		additionalProviders: input.additionalProviders,
 		additionalFiles: input.additionalFiles,
 	};

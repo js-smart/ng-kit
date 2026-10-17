@@ -8,7 +8,6 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
 import { BrowserModule, Title } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PreloadAllModules, RouterModule } from '@angular/router';
 import { provideQueryClient } from '@js-smart/ng-kit';
 import { routes } from './app.routes';
@@ -27,7 +26,6 @@ export const appConfig: ApplicationConfig = {
 			}),
 			FormsModule,
 			ReactiveFormsModule,
-			BrowserAnimationsModule,
 			MatSelectModule,
 			MatAutocompleteModule,
 			MatNativeDateModule,

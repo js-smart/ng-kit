@@ -8,7 +8,6 @@ export function getEditBsButtonDemoConfig(): DemoConfig {
 		title: 'Edit Bootstrap Button Demo',
 		description: 'Demo showcasing the EditBsButtonDirective from @js-smart/ng-kit',
 		componentName: 'edit-bs-button-demo',
-		requiredImports: ['BrowserAnimationsModule'],
 		componentTs: `import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { EditBsButtonDirective } from '@js-smart/ng-kit';

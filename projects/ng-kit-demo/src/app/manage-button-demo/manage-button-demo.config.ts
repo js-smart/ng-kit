@@ -8,7 +8,6 @@ export function getManageButtonDemoConfig(): DemoConfig {
 		title: 'Manage Button Demo',
 		description: 'Demo showcasing the ManageButtonDirective from @js-smart/ng-kit',
 		componentName: 'manage-button-demo',
-		requiredImports: ['BrowserAnimationsModule'],
 		componentTs: `import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { ManageButtonDirective } from '@js-smart/ng-kit';

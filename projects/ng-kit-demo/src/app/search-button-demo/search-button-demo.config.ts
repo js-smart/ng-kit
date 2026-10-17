@@ -8,7 +8,6 @@ export function getSearchButtonDemoConfig(): DemoConfig {
 		title: 'Search Button Demo',
 		description: 'Demo showcasing the SearchButtonDirective from @js-smart/ng-kit',
 		componentName: 'search-button-demo',
-		requiredImports: ['BrowserAnimationsModule'],
 		componentTs: `import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { SearchButtonDirective } from '@js-smart/ng-kit';

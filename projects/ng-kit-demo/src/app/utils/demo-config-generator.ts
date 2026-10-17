@@ -44,7 +44,6 @@ export function getConfirmDialogDemoConfig(): DemoConfig {
 		title: 'Confirm Dialog Demo',
 		description: 'Demo showcasing the ConfirmDialogComponent from @js-smart/ng-kit',
 		componentName: 'confirm-dialog-demo',
-		requiredImports: ['BrowserAnimationsModule'],
 		componentTs: `import { Component, inject, signal } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
@@ -98,7 +97,6 @@ export function getSnackBarDemoConfig(): DemoConfig {
 		title: 'Snack Bar Demo',
 		description: 'Demo showcasing MatSnackBarService from @js-smart/ng-kit',
 		componentName: 'snack-bar-demo',
-		requiredImports: ['BrowserAnimationsModule'],
 		componentTs: `import { Component, inject } from '@angular/core';
 import { MatSnackBarService } from '@js-smart/ng-kit';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
@@ -133,7 +131,6 @@ export function getAutocompleteDemoConfig(): DemoConfig {
 		title: 'Autocomplete Demo',
 		description: 'Demo showcasing the AutocompleteComponent from @js-smart/ng-kit',
 		componentName: 'autocomplete-demo',
-		requiredImports: ['BrowserAnimationsModule'],
 		componentTs: `import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { FormBuilder, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { AutocompleteComponent } from '@js-smart/ng-kit';

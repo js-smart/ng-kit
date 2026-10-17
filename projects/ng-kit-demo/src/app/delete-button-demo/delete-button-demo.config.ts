@@ -8,7 +8,6 @@ export function getDeleteButtonDemoConfig(): DemoConfig {
 		title: 'Delete Button Demo',
 		description: 'Demo showcasing the DeleteButtonDirective from @js-smart/ng-kit',
 		componentName: 'delete-button-demo',
-		requiredImports: ['BrowserAnimationsModule'],
 		componentTs: `import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { DeleteButtonDirective } from '@js-smart/ng-kit';

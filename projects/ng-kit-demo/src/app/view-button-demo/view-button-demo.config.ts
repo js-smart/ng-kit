@@ -8,7 +8,6 @@ export function getViewButtonDemoConfig(): DemoConfig {
 		title: 'View Button Demo',
 		description: 'Demo showcasing the ViewButtonDirective from @js-smart/ng-kit',
 		componentName: 'view-button-demo',
-		requiredImports: ['BrowserAnimationsModule'],
 		componentTs: `import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { ViewButtonDirective } from '@js-smart/ng-kit';
