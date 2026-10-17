@@ -8,7 +8,6 @@ export function getSuccessButtonDemoConfig(): DemoConfig {
 		title: 'Success Button Demo',
 		description: 'Demo showcasing the SuccessButtonDirective from @js-smart/ng-kit',
 		componentName: 'success-button-demo',
-		requiredImports: ['BrowserAnimationsModule'],
 		componentTs: `import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { SuccessButtonDirective } from '@js-smart/ng-kit';

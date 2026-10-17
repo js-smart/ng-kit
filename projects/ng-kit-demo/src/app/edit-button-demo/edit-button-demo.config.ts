@@ -8,7 +8,6 @@ export function getEditButtonDemoConfig(): DemoConfig {
 		title: 'Edit Button Demo',
 		description: 'Demo showcasing the EditButtonDirective from @js-smart/ng-kit',
 		componentName: 'edit-button-demo',
-		requiredImports: ['BrowserAnimationsModule'],
 		componentTs: `import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { EditButtonDirective } from '@js-smart/ng-kit';

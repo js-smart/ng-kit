@@ -8,7 +8,6 @@ export function getPrimaryButtonDemoConfig(): DemoConfig {
 		title: 'Primary Button Demo',
 		description: 'Demo showcasing the PrimaryButtonDirective from @js-smart/ng-kit',
 		componentName: 'primary-button-demo',
-		requiredImports: ['BrowserAnimationsModule'],
 		componentTs: `import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { PrimaryButtonDirective } from '@js-smart/ng-kit';

@@ -104,7 +104,6 @@ const tablePrintConfig = buildDemoConfig({
 	title: 'Material table print',
 	componentName: 'table-print',
 	code: MAT_TABLE_CODE,
-	requiredImports: ['BrowserAnimationsModule'],
 });
 
 /** StackBlitz config for the Basic usage card — class name matches PascalCase(componentName). */

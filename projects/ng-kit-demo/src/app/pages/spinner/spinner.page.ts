@@ -33,7 +33,6 @@ const defaultConfig = buildDemoConfig({
 	title: 'Material spinner',
 	componentName: 'spinner-default',
 	code: DEFAULT_CODE,
-	requiredImports: ['BrowserAnimationsModule'],
 });
 
 /** StackBlitz config for the custom size/color/stroke card — class name matches PascalCase(componentName). */
@@ -41,7 +40,6 @@ const materialConfig = buildDemoConfig({
 	title: 'Custom size, color & stroke',
 	componentName: 'spinner-demo',
 	code: MATERIAL_CODE,
-	requiredImports: ['BrowserAnimationsModule'],
 });
 
 /**

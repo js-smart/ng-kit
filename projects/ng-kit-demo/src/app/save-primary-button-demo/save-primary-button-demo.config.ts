@@ -8,7 +8,6 @@ export function getSavePrimaryButtonDemoConfig(): DemoConfig {
 		title: 'Save Primary Button Demo',
 		description: 'Demo showcasing the SavePrimaryButtonDirective from @js-smart/ng-kit',
 		componentName: 'save-primary-button-demo',
-		requiredImports: ['BrowserAnimationsModule'],
 		componentTs: `import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { SavePrimaryButtonDirective } from '@js-smart/ng-kit';

@@ -393,7 +393,6 @@ export const routes: Route[] = [
 			ReactiveFormsModule: '@angular/forms',
 			BrowserModule: '@angular/platform-browser',
 			Title: '@angular/platform-browser',
-			BrowserAnimationsModule: '@angular/platform-browser/animations',
 			RouterModule: '@angular/router',
 			PreloadAllModules: '@angular/router',
 			provideRouter: '@angular/router',
