@@ -203,6 +203,10 @@ $outline: var(--ng-border, var(--mat-sys-outline, rgba(0, 0, 0, 0.38)));
 .ng-toggle.ng-open svg {
 	transform: rotate(180deg);
 }
+// Match mat-select: the dropdown arrow takes the error colour while invalid.
+.mat-form-field-invalid .ng-toggle {
+	color: var(--mat-select-invalid-arrow-color, var(--mat-form-field-error-text-color, var(--mat-sys-error, #f44336)));
+}
 
 .ng-spinner {
 	width: 14px;

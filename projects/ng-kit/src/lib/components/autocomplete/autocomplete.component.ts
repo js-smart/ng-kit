@@ -21,10 +21,10 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MatChipsModule } from '@angular/material/chips';
+import { MatChipGrid, MatChipsModule } from '@angular/material/chips';
 import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
+import { MatInput, MatInputModule } from '@angular/material/input';
 import { NgAutocompleteState } from './autocomplete-state';
 import {
 	NgClearIconDef,
@@ -158,6 +158,11 @@ export class AutocompleteComponent<T> implements ControlValueAccessor {
 	readonly getLimitTagsText = input<(more: number) => string>((more) => `+${more}`);
 	readonly fullWidth = input(false);
 	readonly appearance = input<NgAutocompleteAppearance>('fill');
+	/**
+	 * Text under the field, mirroring MUI's `helperText`: a `mat-hint` normally,
+	 * a `mat-error` (red, announced via `aria-describedby`) while `invalid`.
+	 */
+	readonly helperText = input<string | null>(null);
 
 	/** Per-element class/attribute pass-through, mirroring MUI's `slotProps`. */
 	readonly slotProps = input<NgAutocompleteSlotProps>({});
@@ -191,6 +196,8 @@ export class AutocompleteComponent<T> implements ControlValueAccessor {
 	private readonly listEl = viewChild<ElementRef<HTMLElement>>('listEl');
 	private readonly viewport = viewChild(CdkVirtualScrollViewport);
 	protected readonly formField = viewChild(MatFormField);
+	private readonly matInput = viewChild(MatInput);
+	private readonly chipGrid = viewChild(MatChipGrid);
 	protected readonly listboxRef = viewChild<TemplateRef<unknown>>('listbox');
 	private readonly connectedOverlay = viewChild(CdkConnectedOverlay);
 	private readonly host = inject(ElementRef<HTMLElement>);
@@ -365,6 +372,19 @@ export class AutocompleteComponent<T> implements ControlValueAccessor {
 						applied.classes.add(cls);
 					}
 				}
+			}
+		});
+
+		// Mirror `invalid` onto the Material control. The form control binds to this
+		// host, so the inner matInput / chip grid has no NgControl and Material never
+		// computes an error state itself — without this the field would never turn
+		// red or switch its subscript from `mat-hint` to `mat-error`.
+		effect(() => {
+			const invalid = this.invalid();
+			const control = this.matInput() ?? this.chipGrid();
+			if (control && control.errorState !== invalid) {
+				control.errorState = invalid;
+				control.stateChanges.next();
 			}
 		});
 

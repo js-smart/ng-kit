@@ -24,13 +24,12 @@
 				[attr.aria-autocomplete]="freeSolo() ? 'both' : 'list'"
 				[attr.aria-controls]="state.open() ? listboxId : null"
 				[attr.aria-expanded]="state.open()"
-				[attr.aria-invalid]="invalid() || null"
 				[attr.aria-label]="ariaLabel()"
-				[attr.aria-required]="required() || null"
 				[attr.placeholder]="placeholder()"
 				[disabled]="disabled()"
 				[id]="inputId"
 				[readOnly]="readOnly()"
+				[required]="required()"
 				[value]="inputValue()"
 				autocomplete="new-password"
 				class="ng-input"
@@ -72,6 +71,17 @@
 					type="button">
 					<ng-container [ngTemplateOutlet]="popupIconTpl()?.template ?? defaultPopupIcon" />
 				</button>
+			}
+
+			<!-- Declared inline in each form field, one flat block per element: projection
+			     into mat-form-field's subscript slots only sees the root element of a
+			     control-flow block, so nesting (or a shared template outlet) would land
+			     the text in the input area instead. -->
+			@if (invalid() && helperText()) {
+				<mat-error>{{ helperText() }}</mat-error>
+			}
+			@if (!invalid() && helperText()) {
+				<mat-hint>{{ helperText() }}</mat-hint>
 			}
 		</mat-form-field>
 	} @else {
@@ -164,6 +174,17 @@
 					type="button">
 					<ng-container [ngTemplateOutlet]="popupIconTpl()?.template ?? defaultPopupIcon" />
 				</button>
+			}
+
+			<!-- Declared inline in each form field, one flat block per element: projection
+			     into mat-form-field's subscript slots only sees the root element of a
+			     control-flow block, so nesting (or a shared template outlet) would land
+			     the text in the input area instead. -->
+			@if (invalid() && helperText()) {
+				<mat-error>{{ helperText() }}</mat-error>
+			}
+			@if (!invalid() && helperText()) {
+				<mat-hint>{{ helperText() }}</mat-hint>
 			}
 		</mat-form-field>
 	}

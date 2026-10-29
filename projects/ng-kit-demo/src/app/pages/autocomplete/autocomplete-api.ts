@@ -81,8 +81,13 @@ export const AUTOCOMPLETE_INPUTS: readonly AutocompleteInput[] = [
 	{ name: 'disabled', type: 'boolean', default: 'false', description: 'Disable the control (also set via reactive-forms).' },
 	{ name: 'readOnly', type: 'boolean', default: 'false', description: 'Make the control read-only.' },
 	{ name: 'loading', type: 'boolean', default: 'false', description: 'Show a loading indicator and loadingText.' },
-	{ name: 'required', type: 'boolean', default: 'false', description: 'Marks the control required (aria-required).' },
-	{ name: 'invalid', type: 'boolean', default: 'false', description: 'Marks the control invalid (aria-invalid).' },
+	{ name: 'required', type: 'boolean', default: 'false', description: 'Marks the control required (label asterisk + aria-required).' },
+	{
+		name: 'invalid',
+		type: 'boolean',
+		default: 'false',
+		description: 'Puts the field in its error state (red label/underline, aria-invalid) and shows helperText as a mat-error.',
+	},
 	{ name: 'autoComplete', type: 'boolean', default: 'false', description: 'Inline-complete the highlighted label after the cursor.' },
 	{ name: 'autoHighlight', type: 'boolean', default: 'false', description: 'Automatically highlight the first option.' },
 	{ name: 'autoSelect', type: 'boolean', default: 'false', description: 'Select the highlighted option on blur.' },
@@ -112,6 +117,12 @@ export const AUTOCOMPLETE_INPUTS: readonly AutocompleteInput[] = [
 	{ name: 'size', type: "'small' | 'medium'", default: "'medium'", description: 'Field density.' },
 	{ name: 'appearance', type: "'fill' | 'outline'", default: "'fill'", description: 'Material form-field appearance.' },
 	{ name: 'fullWidth', type: 'boolean', default: 'false', description: 'Stretch the field to fill its container.' },
+	{
+		name: 'helperText',
+		type: 'string | null',
+		default: 'null',
+		description: 'Text under the field: a mat-hint normally, a mat-error while invalid (MUI helperText).',
+	},
 	{ name: 'limitTags', type: 'number', default: '-1', description: 'Max chips shown when unfocused (-1 = all).' },
 	{
 		name: 'getLimitTagsText',

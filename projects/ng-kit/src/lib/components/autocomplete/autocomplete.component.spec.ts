@@ -703,3 +703,103 @@ describe('AutocompleteComponent — virtual listbox dimensions', () => {
 		expect(viewport.style.getPropertyValue('--ng-row')).toBe('48px');
 	});
 });
+
+describe('AutocompleteComponent — helperText & error state', () => {
+	@Component({
+		imports: [AutocompleteComponent],
+		selector: 'test-helper-text-host',
+		template: `<autocomplete
+			[options]="o"
+			[getOptionLabel]="id"
+			[multiple]="multiple()"
+			[invalid]="invalid()"
+			[required]="true"
+			[helperText]="helperText()"
+			label="Movie" />`,
+	})
+	class Host {
+		o = ['A', 'B'];
+		id = (x: string): string => x;
+		multiple = signal(false);
+		invalid = signal(false);
+		helperText = signal<string | null>('Pick a film');
+	}
+
+	async function render(f: ComponentFixture<Host>): Promise<void> {
+		f.detectChanges();
+		await f.whenStable();
+		f.detectChanges();
+	}
+
+	function formField(f: ComponentFixture<Host>): HTMLElement {
+		return f.debugElement.query(By.css('mat-form-field')).nativeElement as HTMLElement;
+	}
+
+	it('renders helperText as a mat-hint while valid', async () => {
+		const f = TestBed.createComponent(Host);
+		await render(f);
+
+		expect(f.debugElement.query(By.css('.mat-mdc-form-field-hint-wrapper > mat-hint')).nativeElement.textContent.trim()).toBe(
+			'Pick a film',
+		);
+		expect(f.debugElement.query(By.css('.mat-mdc-form-field-infix mat-hint'))).toBeNull();
+		expect(f.debugElement.query(By.css('mat-error'))).toBeNull();
+		expect(formField(f).classList).not.toContain('mat-form-field-invalid');
+	});
+
+	it('renders helperText as a linked mat-error and marks the field invalid while invalid', async () => {
+		const f = TestBed.createComponent(Host);
+		await render(f);
+		f.componentInstance.invalid.set(true);
+		f.componentInstance.helperText.set('Movie is required');
+		await render(f);
+
+		const error = f.debugElement.query(By.css('.mat-mdc-form-field-error-wrapper > mat-error')).nativeElement as HTMLElement;
+		expect(error.textContent.trim()).toBe('Movie is required');
+		expect(f.debugElement.query(By.css('.mat-mdc-form-field-infix mat-error'))).toBeNull();
+		expect(f.debugElement.query(By.css('mat-hint'))).toBeNull();
+		expect(formField(f).classList).toContain('mat-form-field-invalid');
+		const input = f.debugElement.query(By.css('input.ng-input')).nativeElement as HTMLInputElement;
+		expect(input.getAttribute('aria-describedby')).toContain(error.id);
+
+		f.componentInstance.invalid.set(false);
+		await render(f);
+		expect(formField(f).classList).not.toContain('mat-form-field-invalid');
+		expect(f.debugElement.query(By.css('mat-error'))).toBeNull();
+	});
+
+	it('renders no subscript text without helperText, even while invalid', async () => {
+		const f = TestBed.createComponent(Host);
+		f.componentInstance.helperText.set(null);
+		f.componentInstance.invalid.set(true);
+		await render(f);
+
+		expect(f.debugElement.query(By.css('mat-error'))).toBeNull();
+		expect(f.debugElement.query(By.css('mat-hint'))).toBeNull();
+		expect(formField(f).classList).toContain('mat-form-field-invalid');
+	});
+
+	it('shows the required marker on a single-select field', async () => {
+		const f = TestBed.createComponent(Host);
+		await render(f);
+
+		expect(f.debugElement.query(By.css('.mat-mdc-form-field-required-marker'))).toBeTruthy();
+		const input = f.debugElement.query(By.css('input.ng-input')).nativeElement as HTMLInputElement;
+		expect(input.getAttribute('aria-required')).toBe('true');
+	});
+
+	it('applies the error state to the chip grid in multiple mode', async () => {
+		const f = TestBed.createComponent(Host);
+		f.componentInstance.multiple.set(true);
+		await render(f);
+		f.componentInstance.invalid.set(true);
+		f.componentInstance.helperText.set('Pick at least one film');
+		await render(f);
+
+		expect(formField(f).classList).toContain('mat-form-field-invalid');
+		expect(f.debugElement.query(By.css('.mat-mdc-form-field-error-wrapper > mat-error')).nativeElement.textContent.trim()).toBe(
+			'Pick at least one film',
+		);
+		expect(f.debugElement.query(By.css('.mat-mdc-form-field-infix mat-error'))).toBeNull();
+	});
+});

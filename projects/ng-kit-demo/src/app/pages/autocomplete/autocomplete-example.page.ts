@@ -23,6 +23,7 @@ import { GroupedExample, groupedConfig } from './examples/grouped.example';
 import { MultipleCheckboxesExample, multipleCheckboxesConfig } from './examples/multiple-checkboxes.example';
 import { PlaygroundExample, playgroundConfig } from './examples/playground.example';
 import { SizesAppearancesExample, sizesAppearancesConfig } from './examples/sizes-appearances.example';
+import { ValidationExample, validationConfig } from './examples/validation.example';
 import { VirtualizedExample, virtualizedConfig } from './examples/virtualized.example';
 
 interface ExampleDetail {
@@ -107,6 +108,12 @@ const EXAMPLE_DETAILS: Record<string, ExampleDetail> = {
 		description: 'Every piece of state is owned by external signals and outside buttons.',
 		component: ControlledExample,
 		config: controlledConfig,
+	},
+	validation: {
+		title: 'Validation',
+		description: 'Reactive-forms validation with a hint and error text that match a plain mat-select.',
+		component: ValidationExample,
+		config: validationConfig,
 	},
 	async: {
 		title: 'Asynchronous requests',
@@ -248,6 +255,18 @@ const EXAMPLE_DOCS: Record<string, ExampleDoc> = {
   appearance="outline"
   label="Movie" />`,
 		inputs: ['value', 'inputValue', 'open'],
+	},
+	validation: {
+		overview:
+			'Validates the autocomplete like any other Material form field. Bind it with formControlName, set invalid from the control (here once it is touched) to turn the label and underline red, and pass helperText — shown as a mat-hint while valid and as a mat-error, linked via aria-describedby, while invalid. required adds the label asterisk. Leave a field and press Submit to compare it with the plain mat-select beside it.',
+		usage: `<autocomplete
+  formControlName="film"
+  [options]="films"
+  [required]="true"
+  [invalid]="film.invalid && film.touched"
+  [helperText]="film.invalid && film.touched ? 'Movie is required' : 'Start typing to search'"
+  label="Movie" />`,
+		inputs: ['required', 'invalid', 'helperText'],
 	},
 	async: {
 		overview:

@@ -228,6 +228,7 @@ function autocompletePages(): GalleryPage[] {
 		{ slug: 'limit-tags', title: 'Limit Tags', blurb: 'Multi-select that collapses the extra chips into a “+n more” summary.' },
 		{ slug: 'free-solo', title: 'Free Solo', blurb: 'Type anything — the raw text becomes the value.' },
 		{ slug: 'controlled', title: 'Controlled', blurb: 'Every piece of state is owned by external signals.' },
+		{ slug: 'validation', title: 'Validation', blurb: 'Reactive-forms validation with Material hint and error text.' },
 		{ slug: 'async', title: 'Asynchronous Requests', blurb: 'Simulates a server-side search: options load after each keystroke.' },
 		{ slug: 'grouped', title: 'Grouped', blurb: 'Options grouped by their first letter via a pre-sorted group key.' },
 		{ slug: 'virtualized', title: 'Virtualized', blurb: 'Single-select over 10,000 options, rendered virtually.' },
